@@ -1,0 +1,176 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "09505e397f74fecc3646b6ff25d2e546",
+    "packages": [
+        {
+            "name": "php-curl-class/php-curl-class",
+            "version": "8.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-curl-class/php-curl-class.git",
+                "reference": "a40cc77eb45bc6489240415197734ca747ce4820"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/a40cc77eb45bc6489240415197734ca747ce4820",
+                "reference": "a40cc77eb45bc6489240415197734ca747ce4820",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Borboa"
+                }
+            ],
+            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
+            "homepage": "https://github.com/php-curl-class/php-curl-class",
+            "keywords": [
+                "API-Client",
+                "api",
+                "class",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http-client",
+                "http-proxy",
+                "json",
+                "php",
+                "php-curl",
+                "php-curl-library",
+                "proxy",
+                "requests",
+                "restful",
+                "web-scraper",
+                "web-scraping ",
+                "web-service",
+                "xml"
+            ],
+            "time": "2020-11-01T03:47:32+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "curl/curl",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/curl.git",
+                "reference": "3ad560b1fc1bbdf5c7681356ab953fb961f255e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/curl/zipball/3ad560b1fc1bbdf5c7681356ab953fb961f255e5",
+                "reference": "3ad560b1fc1bbdf5c7681356ab953fb961f255e5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.6 | ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Curl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "php-curl-class",
+                    "homepage": "https://github.com/php-curl-class"
+                },
+                {
+                    "name": "Hassan Amouhzi",
+                    "email": "hassan@anezi.net",
+                    "homepage": "http://hassan.amouhzi.com"
+                },
+                {
+                    "name": "user52",
+                    "homepage": "https://github.com/user52"
+                }
+            ],
+            "description": "cURL class for PHP",
+            "homepage": "https://github.com/php-mod/curl",
+            "keywords": [
+                "curl",
+                "dot"
+            ],
+            "support": {
+                "issues": "https://github.com/php-mod/curl/issues",
+                "source": "https://github.com/php-mod/curl/tree/2.3.0"
+            },
+            "time": "2020-03-19T20:07:26+00:00"
+        },
+        {
+            "name": "moodle/moodle",
+            "version": "v3.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moodle/moodle.git",
+                "reference": "ec58cefefb2722f61f77c9a2b6a12d40a8c078a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moodle/moodle/zipball/ec58cefefb2722f61f77c9a2b6a12d40a8c078a0",
+                "reference": "ec58cefefb2722f61f77c9a2b6a12d40a8c078a0",
+                "shasum": ""
+            },
+            "require-dev": {
+                "instaclick/php-webdriver": "dev-local as 1.x-dev",
+                "mikey179/vfsstream": "^1.6",
+                "moodlehq/behat-extension": "3.310.0",
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "project",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "Moodle - the world's open source learning platform",
+            "homepage": "https://moodle.org",
+            "support": {
+                "source": "https://github.com/moodle/moodle/tree/v3.10.0"
+            },
+            "time": "2020-11-07T16:24:12+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

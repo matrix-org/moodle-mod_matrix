@@ -1,0 +1,25 @@
+{
+  "name": "element-io/matrix-moodle-plugin",
+  "description": "Moodle plugin for Matrix integration",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "New Vector Ltd. (trading as Element)",
+      "email": "support@element.io"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/moodle/moodle.git"
+    }
+  ],
+  "require": {
+    "php-curl-class/php-curl-class": "^8.9",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "moodle/moodle": "v3.10.0"
+  }
+}
