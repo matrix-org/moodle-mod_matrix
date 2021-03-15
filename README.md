@@ -1,5 +1,10 @@
 # matrix-moodle-plugin
 
+This plugin provides a Moodle activity to enable integration between Moodle and Matrix. It adds:
+
+* a new field for mxid for Moodle uers
+* the ability to create a new Matrix room for a course, then invite all students of that course (or group within the course) to the room
+
 ## Release
 
 1. Run the composer steps to get dependencies.
