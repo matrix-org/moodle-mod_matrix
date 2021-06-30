@@ -17,4 +17,4 @@ if (!$course = $DB->get_record('course', ['id' => $id])) {
     print_error('Course ID is incorrect');
 }
 
-echo('Hello World'); // TODO: List instances
+echo 'Hello World'; // TODO: List instances
