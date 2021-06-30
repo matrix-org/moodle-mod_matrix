@@ -1,7 +1,13 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__);
+    ->ignoreDotFiles(false)
+    ->exclude([
+        '.build/',
+        '.gitlab/',
+    ])
+    ->in(__DIR__)
+    ->name('.php-cs-fixer.php');
 
 $config = new PhpCsFixer\Config();
 
