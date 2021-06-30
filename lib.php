@@ -199,7 +199,7 @@ function matrix_sync_room_members($course_id, $group_id = null) {
         $mxid = $profile["matrix_user_id"];
         if (!$mxid) continue;
 
-        array_push($allowed_user_ids, $mxid);
+        $allowed_user_ids[] = $mxid;
 
         if (!in_array($mxid, $joined_user_ids)) {
             $bot->invite_user($mxid, $mapping->room_id);
@@ -220,7 +220,7 @@ function matrix_sync_room_members($course_id, $group_id = null) {
         $mxid = $profile["matrix_user_id"];
         if (!$mxid) continue;
 
-        array_push($allowed_user_ids, $mxid);
+        $allowed_user_ids[] = $mxid;
 
         if (!in_array($mxid, $joined_user_ids)) {
             $bot->invite_user($mxid, $mapping->room_id);

@@ -63,7 +63,7 @@ class moodle_matrix_bot {
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
                 if ($membership == 'join' || $membership == 'invite') {
-                    array_push($user_ids, $ev['state_key']);
+                    $user_ids[] = $ev['state_key'];
                 }
             }
         }
