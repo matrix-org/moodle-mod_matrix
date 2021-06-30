@@ -9,12 +9,6 @@
       "email": "support@element.io"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/moodle/moodle.git"
-    }
-  ],
   "require": {
     "php-curl-class/php-curl-class": "^8.9",
     "ext-json": "*"

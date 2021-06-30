@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2827a4a2e69730b188551d87a77b2e20",
+    "content-hash": "5217c801ed6121adb04134541769b53f",
     "packages": [
         {
             "name": "php-curl-class/php-curl-class",
@@ -159,6 +159,7 @@
                 "phpunit/phpunit": "8.5.*"
             },
             "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -169,12 +170,11 @@
             },
             "funding": [
                 {
-                    "type": "custom",
-                    "url": "https://moodle.com/donations/"
+                    "type": "custom"
                 },
                 {
-                    "type": "custom",
-                    "url": "moodle.org"
+                    "url": "https://moodle.com/donations/",
+                    "type": "custom"
                 }
             ],
             "time": "2020-11-07T16:24:12+00:00"
