@@ -26,7 +26,9 @@ $config = new PhpCsFixer\Config();
 $config
     ->setCacheFile(__DIR__ . '/.build/php-cs-fixer/.php-cs-fixer.cache')
     ->setFinder($finder)
+    ->setRiskyAllowed(true)
     ->setRules([
+        'array_push' => true,
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
