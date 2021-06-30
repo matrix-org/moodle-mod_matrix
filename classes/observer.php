@@ -8,7 +8,7 @@
 
 namespace mod_matrix;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 

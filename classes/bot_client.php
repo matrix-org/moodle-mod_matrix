@@ -10,7 +10,7 @@ namespace mod_matrix;
 
 use core_competency\url;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
