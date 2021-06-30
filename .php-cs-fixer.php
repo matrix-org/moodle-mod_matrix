@@ -29,6 +29,9 @@ $config
     ->setRiskyAllowed(true)
     ->setRules([
         'array_push' => true,
+        'array_syntax' => [
+            'syntax' => 'short',
+        ],
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
