@@ -10,10 +10,13 @@
     }
   ],
   "require": {
-    "php-curl-class/php-curl-class": "^8.9",
-    "ext-json": "*"
+    "ext-json": "*",
+    "php-curl-class/php-curl-class": "^8.9"
   },
   "require-dev": {
     "moodle/moodle": "v3.10.0"
+  },
+  "config": {
+    "sort-packages": true
   }
 }
