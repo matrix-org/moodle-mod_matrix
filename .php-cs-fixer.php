@@ -98,6 +98,23 @@ $config
             ],
         ],
         'no_alias_language_construct_call' => true,
+        'no_extra_blank_lines' => [
+            'tokens' => [
+                'break',
+                'case',
+                'continue',
+                'curly_brace_block',
+                'default',
+                'extra',
+                'parenthesis_brace_block',
+                'return',
+                'square_brace_block',
+                'switch',
+                'throw',
+                'use',
+                'use_trait',
+            ],
+        ],
     ]);
 
 return $config;
