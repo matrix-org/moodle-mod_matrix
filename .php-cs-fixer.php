@@ -32,6 +32,9 @@ $config
         'array_syntax' => [
             'syntax' => 'short',
         ],
+        'binary_operator_spaces' => [
+            'default' => 'single_space',
+        ],
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
