@@ -1,7 +1,6 @@
 {
   "name": "element-io/matrix-moodle-plugin",
   "description": "Moodle plugin for Matrix integration",
-  "minimum-stability": "stable",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -19,9 +18,10 @@
     "moodle/moodle": "v3.10.0"
   },
   "config": {
-    "sort-packages": true,
     "platform": {
       "php": "7.1.33"
-    }
-  }
+    },
+    "sort-packages": true
+  },
+  "minimum-stability": "stable"
 }
