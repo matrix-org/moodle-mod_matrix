@@ -209,7 +209,7 @@ function matrix_sync_room_members($course_id, $group_id = null)
         $users = [];
     } // use an empty array
 
-    $allowed_user_ids = [$bot->whoami(),];
+    $allowed_user_ids = [$bot->whoami()];
     $joined_user_ids = $bot->get_effective_joins($mapping->room_id);
 
     foreach ($users as $uid => $user) {
