@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09505e397f74fecc3646b6ff25d2e546",
+    "content-hash": "2827a4a2e69730b188551d87a77b2e20",
     "packages": [
         {
             "name": "php-curl-class/php-curl-class",
@@ -71,6 +71,10 @@
                 "web-service",
                 "xml"
             ],
+            "support": {
+                "issues": "https://github.com/php-curl-class/php-curl-class/issues",
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.9.0"
+            },
             "time": "2020-11-01T03:47:32+00:00"
         }
     ],
@@ -163,6 +167,16 @@
             "support": {
                 "source": "https://github.com/moodle/moodle/tree/v3.10.0"
             },
+            "funding": [
+                {
+                    "type": "custom",
+                    "url": "https://moodle.com/donations/"
+                },
+                {
+                    "type": "custom",
+                    "url": "moodle.org"
+                }
+            ],
             "time": "2020-11-07T16:24:12+00:00"
         }
     ],
@@ -171,6 +185,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": []
+    "platform": {
+        "ext-json": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
