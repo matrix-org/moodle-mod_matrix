@@ -21,6 +21,7 @@ require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
 class moodle_matrix_bot
 {
     private $access_token;
+
     private $baseurl;
 
     public function __construct()
