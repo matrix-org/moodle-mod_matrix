@@ -14,9 +14,9 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
-require_once($CFG->dirroot . '/mod/matrix/locallib.php');
+require_once $CFG->dirroot . '/mod/matrix/locallib.php';
 
-require($CFG->dirroot . '/mod/matrix/vendor/autoload.php');
+require $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
 
 class moodle_matrix_bot
 {

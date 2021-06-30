@@ -10,7 +10,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once(__DIR__ . '/lib.php');
+require_once __DIR__ . '/lib.php';
 
 /** @var MATRIX_DEFAULT_SERVER_URL string of the default client-server API URL */
 const MATRIX_DEFAULT_SERVER_URL = 'https://matrix-client.matrix.org';

@@ -8,7 +8,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once('../../config.php');
+require_once '../../config.php';
 
 $id = required_param('id', PARAM_INT);           // Course ID
 

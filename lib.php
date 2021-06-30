@@ -10,7 +10,7 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
-require_once($CFG->dirroot . '/mod/matrix/classes/bot_client.php');
+require_once $CFG->dirroot . '/mod/matrix/classes/bot_client.php';
 
 function matrix_supports($feature)
 {
