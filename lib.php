@@ -28,9 +28,11 @@ function matrix_supports($feature) {
         FEATURE_GRADE_OUTCOMES => false,
         FEATURE_SHOW_DESCRIPTION => true,
     ];
+
     if (isset($features[$feature])) {
         return $features[$feature];
     }
+
     return null;
 }
 
@@ -77,11 +79,13 @@ function matrix_resync_all($course_id = null) {
     global $DB;
 
     $conditions = null;
+
     if ($course_id) {
         $conditions = ['course_id' => $course_id];
     }
 
     $rooms = $DB->get_records('matrix_rooms', $conditions);
+
     foreach ($rooms as $rid => $room) {
         matrix_sync_room_members($room->course_id, $room->group_id);
     }
@@ -140,6 +144,7 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
     if ($group_id) {
         $group = groups_get_group($group_id);
         $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group->id], '*', IGNORE_MISSING);
+
         if (!$existing_mapping) {
             $room_opts['name'] = $group->name . ': ' . $course->fullname;
             $room_opts['creation_content']['org.matrix.moodle.group_id'] = $group->id;
@@ -156,6 +161,7 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
         matrix_sync_room_members($course_id, $group->id);
     } else {
         $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => null], '*', IGNORE_MISSING);
+
         if (!$existing_mapping) {
             $room_id = $bot->create_room($room_opts);
 
@@ -178,6 +184,7 @@ function matrix_sync_room_members($course_id, $group_id = null) {
     if ($group_id == 0) $group_id = null; // we treat zero as null, but Moodle doesn't
 
     $mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group_id], '*', IGNORE_MISSING);
+
     if (!$mapping) {
         return; // nothing to do
     }
@@ -186,6 +193,7 @@ function matrix_sync_room_members($course_id, $group_id = null) {
 
     $cc = context_course::instance($course_id);
     $users = get_enrolled_users($cc, 'mod/matrix:view', $group_id); // assoc of uid => user
+
     if (!$users) $users = []; // use an empty array
 
     $allowed_user_ids = [$bot->whoami(),];
@@ -194,9 +202,11 @@ function matrix_sync_room_members($course_id, $group_id = null) {
     foreach ($users as $uid => $user) {
         profile_load_custom_fields($user);
         $profile = $user->profile;
+
         if (!$profile) continue;
 
         $mxid = $profile["matrix_user_id"];
+
         if (!$mxid) continue;
 
         $allowed_user_ids[] = $mxid;
@@ -212,12 +222,15 @@ function matrix_sync_room_members($course_id, $group_id = null) {
     $pls['users'] = [
         $bot->whoami() => 100,
     ];
+
     foreach ($staff as $uid => $user) {
         profile_load_custom_fields($user);
         $profile = $user->profile;
+
         if (!$profile) continue;
 
         $mxid = $profile["matrix_user_id"];
+
         if (!$mxid) continue;
 
         $allowed_user_ids[] = $mxid;
@@ -240,9 +253,11 @@ function matrix_sync_room_members($course_id, $group_id = null) {
 
 function matrix_make_room_url($room_id) {
     $conf = get_config('mod_matrix');
+
     if ($conf->element_url) {
         return $conf->element_url.'/#/room/'.$room_id;
     }
+
     return 'https://matrix.to/#/'.$room_id;
 }
 

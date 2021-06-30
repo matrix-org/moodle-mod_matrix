@@ -30,6 +30,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
+
 require_once($CFG->dirroot.'/mod/matrix/lib.php');
 
 class mod_matrix_mod_form extends moodleform_mod {

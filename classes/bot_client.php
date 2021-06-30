@@ -13,7 +13,9 @@ use core_competency\url;
 defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
+
 require_once($CFG->dirroot . '/mod/matrix/locallib.php');
+
 require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
 
 class moodle_matrix_bot {
@@ -28,11 +30,13 @@ class moodle_matrix_bot {
 
     public function whoami() {
         $r = $this->req('GET', '/_matrix/client/r0/account/whoami');
+
         return $r['user_id'];
     }
 
     public function create_room($opts = []) {
         $r = $this->req('POST', '/_matrix/client/r0/createRoom', [], $opts);
+
         return $r['room_id'];
     }
 
@@ -59,14 +63,17 @@ class moodle_matrix_bot {
     public function get_effective_joins($room_id) {
         $members = $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/members');
         $user_ids = [];
+
         foreach ($members['chunk'] as $ev) {
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
+
                 if ($membership == 'join' || $membership == 'invite') {
                     $user_ids[] = $ev['state_key'];
                 }
             }
         }
+
         return $user_ids;
     }
 
@@ -83,6 +90,7 @@ class moodle_matrix_bot {
         $curl->setDefaultJsonDecoder($assoc = true);
         $curl->setHeader('Authorization', 'Bearer '.$this->access_token);
         $curl->setHeader('Content-Type', 'application/json');
+
         if ($method == 'GET') {
             $curl->get($this->baseurl.$path, $qs);
         } elseif ($method == 'POST') {
@@ -94,9 +102,11 @@ class moodle_matrix_bot {
         } else {
             throw new \Exception("unknown method: ".$method);
         }
+
         if ($curl->error) {
             throw new \Exception("request failed - Code: ".$curl->errorCode." Message: ".$curl->errorMessage);
         }
+
         return $curl->response;
     }
 

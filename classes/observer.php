@@ -11,8 +11,11 @@ namespace mod_matrix;
 defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
+
 require_once($CFG->dirroot . '/mod/matrix/locallib.php');
+
 require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
+
 require_once($CFG->dirroot.'/mod/matrix/classes/bot_client.php');
 
 class observer {
@@ -20,6 +23,7 @@ class observer {
         global $DB;
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
+
         if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
 
         matrix_sync_room_members($event->courseid, $event->objectid);
@@ -29,6 +33,7 @@ class observer {
         global $DB;
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
+
         if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
 
         matrix_prepare_group_room($event->courseid, $event->objectid);
