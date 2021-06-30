@@ -66,6 +66,12 @@ $config
             'position_after_control_structures' => 'same',
             'position_after_functions_and_oop_constructs' => 'next',
         ],
+        'class_attributes_separation' => [
+            'elements' => [
+                'method' => 'one',
+                'property' => 'one',
+            ],
+        ],
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
