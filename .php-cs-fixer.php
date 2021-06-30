@@ -81,6 +81,7 @@ $config
             'location' => 'after_declare_strict',
             'separate' => 'both',
         ],
+        'heredoc_to_nowdoc' => true,
     ]);
 
 return $config;
