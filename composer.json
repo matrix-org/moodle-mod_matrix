@@ -10,6 +10,7 @@
     }
   ],
   "require": {
+    "php": "^7.1 || ^8.0",
     "ext-json": "*",
     "php-curl-class/php-curl-class": "^8.9"
   },
