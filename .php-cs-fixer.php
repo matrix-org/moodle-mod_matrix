@@ -91,6 +91,12 @@ $config
             'keep_multiple_spaces_after_comma' => false,
             'on_multiline' => 'ensure_fully_multiline',
         ],
+        'no_alias_functions' => [
+            'sets' => [
+                '@IMAP',
+                '@internal',
+            ],
+        ],
     ]);
 
 return $config;
