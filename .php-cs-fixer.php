@@ -117,6 +117,17 @@ $config
         ],
         'no_superfluous_elseif' => true,
         'no_trailing_comma_in_singleline_array' => true,
+        'no_unneeded_control_parentheses' => [
+            'statements' => [
+                'break',
+                'clone',
+                'continue',
+                'echo_print',
+                'return',
+                'switch_case',
+                'yield',
+            ],
+        ],
     ]);
 
 return $config;
