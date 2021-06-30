@@ -12,7 +12,8 @@ global $CFG;
 
 require_once($CFG->dirroot.'/mod/matrix/classes/bot_client.php');
 
-function matrix_supports($feature) {
+function matrix_supports($feature)
+{
     if (!$feature) {
         return null;
     }
@@ -36,7 +37,8 @@ function matrix_supports($feature) {
     return null;
 }
 
-function matrix_add_instance($matrix) {
+function matrix_add_instance($matrix)
+{
     global $DB;
 
     $matrix->timecreated = time();
@@ -59,11 +61,13 @@ function matrix_add_instance($matrix) {
     return $matrix->id;
 }
 
-function matrix_update_instance($matrix) {
+function matrix_update_instance($matrix)
+{
     return true; // nothing to do
 }
 
-function matrix_delete_instance($matrix) {
+function matrix_delete_instance($matrix)
+{
     global $DB;
 
     // TODO: Delete rooms too?
@@ -75,7 +79,8 @@ function matrix_delete_instance($matrix) {
     return true;
 }
 
-function matrix_resync_all($course_id = null) {
+function matrix_resync_all($course_id = null)
+{
     global $DB;
 
     $conditions = null;
@@ -91,7 +96,8 @@ function matrix_resync_all($course_id = null) {
     }
 }
 
-function matrix_prepare_group_room($course_id, $group_id = null) {
+function matrix_prepare_group_room($course_id, $group_id = null)
+{
     global $CFG, $DB;
 
     $course = get_course($course_id);
@@ -177,11 +183,14 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
     }
 }
 
-function matrix_sync_room_members($course_id, $group_id = null) {
+function matrix_sync_room_members($course_id, $group_id = null)
+{
     global $DB;
     $bot = \mod_matrix\moodle_matrix_bot::instance();
 
-    if ($group_id == 0) $group_id = null; // we treat zero as null, but Moodle doesn't
+    if ($group_id == 0) {
+        $group_id = null;
+    } // we treat zero as null, but Moodle doesn't
 
     $mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group_id], '*', IGNORE_MISSING);
 
@@ -189,12 +198,16 @@ function matrix_sync_room_members($course_id, $group_id = null) {
         return; // nothing to do
     }
 
-    if ($group_id == null) $group_id = 0; // Moodle wants zero instead of null
+    if ($group_id == null) {
+        $group_id = 0;
+    } // Moodle wants zero instead of null
 
     $cc = context_course::instance($course_id);
     $users = get_enrolled_users($cc, 'mod/matrix:view', $group_id); // assoc of uid => user
 
-    if (!$users) $users = []; // use an empty array
+    if (!$users) {
+        $users = [];
+    } // use an empty array
 
     $allowed_user_ids = [$bot->whoami(),];
     $joined_user_ids = $bot->get_effective_joins($mapping->room_id);
@@ -203,11 +216,15 @@ function matrix_sync_room_members($course_id, $group_id = null) {
         profile_load_custom_fields($user);
         $profile = $user->profile;
 
-        if (!$profile) continue;
+        if (!$profile) {
+            continue;
+        }
 
         $mxid = $profile["matrix_user_id"];
 
-        if (!$mxid) continue;
+        if (!$mxid) {
+            continue;
+        }
 
         $allowed_user_ids[] = $mxid;
 
@@ -227,11 +244,15 @@ function matrix_sync_room_members($course_id, $group_id = null) {
         profile_load_custom_fields($user);
         $profile = $user->profile;
 
-        if (!$profile) continue;
+        if (!$profile) {
+            continue;
+        }
 
         $mxid = $profile["matrix_user_id"];
 
-        if (!$mxid) continue;
+        if (!$mxid) {
+            continue;
+        }
 
         $allowed_user_ids[] = $mxid;
 
@@ -251,7 +272,8 @@ function matrix_sync_room_members($course_id, $group_id = null) {
     }
 }
 
-function matrix_make_room_url($room_id) {
+function matrix_make_room_url($room_id)
+{
     $conf = get_config('mod_matrix');
 
     if ($conf->element_url) {

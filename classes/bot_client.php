@@ -18,49 +18,58 @@ require_once($CFG->dirroot . '/mod/matrix/locallib.php');
 
 require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
 
-class moodle_matrix_bot {
+class moodle_matrix_bot
+{
     private $access_token;
     private $baseurl;
 
-    public function __construct() {
+    public function __construct()
+    {
         $conf = get_config('mod_matrix');
         $this->baseurl = $conf->{'hs_url'};
         $this->access_token = $conf->{'access_token'};
     }
 
-    public function whoami() {
+    public function whoami()
+    {
         $r = $this->req('GET', '/_matrix/client/r0/account/whoami');
 
         return $r['user_id'];
     }
 
-    public function create_room($opts = []) {
+    public function create_room($opts = [])
+    {
         $r = $this->req('POST', '/_matrix/client/r0/createRoom', [], $opts);
 
         return $r['room_id'];
     }
 
-    public function invite_user($user_id, $room_id) {
+    public function invite_user($user_id, $room_id)
+    {
         return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/invite', [], [
             "user_id" => $user_id,
         ]);
     }
 
-    public function kick_user($user_id, $room_id) {
+    public function kick_user($user_id, $room_id)
+    {
         return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/kick', [], [
             "user_id" => $user_id,
         ]);
     }
 
-    public function get_state($room_id, $event_type, $state_key) {
+    public function get_state($room_id, $event_type, $state_key)
+    {
         return $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key));
     }
 
-    public function set_state($room_id, $event_type, $state_key, $content) {
+    public function set_state($room_id, $event_type, $state_key, $content)
+    {
         return $this->req('PUT', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key), [], $content);
     }
 
-    public function get_effective_joins($room_id) {
+    public function get_effective_joins($room_id)
+    {
         $members = $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/members');
         $user_ids = [];
 
@@ -77,7 +86,8 @@ class moodle_matrix_bot {
         return $user_ids;
     }
 
-    public function debug($val) {
+    public function debug($val)
+    {
         $val = var_export($val, true);
         $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m'.microtime().'r'.rand(0, 100), [], [
             "msgtype" => "m.text",
@@ -85,7 +95,8 @@ class moodle_matrix_bot {
         ]);
     }
 
-    private function req($method, $path, $qs = [], $body = []) {
+    private function req($method, $path, $qs = [], $body = [])
+    {
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
         $curl->setHeader('Authorization', 'Bearer '.$this->access_token);
@@ -110,7 +121,8 @@ class moodle_matrix_bot {
         return $curl->response;
     }
 
-    public static function instance(): moodle_matrix_bot {
+    public static function instance(): moodle_matrix_bot
+    {
         return new moodle_matrix_bot();
     }
 }

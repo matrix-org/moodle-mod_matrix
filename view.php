@@ -109,10 +109,12 @@ if (sizeof($groups) > 0) {
 
     echo '<div class="alert alert-warning">'.get_string('vw_alert_many_rooms', 'matrix').'</div>';
 
-    foreach($visible_groups as $id => $group) {
+    foreach ($visible_groups as $id => $group) {
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
-        if (!$room) continue;
+        if (!$room) {
+            continue;
+        }
 
         $name = groups_get_group_name($group->id);
         $room_url = json_encode(matrix_make_room_url($room->room_id));

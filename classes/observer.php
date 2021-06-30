@@ -18,32 +18,41 @@ require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
 
 require_once($CFG->dirroot.'/mod/matrix/classes/bot_client.php');
 
-class observer {
-    public static function observe_group_member_change($event) {
+class observer
+{
+    public static function observe_group_member_change($event)
+    {
         global $DB;
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
 
-        if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
+        if (!$instances || sizeof($instances) <= 0) {
+            return;
+        } // no instance means no room
 
         matrix_sync_room_members($event->courseid, $event->objectid);
     }
 
-    public static function observe_group_created(\core\event\group_created $event) {
+    public static function observe_group_created(\core\event\group_created $event)
+    {
         global $DB;
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
 
-        if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
+        if (!$instances || sizeof($instances) <= 0) {
+            return;
+        } // no instance means no room
 
         matrix_prepare_group_room($event->courseid, $event->objectid);
     }
 
-    public static function observe_role_change($event) {
+    public static function observe_role_change($event)
+    {
         matrix_resync_all(null); // ALL the rooms
     }
 
-    public static function observe_enrolment_change($event) {
+    public static function observe_enrolment_change($event)
+    {
         matrix_resync_all($event->courseid);
     }
 }

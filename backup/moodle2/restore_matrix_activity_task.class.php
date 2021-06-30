@@ -8,12 +8,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class restore_matrix_activity_task extends restore_activity_task {
-    protected function define_my_settings() {
+class restore_matrix_activity_task extends restore_activity_task
+{
+    protected function define_my_settings()
+    {
         // None relevant
     }
 
-    protected function define_my_steps() {
+    protected function define_my_steps()
+    {
         // TODO: Implement define_my_steps() method.
     }
 }

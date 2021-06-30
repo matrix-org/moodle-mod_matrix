@@ -28,12 +28,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class backup_matrix_activity_task extends backup_activity_task {
-    protected function define_my_settings() {
+class backup_matrix_activity_task extends backup_activity_task
+{
+    protected function define_my_settings()
+    {
         // Nothing relevant
     }
 
-    protected function define_my_steps() {
+    protected function define_my_steps()
+    {
         // TODO
     }
 }
