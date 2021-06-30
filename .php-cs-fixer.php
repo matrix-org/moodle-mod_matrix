@@ -83,6 +83,9 @@ $config
         ],
         'heredoc_to_nowdoc' => true,
         'include' => true,
+        'list_syntax' => [
+            'syntax' => 'short',
+        ],
     ]);
 
 return $config;
