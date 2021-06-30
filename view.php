@@ -77,7 +77,9 @@ if (count($groups) > 0) {
         echo $OUTPUT->footer();
 
         exit;
-    } elseif (count($visible_groups) == 1) {
+    }
+
+    if (count($visible_groups) == 1) {
         $group = reset($visible_groups);
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
