@@ -31,7 +31,7 @@ require '../../config.php';
 require_once 'lib.php';
 
 $id = required_param('id', PARAM_INT);
-list ($course, $cm) = get_course_and_cm_from_cmid($id, 'matrix');
+ [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
 $matrix = $DB->get_record('matrix', ['id' => $cm->instance], '*', MUST_EXIST);
 
 require_login($course, true, $cm);
