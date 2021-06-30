@@ -15,6 +15,7 @@
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.8.0",
+    "friendsofphp/php-cs-fixer": "^3.0.0",
     "moodle/moodle": "v3.10.0"
   },
   "config": {
