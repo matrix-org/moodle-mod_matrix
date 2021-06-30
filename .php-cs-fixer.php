@@ -97,6 +97,7 @@ $config
                 '@internal',
             ],
         ],
+        'no_alias_language_construct_call' => true,
     ]);
 
 return $config;
