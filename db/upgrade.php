@@ -8,7 +8,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-function xmldb_matrix_upgrade($oldversion=0) {
+function xmldb_matrix_upgrade($oldversion = 0) {
     global $DB;
     $dbman = $DB->get_manager();
 
