@@ -86,6 +86,11 @@ $config
         'list_syntax' => [
             'syntax' => 'short',
         ],
+        'method_argument_space' => [
+            'after_heredoc' => false,
+            'keep_multiple_spaces_after_comma' => false,
+            'on_multiline' => 'ensure_fully_multiline',
+        ],
     ]);
 
 return $config;
