@@ -82,6 +82,7 @@ $config
             'separate' => 'both',
         ],
         'heredoc_to_nowdoc' => true,
+        'include' => true,
     ]);
 
 return $config;
