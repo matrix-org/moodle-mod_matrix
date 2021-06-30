@@ -32,7 +32,8 @@ if ($ADMIN->fulltree) {
     require_once $CFG->dirroot . '/mod/matrix/locallib.php';
 
     $settings->add(new admin_setting_heading(
-        'mod_matrix/homeserver', '',
+        'mod_matrix/homeserver',
+        '',
         get_string('adm_homeserver', 'matrix')
     ));
     $settings->add(new admin_setting_configtext(
