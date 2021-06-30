@@ -31,21 +31,21 @@ class moodle_matrix_bot {
         return $r['user_id'];
     }
 
-    public function create_room($opts = array()) {
-        $r = $this->req('POST', '/_matrix/client/r0/createRoom', array(), $opts);
+    public function create_room($opts = []) {
+        $r = $this->req('POST', '/_matrix/client/r0/createRoom', [], $opts);
         return $r['room_id'];
     }
 
     public function invite_user($user_id, $room_id) {
-        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/invite', array(), array(
+        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/invite', [], [
             "user_id" => $user_id,
-        ));
+        ]);
     }
 
     public function kick_user($user_id, $room_id) {
-        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/kick', array(), array(
+        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/kick', [], [
             "user_id" => $user_id,
-        ));
+        ]);
     }
 
     public function get_state($room_id, $event_type, $state_key) {
@@ -53,12 +53,12 @@ class moodle_matrix_bot {
     }
 
     public function set_state($room_id, $event_type, $state_key, $content) {
-        return $this->req('PUT', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key), array(), $content);
+        return $this->req('PUT', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key), [], $content);
     }
 
     public function get_effective_joins($room_id) {
         $members = $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/members');
-        $user_ids = array();
+        $user_ids = [];
         foreach ($members['chunk'] as $ev) {
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
@@ -72,13 +72,13 @@ class moodle_matrix_bot {
 
     public function debug($val) {
         $val = var_export($val, true);
-        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m'.microtime().'r'.rand(0, 100), array(), array(
+        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m'.microtime().'r'.rand(0, 100), [], [
             "msgtype" => "m.text",
             "body" => $val,
-        ));
+        ]);
     }
 
-    private function req($method, $path, $qs = array(), $body = array()) {
+    private function req($method, $path, $qs = [], $body = []) {
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
         $curl->setHeader('Authorization', 'Bearer '.$this->access_token);

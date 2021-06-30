@@ -16,7 +16,7 @@ function matrix_supports($feature) {
     if (!$feature) {
         return null;
     }
-    $features = array(
+    $features = [
         FEATURE_IDNUMBER => true,
         FEATURE_GROUPS => true,
         FEATURE_GROUPINGS => true,
@@ -27,7 +27,7 @@ function matrix_supports($feature) {
         FEATURE_GRADE_HAS_GRADE => false,
         FEATURE_GRADE_OUTCOMES => false,
         FEATURE_SHOW_DESCRIPTION => true,
-    );
+    ];
     if (isset($features[$feature])) {
         return $features[$feature];
     }
@@ -66,7 +66,7 @@ function matrix_delete_instance($matrix) {
 
     // TODO: Delete rooms too?
 
-    if (!$DB->delete_records('matrix', array('id' => $matrix->id))) {
+    if (!$DB->delete_records('matrix', ['id' => $matrix->id])) {
         return false;
     }
 
@@ -78,7 +78,7 @@ function matrix_resync_all($course_id = null) {
 
     $conditions = null;
     if ($course_id) {
-        $conditions = array('course_id' => $course_id);
+        $conditions = ['course_id' => $course_id];
     }
 
     $rooms = $DB->get_records('matrix_rooms', $conditions);
@@ -93,15 +93,15 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
     $course = get_course($course_id);
 
     $bot = \mod_matrix\moodle_matrix_bot::instance();
-    $room_opts = array(
+    $room_opts = [
         'name' => $course->fullname,
         'topic' => $CFG->wwwroot.'/course/view.php?id='.$course_id,
         'preset' => 'private_chat',
-        'creation_content' => array(
+        'creation_content' => [
             'org.matrix.moodle.course_id' => $course_id,
             //'org.matrix.moodle.group_id' => 'undefined'
-        ),
-        'power_level_content_override' => array(
+        ],
+        'power_level_content_override' => [
             // Bot PL: 100 (exclusive rights to manage membership)
             // Staff PL: 99 (moderators)
             // Everyone else gets PL 0
@@ -109,7 +109,7 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
             'ban' => 100,
             'invite' => 100,
             'kick' => 100,
-            'events' => array(
+            'events' => [
                 'm.room.name' => 100,
                 'm.room.power_levels' => 100,
                 'm.room.history_visibility' => 99,
@@ -120,26 +120,26 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
                 'm.room.encryption' => 100,
                 'm.room.join_rules' => 100,
                 'm.room.guest_access' => 100,
-            ),
+            ],
             'events_default' => 0,
             'state_default' => 99,
             'redact' => 50,
-            'users' => array(
+            'users' => [
                 $bot->whoami() => 100,
-            ),
-        ),
-        'initial_state' => array(
-            array(
+            ],
+        ],
+        'initial_state' => [
+            [
                 'type' => 'm.room.guest_access',
                 'state_key' => '',
-                'content' => array('guest_access' => 'forbidden'),
-            ),
-        ),
-    );
+                'content' => ['guest_access' => 'forbidden'],
+            ],
+        ],
+    ];
 
     if ($group_id) {
         $group = groups_get_group($group_id);
-        $existing_mapping = $DB->get_record('matrix_rooms', array('course_id' => $course_id, 'group_id' => $group->id), '*', IGNORE_MISSING);
+        $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group->id], '*', IGNORE_MISSING);
         if (!$existing_mapping) {
             $room_opts['name'] = $group->name . ': ' . $course->fullname;
             $room_opts['creation_content']['org.matrix.moodle.group_id'] = $group->id;
@@ -155,7 +155,7 @@ function matrix_prepare_group_room($course_id, $group_id = null) {
         }
         matrix_sync_room_members($course_id, $group->id);
     } else {
-        $existing_mapping = $DB->get_record('matrix_rooms', array('course_id' => $course_id, 'group_id' => null), '*', IGNORE_MISSING);
+        $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => null], '*', IGNORE_MISSING);
         if (!$existing_mapping) {
             $room_id = $bot->create_room($room_opts);
 
@@ -177,7 +177,7 @@ function matrix_sync_room_members($course_id, $group_id = null) {
 
     if ($group_id == 0) $group_id = null; // we treat zero as null, but Moodle doesn't
 
-    $mapping = $DB->get_record('matrix_rooms', array('course_id' => $course_id, 'group_id' => $group_id), '*', IGNORE_MISSING);
+    $mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group_id], '*', IGNORE_MISSING);
     if (!$mapping) {
         return; // nothing to do
     }
@@ -186,9 +186,9 @@ function matrix_sync_room_members($course_id, $group_id = null) {
 
     $cc = context_course::instance($course_id);
     $users = get_enrolled_users($cc, 'mod/matrix:view', $group_id); // assoc of uid => user
-    if (!$users) $users = array(); // use an empty array
+    if (!$users) $users = []; // use an empty array
 
-    $allowed_user_ids = array($bot->whoami(),);
+    $allowed_user_ids = [$bot->whoami(),];
     $joined_user_ids = $bot->get_effective_joins($mapping->room_id);
 
     foreach ($users as $uid => $user) {
@@ -209,9 +209,9 @@ function matrix_sync_room_members($course_id, $group_id = null) {
     // Get all the staff users
     $staff = get_users_by_capability($cc, 'mod/matrix:staff');
     $pls = $bot->get_state($mapping->room_id, 'm.room.power_levels', '');
-    $pls['users'] = array(
+    $pls['users'] = [
         $bot->whoami() => 100,
-    );
+    ];
     foreach ($staff as $uid => $user) {
         profile_load_custom_fields($user);
         $profile = $user->profile;

@@ -19,7 +19,7 @@ class observer {
     public static function observe_group_member_change($event) {
         global $DB;
 
-        $instances = $DB->get_records('matrix', array('course' => $event->courseid));
+        $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
         if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
 
         matrix_sync_room_members($event->courseid, $event->objectid);
@@ -28,7 +28,7 @@ class observer {
     public static function observe_group_created(\core\event\group_created $event) {
         global $DB;
 
-        $instances = $DB->get_records('matrix', array('course' => $event->courseid));
+        $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
         if (!$instances || sizeof($instances) <= 0) return; // no instance means no room
 
         matrix_prepare_group_room($event->courseid, $event->objectid);

@@ -31,7 +31,7 @@ require_once('lib.php');
 
 $id = required_param('id', PARAM_INT);
 list ($course, $cm) = get_course_and_cm_from_cmid($id, 'matrix');
-$matrix = $DB->get_record('matrix', array('id' => $cm->instance), '*', MUST_EXIST);
+$matrix = $DB->get_record('matrix', ['id' => $cm->instance], '*', MUST_EXIST);
 
 require_login($course, true, $cm);
 
@@ -56,7 +56,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$possible_rooms = $DB->get_records('matrix_rooms', array('course_id' => $matrix->course));
+$possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
 if (sizeof($possible_rooms) == 0) {
     echo '<div class="alert alert-danger">'.get_string('vw_error_no_rooms', 'matrix').'</div>';
     echo $OUTPUT->footer();
@@ -72,7 +72,7 @@ if (sizeof($groups) > 0) {
         exit;
     } elseif (sizeof($visible_groups) == 1) {
         $group = reset($visible_groups);
-        $room = $DB->get_record('matrix_rooms', array('course_id' => $matrix->course, 'group_id' => $group->id));
+        $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
         if (!$room) {
             echo '<div class="alert alert-danger">'.get_string('vw_error_no_rooms', 'matrix').'</div>';
             echo $OUTPUT->footer();
@@ -99,7 +99,7 @@ if (sizeof($groups) > 0) {
     echo '<div class="alert alert-warning">'.get_string('vw_alert_many_rooms', 'matrix').'</div>';
 
     foreach($visible_groups as $id => $group) {
-        $room = $DB->get_record('matrix_rooms', array('course_id' => $matrix->course, 'group_id' => $group->id));
+        $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
         if (!$room) continue;
 
         $name = groups_get_group_name($group->id);
