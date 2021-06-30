@@ -16,7 +16,7 @@ global $CFG;
 
 require_once($CFG->dirroot . '/mod/matrix/locallib.php');
 
-require($CFG->dirroot.'/mod/matrix/vendor/autoload.php');
+require($CFG->dirroot . '/mod/matrix/vendor/autoload.php');
 
 class moodle_matrix_bot
 {
@@ -47,31 +47,31 @@ class moodle_matrix_bot
 
     public function invite_user($user_id, $room_id)
     {
-        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/invite', [], [
+        return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite', [], [
             "user_id" => $user_id,
         ]);
     }
 
     public function kick_user($user_id, $room_id)
     {
-        return $this->req('POST', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/kick', [], [
+        return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick', [], [
             "user_id" => $user_id,
         ]);
     }
 
     public function get_state($room_id, $event_type, $state_key)
     {
-        return $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key));
+        return $this->req('GET', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key));
     }
 
     public function set_state($room_id, $event_type, $state_key, $content)
     {
-        return $this->req('PUT', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/state/'.urlencode($event_type).'/'.urlencode($state_key), [], $content);
+        return $this->req('PUT', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key), [], $content);
     }
 
     public function get_effective_joins($room_id)
     {
-        $members = $this->req('GET', '/_matrix/client/r0/rooms/'.urlencode($room_id).'/members');
+        $members = $this->req('GET', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/members');
         $user_ids = [];
 
         foreach ($members['chunk'] as $ev) {
@@ -90,7 +90,7 @@ class moodle_matrix_bot
     public function debug($val)
     {
         $val = var_export($val, true);
-        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m'.microtime().'r'.rand(0, 100), [], [
+        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . rand(0, 100), [], [
             "msgtype" => "m.text",
             "body" => $val,
         ]);
@@ -100,23 +100,23 @@ class moodle_matrix_bot
     {
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
-        $curl->setHeader('Authorization', 'Bearer '.$this->access_token);
+        $curl->setHeader('Authorization', 'Bearer ' . $this->access_token);
         $curl->setHeader('Content-Type', 'application/json');
 
         if ($method == 'GET') {
-            $curl->get($this->baseurl.$path, $qs);
+            $curl->get($this->baseurl . $path, $qs);
         } elseif ($method == 'POST') {
-            $curl->setUrl($this->baseurl.$path, $qs);
+            $curl->setUrl($this->baseurl . $path, $qs);
             $curl->post($curl->getUrl(), $body);
         } elseif ($method == 'PUT') {
-            $curl->setUrl($this->baseurl.$path, $qs);
+            $curl->setUrl($this->baseurl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
         } else {
-            throw new \Exception("unknown method: ".$method);
+            throw new \Exception("unknown method: " . $method);
         }
 
         if ($curl->error) {
-            throw new \Exception("request failed - Code: ".$curl->errorCode." Message: ".$curl->errorMessage);
+            throw new \Exception("request failed - Code: " . $curl->errorCode . " Message: " . $curl->errorMessage);
         }
 
         return $curl->response;

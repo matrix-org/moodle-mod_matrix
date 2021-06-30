@@ -10,7 +10,7 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
-require_once($CFG->dirroot.'/mod/matrix/classes/bot_client.php');
+require_once($CFG->dirroot . '/mod/matrix/classes/bot_client.php');
 
 function matrix_supports($feature)
 {
@@ -105,7 +105,7 @@ function matrix_prepare_group_room($course_id, $group_id = null)
     $bot = \mod_matrix\moodle_matrix_bot::instance();
     $room_opts = [
         'name' => $course->fullname,
-        'topic' => $CFG->wwwroot.'/course/view.php?id='.$course_id,
+        'topic' => $CFG->wwwroot . '/course/view.php?id=' . $course_id,
         'preset' => 'private_chat',
         'creation_content' => [
             'org.matrix.moodle.course_id' => $course_id,
@@ -277,10 +277,10 @@ function matrix_make_room_url($room_id)
     $conf = get_config('mod_matrix');
 
     if ($conf->element_url) {
-        return $conf->element_url.'/#/room/'.$room_id;
+        return $conf->element_url . '/#/room/' . $room_id;
     }
 
-    return 'https://matrix.to/#/'.$room_id;
+    return 'https://matrix.to/#/' . $room_id;
 }
 
 // TODO: Events API
