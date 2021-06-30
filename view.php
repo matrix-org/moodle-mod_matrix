@@ -60,7 +60,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 
 $possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
 
-if (sizeof($possible_rooms) == 0) {
+if (count($possible_rooms) == 0) {
     echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
     echo $OUTPUT->footer();
 
@@ -69,7 +69,7 @@ if (sizeof($possible_rooms) == 0) {
 
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
-if (sizeof($groups) > 0) {
+if (count($groups) > 0) {
     $visible_groups = groups_get_activity_allowed_groups($cm);
 
     if (empty($visible_groups)) {
@@ -77,7 +77,7 @@ if (sizeof($groups) > 0) {
         echo $OUTPUT->footer();
 
         exit;
-    } elseif (sizeof($visible_groups) == 1) {
+    } elseif (count($visible_groups) == 1) {
         $group = reset($visible_groups);
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
@@ -98,7 +98,7 @@ if (sizeof($groups) > 0) {
     // else multiple groups are possible
 
     // ... unless there's only one possible option anyways
-    if (sizeof($possible_rooms) == 1) {
+    if (count($possible_rooms) == 1) {
         $room_url = json_encode(matrix_make_room_url(reset($possible_rooms)->room_id));
         echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
         echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';

@@ -26,7 +26,7 @@ class observer
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
 
-        if (!$instances || sizeof($instances) <= 0) {
+        if (!$instances || count($instances) <= 0) {
             return;
         } // no instance means no room
 
@@ -39,7 +39,7 @@ class observer
 
         $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
 
-        if (!$instances || sizeof($instances) <= 0) {
+        if (!$instances || count($instances) <= 0) {
             return;
         } // no instance means no room
 

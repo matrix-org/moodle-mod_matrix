@@ -50,7 +50,7 @@ function matrix_add_instance($matrix)
     // the rooms need to be created
     $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
-    if (sizeof($groups) > 0) {
+    if (count($groups) > 0) {
         foreach ($groups as $k => $group) {
             matrix_prepare_group_room($matrix->course, $group->id);
         }
