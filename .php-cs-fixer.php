@@ -115,6 +115,7 @@ $config
                 'use_trait',
             ],
         ],
+        'no_superfluous_elseif' => true,
     ]);
 
 return $config;
