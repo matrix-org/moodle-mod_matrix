@@ -15,6 +15,7 @@
     "php-curl-class/php-curl-class": "^8.9"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.8.0",
     "moodle/moodle": "v3.10.0"
   },
   "config": {
