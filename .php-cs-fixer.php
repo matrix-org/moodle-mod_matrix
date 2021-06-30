@@ -116,6 +116,7 @@ $config
             ],
         ],
         'no_superfluous_elseif' => true,
+        'no_trailing_comma_in_singleline_array' => true,
     ]);
 
 return $config;
