@@ -94,9 +94,9 @@ class moodle_matrix_bot
         ]);
     }
 
-    public static function instance(): moodle_matrix_bot
+    public static function instance(): self
     {
-        return new moodle_matrix_bot();
+        return new self();
     }
 
     private function req($method, $path, $qs = [], $body = [])
