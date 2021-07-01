@@ -29,8 +29,8 @@ $capabilities = [
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ]
+            'manager' => CAP_ALLOW,
+        ],
     ],
 
     // Identifies staff to the membership sync
@@ -40,7 +40,7 @@ $capabilities = [
         'archetypes' => [
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
+            'manager' => CAP_ALLOW,
         ],
         'clonepermissionsfrom' => 'moodle/assign:grade',
     ],
