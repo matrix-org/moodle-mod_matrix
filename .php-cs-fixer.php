@@ -101,6 +101,7 @@ $config
             ],
         ],
         'no_alias_language_construct_call' => true,
+        'no_blank_lines_after_phpdoc' => false,
         'no_extra_blank_lines' => [
             'tokens' => [
                 'break',
