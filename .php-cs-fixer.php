@@ -187,6 +187,12 @@ $config
             ],
         ],
         'void_return' => false,
+        'yoda_style' => [
+            'always_move_variable' => true,
+            'equal' => true,
+            'identical' => true,
+            'less_and_greater' => true,
+        ],
     ]);
 
 return $config;
