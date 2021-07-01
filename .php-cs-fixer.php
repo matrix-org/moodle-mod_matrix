@@ -129,6 +129,33 @@ $config
             ],
         ],
         'no_unused_imports' => true,
+        'no_useless_else' => true,
+        'nullable_type_declaration_for_default_null_value' => [
+            'use_nullable_type_declaration' => true,
+        ],
+        'operator_linebreak' => [
+            'only_booleans' => true,
+            'position' => 'beginning',
+        ],
+        'ordered_class_elements' => [
+            'order' => [
+                'use_trait',
+                'constant_public',
+                'constant_protected',
+                'constant_private',
+                'property_public',
+                'property_protected',
+                'property_private',
+                'construct',
+                'destruct',
+                'magic',
+                'phpunit',
+                'method_public',
+                'method_protected',
+                'method_private',
+            ],
+            'sort_algorithm' => 'none',
+        ]
     ]);
 
 return $config;
