@@ -93,6 +93,7 @@ $config
             'keep_multiple_spaces_after_comma' => false,
             'on_multiline' => 'ensure_fully_multiline',
         ],
+        'native_function_invocation' => false,
         'no_alias_functions' => [
             'sets' => [
                 '@IMAP',
