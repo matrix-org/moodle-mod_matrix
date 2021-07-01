@@ -158,6 +158,7 @@ $config
         ],
         'phpdoc_no_package' => false,
         'phpdoc_separation' => false,
+        'psr_autoloading' => false,
     ]);
 
 return $config;
