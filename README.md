@@ -40,11 +40,37 @@ to start a local development environment.
 
 ### Moodle
 
-Navigate to [http://127.0.0.1](http://127.0.0.1) to set up your local Moodle installation.
+Run
 
-#### Paths
+```shell
+$ docker ps
+```
 
-Accept paths as suggested.
+to obtain a list of the currently running containers. There should be a container with the name `docker_moodle_php_1`.
+
+Run
+
+```
+$ docker exec -it docker_moodle_php_1 bash
+```
+
+to enter the container.
+
+Run
+
+```shell
+$ cd admin/cli
+```
+
+to change into the directory that contains the installation script.
+
+Run
+
+```shell
+$ php install.php
+```
+
+to run the command line installer.
 
 #### Database
 
