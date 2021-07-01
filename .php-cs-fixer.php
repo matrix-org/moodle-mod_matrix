@@ -168,6 +168,9 @@ $config
         ],
         'self_accessor' => true,
         'single_blank_line_at_eof' => true,
+        'single_quote' => [
+            'strings_containing_single_quote_chars' => false,
+        ],
     ]);
 
 return $config;
