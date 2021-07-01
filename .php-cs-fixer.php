@@ -128,6 +128,7 @@ $config
                 'yield',
             ],
         ],
+        'no_unused_imports' => true,
     ]);
 
 return $config;
