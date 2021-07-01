@@ -179,6 +179,13 @@ $config
                 'arrays',
             ],
         ],
+        'visibility_required' => [
+            'elements' => [
+                'const',
+                'method',
+                'property',
+            ],
+        ],
     ]);
 
 return $config;
