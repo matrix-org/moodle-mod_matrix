@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": "^7.1 || ^8.0",
+    "php": "^7.2 || ^8.0",
     "ext-json": "*",
     "php-curl-class/php-curl-class": "^9.2.0"
   },
@@ -20,7 +20,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.1.33"
+      "php": "7.2.33"
     },
     "sort-packages": true
   }
