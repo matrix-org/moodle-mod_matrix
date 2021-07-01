@@ -34,7 +34,7 @@ require_once $CFG->dirroot . '/mod/matrix/lib.php';
 
 class mod_matrix_mod_form extends moodleform_mod
 {
-    function definition()
+    protected function definition()
     {
         global $CFG, $DB, $OUTPUT;
 
