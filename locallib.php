@@ -3,7 +3,7 @@
 /**
  * @package   mod_matrix
  * @copyright 2020, New Vector Ltd (Trading as Element)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || exit();
