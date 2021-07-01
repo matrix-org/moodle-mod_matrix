@@ -171,6 +171,7 @@ $config
         'single_quote' => [
             'strings_containing_single_quote_chars' => false,
         ],
+        'strict_comparison' => false,
     ]);
 
 return $config;
