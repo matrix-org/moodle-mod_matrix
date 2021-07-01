@@ -15,6 +15,7 @@ docker-down: ## Stops the local development environment with Docker
 docker-up: vendor ## Starts the local development environment with Docker
 	mkdir -p .data/mariadb
 	mkdir -p .data/moodle
+	composer install --no-interaction --no-progress
 	docker compose --file .docker/docker-compose.yml up --build --force-recreate --remove-orphans
 
 .PHONY: release
