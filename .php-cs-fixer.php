@@ -75,6 +75,7 @@ $config
         'concat_space' => [
             'spacing' => 'one',
         ],
+        'declare_strict_types' => false,
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
