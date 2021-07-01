@@ -172,6 +172,7 @@ $config
             'strings_containing_single_quote_chars' => false,
         ],
         'strict_comparison' => false,
+        'strict_param' => false,
     ]);
 
 return $config;
