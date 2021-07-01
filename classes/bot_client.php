@@ -46,14 +46,14 @@ class moodle_matrix_bot
     public function invite_user($user_id, $room_id)
     {
         return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite', [], [
-            "user_id" => $user_id,
+            'user_id' => $user_id,
         ]);
     }
 
     public function kick_user($user_id, $room_id)
     {
         return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick', [], [
-            "user_id" => $user_id,
+            'user_id' => $user_id,
         ]);
     }
 
@@ -89,8 +89,8 @@ class moodle_matrix_bot
     {
         $val = var_export($val, true);
         $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100), [], [
-            "msgtype" => "m.text",
-            "body" => $val,
+            'msgtype' => 'm.text',
+            'body' => $val,
         ]);
     }
 
@@ -115,11 +115,11 @@ class moodle_matrix_bot
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
         } else {
-            throw new \Exception("unknown method: " . $method);
+            throw new \Exception('unknown method: ' . $method);
         }
 
         if ($curl->error) {
-            throw new \Exception("request failed - Code: " . $curl->errorCode . " Message: " . $curl->errorMessage);
+            throw new \Exception('request failed - Code: ' . $curl->errorCode . ' Message: ' . $curl->errorMessage);
         }
 
         return $curl->response;

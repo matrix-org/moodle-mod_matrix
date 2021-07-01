@@ -220,7 +220,7 @@ function matrix_sync_room_members($course_id, $group_id = null)
             continue;
         }
 
-        $mxid = $profile["matrix_user_id"];
+        $mxid = $profile['matrix_user_id'];
 
         if (!$mxid) {
             continue;
@@ -248,7 +248,7 @@ function matrix_sync_room_members($course_id, $group_id = null)
             continue;
         }
 
-        $mxid = $profile["matrix_user_id"];
+        $mxid = $profile['matrix_user_id'];
 
         if (!$mxid) {
             continue;
