@@ -186,6 +186,7 @@ $config
                 'property',
             ],
         ],
+        'void_return' => false,
     ]);
 
 return $config;
