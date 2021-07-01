@@ -166,6 +166,7 @@ $config
                 'srand' => 'mt_srand',
             ],
         ],
+        'self_accessor' => true,
     ]);
 
 return $config;
