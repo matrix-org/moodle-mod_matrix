@@ -155,7 +155,8 @@ $config
                 'method_private',
             ],
             'sort_algorithm' => 'none',
-        ]
+        ],
+        'phpdoc_no_package' => false,
     ]);
 
 return $config;
