@@ -7,9 +7,19 @@ This plugin provides a Moodle activity to enable integration between Moodle and 
 
 ## Release
 
-1. Run the composer steps to get dependencies.
-2. Update `version.php` numbers.
-3. Zip up everything except for `.git`, `vendor/bin`, `vendor/moodle`, and any IDE directories.
+Update the plugin version in [`version.php`](version.php):
+
+```diff
+-$plugin->version = 2020122800;
++$plugin->version = 2021070100;
+```
+Run
+
+```shell
+$make release
+```
+
+Share the compressed file `mod_matrix.zip`.
 
 ## Manual settings
 

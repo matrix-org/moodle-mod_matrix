@@ -17,6 +17,12 @@ docker-up: vendor ## Starts the local development environment with Docker
 	mkdir -p .data/moodle
 	docker compose --file .docker/docker-compose.yml up --build --force-recreate --remove-orphans
 
+.PHONY: release
+release: docker-down ## Compresses all files required to install mod_matrix as a ZIP file
+	rm -rf vendor/
+	composer install --no-dev --no-interaction --no-progress
+	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" .editorconfig .gitignore .php-cs-fixer.php Makefile README.md
+
 vendor: composer.json composer.lock
 	composer validate --strict
 	composer install --no-interaction --no-progress
