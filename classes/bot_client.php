@@ -88,7 +88,7 @@ class moodle_matrix_bot
     public function debug($val)
     {
         $val = var_export($val, true);
-        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . rand(0, 100), [], [
+        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100), [], [
             "msgtype" => "m.text",
             "body" => $val,
         ]);
