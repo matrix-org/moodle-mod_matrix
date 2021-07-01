@@ -76,7 +76,7 @@ class moodle_matrix_bot
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
 
-                if ($membership == 'join' || $membership == 'invite') {
+                if ('join' == $membership || 'invite' == $membership) {
                     $user_ids[] = $ev['state_key'];
                 }
             }
@@ -106,12 +106,12 @@ class moodle_matrix_bot
         $curl->setHeader('Authorization', 'Bearer ' . $this->access_token);
         $curl->setHeader('Content-Type', 'application/json');
 
-        if ($method == 'GET') {
+        if ('GET' == $method) {
             $curl->get($this->baseurl . $path, $qs);
-        } elseif ($method == 'POST') {
+        } elseif ('POST' == $method) {
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->post($curl->getUrl(), $body);
-        } elseif ($method == 'PUT') {
+        } elseif ('PUT' == $method) {
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
         } else {

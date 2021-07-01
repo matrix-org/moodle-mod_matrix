@@ -13,7 +13,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2020110901) {
+    if (2020110901 > $oldversion) {
         $table = new xmldb_table('matrix');
 
         $field = new xmldb_field('name');
@@ -27,7 +27,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
         upgrade_mod_savepoint(true, 2020110901, 'matrix');
     }
 
-    if ($oldversion < 2020110948) {
+    if (2020110948 > $oldversion) {
         $table = new xmldb_table('matrix_rooms');
 
         $field = new xmldb_field('course');

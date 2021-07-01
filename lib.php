@@ -188,7 +188,7 @@ function matrix_sync_room_members($course_id, $group_id = null)
     global $DB;
     $bot = \mod_matrix\moodle_matrix_bot::instance();
 
-    if ($group_id == 0) {
+    if (0 == $group_id) {
         $group_id = null;
     } // we treat zero as null, but Moodle doesn't
 
@@ -198,7 +198,7 @@ function matrix_sync_room_members($course_id, $group_id = null)
         return; // nothing to do
     }
 
-    if ($group_id == null) {
+    if (null == $group_id) {
         $group_id = 0;
     } // Moodle wants zero instead of null
 
