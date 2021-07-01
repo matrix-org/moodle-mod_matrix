@@ -159,6 +159,13 @@ $config
         'phpdoc_no_package' => false,
         'phpdoc_separation' => false,
         'psr_autoloading' => false,
+        'random_api_migration' => [
+            'replacements' => [
+                'getrandmax' => 'mt_getrandmax',
+                'rand' => 'mt_rand',
+                'srand' => 'mt_srand',
+            ],
+        ],
     ]);
 
 return $config;
