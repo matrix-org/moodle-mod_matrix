@@ -173,6 +173,12 @@ $config
         ],
         'strict_comparison' => false,
         'strict_param' => false,
+        'trailing_comma_in_multiline' => [
+            'after_heredoc' => false,
+            'elements' => [
+                'arrays',
+            ],
+        ],
     ]);
 
 return $config;
