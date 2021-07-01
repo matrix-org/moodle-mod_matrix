@@ -94,6 +94,11 @@ class moodle_matrix_bot
         ]);
     }
 
+    public static function instance(): moodle_matrix_bot
+    {
+        return new moodle_matrix_bot();
+    }
+
     private function req($method, $path, $qs = [], $body = [])
     {
         $curl = new \Curl\Curl();
@@ -118,10 +123,5 @@ class moodle_matrix_bot
         }
 
         return $curl->response;
-    }
-
-    public static function instance(): moodle_matrix_bot
-    {
-        return new moodle_matrix_bot();
     }
 }
