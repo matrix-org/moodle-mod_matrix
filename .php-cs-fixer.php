@@ -76,6 +76,7 @@ $config
             'spacing' => 'one',
         ],
         'declare_strict_types' => false,
+        'final_class' => false,
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,
