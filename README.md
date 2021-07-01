@@ -76,7 +76,7 @@ to run the command line installer.
 
 #### Database
 
-Select **MariaDB (native/mariadb)** as database driver, then use the folliwing configuration values:
+Select **MariaDB (native/mariadb)** as database driver, then use the following configuration values:
 
 | Configuration     | Value              |
 |-------------------|--------------------|
