@@ -23,3 +23,38 @@ A new custom field must be added to every user, and populated externally. To do 
 6. Create/save the field details
 
 Some other external system will need to populate the field with data, or manually have it entered.
+
+## Setting up a local development environment
+
+### Docker
+
+Run
+
+```shell
+$ make docker-up
+```
+
+to start a local development environment.
+
+:bulb: This command requires [`docker compose`](https://docs.docker.com/compose/).
+
+### Moodle
+
+Navigate to [http://127.0.0.1](http://127.0.0.1) to set up your local Moodle installation.
+
+#### Paths
+
+Accept paths as suggested.
+
+#### Database
+
+Select **MariaDB (native/mariadb)** as database driver, then use the folliwing configuration values:
+
+| Configuration     | Value              |
+|-------------------|--------------------|
+| Database host     | `moodle_mariadb`   |
+| Database name     | `moodle` (default) |
+| Database user     | `root`             |
+| Database password | `root`             |
+| Tables prefix     | `mdl_` (default)   |
+| Database port     | `3306`             |

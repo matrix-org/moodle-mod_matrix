@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+  moodle_mariadb:
+    build: "mariadb/"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+
+    networks:
+      - "moodle"
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - "../.data/mariadb/:/var/lib/mysql/"
+
+  moodle_nginx:
+    build: "nginx/"
+
+    depends_on:
+      - "moodle_php"
+
+    networks:
+      - "moodle"
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - "../vendor/moodle/moodle/:/var/www/html/"
+
+  moodle_php:
+    build: "php/"
+
+    depends_on:
+      - "moodle_mariadb"
+
+    networks:
+      - "moodle"
+
+    volumes:
+      - "../.data/moodle/:/var/www/moodledata/"
+      - "../vendor/moodle/moodle/:/var/www/html/"
+
+networks:
+  moodle:
+    driver: "bridge"
