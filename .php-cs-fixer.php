@@ -157,6 +157,7 @@ $config
             'sort_algorithm' => 'none',
         ],
         'phpdoc_no_package' => false,
+        'phpdoc_separation' => false,
     ]);
 
 return $config;
