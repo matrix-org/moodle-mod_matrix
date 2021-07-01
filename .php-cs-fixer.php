@@ -16,6 +16,8 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(false)
     ->exclude([
         '.build/',
+        '.data/',
+        '.docker/',
         '.gitlab/',
     ])
     ->in(__DIR__)
