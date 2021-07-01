@@ -69,15 +69,7 @@ to enter the container.
 Run
 
 ```shell
-$ cd admin/cli
-```
-
-to change into the directory that contains the installation script.
-
-Run
-
-```shell
-$ php install.php
+$ php admin/cli/install.php
 ```
 
 to run the command line installer.
