@@ -167,6 +167,7 @@ $config
             ],
         ],
         'self_accessor' => true,
+        'single_blank_line_at_eof' => true,
     ]);
 
 return $config;
