@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "803743f423c6a4b244d8d7e5435f622d",
+    "content-hash": "78d2ba6a03da8f4f66bd01948ca037e4",
     "packages": [
         {
             "name": "php-curl-class/php-curl-class",
@@ -826,23 +826,23 @@
         },
         {
             "name": "moodle/moodle",
-            "version": "v3.10.0",
+            "version": "v3.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moodle/moodle.git",
-                "reference": "ec58cefefb2722f61f77c9a2b6a12d40a8c078a0"
+                "reference": "02a2e649e92d570c7fa735bf05f69b588036f761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moodle/moodle/zipball/ec58cefefb2722f61f77c9a2b6a12d40a8c078a0",
-                "reference": "ec58cefefb2722f61f77c9a2b6a12d40a8c078a0",
+                "url": "https://api.github.com/repos/moodle/moodle/zipball/02a2e649e92d570c7fa735bf05f69b588036f761",
+                "reference": "02a2e649e92d570c7fa735bf05f69b588036f761",
                 "shasum": ""
             },
             "require-dev": {
-                "instaclick/php-webdriver": "dev-local as 1.x-dev",
                 "mikey179/vfsstream": "^1.6",
-                "moodlehq/behat-extension": "3.310.0",
-                "phpunit/phpunit": "8.5.*"
+                "moodlehq/behat-extension": "3.39.6",
+                "phpunit/dbunit": "4.0.*",
+                "phpunit/phpunit": "7.5.*"
             },
             "type": "project",
             "notification-url": "https://packagist.org/downloads/",
@@ -852,7 +852,7 @@
             "description": "Moodle - the world's open source learning platform",
             "homepage": "https://moodle.org",
             "support": {
-                "source": "https://github.com/moodle/moodle/tree/v3.10.0"
+                "source": "https://github.com/moodle/moodle/tree/v3.9.5"
             },
             "funding": [
                 {
@@ -863,7 +863,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-11-07T16:24:12+00:00"
+            "time": "2021-03-06T17:03:54+00:00"
         },
         {
             "name": "php-cs-fixer/diff",
