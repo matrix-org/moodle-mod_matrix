@@ -48,7 +48,7 @@ to start a local development environment.
 
 :bulb: This command requires [`docker compose`](https://docs.docker.com/compose/).
 
-### Moodle
+### Moodle Command Line Installer
 
 Run
 
@@ -86,3 +86,64 @@ Select **MariaDB (native/mariadb)** as database driver, then use the following c
 | Database password | `root`             |
 | Tables prefix     | `mdl_` (default)   |
 | Database port     | `3306`             |
+
+### Moodle Administration
+
+Navigate to [http://127.0.0.1](http://127.0.0.1) to finish setting up the installation.
+
+Log in with the credentials for the administrator account created created when running the command line installer.
+
+#### Install the `mod_matrix` plugin
+
+Provide configuration values to finish the configuration of the plugin:
+
+| Configuration     | Value              |
+|-------------------|--------------------|
+| Homeserver URL    |                    |
+| Access Token      |                    |
+| Element Web URL   |                    |
+| No-Reply Address  |                    |
+
+#### Add user profile field
+
+Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select the [**Users**](http://127.0.0.1/admin/search.php#linkusers) tab. In the [**Accounts**](http://127.0.0.1/admin/category.php?category=accounts) section, select [**User Profile Fields**](http://127.0.0.1/user/profile/index.php).
+
+Choose **Text Input** to create a new profile field.
+
+| Configuration              | Value              |
+|----------------------------|--------------------|
+| Short name                 | `matrix_user_id`   |
+| Name                       | `Matrix User Id`   |
+| Is this field locked?      | `yes               |
+| Should the data be unique? | `yes               |
+
+#### Add course
+
+Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select the [**Courses**](http://127.0.0.1/admin/search.php#linkcourses) tab. In the [**Courses**](http://127.0.0.1/admin/category.php?category=courses) section, select [**Add a new course**](http://127.0.0.1/course/edit.php?category=0).
+
+Fill in some data for a course.
+
+| Configuration              | Value              |
+|----------------------------|--------------------|
+| Course full name           | `Example Course`   |
+| Course short name          | `Example`          |
+
+Click **Save and Display**.
+
+In the **Participants** section, click **Enrol users**.
+
+In the **Enrol users** overlay, select the previously created administrator and assign the **Teacher** role.
+
+Click **Enrol users**.
+
+Click **Proceed to course content**.
+
+#### Edit course
+
+In the course view, click **Turn editing on**. In the **Announcements** section, click on **Add an activity or resource**.
+
+In the  **Add an activity or resource** overlay, click on **Matrix** to add a new matrix.
+
+Click **Save and Display**.
+
+
