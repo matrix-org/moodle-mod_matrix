@@ -77,6 +77,9 @@ class bot
         );
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
+     */
     public function whoami()
     {
         $r = $this->request(
@@ -87,6 +90,10 @@ class bot
         return $r['user_id'];
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
+     * @param mixed $opts
+     */
     public function create_room($opts = [])
     {
         $r = $this->request(
@@ -99,6 +106,11 @@ class bot
         return $r['room_id'];
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
+     * @param mixed $user_id
+     * @param mixed $room_id
+     */
     public function invite_user($user_id, $room_id)
     {
         return $this->request(
@@ -111,6 +123,11 @@ class bot
         );
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
+     * @param mixed $user_id
+     * @param mixed $room_id
+     */
     public function kick_user($user_id, $room_id)
     {
         return $this->request(
@@ -123,6 +140,12 @@ class bot
         );
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
+     * @param mixed $room_id
+     * @param mixed $event_type
+     * @param mixed $state_key
+     */
     public function get_state($room_id, $event_type, $state_key)
     {
         return $this->request(
@@ -131,6 +154,13 @@ class bot
         );
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
+     * @param mixed $room_id
+     * @param mixed $event_type
+     * @param mixed $state_key
+     * @param mixed $content
+     */
     public function set_state($room_id, $event_type, $state_key, $content)
     {
         return $this->request(
@@ -141,6 +171,10 @@ class bot
         );
     }
 
+    /**
+     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
+     * @param mixed $room_id
+     */
     public function get_effective_joins($room_id)
     {
         $members = $this->request(
