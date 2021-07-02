@@ -53,6 +53,13 @@ if (count($possible_rooms) === 0) {
 
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
+if (count($groups) === 0) {
+    echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
+    echo $OUTPUT->footer();
+
+    exit;
+}
+
 if (count($groups) > 0) {
     $visible_groups = groups_get_activity_allowed_groups($cm);
 
