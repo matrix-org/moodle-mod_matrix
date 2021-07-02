@@ -20,6 +20,7 @@ if ($ADMIN->fulltree) {
         '',
         get_string('adm_homeserver', 'matrix')
     ));
+
     $settings->add(new admin_setting_configtext(
         'mod_matrix/hs_url',
         get_string('adm_hsurl_name', 'matrix'),
@@ -27,6 +28,7 @@ if ($ADMIN->fulltree) {
         matrix::DEFAULT_SERVER_URL,
         PARAM_TEXT
     ));
+
     $settings->add(new admin_setting_configtext(
         'mod_matrix/access_token',
         get_string('adm_hstoken_name', 'matrix'),
@@ -34,6 +36,7 @@ if ($ADMIN->fulltree) {
         matrix::DEFAULT_ACCESS_TOKEN,
         PARAM_TEXT
     ));
+
     $settings->add(new admin_setting_configtext(
         'mod_matrix/element_url',
         get_string('adm_eleurl_name', 'matrix'),
