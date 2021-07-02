@@ -9,7 +9,7 @@
 defined('MOODLE_INTERNAL') || exit();
 
 $plugin->version = 2020122800;
-$plugin->requires = 2020110900;
+$plugin->requires = 2020061505;
 $plugin->component = 'mod_matrix';
 $plugin->maturity = MATURITY_BETA;
 $plugin->release = '1.0-beta';
