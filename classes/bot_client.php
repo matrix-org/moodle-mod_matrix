@@ -99,7 +99,7 @@ class moodle_matrix_bot
         return new self();
     }
 
-    private function req($method, $path, $qs = [], $body = [])
+    private function req(string $method, string $path, array $qs = [], array $body = [])
     {
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
