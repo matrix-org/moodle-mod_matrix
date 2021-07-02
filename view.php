@@ -42,10 +42,42 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
+function matrix_alert(string $type, string $content): string
+{
+    $types = [
+        'danger',
+        'dark',
+        'info',
+        'light',
+        'primary',
+        'secondary',
+        'success',
+        'warning',
+    ];
+
+    if (!in_array($type, $types, true)) {
+        throw new \InvalidArgumentException(sprintf(
+            'Type needs to be one "%s", got "%s" instead.',
+            implode('", "', $types),
+            $type
+        ));
+    }
+
+    return <<<TXT
+<div class="alert alert-${type}">
+    ${content}
+</div>
+TXT;
+}
+
 $possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
 
 if (count($possible_rooms) === 0) {
-    echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
+    echo matrix_alert(
+        'danger',
+        get_string('vw_error_no_rooms', 'matrix')
+    );
+
     echo $OUTPUT->footer();
 
     exit;
@@ -54,7 +86,10 @@ if (count($possible_rooms) === 0) {
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
 if (count($groups) === 0) {
-    echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
+    echo matrix_alert(
+        'danger',
+        get_string('vw_error_no_rooms', 'matrix')
+    );
     echo $OUTPUT->footer();
 
     exit;
@@ -64,7 +99,11 @@ if (count($groups) > 0) {
     $visible_groups = groups_get_activity_allowed_groups($cm);
 
     if (empty($visible_groups)) {
-        echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
+        echo matrix_alert(
+            'danger',
+            get_string('vw_error_no_rooms', 'matrix')
+        );
+
         echo $OUTPUT->footer();
 
         exit;
@@ -75,7 +114,11 @@ if (count($groups) > 0) {
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
         if (!$room) {
-            echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
+            echo matrix_alert(
+                'danger',
+                get_string('vw_error_no_rooms', 'matrix')
+            );
+
             echo $OUTPUT->footer();
 
             exit;
@@ -100,7 +143,10 @@ if (count($groups) > 0) {
         exit;
     }
 
-    echo '<div class="alert alert-warning">' . get_string('vw_alert_many_rooms', 'matrix') . '</div>';
+    echo matrix_alert(
+        'warning',
+        get_string('vw_alert_many_rooms', 'matrix')
+    );
 
     foreach ($visible_groups as $id => $group) {
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
