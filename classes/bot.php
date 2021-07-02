@@ -30,6 +30,53 @@ class bot
         $this->accessToken = $access_token;
     }
 
+    /**
+     * @throws \RuntimeException
+     */
+    public static function instance(): self
+    {
+        $config = get_config('mod_matrix');
+
+        if (!property_exists($config, 'hs_url')) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration should have a "%s" property, but it does not.',
+                'hs_url'
+            ));
+        }
+
+        $hsUrl = $config->hs_url;
+
+        if (!is_string($hsUrl)) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration "%s" should be a string, got "%s" instead..',
+                'hs_url',
+                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
+            ));
+        }
+
+        if (!property_exists($config, 'access_token')) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration should have a "%s" property, but it does not.',
+                'access_token'
+            ));
+        }
+
+        $accessToken = $config->access_token;
+
+        if (!is_string($accessToken)) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration "%s" should be a string, got "%s" instead..',
+                'access_token',
+                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
+            ));
+        }
+
+        return new self(
+            $hsUrl,
+            $accessToken
+        );
+    }
+
     public function whoami()
     {
         $r = $this->request(
@@ -128,53 +175,6 @@ class bot
                 'msgtype' => 'm.text',
                 'body' => $val,
             ]
-        );
-    }
-
-    /**
-     * @throws \RuntimeException
-     */
-    public static function instance(): self
-    {
-        $config = get_config('mod_matrix');
-
-        if (!property_exists($config, 'hs_url')) {
-            throw new \RuntimeException(sprintf(
-                'Module configuration should have a "%s" property, but it does not.',
-                'hs_url'
-            ));
-        }
-
-        $hsUrl = $config->hs_url;
-
-        if (!is_string($hsUrl)) {
-            throw new \RuntimeException(sprintf(
-                'Module configuration "%s" should be a string, got "%s" instead..',
-                'hs_url',
-                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
-            ));
-        }
-
-        if (!property_exists($config, 'access_token')) {
-            throw new \RuntimeException(sprintf(
-                'Module configuration should have a "%s" property, but it does not.',
-                'access_token'
-            ));
-        }
-
-        $accessToken = $config->access_token;
-
-        if (!is_string($accessToken)) {
-            throw new \RuntimeException(sprintf(
-                'Module configuration "%s" should be a string, got "%s" instead..',
-                'access_token',
-                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
-            ));
-        }
-
-        return new self(
-            $hsUrl,
-            $accessToken
         );
     }
 
