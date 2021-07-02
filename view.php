@@ -31,7 +31,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     echo $OUTPUT->confirm(
         sprintf(
             '<p>%s</p>%s',
-            get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', plugin::COMPONENT),
+            get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix'),
             get_string('liketologin')
         ),
         get_login_url(),
