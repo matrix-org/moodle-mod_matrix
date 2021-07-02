@@ -16,7 +16,12 @@ class observer
     {
         global $DB;
 
-        $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
+        $instances = $DB->get_records(
+            'matrix',
+            [
+                'course' => $event->courseid,
+            ]
+        );
 
         if (!$instances || count($instances) <= 0) {
             return;
@@ -29,7 +34,12 @@ class observer
     {
         global $DB;
 
-        $instances = $DB->get_records('matrix', ['course' => $event->courseid]);
+        $instances = $DB->get_records(
+            'matrix',
+            [
+                'course' => $event->courseid,
+            ]
+        );
 
         if (!$instances || count($instances) <= 0) {
             return;

@@ -97,7 +97,15 @@ final class matrix
         if ($group_id) {
             $group = groups_get_group($group_id);
 
-            $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group->id], '*', IGNORE_MISSING);
+            $existing_mapping = $DB->get_record(
+                'matrix_rooms',
+                [
+                    'course_id' => $course_id,
+                    'group_id' => $group->id,
+                ],
+                '*',
+                IGNORE_MISSING
+            );
 
             if (!$existing_mapping) {
                 $room_opts['name'] = $group->name . ': ' . $course->fullname;
@@ -118,7 +126,15 @@ final class matrix
 
             self::sync_room_members($course_id, $group->id);
         } else {
-            $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => null], '*', IGNORE_MISSING);
+            $existing_mapping = $DB->get_record(
+                'matrix_rooms',
+                [
+                    'course_id' => $course_id,
+                    'group_id' => null,
+                ],
+                '*',
+                IGNORE_MISSING
+            );
 
             if (!$existing_mapping) {
                 $room_id = $bot->create_room($room_opts);
@@ -148,7 +164,10 @@ final class matrix
             $conditions = ['course_id' => $course_id];
         }
 
-        $rooms = $DB->get_records('matrix_rooms', $conditions);
+        $rooms = $DB->get_records(
+            'matrix_rooms',
+            $conditions
+        );
 
         foreach ($rooms as $rid => $room) {
             self::sync_room_members($room->course_id, $room->group_id);
@@ -164,7 +183,15 @@ final class matrix
             $group_id = null;
         } // we treat zero as null, but Moodle doesn't
 
-        $mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group_id], '*', IGNORE_MISSING);
+        $mapping = $DB->get_record(
+            'matrix_rooms',
+            [
+                'course_id' => $course_id,
+                'group_id' => $group_id,
+            ],
+            '*',
+            IGNORE_MISSING
+        );
 
         if (!$mapping) {
             return; // nothing to do

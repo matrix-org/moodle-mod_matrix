@@ -16,7 +16,14 @@ $id = required_param('id', PARAM_INT);
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
 
 /** @var moodle_database $DB */
-$matrix = $DB->get_record('matrix', ['id' => $cm->instance], '*', MUST_EXIST);
+$matrix = $DB->get_record(
+    'matrix',
+    [
+        'id' => $cm->instance,
+    ],
+    '*',
+    MUST_EXIST
+);
 
 require_login($course, true, $cm);
 
@@ -45,7 +52,12 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
+$possible_rooms = $DB->get_records(
+    'matrix_rooms',
+    [
+        'course_id' => $matrix->course,
+    ]
+);
 
 if (count($possible_rooms) === 0) {
     echo bootstrap::alert(
@@ -87,7 +99,13 @@ if (count($visible_groups) === 0) {
 if (count($visible_groups) === 1) {
     $group = reset($visible_groups);
 
-    $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
+    $room = $DB->get_record(
+        'matrix_rooms',
+        [
+            'course_id' => $matrix->course,
+            'group_id' => $group->id,
+        ]
+    );
 
     if (!$room) {
         echo bootstrap::alert(
@@ -130,7 +148,13 @@ echo bootstrap::alert(
 );
 
 foreach ($visible_groups as $id => $group) {
-    $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
+    $room = $DB->get_record(
+        'matrix_rooms',
+        [
+            'course_id' => $matrix->course,
+            'group_id' => $group->id,
+        ]
+    );
 
     if (!$room) {
         continue;
