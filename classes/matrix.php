@@ -29,33 +29,33 @@ final class matrix
      */
     public const DEFAULT_ELEMENT_URL = '';
 
-    public static function make_room_url($room_id)
+    public static function make_room_url($roomId)
     {
         $conf = get_config('mod_matrix');
 
         if ($conf->element_url) {
-            return $conf->element_url . '/#/room/' . $room_id;
+            return $conf->element_url . '/#/room/' . $roomId;
         }
 
-        return 'https://matrix.to/#/' . $room_id;
+        return 'https://matrix.to/#/' . $roomId;
     }
 
-    public static function prepare_group_room($course_id, $group_id = null)
+    public static function prepare_group_room($courseId, $groupId = null)
     {
         global $CFG, $DB;
 
-        $course = get_course($course_id);
+        $course = get_course($courseId);
 
         $bot = bot::instance();
 
         $whoami = $bot->whoami();
 
-        $room_opts = [
+        $roomOptions = [
             'name' => $course->fullname,
-            'topic' => $CFG->wwwroot . '/course/view.php?id=' . $course_id,
+            'topic' => $CFG->wwwroot . '/course/view.php?id=' . $courseId,
             'preset' => 'private_chat',
             'creation_content' => [
-                'org.matrix.moodle.course_id' => $course_id,
+                'org.matrix.moodle.course_id' => $courseId,
                 //'org.matrix.moodle.group_id' => 'undefined'
             ],
             'power_level_content_override' => [
@@ -94,74 +94,74 @@ final class matrix
             ],
         ];
 
-        if ($group_id) {
-            $group = groups_get_group($group_id);
+        if ($groupId) {
+            $group = groups_get_group($groupId);
 
-            $existing_mapping = $DB->get_record(
+            $existingMapping = $DB->get_record(
                 'matrix_rooms',
                 [
-                    'course_id' => $course_id,
+                    'course_id' => $courseId,
                     'group_id' => $group->id,
                 ],
                 '*',
                 IGNORE_MISSING
             );
 
-            if (!$existing_mapping) {
-                $room_opts['name'] = $group->name . ': ' . $course->fullname;
-                $room_opts['creation_content']['org.matrix.moodle.group_id'] = $group->id;
+            if (!$existingMapping) {
+                $roomOptions['name'] = $group->name . ': ' . $course->fullname;
+                $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
 
-                $room_id = $bot->create_room($room_opts);
+                $roomId = $bot->create_room($roomOptions);
 
-                $room_mapping = new \stdClass();
+                $roomMapping = new \stdClass();
 
-                $room_mapping->course_id = $course_id;
-                $room_mapping->group_id = $group->id;
-                $room_mapping->room_id = $room_id;
-                $room_mapping->timecreated = time();
-                $room_mapping->timemodified = 0;
+                $roomMapping->course_id = $courseId;
+                $roomMapping->group_id = $group->id;
+                $roomMapping->room_id = $roomId;
+                $roomMapping->timecreated = time();
+                $roomMapping->timemodified = 0;
 
-                $DB->insert_record('matrix_rooms', $room_mapping);
+                $DB->insert_record('matrix_rooms', $roomMapping);
             }
 
-            self::sync_room_members($course_id, $group->id);
+            self::sync_room_members($courseId, $group->id);
         } else {
-            $existing_mapping = $DB->get_record(
+            $existingMapping = $DB->get_record(
                 'matrix_rooms',
                 [
-                    'course_id' => $course_id,
+                    'course_id' => $courseId,
                     'group_id' => null,
                 ],
                 '*',
                 IGNORE_MISSING
             );
 
-            if (!$existing_mapping) {
-                $room_id = $bot->create_room($room_opts);
+            if (!$existingMapping) {
+                $roomId = $bot->create_room($roomOptions);
 
-                $room_mapping = new \stdClass();
+                $roomMapping = new \stdClass();
 
-                $room_mapping->course_id = $course_id;
-                $room_mapping->group_id = null;
-                $room_mapping->room_id = $room_id;
-                $room_mapping->timecreated = time();
-                $room_mapping->timemodified = 0;
+                $roomMapping->course_id = $courseId;
+                $roomMapping->group_id = null;
+                $roomMapping->room_id = $roomId;
+                $roomMapping->timecreated = time();
+                $roomMapping->timemodified = 0;
 
-                $DB->insert_record('matrix_rooms', $room_mapping);
+                $DB->insert_record('matrix_rooms', $roomMapping);
             }
 
-            self::sync_room_members($course_id, null);
+            self::sync_room_members($courseId, null);
         }
     }
 
-    public static function resync_all($course_id = null)
+    public static function resync_all($courseId = null)
     {
         global $DB;
 
         $conditions = null;
 
-        if ($course_id) {
-            $conditions = ['course_id' => $course_id];
+        if ($courseId) {
+            $conditions = ['course_id' => $courseId];
         }
 
         $rooms = $DB->get_records(
@@ -174,20 +174,20 @@ final class matrix
         }
     }
 
-    public static function sync_room_members($course_id, $group_id = null)
+    public static function sync_room_members($courseId, $groupId = null)
     {
         global $DB;
         $bot = bot::instance();
 
-        if (0 == $group_id) {
-            $group_id = null;
+        if (0 == $groupId) {
+            $groupId = null;
         } // we treat zero as null, but Moodle doesn't
 
         $mapping = $DB->get_record(
             'matrix_rooms',
             [
-                'course_id' => $course_id,
-                'group_id' => $group_id,
+                'course_id' => $courseId,
+                'group_id' => $groupId,
             ],
             '*',
             IGNORE_MISSING
@@ -197,21 +197,21 @@ final class matrix
             return; // nothing to do
         }
 
-        if (null == $group_id) {
-            $group_id = 0;
+        if (null == $groupId) {
+            $groupId = 0;
         } // Moodle wants zero instead of null
 
-        $cc = context_course::instance($course_id);
+        $cc = context_course::instance($courseId);
 
-        $users = get_enrolled_users($cc, 'mod/matrix:view', $group_id); // assoc of uid => user
+        $users = get_enrolled_users($cc, 'mod/matrix:view', $groupId); // assoc of uid => user
 
         if (!$users) {
             $users = [];
         } // use an empty array
 
-        $allowed_user_ids = [$bot->whoami()];
+        $allowedUserIds = [$bot->whoami()];
 
-        $joined_user_ids = $bot->get_effective_joins($mapping->room_id);
+        $joinedUserIds = $bot->get_effective_joins($mapping->room_id);
 
         foreach ($users as $uid => $user) {
             profile_load_custom_fields($user);
@@ -228,9 +228,9 @@ final class matrix
                 continue;
             }
 
-            $allowed_user_ids[] = $mxid;
+            $allowedUserIds[] = $mxid;
 
-            if (!in_array($mxid, $joined_user_ids)) {
+            if (!in_array($mxid, $joinedUserIds)) {
                 $bot->invite_user($mxid, $mapping->room_id);
             }
         }
@@ -259,9 +259,9 @@ final class matrix
                 continue;
             }
 
-            $allowed_user_ids[] = $mxid;
+            $allowedUserIds[] = $mxid;
 
-            if (!in_array($mxid, $joined_user_ids)) {
+            if (!in_array($mxid, $joinedUserIds)) {
                 $bot->invite_user($mxid, $mapping->room_id);
             }
 
@@ -270,8 +270,8 @@ final class matrix
         $bot->set_state($mapping->room_id, 'm.room.power_levels', '', $pls);
 
         // Kick anyone who isn't supposed to be there
-        foreach ($joined_user_ids as $mxid) {
-            if (!in_array($mxid, $allowed_user_ids)) {
+        foreach ($joinedUserIds as $mxid) {
+            if (!in_array($mxid, $allowedUserIds)) {
                 $bot->kick_user($mxid, $mapping->room_id);
             }
         }

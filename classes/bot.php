@@ -106,64 +106,64 @@ class bot
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
-     * @param mixed $user_id
-     * @param mixed $room_id
+     * @param mixed $userId
+     * @param mixed $roomId
      */
-    public function invite_user($user_id, $room_id)
+    public function invite_user($userId, $roomId)
     {
         return $this->request(
             'POST',
-            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite',
+            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/invite',
             [],
             [
-                'user_id' => $user_id,
+                'user_id' => $userId,
             ]
         );
     }
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
-     * @param mixed $user_id
-     * @param mixed $room_id
+     * @param mixed $userId
+     * @param mixed $roomId
      */
-    public function kick_user($user_id, $room_id)
+    public function kick_user($userId, $roomId)
     {
         return $this->request(
             'POST',
-            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick',
+            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/kick',
             [],
             [
-                'user_id' => $user_id,
+                'user_id' => $userId,
             ]
         );
     }
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
-     * @param mixed $room_id
-     * @param mixed $event_type
-     * @param mixed $state_key
+     * @param mixed $roomId
+     * @param mixed $eventType
+     * @param mixed $stateKey
      */
-    public function get_state($room_id, $event_type, $state_key)
+    public function get_state($roomId, $eventType, $stateKey)
     {
         return $this->request(
             'GET',
-            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key)
+            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/state/' . urlencode($eventType) . '/' . urlencode($stateKey)
         );
     }
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
-     * @param mixed $room_id
-     * @param mixed $event_type
-     * @param mixed $state_key
+     * @param mixed $roomId
+     * @param mixed $eventType
+     * @param mixed $stateKey
      * @param mixed $content
      */
-    public function set_state($room_id, $event_type, $state_key, $content)
+    public function set_state($roomId, $eventType, $stateKey, $content)
     {
         return $this->request(
             'PUT',
-            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key),
+            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/state/' . urlencode($eventType) . '/' . urlencode($stateKey),
             [],
             $content
         );
@@ -171,28 +171,28 @@ class bot
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
-     * @param mixed $room_id
+     * @param mixed $roomId
      */
-    public function get_effective_joins($room_id)
+    public function get_effective_joins($roomId)
     {
         $members = $this->request(
             'GET',
-            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/members'
+            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/members'
         );
 
-        $user_ids = [];
+        $userIds = [];
 
         foreach ($members['chunk'] as $ev) {
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
 
                 if ('join' == $membership || 'invite' == $membership) {
-                    $user_ids[] = $ev['state_key'];
+                    $userIds[] = $ev['state_key'];
                 }
             }
         }
 
-        return $user_ids;
+        return $userIds;
     }
 
     public function debug($val)

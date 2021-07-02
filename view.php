@@ -52,14 +52,14 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$possible_rooms = $DB->get_records(
+$possibleRooms = $DB->get_records(
     'matrix_rooms',
     [
         'course_id' => $matrix->course,
     ]
 );
 
-if (count($possible_rooms) === 0) {
+if (count($possibleRooms) === 0) {
     echo bootstrap::alert(
         'danger',
         get_string('vw_error_no_rooms', 'matrix')
@@ -83,9 +83,9 @@ if (count($groups) === 0) {
     exit;
 }
 
-$visible_groups = groups_get_activity_allowed_groups($cm);
+$visibleGroups = groups_get_activity_allowed_groups($cm);
 
-if (count($visible_groups) === 0) {
+if (count($visibleGroups) === 0) {
     echo bootstrap::alert(
         'danger',
         get_string('vw_error_no_visible_groups', 'matrix')
@@ -96,8 +96,8 @@ if (count($visible_groups) === 0) {
     exit;
 }
 
-if (count($visible_groups) === 1) {
-    $group = reset($visible_groups);
+if (count($visibleGroups) === 1) {
+    $group = reset($visibleGroups);
 
     $room = $DB->get_record(
         'matrix_rooms',
@@ -118,10 +118,10 @@ if (count($visible_groups) === 1) {
         exit;
     }
 
-    $room_url = json_encode(matrix::make_room_url($room->room_id));
+    $roomUrl = json_encode(matrix::make_room_url($room->room_id));
 
-    echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
-    echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
+    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -131,11 +131,11 @@ if (count($visible_groups) === 1) {
 // else multiple groups are possible
 
 // ... unless there's only one possible option anyways
-if (count($possible_rooms) === 1) {
-    $room_url = json_encode(matrix::make_room_url(reset($possible_rooms)->room_id));
+if (count($possibleRooms) === 1) {
+    $roomUrl = json_encode(matrix::make_room_url(reset($possibleRooms)->room_id));
 
-    echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
-    echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
+    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -147,7 +147,7 @@ echo bootstrap::alert(
     get_string('vw_alert_many_rooms', 'matrix')
 );
 
-foreach ($visible_groups as $id => $group) {
+foreach ($visibleGroups as $id => $group) {
     $room = $DB->get_record(
         'matrix_rooms',
         [
@@ -162,9 +162,9 @@ foreach ($visible_groups as $id => $group) {
 
     $name = groups_get_group_name($group->id);
 
-    $room_url = json_encode(matrix::make_room_url($room->room_id));
+    $roomUrl = json_encode(matrix::make_room_url($room->room_id));
 
-    echo '<p><a href="' . $room_url . '">' . $name . '</a></p>';
+    echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }
 
 echo $OUTPUT->footer();
