@@ -8,6 +8,8 @@
 
 namespace mod_matrix;
 
+use Curl\Curl;
+
 defined('MOODLE_INTERNAL') || exit;
 
 require_once __DIR__ . '/../locallib.php';
@@ -196,7 +198,7 @@ class bot
             throw new \InvalidArgumentException('unknown method: ' . $method);
         }
 
-        $curl = new \Curl\Curl();
+        $curl = new Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
         $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
         $curl->setHeader('Content-Type', 'application/json');
