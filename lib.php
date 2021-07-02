@@ -108,6 +108,9 @@ function matrix_prepare_group_room($course_id, $group_id = null)
     $course = get_course($course_id);
 
     $bot = \mod_matrix\moodle_matrix_bot::instance();
+
+    $whoami = $bot->whoami();
+
     $room_opts = [
         'name' => $course->fullname,
         'topic' => $CFG->wwwroot . '/course/view.php?id=' . $course_id,
@@ -140,7 +143,7 @@ function matrix_prepare_group_room($course_id, $group_id = null)
             'state_default' => 99,
             'redact' => 50,
             'users' => [
-                $bot->whoami() => 100,
+                $whoami => 100,
             ],
         ],
         'initial_state' => [
