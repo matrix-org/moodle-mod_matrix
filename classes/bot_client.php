@@ -18,16 +18,16 @@ require $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
 
 class moodle_matrix_bot
 {
-    private $baseurl;
+    private $hsUrl;
 
-    private $access_token;
+    private $accessToken;
 
     public function __construct(
-        string $baseurl,
+        string $hsUrl,
         string $access_token
     ) {
-        $this->baseurl = $baseurl;
-        $this->access_token = $access_token;
+        $this->hsUrl = $hsUrl;
+        $this->accessToken = $access_token;
     }
 
     public function whoami()
@@ -160,16 +160,16 @@ class moodle_matrix_bot
 
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->access_token);
+        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
         $curl->setHeader('Content-Type', 'application/json');
 
         if ('GET' === $method) {
-            $curl->get($this->baseurl . $path, $qs);
+            $curl->get($this->hsUrl . $path, $qs);
         } elseif ('POST' === $method) {
-            $curl->setUrl($this->baseurl . $path, $qs);
+            $curl->setUrl($this->hsUrl . $path, $qs);
             $curl->post($curl->getUrl(), $body);
         } elseif ('PUT' === $method) {
-            $curl->setUrl($this->baseurl . $path, $qs);
+            $curl->setUrl($this->hsUrl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
         }
 
