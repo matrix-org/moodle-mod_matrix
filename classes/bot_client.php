@@ -18,15 +18,16 @@ require $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
 
 class moodle_matrix_bot
 {
-    private $access_token;
-
     private $baseurl;
 
-    public function __construct()
-    {
-        $conf = get_config('mod_matrix');
-        $this->baseurl = $conf->{'hs_url'};
-        $this->access_token = $conf->{'access_token'};
+    private $access_token;
+
+    public function __construct(
+        string $baseurl,
+        string $access_token
+    ) {
+        $this->baseurl = $baseurl;
+        $this->access_token = $access_token;
     }
 
     public function whoami()
@@ -94,9 +95,51 @@ class moodle_matrix_bot
         ]);
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public static function instance(): self
     {
-        return new self();
+        $config = get_config('mod_matrix');
+
+        if (!property_exists($config, 'hs_url')) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration should have a "%s" property, but it does not.',
+                'hs_url'
+            ));
+        }
+
+        $hsUrl = $config->hs_url;
+
+        if (!is_string($hsUrl)) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration "%s" should be a string, got "%s" instead..',
+                'hs_url',
+                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
+            ));
+        }
+
+        if (!property_exists($config, 'access_token')) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration should have a "%s" property, but it does not.',
+                'access_token'
+            ));
+        }
+
+        $accessToken = $config->access_token;
+
+        if (!is_string($accessToken)) {
+            throw new \RuntimeException(sprintf(
+                'Module configuration "%s" should be a string, got "%s" instead..',
+                'access_token',
+                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
+            ));
+        }
+
+        return new self(
+            $hsUrl,
+            $accessToken
+        );
     }
 
     /**
