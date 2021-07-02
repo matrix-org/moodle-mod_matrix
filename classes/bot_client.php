@@ -104,6 +104,16 @@ class moodle_matrix_bot
      */
     private function req(string $method, string $path, array $qs = [], array $body = [])
     {
+        $allowedMethods = [
+            'GET',
+            'POST',
+            'PUT',
+        ];
+
+        if (!in_array($method, $allowedMethods, true)) {
+            throw new \Exception('unknown method: ' . $method);
+        }
+
         $curl = new \Curl\Curl();
         $curl->setDefaultJsonDecoder($assoc = true);
         $curl->setHeader('Authorization', 'Bearer ' . $this->access_token);
@@ -117,8 +127,6 @@ class moodle_matrix_bot
         } elseif ('PUT' === $method) {
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
-        } else {
-            throw new \Exception('unknown method: ' . $method);
         }
 
         if ($curl->error) {
