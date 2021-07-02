@@ -12,6 +12,13 @@ defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
+/**
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/moodlelib.php#L8139-L8175
+ *
+ * @param string $feature
+ *
+ * @return null|bool
+ */
 function matrix_supports($feature)
 {
     if (!$feature) {
@@ -38,6 +45,7 @@ function matrix_supports($feature)
 }
 
 /**
+ * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
  *
  * @param object $matrix
@@ -66,11 +74,24 @@ function matrix_add_instance($matrix)
     return $matrix->id;
 }
 
+/**
+ * @see https://docs.moodle.org/dev/Activity_modules#lib.php
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L611-L614
+ *
+ * @param object $matrix
+ */
 function matrix_update_instance($matrix)
 {
     return true; // nothing to do
 }
 
+/**
+ * @see https://docs.moodle.org/dev/Activity_modules#lib.php
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1034-L1040
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1054-L1057
+ *
+ * @param object $matrix
+ */
 function matrix_delete_instance($matrix)
 {
     global $DB;
