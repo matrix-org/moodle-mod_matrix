@@ -37,6 +37,11 @@ function matrix_supports($feature)
     return null;
 }
 
+/**
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
+ *
+ * @param object $matrix
+ */
 function matrix_add_instance($matrix)
 {
     global $DB;
