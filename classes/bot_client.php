@@ -32,45 +32,75 @@ class moodle_matrix_bot
 
     public function whoami()
     {
-        $r = $this->req('GET', '/_matrix/client/r0/account/whoami');
+        $r = $this->req(
+            'GET',
+            '/_matrix/client/r0/account/whoami'
+        );
 
         return $r['user_id'];
     }
 
     public function create_room($opts = [])
     {
-        $r = $this->req('POST', '/_matrix/client/r0/createRoom', [], $opts);
+        $r = $this->req(
+            'POST',
+            '/_matrix/client/r0/createRoom',
+            [],
+            $opts
+        );
 
         return $r['room_id'];
     }
 
     public function invite_user($user_id, $room_id)
     {
-        return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite', [], [
-            'user_id' => $user_id,
-        ]);
+        return $this->req(
+            'POST',
+            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite',
+            [],
+            [
+                'user_id' => $user_id,
+            ]
+        );
     }
 
     public function kick_user($user_id, $room_id)
     {
-        return $this->req('POST', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick', [], [
-            'user_id' => $user_id,
-        ]);
+        return $this->req(
+            'POST',
+            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick',
+            [],
+            [
+                'user_id' => $user_id,
+            ]
+        );
     }
 
     public function get_state($room_id, $event_type, $state_key)
     {
-        return $this->req('GET', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key));
+        return $this->req(
+            'GET',
+            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key)
+        );
     }
 
     public function set_state($room_id, $event_type, $state_key, $content)
     {
-        return $this->req('PUT', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key), [], $content);
+        return $this->req(
+            'PUT',
+            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key),
+            [],
+            $content
+        );
     }
 
     public function get_effective_joins($room_id)
     {
-        $members = $this->req('GET', '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/members');
+        $members = $this->req(
+            'GET',
+            '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/members'
+        );
+
         $user_ids = [];
 
         foreach ($members['chunk'] as $ev) {
@@ -89,10 +119,16 @@ class moodle_matrix_bot
     public function debug($val)
     {
         $val = var_export($val, true);
-        $this->req('PUT', '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100), [], [
-            'msgtype' => 'm.text',
-            'body' => $val,
-        ]);
+
+        $this->req(
+            'PUT',
+            '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100),
+            [],
+            [
+                'msgtype' => 'm.text',
+                'body' => $val,
+            ]
+        );
     }
 
     /**
@@ -146,8 +182,12 @@ class moodle_matrix_bot
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
-    private function req(string $method, string $path, array $qs = [], array $body = [])
-    {
+    private function req(
+        string $method,
+        string $path,
+        array $qs = [],
+        array $body = []
+    ) {
         $allowedMethods = [
             'GET',
             'POST',
