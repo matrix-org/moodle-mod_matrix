@@ -109,7 +109,7 @@ if (count($groups) > 0) {
         exit;
     }
 
-    if (count($visible_groups) == 1) {
+    if (count($visible_groups) === 1) {
         $group = reset($visible_groups);
         $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
@@ -134,7 +134,7 @@ if (count($groups) > 0) {
     // else multiple groups are possible
 
     // ... unless there's only one possible option anyways
-    if (count($possible_rooms) == 1) {
+    if (count($possible_rooms) === 1) {
         $room_url = json_encode(matrix_make_room_url(reset($possible_rooms)->room_id));
         echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
         echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
