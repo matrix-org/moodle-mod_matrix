@@ -15,7 +15,7 @@ final class matrix
     /**
      * The default client-server API URL.
      */
-    public const DEFAULT_SERVER_URL = 'https://matrix-client.matrix.org';
+    public const DEFAULT_HS_URL = 'https://matrix-client.matrix.org';
 
     /**
      * The default access token on the given homeserver.

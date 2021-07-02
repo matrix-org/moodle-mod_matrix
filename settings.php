@@ -25,7 +25,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/hs_url',
         get_string('adm_hsurl_name', 'matrix'),
         get_string('adm_hsurl_desc', 'matrix'),
-        matrix::DEFAULT_SERVER_URL,
+        matrix::DEFAULT_HS_URL,
         PARAM_TEXT
     ));
 
