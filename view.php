@@ -11,6 +11,7 @@ use mod_matrix\matrix;
 require '../../config.php';
 
 $id = required_param('id', PARAM_INT);
+
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
 
 /** @var moodle_database $DB */
@@ -37,6 +38,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
         get_login_url(),
         new moodle_url('/course/view.php', ['id' => $course->id])
     );
+
     echo $OUTPUT->footer();
 
     exit;
@@ -90,6 +92,7 @@ if (count($groups) === 0) {
         'danger',
         get_string('vw_error_no_groups', 'matrix')
     );
+
     echo $OUTPUT->footer();
 
     exit;
@@ -110,6 +113,7 @@ if (count($visible_groups) === 0) {
 
 if (count($visible_groups) === 1) {
     $group = reset($visible_groups);
+
     $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
     if (!$room) {
@@ -122,9 +126,12 @@ if (count($visible_groups) === 1) {
 
         exit;
     }
+
     $room_url = json_encode(matrix::make_room_url($room->room_id));
+
     echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
     echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+
     echo $OUTPUT->footer();
 
     exit;
@@ -135,8 +142,10 @@ if (count($visible_groups) === 1) {
 // ... unless there's only one possible option anyways
 if (count($possible_rooms) === 1) {
     $room_url = json_encode(matrix::make_room_url(reset($possible_rooms)->room_id));
+
     echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
     echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+
     echo $OUTPUT->footer();
 
     exit;
@@ -155,7 +164,9 @@ foreach ($visible_groups as $id => $group) {
     }
 
     $name = groups_get_group_name($group->id);
+
     $room_url = json_encode(matrix::make_room_url($room->room_id));
+
     echo '<p><a href="' . $room_url . '">' . $name . '</a></p>';
 }
 

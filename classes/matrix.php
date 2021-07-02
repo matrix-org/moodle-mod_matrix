@@ -96,14 +96,17 @@ final class matrix
 
         if ($group_id) {
             $group = groups_get_group($group_id);
+
             $existing_mapping = $DB->get_record('matrix_rooms', ['course_id' => $course_id, 'group_id' => $group->id], '*', IGNORE_MISSING);
 
             if (!$existing_mapping) {
                 $room_opts['name'] = $group->name . ': ' . $course->fullname;
                 $room_opts['creation_content']['org.matrix.moodle.group_id'] = $group->id;
+
                 $room_id = $bot->create_room($room_opts);
 
                 $room_mapping = new \stdClass();
+
                 $room_mapping->course_id = $course_id;
                 $room_mapping->group_id = $group->id;
                 $room_mapping->room_id = $room_id;
@@ -121,13 +124,16 @@ final class matrix
                 $room_id = $bot->create_room($room_opts);
 
                 $room_mapping = new \stdClass();
+
                 $room_mapping->course_id = $course_id;
                 $room_mapping->group_id = null;
                 $room_mapping->room_id = $room_id;
                 $room_mapping->timecreated = time();
                 $room_mapping->timemodified = 0;
+
                 $DB->insert_record('matrix_rooms', $room_mapping);
             }
+
             self::sync_room_members($course_id, null);
         }
     }
@@ -169,6 +175,7 @@ final class matrix
         } // Moodle wants zero instead of null
 
         $cc = context_course::instance($course_id);
+
         $users = get_enrolled_users($cc, 'mod/matrix:view', $group_id); // assoc of uid => user
 
         if (!$users) {
@@ -176,10 +183,12 @@ final class matrix
         } // use an empty array
 
         $allowed_user_ids = [$bot->whoami()];
+
         $joined_user_ids = $bot->get_effective_joins($mapping->room_id);
 
         foreach ($users as $uid => $user) {
             profile_load_custom_fields($user);
+
             $profile = $user->profile;
 
             if (!$profile) {
@@ -201,13 +210,16 @@ final class matrix
 
         // Get all the staff users
         $staff = get_users_by_capability($cc, 'mod/matrix:staff');
+
         $pls = $bot->get_state($mapping->room_id, 'm.room.power_levels', '');
+
         $pls['users'] = [
             $bot->whoami() => 100,
         ];
 
         foreach ($staff as $uid => $user) {
             profile_load_custom_fields($user);
+
             $profile = $user->profile;
 
             if (!$profile) {
