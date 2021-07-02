@@ -12,8 +12,6 @@ defined('MOODLE_INTERNAL') || exit();
 
 /** @var admin_root $ADMIN */
 if ($ADMIN->fulltree) {
-    require_once __DIR__ . '/classes/matrix.php';
-
     /** @var admin_settingpage $settings */
     $settings->add(new admin_setting_heading(
         'mod_matrix/homeserver',

@@ -12,10 +12,6 @@ defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-require_once __DIR__ . '/../classes/bot.php';
-
 class observer
 {
     public static function observe_group_member_change($event)

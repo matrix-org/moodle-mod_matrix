@@ -12,8 +12,6 @@ defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
-require_once __DIR__ . '/classes/bot.php';
-
 function matrix_supports($feature)
 {
     if (!$feature) {
