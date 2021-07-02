@@ -6,6 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
+use mod_matrix\bootstrap;
 use mod_matrix\matrix;
 
 require '../../config.php';
@@ -44,38 +45,10 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-function matrix_alert(string $type, string $content): string
-{
-    $types = [
-        'danger',
-        'dark',
-        'info',
-        'light',
-        'primary',
-        'secondary',
-        'success',
-        'warning',
-    ];
-
-    if (!in_array($type, $types, true)) {
-        throw new \InvalidArgumentException(sprintf(
-            'Type needs to be one "%s", got "%s" instead.',
-            implode('", "', $types),
-            $type
-        ));
-    }
-
-    return <<<TXT
-<div class="alert alert-${type}">
-    ${content}
-</div>
-TXT;
-}
-
 $possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
 
 if (count($possible_rooms) === 0) {
-    echo matrix_alert(
+    echo bootstrap::alert(
         'danger',
         get_string('vw_error_no_rooms', 'matrix')
     );
@@ -88,7 +61,7 @@ if (count($possible_rooms) === 0) {
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
 if (count($groups) === 0) {
-    echo matrix_alert(
+    echo bootstrap::alert(
         'danger',
         get_string('vw_error_no_groups', 'matrix')
     );
@@ -101,7 +74,7 @@ if (count($groups) === 0) {
 $visible_groups = groups_get_activity_allowed_groups($cm);
 
 if (count($visible_groups) === 0) {
-    echo matrix_alert(
+    echo bootstrap::alert(
         'danger',
         get_string('vw_error_no_visible_groups', 'matrix')
     );
@@ -117,7 +90,7 @@ if (count($visible_groups) === 1) {
     $room = $DB->get_record('matrix_rooms', ['course_id' => $matrix->course, 'group_id' => $group->id]);
 
     if (!$room) {
-        echo matrix_alert(
+        echo bootstrap::alert(
             'danger',
             get_string('vw_error_no_room_in_group', 'matrix')
         );
@@ -151,7 +124,7 @@ if (count($possible_rooms) === 1) {
     exit;
 }
 
-echo matrix_alert(
+echo bootstrap::alert(
     'warning',
     get_string('vw_alert_many_rooms', 'matrix')
 );
