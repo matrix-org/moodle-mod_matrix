@@ -19,6 +19,7 @@ $finder = PhpCsFixer\Finder::create()
         '.data/',
         '.docker/',
         '.gitlab/',
+        '.notes/',
     ])
     ->in(__DIR__)
     ->name('.php-cs-fixer.php');
