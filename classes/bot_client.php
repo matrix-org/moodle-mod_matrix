@@ -106,12 +106,12 @@ class moodle_matrix_bot
         $curl->setHeader('Authorization', 'Bearer ' . $this->access_token);
         $curl->setHeader('Content-Type', 'application/json');
 
-        if ('GET' == $method) {
+        if ('GET' === $method) {
             $curl->get($this->baseurl . $path, $qs);
-        } elseif ('POST' == $method) {
+        } elseif ('POST' === $method) {
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->post($curl->getUrl(), $body);
-        } elseif ('PUT' == $method) {
+        } elseif ('PUT' === $method) {
             $curl->setUrl($this->baseurl . $path, $qs);
             $curl->put($curl->getUrl(), $body);
         } else {
