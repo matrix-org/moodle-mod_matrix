@@ -111,7 +111,7 @@ final class matrix
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
 
-                $roomId = $bot->create_room($roomOptions);
+                $roomId = $bot->createRoom($roomOptions);
 
                 $roomMapping = new \stdClass();
 
@@ -137,7 +137,7 @@ final class matrix
             );
 
             if (!$existingMapping) {
-                $roomId = $bot->create_room($roomOptions);
+                $roomId = $bot->createRoom($roomOptions);
 
                 $roomMapping = new \stdClass();
 
@@ -211,7 +211,7 @@ final class matrix
 
         $allowedUserIds = [$bot->whoami()];
 
-        $joinedUserIds = $bot->get_effective_joins($mapping->room_id);
+        $joinedUserIds = $bot->getEffectiveJoins($mapping->room_id);
 
         foreach ($users as $uid => $user) {
             profile_load_custom_fields($user);
@@ -231,14 +231,14 @@ final class matrix
             $allowedUserIds[] = $mxid;
 
             if (!in_array($mxid, $joinedUserIds)) {
-                $bot->invite_user($mxid, $mapping->room_id);
+                $bot->inviteUser($mxid, $mapping->room_id);
             }
         }
 
         // Get all the staff users
         $staff = get_users_by_capability($cc, 'mod/matrix:staff');
 
-        $pls = $bot->get_state($mapping->room_id, 'm.room.power_levels', '');
+        $pls = $bot->getState($mapping->room_id, 'm.room.power_levels', '');
 
         $pls['users'] = [
             $bot->whoami() => 100,
@@ -262,17 +262,17 @@ final class matrix
             $allowedUserIds[] = $mxid;
 
             if (!in_array($mxid, $joinedUserIds)) {
-                $bot->invite_user($mxid, $mapping->room_id);
+                $bot->inviteUser($mxid, $mapping->room_id);
             }
 
             $pls['users'][$mxid] = 99;
         }
-        $bot->set_state($mapping->room_id, 'm.room.power_levels', '', $pls);
+        $bot->setState($mapping->room_id, 'm.room.power_levels', '', $pls);
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $mxid) {
             if (!in_array($mxid, $allowedUserIds)) {
-                $bot->kick_user($mxid, $mapping->room_id);
+                $bot->kickUser($mxid, $mapping->room_id);
             }
         }
     }

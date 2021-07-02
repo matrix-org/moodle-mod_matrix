@@ -92,7 +92,7 @@ class bot
      * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
      * @param mixed $opts
      */
-    public function create_room($opts = [])
+    public function createRoom($opts = [])
     {
         $r = $this->request(
             'POST',
@@ -109,7 +109,7 @@ class bot
      * @param mixed $userId
      * @param mixed $roomId
      */
-    public function invite_user($userId, $roomId)
+    public function inviteUser($userId, $roomId)
     {
         return $this->request(
             'POST',
@@ -126,7 +126,7 @@ class bot
      * @param mixed $userId
      * @param mixed $roomId
      */
-    public function kick_user($userId, $roomId)
+    public function kickUser($userId, $roomId)
     {
         return $this->request(
             'POST',
@@ -144,7 +144,7 @@ class bot
      * @param mixed $eventType
      * @param mixed $stateKey
      */
-    public function get_state($roomId, $eventType, $stateKey)
+    public function getState($roomId, $eventType, $stateKey)
     {
         return $this->request(
             'GET',
@@ -159,7 +159,7 @@ class bot
      * @param mixed $stateKey
      * @param mixed $content
      */
-    public function set_state($roomId, $eventType, $stateKey, $content)
+    public function setState($roomId, $eventType, $stateKey, $content)
     {
         return $this->request(
             'PUT',
@@ -173,7 +173,7 @@ class bot
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
      * @param mixed $roomId
      */
-    public function get_effective_joins($roomId)
+    public function getEffectiveJoins($roomId)
     {
         $members = $this->request(
             'GET',
