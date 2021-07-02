@@ -98,7 +98,7 @@ if (count($groups) === 0) {
 if (count($groups) > 0) {
     $visible_groups = groups_get_activity_allowed_groups($cm);
 
-    if (empty($visible_groups)) {
+    if (count($visible_groups) === 0) {
         echo matrix_alert(
             'danger',
             get_string('vw_error_no_rooms', 'matrix')
