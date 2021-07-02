@@ -14,7 +14,7 @@ global $CFG;
 
 require_once $CFG->dirroot . '/mod/matrix/locallib.php';
 
-require $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
+require_once $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
 
 require_once $CFG->dirroot . '/mod/matrix/classes/bot_client.php';
 
