@@ -10,8 +10,6 @@ namespace mod_matrix;
 
 defined('MOODLE_INTERNAL') || exit;
 
-global $CFG;
-
 class observer
 {
     public static function observe_group_member_change($event)
