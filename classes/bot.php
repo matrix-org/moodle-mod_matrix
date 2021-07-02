@@ -22,10 +22,10 @@ class bot
 
     public function __construct(
         string $hsUrl,
-        string $access_token
+        string $accessToken
     ) {
         $this->hsUrl = $hsUrl;
-        $this->accessToken = $access_token;
+        $this->accessToken = $accessToken;
     }
 
     /**
