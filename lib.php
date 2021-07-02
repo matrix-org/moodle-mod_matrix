@@ -6,6 +6,8 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
+use mod_matrix\moodle_matrix_bot;
+
 defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
@@ -107,7 +109,7 @@ function matrix_prepare_group_room($course_id, $group_id = null)
 
     $course = get_course($course_id);
 
-    $bot = \mod_matrix\moodle_matrix_bot::instance();
+    $bot = moodle_matrix_bot::instance();
 
     $whoami = $bot->whoami();
 
@@ -194,7 +196,7 @@ function matrix_prepare_group_room($course_id, $group_id = null)
 function matrix_sync_room_members($course_id, $group_id = null)
 {
     global $DB;
-    $bot = \mod_matrix\moodle_matrix_bot::instance();
+    $bot = moodle_matrix_bot::instance();
 
     if (0 == $group_id) {
         $group_id = null;
