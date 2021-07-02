@@ -12,8 +12,6 @@ defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
-require_once __DIR__ . '/../locallib.php';
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 require_once __DIR__ . '/../classes/bot.php';
