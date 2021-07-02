@@ -9,7 +9,7 @@
 defined('MOODLE_INTERNAL') || exit();
 
 if ($ADMIN->fulltree) {
-    require_once $CFG->dirroot . '/mod/matrix/locallib.php';
+    require_once __DIR__ . '/locallib.php';
 
     $settings->add(new admin_setting_heading(
         'mod_matrix/homeserver',

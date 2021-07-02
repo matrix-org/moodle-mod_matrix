@@ -8,7 +8,7 @@
 
 require '../../config.php';
 
-require_once 'lib.php';
+require_once __DIR__ . '/lib.php';
 
 $id = required_param('id', PARAM_INT);
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');

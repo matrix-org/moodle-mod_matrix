@@ -12,9 +12,9 @@ defined('MOODLE_INTERNAL') || exit;
 
 global $CFG;
 
-require_once $CFG->dirroot . '/mod/matrix/locallib.php';
+require_once __DIR__ . '/../locallib.php';
 
-require_once $CFG->dirroot . '/mod/matrix/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class moodle_matrix_bot
 {
