@@ -10,8 +10,6 @@ namespace mod_matrix;
 
 defined('MOODLE_INTERNAL') || exit;
 
-global $CFG;
-
 require_once __DIR__ . '/../locallib.php';
 
 require_once __DIR__ . '/../vendor/autoload.php';
