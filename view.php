@@ -44,7 +44,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 
 $possible_rooms = $DB->get_records('matrix_rooms', ['course_id' => $matrix->course]);
 
-if (count($possible_rooms) == 0) {
+if (count($possible_rooms) === 0) {
     echo '<div class="alert alert-danger">' . get_string('vw_error_no_rooms', 'matrix') . '</div>';
     echo $OUTPUT->footer();
 
