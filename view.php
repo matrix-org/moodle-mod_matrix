@@ -88,7 +88,7 @@ $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 if (count($groups) === 0) {
     echo matrix_alert(
         'danger',
-        get_string('vw_error_no_rooms', 'matrix')
+        get_string('vw_error_no_groups', 'matrix')
     );
     echo $OUTPUT->footer();
 
@@ -101,7 +101,7 @@ if (count($groups) > 0) {
     if (count($visible_groups) === 0) {
         echo matrix_alert(
             'danger',
-            get_string('vw_error_no_rooms', 'matrix')
+            get_string('vw_error_no_visible_groups', 'matrix')
         );
 
         echo $OUTPUT->footer();
@@ -116,7 +116,7 @@ if (count($groups) > 0) {
         if (!$room) {
             echo matrix_alert(
                 'danger',
-                get_string('vw_error_no_rooms', 'matrix')
+                get_string('vw_error_no_room_in_group', 'matrix')
             );
 
             echo $OUTPUT->footer();

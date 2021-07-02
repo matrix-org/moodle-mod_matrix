@@ -24,6 +24,9 @@ $string['adm_eleurl_name'] = 'Element Web URL';
 $string['adm_eleurl_desc'] = 'The URL to your Element Web instance. If not supplied/empty, matrix.to URLs will be generated instead';
 
 $string['vw_error_no_rooms'] = 'There are no rooms to show.';
+$string['vw_error_no_groups'] = 'There are no groups.';
+$string['vw_error_no_visible_groups'] = 'There are no visible groups.';
+$string['vw_error_no_room_in_group'] = 'There is no room in this group.';
 $string['vw_alert_many_rooms'] = 'You can see multiple rooms for this course - please pick the one you would like to visit';
 $string['vw_join_btn'] = 'Join room';
 
