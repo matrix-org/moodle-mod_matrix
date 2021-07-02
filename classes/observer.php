@@ -22,7 +22,7 @@ class observer
             return;
         } // no instance means no room
 
-        matrix_sync_room_members($event->courseid, $event->objectid);
+        matrix::sync_room_members($event->courseid, $event->objectid);
     }
 
     public static function observe_group_created(\core\event\group_created $event)
@@ -35,16 +35,16 @@ class observer
             return;
         } // no instance means no room
 
-        matrix_prepare_group_room($event->courseid, $event->objectid);
+        matrix::prepare_group_room($event->courseid, $event->objectid);
     }
 
     public static function observe_role_change($event)
     {
-        matrix_resync_all(null); // ALL the rooms
+        matrix::resync_all(null); // ALL the rooms
     }
 
     public static function observe_enrolment_change($event)
     {
-        matrix_resync_all($event->courseid);
+        matrix::resync_all($event->courseid);
     }
 }

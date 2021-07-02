@@ -6,6 +6,8 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
+use mod_matrix\matrix;
+
 require '../../config.php';
 
 $id = required_param('id', PARAM_INT);
@@ -121,7 +123,7 @@ if (count($groups) > 0) {
 
             exit;
         }
-        $room_url = json_encode(matrix_make_room_url($room->room_id));
+        $room_url = json_encode(matrix::make_room_url($room->room_id));
         echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
         echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
         echo $OUTPUT->footer();
@@ -133,7 +135,7 @@ if (count($groups) > 0) {
 
     // ... unless there's only one possible option anyways
     if (count($possible_rooms) === 1) {
-        $room_url = json_encode(matrix_make_room_url(reset($possible_rooms)->room_id));
+        $room_url = json_encode(matrix::make_room_url(reset($possible_rooms)->room_id));
         echo '<script type="text/javascript">window.location = ' . $room_url . ';</script>';
         echo '<a href="' . $room_url . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
         echo $OUTPUT->footer();
@@ -154,7 +156,7 @@ if (count($groups) > 0) {
         }
 
         $name = groups_get_group_name($group->id);
-        $room_url = json_encode(matrix_make_room_url($room->room_id));
+        $room_url = json_encode(matrix::make_room_url($room->room_id));
         echo '<p><a href="' . $room_url . '">' . $name . '</a></p>';
     }
 }
