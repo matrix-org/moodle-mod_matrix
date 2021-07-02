@@ -16,7 +16,7 @@ require_once __DIR__ . '/../locallib.php';
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__ . '/../classes/moodle_matrix_bot.php';
+require_once __DIR__ . '/../classes/bot.php';
 
 class observer
 {

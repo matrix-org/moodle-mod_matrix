@@ -14,7 +14,7 @@ require_once __DIR__ . '/../locallib.php';
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-class moodle_matrix_bot
+class bot
 {
     private $hsUrl;
 
