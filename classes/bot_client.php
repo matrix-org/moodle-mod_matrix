@@ -101,6 +101,7 @@ class moodle_matrix_bot
 
     /**
      * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     private function req(string $method, string $path, array $qs = [], array $body = [])
     {
@@ -111,7 +112,7 @@ class moodle_matrix_bot
         ];
 
         if (!in_array($method, $allowedMethods, true)) {
-            throw new \Exception('unknown method: ' . $method);
+            throw new \InvalidArgumentException('unknown method: ' . $method);
         }
 
         $curl = new \Curl\Curl();
