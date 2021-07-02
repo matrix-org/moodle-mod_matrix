@@ -12,15 +12,19 @@ require_once 'lib.php';
 
 $id = required_param('id', PARAM_INT);
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
+
+/** @var moodle_database $DB */
 $matrix = $DB->get_record('matrix', ['id' => $cm->instance], '*', MUST_EXIST);
 
 require_login($course, true, $cm);
 
+/** @var moodle_page $PAGE */
 $PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);
 $PAGE->set_title($matrix->name);
 $PAGE->set_cacheable(false);
 $PAGE->set_heading($course->fullname);
 
+/** @var bootstrap_renderer $OUTPUT */
 echo $OUTPUT->header();
 
 if (!has_capability('mod/matrix:view', $PAGE->context)) {
