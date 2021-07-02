@@ -30,7 +30,7 @@ class bot
 
     public function whoami()
     {
-        $r = $this->req(
+        $r = $this->request(
             'GET',
             '/_matrix/client/r0/account/whoami'
         );
@@ -40,7 +40,7 @@ class bot
 
     public function create_room($opts = [])
     {
-        $r = $this->req(
+        $r = $this->request(
             'POST',
             '/_matrix/client/r0/createRoom',
             [],
@@ -52,7 +52,7 @@ class bot
 
     public function invite_user($user_id, $room_id)
     {
-        return $this->req(
+        return $this->request(
             'POST',
             '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/invite',
             [],
@@ -64,7 +64,7 @@ class bot
 
     public function kick_user($user_id, $room_id)
     {
-        return $this->req(
+        return $this->request(
             'POST',
             '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/kick',
             [],
@@ -76,7 +76,7 @@ class bot
 
     public function get_state($room_id, $event_type, $state_key)
     {
-        return $this->req(
+        return $this->request(
             'GET',
             '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key)
         );
@@ -84,7 +84,7 @@ class bot
 
     public function set_state($room_id, $event_type, $state_key, $content)
     {
-        return $this->req(
+        return $this->request(
             'PUT',
             '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/state/' . urlencode($event_type) . '/' . urlencode($state_key),
             [],
@@ -94,7 +94,7 @@ class bot
 
     public function get_effective_joins($room_id)
     {
-        $members = $this->req(
+        $members = $this->request(
             'GET',
             '/_matrix/client/r0/rooms/' . urlencode($room_id) . '/members'
         );
@@ -118,7 +118,7 @@ class bot
     {
         $val = var_export($val, true);
 
-        $this->req(
+        $this->request(
             'PUT',
             '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100),
             [],
@@ -180,7 +180,7 @@ class bot
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
-    private function req(
+    private function request(
         string $method,
         string $path,
         array $qs = [],
