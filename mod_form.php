@@ -14,8 +14,6 @@ class mod_matrix_mod_form extends moodleform_mod
 {
     protected function definition()
     {
-        global $CFG, $DB, $OUTPUT;
-
         // We don't have any config options
         $this->apply_admin_defaults();
 
