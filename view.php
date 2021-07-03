@@ -70,6 +70,17 @@ if (count($possibleRooms) === 0) {
     exit;
 }
 
+if (count($possibleRooms) === 1) {
+    $roomUrl = json_encode(matrix::make_room_url(reset($possibleRooms)->room_id));
+
+    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
+    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+
+    echo $OUTPUT->footer();
+
+    exit;
+}
+
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
 if (count($groups) === 0) {
@@ -129,18 +140,6 @@ if (count($visibleGroups) === 1) {
 }
 
 // else multiple groups are possible
-
-// ... unless there's only one possible option anyways
-if (count($possibleRooms) === 1) {
-    $roomUrl = json_encode(matrix::make_room_url(reset($possibleRooms)->room_id));
-
-    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
 
 echo bootstrap::alert(
     'warning',
