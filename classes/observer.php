@@ -50,7 +50,7 @@ class observer
             return;
         }
 
-        matrix::prepare_group_room(
+        matrix::prepareRoomForGroup(
             $event->courseid,
             $event->objectid
         );

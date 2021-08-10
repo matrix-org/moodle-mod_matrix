@@ -40,7 +40,7 @@ final class matrix
         return 'https://matrix.to/#/' . $roomId;
     }
 
-    public static function prepare_group_room($courseId, $groupId = null): void
+    public static function prepareRoomForGroup($courseId, $groupId = null): void
     {
         global $CFG, $DB;
 
