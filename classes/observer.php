@@ -29,7 +29,10 @@ class observer
             return;
         }
 
-        matrix::sync_room_members($event->courseid, $event->objectid);
+        matrix::sync_room_members(
+            $event->courseid,
+            $event->objectid
+        );
     }
 
     public static function observe_group_created(event\group_created $event)
@@ -47,7 +50,10 @@ class observer
             return;
         }
 
-        matrix::prepare_group_room($event->courseid, $event->objectid);
+        matrix::prepare_group_room(
+            $event->courseid,
+            $event->objectid
+        );
     }
 
     public static function observe_role_change($event)
