@@ -125,33 +125,35 @@ final class matrix
             }
 
             self::sync_room_members($courseId, $group->id);
-        } else {
-            $existingMapping = $DB->get_record(
-                'matrix_rooms',
-                [
-                    'course_id' => $courseId,
-                    'group_id' => null,
-                ],
-                '*',
-                IGNORE_MISSING
-            );
 
-            if (!$existingMapping) {
-                $roomId = $bot->createRoom($roomOptions);
-
-                $roomMapping = new \stdClass();
-
-                $roomMapping->course_id = $courseId;
-                $roomMapping->group_id = null;
-                $roomMapping->room_id = $roomId;
-                $roomMapping->timecreated = time();
-                $roomMapping->timemodified = 0;
-
-                $DB->insert_record('matrix_rooms', $roomMapping);
-            }
-
-            self::sync_room_members($courseId, null);
+            return;
         }
+
+        $existingMapping = $DB->get_record(
+            'matrix_rooms',
+            [
+                'course_id' => $courseId,
+                'group_id' => null,
+            ],
+            '*',
+            IGNORE_MISSING
+        );
+
+        if (!$existingMapping) {
+            $roomId = $bot->createRoom($roomOptions);
+
+            $roomMapping = new \stdClass();
+
+            $roomMapping->course_id = $courseId;
+            $roomMapping->group_id = null;
+            $roomMapping->room_id = $roomId;
+            $roomMapping->timecreated = time();
+            $roomMapping->timemodified = 0;
+
+            $DB->insert_record('matrix_rooms', $roomMapping);
+        }
+
+        self::sync_room_members($courseId, null);
     }
 
     public static function resync_all($courseId = null)
