@@ -26,15 +26,15 @@ function matrix_supports($feature)
     }
 
     $features = [
-        FEATURE_IDNUMBER => true,
-        FEATURE_GROUPS => true,
-        FEATURE_GROUPINGS => true,
-        FEATURE_MOD_INTRO => true,
         FEATURE_BACKUP_MOODLE2 => true,
-        FEATURE_COMPLETION_TRACKS_VIEWS => true,
         FEATURE_COMPLETION_HAS_RULES => true,
+        FEATURE_COMPLETION_TRACKS_VIEWS => true,
         FEATURE_GRADE_HAS_GRADE => false,
         FEATURE_GRADE_OUTCOMES => false,
+        FEATURE_GROUPINGS => true,
+        FEATURE_GROUPS => true,
+        FEATURE_IDNUMBER => true,
+        FEATURE_MOD_INTRO => true,
         FEATURE_SHOW_DESCRIPTION => true,
     ];
 
