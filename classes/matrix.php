@@ -171,7 +171,7 @@ final class matrix
             $conditions
         );
 
-        foreach ($rooms as $rid => $room) {
+        foreach ($rooms as $room) {
             self::sync_room_members($room->course_id, $room->group_id);
         }
     }
