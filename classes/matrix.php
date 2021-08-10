@@ -29,7 +29,7 @@ final class matrix
      */
     public const DEFAULT_ELEMENT_URL = '';
 
-    public static function make_room_url($roomId)
+    public static function urlForRoom($roomId)
     {
         $conf = get_config('mod_matrix');
 
