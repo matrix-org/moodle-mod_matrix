@@ -167,7 +167,7 @@ final class matrix
         self::synchronizeRoomMembers($courseId);
     }
 
-    public static function resync_all($courseId = null)
+    public static function resync_all($courseId = null): void
     {
         global $DB;
 
