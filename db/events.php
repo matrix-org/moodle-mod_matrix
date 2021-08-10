@@ -53,17 +53,17 @@ $observers = [
     ],
     [
         'eventname' => event\user_enrolment_created::class,
-        'callback' => '\mod_matrix\observer::observe_enrolment_change',
+        'callback' => '\mod_matrix\observer::onUserEnrolmentChanged',
         'internal' => false,
     ],
     [
         'eventname' => event\user_enrolment_deleted::class,
-        'callback' => '\mod_matrix\observer::observe_enrolment_change',
+        'callback' => '\mod_matrix\observer::onUserEnrolmentChanged',
         'internal' => false,
     ],
     [
         'eventname' => event\user_enrolment_updated::class,
-        'callback' => '\mod_matrix\observer::observe_enrolment_change',
+        'callback' => '\mod_matrix\observer::onUserEnrolmentChanged',
         'internal' => false,
     ],
 ];

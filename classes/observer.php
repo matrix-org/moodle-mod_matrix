@@ -61,7 +61,7 @@ class observer
         matrix::resync_all(null); // ALL the rooms
     }
 
-    public static function observe_enrolment_change($event)
+    public static function onUserEnrolmentChanged($event)
     {
         matrix::resync_all($event->courseid);
     }
