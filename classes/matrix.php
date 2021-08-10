@@ -99,7 +99,7 @@ final class matrix
         if (null !== $groupId) {
             $group = groups_get_group($groupId);
 
-            $existingMapping = $DB->get_record(
+            $existingRoomForGroup = $DB->get_record(
                 'matrix_rooms',
                 [
                     'course_id' => $courseId,
@@ -109,7 +109,7 @@ final class matrix
                 IGNORE_MISSING
             );
 
-            if (!$existingMapping) {
+            if (!$existingRoomForGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
 
