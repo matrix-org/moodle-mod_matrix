@@ -11,37 +11,37 @@ defined('MOODLE_INTERNAL') || exit();
 $capabilities = [
     // Ability to add a new instance.
     'mod/matrix:addinstance' => [
-        'riskbitmask' => RISK_XSS,
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
         'archetypes' => [
-            'manager' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
         ],
+        'captype' => 'write',
         'clonepermissionsfrom' => 'moodle/course:manageactivities',
+        'contextlevel' => CONTEXT_COURSE,
+        'riskbitmask' => RISK_XSS,
     ],
 
     // Ability to access instances
     'mod/matrix:view' => [
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_MODULE,
         'archetypes' => [
-            'student' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
+            'student' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
         ],
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_MODULE,
     ],
 
     // Identifies staff to the membership sync
     'mod/matrix:staff' => [
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => [
-            'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
         ],
+        'captype' => 'read',
         'clonepermissionsfrom' => 'moodle/assign:grade',
+        'contextlevel' => CONTEXT_SYSTEM,
     ],
 ];
