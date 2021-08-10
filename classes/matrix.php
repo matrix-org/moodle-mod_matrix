@@ -89,7 +89,9 @@ final class matrix
                 [
                     'type' => 'm.room.guest_access',
                     'state_key' => '',
-                    'content' => ['guest_access' => 'forbidden'],
+                    'content' => [
+                        'guest_access' => 'forbidden',
+                    ],
                 ],
             ],
         ];
