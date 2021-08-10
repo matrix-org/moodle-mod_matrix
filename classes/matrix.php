@@ -270,7 +270,7 @@ final class matrix
             $bot->whoami() => 100,
         ];
 
-        foreach ($staff as $uid => $user) {
+        foreach ($staff as $user) {
             profile_load_custom_fields($user);
 
             $profile = $user->profile;
