@@ -24,6 +24,7 @@ function matrix_supports($feature)
     if (!$feature) {
         return null;
     }
+
     $features = [
         FEATURE_IDNUMBER => true,
         FEATURE_GROUPS => true,
