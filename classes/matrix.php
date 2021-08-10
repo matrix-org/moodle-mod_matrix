@@ -124,7 +124,7 @@ final class matrix
                 $DB->insert_record('matrix_rooms', $roomMapping);
             }
 
-            self::sync_room_members($courseId, $group->id);
+            self::synchronizeRoomMembers($courseId, $group->id);
 
             return;
         }
@@ -153,7 +153,7 @@ final class matrix
             $DB->insert_record('matrix_rooms', $roomMapping);
         }
 
-        self::sync_room_members($courseId, null);
+        self::synchronizeRoomMembers($courseId, null);
     }
 
     public static function resync_all($courseId = null)
@@ -174,14 +174,14 @@ final class matrix
         );
 
         foreach ($rooms as $room) {
-            self::sync_room_members(
+            self::synchronizeRoomMembers(
                 $room->course_id,
                 $room->group_id
             );
         }
     }
 
-    public static function sync_room_members($courseId, $groupId = null)
+    public static function synchronizeRoomMembers($courseId, $groupId = null)
     {
         global $DB;
 

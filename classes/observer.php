@@ -29,7 +29,7 @@ class observer
             return;
         }
 
-        matrix::sync_room_members(
+        matrix::synchronizeRoomMembers(
             $event->courseid,
             $event->objectid
         );
