@@ -21,7 +21,7 @@ global $CFG;
  */
 function matrix_supports($feature)
 {
-    if (!$feature) {
+    if (!is_string($feature)) {
         return null;
     }
 
