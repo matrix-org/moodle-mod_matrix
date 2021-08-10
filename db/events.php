@@ -28,7 +28,7 @@ $observers = [
     ],
     [
         'eventname' => event\group_created::class,
-        'callback' => '\mod_matrix\observer::observe_group_created',
+        'callback' => '\mod_matrix\observer::onGroupCreated',
         'internal' => false,
     ],
     [

@@ -35,7 +35,7 @@ class observer
         );
     }
 
-    public static function observe_group_created(event\group_created $event)
+    public static function onGroupCreated(event\group_created $event)
     {
         global $DB;
 
