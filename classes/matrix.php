@@ -121,7 +121,10 @@ final class matrix
                 $roomMapping->timecreated = time();
                 $roomMapping->timemodified = 0;
 
-                $DB->insert_record('matrix_rooms', $roomMapping);
+                $DB->insert_record(
+                    'matrix_rooms',
+                    $roomMapping
+                );
             }
 
             self::synchronizeRoomMembers(
@@ -153,7 +156,10 @@ final class matrix
             $roomMapping->timecreated = time();
             $roomMapping->timemodified = 0;
 
-            $DB->insert_record('matrix_rooms', $roomMapping);
+            $DB->insert_record(
+                'matrix_rooms',
+                $roomMapping
+            );
         }
 
         self::synchronizeRoomMembers($courseId);
