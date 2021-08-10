@@ -10,6 +10,11 @@ defined('MOODLE_INTERNAL') || exit();
 
 class backup_matrix_activity_task extends backup_activity_task
 {
+    public static function encode_content_links($content)
+    {
+        // Nothing relevant
+    }
+
     protected function define_my_settings()
     {
         // Nothing relevant
