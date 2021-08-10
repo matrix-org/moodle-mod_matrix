@@ -71,10 +71,7 @@ function matrix_add_instance($matrix)
             );
         }
     } else {
-        matrix::prepareRoomForGroup(
-            $matrix->course,
-            null
-        );
+        matrix::prepareRoomForGroup($matrix->course);
     }
 
     return $matrix->id;
