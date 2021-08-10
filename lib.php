@@ -65,10 +65,16 @@ function matrix_add_instance($matrix)
 
     if (count($groups) > 0) {
         foreach ($groups as $k => $group) {
-            matrix::prepareRoomForGroup($matrix->course, $group->id);
+            matrix::prepareRoomForGroup(
+                $matrix->course,
+                $group->id
+            );
         }
     } else {
-        matrix::prepareRoomForGroup($matrix->course, null);
+        matrix::prepareRoomForGroup(
+            $matrix->course,
+            null
+        );
     }
 
     return $matrix->id;
