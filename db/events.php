@@ -6,6 +6,8 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
+use core\event;
+
 defined('MOODLE_INTERNAL') || exit();
 
 $observers = [
@@ -15,52 +17,52 @@ $observers = [
     // * If anything in this file changes, bump the version number.
 
     [
-        'eventname' => '\core\event\group_member_added',
+        'eventname' => event\group_member_added::class,
         'callback' => '\mod_matrix\observer::observe_group_member_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\group_member_removed',
+        'eventname' => event\group_member_removed::class,
         'callback' => '\mod_matrix\observer::observe_group_member_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\group_created',
+        'eventname' => event\group_created::class,
         'callback' => '\mod_matrix\observer::observe_group_created',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\role_assigned',
+        'eventname' => event\role_assigned::class,
         'callback' => '\mod_matrix\observer::observe_role_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\role_unassigned',
+        'eventname' => event\role_unassigned::class,
         'callback' => '\mod_matrix\observer::observe_role_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\role_capabilities_updated',
+        'eventname' => event\role_capabilities_updated::class,
         'callback' => '\mod_matrix\observer::observe_role_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\role_deleted',
+        'eventname' => event\role_deleted::class,
         'callback' => '\mod_matrix\observer::observe_role_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\user_enrolment_created',
+        'eventname' => event\user_enrolment_created::class,
         'callback' => '\mod_matrix\observer::observe_enrolment_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\user_enrolment_deleted',
+        'eventname' => event\user_enrolment_deleted::class,
         'callback' => '\mod_matrix\observer::observe_enrolment_change',
         'internal' => false,
     ],
     [
-        'eventname' => '\core\event\user_enrolment_updated',
+        'eventname' => event\user_enrolment_updated::class,
         'callback' => '\mod_matrix\observer::observe_enrolment_change',
         'internal' => false,
     ],
