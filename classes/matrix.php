@@ -184,6 +184,7 @@ final class matrix
     public static function sync_room_members($courseId, $groupId = null)
     {
         global $DB;
+
         $bot = bot::instance();
 
         if (0 == $groupId) {
