@@ -115,17 +115,17 @@ final class matrix
 
                 $roomId = $bot->createRoom($roomOptions);
 
-                $roomMapping = new \stdClass();
+                $roomForGroup = new \stdClass();
 
-                $roomMapping->course_id = $courseId;
-                $roomMapping->group_id = $group->id;
-                $roomMapping->room_id = $roomId;
-                $roomMapping->timecreated = time();
-                $roomMapping->timemodified = 0;
+                $roomForGroup->course_id = $courseId;
+                $roomForGroup->group_id = $group->id;
+                $roomForGroup->room_id = $roomId;
+                $roomForGroup->timecreated = time();
+                $roomForGroup->timemodified = 0;
 
                 $DB->insert_record(
                     'matrix_rooms',
-                    $roomMapping
+                    $roomForGroup
                 );
             }
 
