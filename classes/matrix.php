@@ -255,7 +255,10 @@ final class matrix
         }
 
         // Get all the staff users
-        $staff = get_users_by_capability($context, 'mod/matrix:staff');
+        $staff = get_users_by_capability(
+            $context,
+            'mod/matrix:staff'
+        );
 
         $pls = $bot->getState($room->room_id, 'm.room.power_levels', '');
 
