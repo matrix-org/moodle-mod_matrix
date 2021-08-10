@@ -211,7 +211,11 @@ final class matrix
 
         $cc = context_course::instance($courseId);
 
-        $users = get_enrolled_users($cc, 'mod/matrix:view', $groupId); // assoc of uid => user
+        $users = get_enrolled_users(
+            $cc,
+            'mod/matrix:view',
+            $groupId
+        ); // assoc of uid => user
 
         if (!$users) {
             $users = [];
