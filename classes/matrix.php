@@ -291,12 +291,14 @@ final class matrix
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $matrixUserId) {
-            if (!in_array($matrixUserId, $allowedUserIds)) {
-                $bot->kickUser(
-                    $matrixUserId,
-                    $room->room_id
-                );
+            if (in_array($matrixUserId, $allowedUserIds)) {
+                continue;
             }
+
+            $bot->kickUser(
+                $matrixUserId,
+                $room->room_id
+            );
         }
     }
 }
