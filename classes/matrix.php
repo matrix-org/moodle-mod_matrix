@@ -221,7 +221,9 @@ final class matrix
             $users = [];
         } // use an empty array
 
-        $allowedUserIds = [$bot->whoami()];
+        $allowedUserIds = [
+            $bot->whoami(),
+        ];
 
         $joinedUserIds = $bot->getEffectiveJoins($room->room_id);
 
