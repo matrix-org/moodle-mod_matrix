@@ -245,7 +245,10 @@ final class matrix
             $allowedUserIds[] = $matrixUserId;
 
             if (!in_array($matrixUserId, $joinedUserIds)) {
-                $bot->inviteUser($matrixUserId, $room->room_id);
+                $bot->inviteUser(
+                    $matrixUserId,
+                    $room->room_id
+                );
             }
         }
 
