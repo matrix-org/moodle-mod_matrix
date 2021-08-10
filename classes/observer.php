@@ -14,7 +14,7 @@ defined('MOODLE_INTERNAL') || exit;
 
 class observer
 {
-    public static function onGroupMemberChange($event)
+    public static function onGroupMemberChange($event): void
     {
         global $DB;
 
@@ -35,7 +35,7 @@ class observer
         );
     }
 
-    public static function onGroupCreated(event\group_created $event)
+    public static function onGroupCreated(event\group_created $event): void
     {
         global $DB;
 
@@ -56,12 +56,12 @@ class observer
         );
     }
 
-    public static function onRoleChanged()
+    public static function onRoleChanged(): void
     {
         matrix::resync_all(null); // ALL the rooms
     }
 
-    public static function onUserEnrolmentChanged($event)
+    public static function onUserEnrolmentChanged($event): void
     {
         matrix::resync_all($event->courseid);
     }
