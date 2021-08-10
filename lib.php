@@ -38,7 +38,7 @@ function matrix_supports($feature)
         FEATURE_SHOW_DESCRIPTION => true,
     ];
 
-    if (isset($features[$feature])) {
+    if (array_key_exists($feature, $features)) {
         return $features[$feature];
     }
 
