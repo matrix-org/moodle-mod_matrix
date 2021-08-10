@@ -137,7 +137,7 @@ final class matrix
             return;
         }
 
-        $existingMapping = $DB->get_record(
+        $existingRoom = $DB->get_record(
             'matrix_rooms',
             [
                 'course_id' => $courseId,
@@ -147,7 +147,7 @@ final class matrix
             IGNORE_MISSING
         );
 
-        if (!$existingMapping) {
+        if (!$existingRoom) {
             $roomId = $bot->createRoom($roomOptions);
 
             $room = new \stdClass();
