@@ -101,7 +101,7 @@ function matrix_update_instance($matrix)
  *
  * @param object $matrix
  */
-function matrix_delete_instance($matrix)
+function matrix_delete_instance($matrix): bool
 {
     global $DB;
 
