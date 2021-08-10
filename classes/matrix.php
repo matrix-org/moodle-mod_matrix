@@ -296,7 +296,13 @@ final class matrix
 
             $powerLevels['users'][$matrixUserId] = 99;
         }
-        $bot->setState($room->room_id, 'm.room.power_levels', '', $powerLevels);
+
+        $bot->setState(
+            $room->room_id,
+            'm.room.power_levels',
+            '',
+            $powerLevels
+        );
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $matrixUserId) {
