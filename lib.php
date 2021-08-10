@@ -107,7 +107,11 @@ function matrix_delete_instance($matrix)
 
     // TODO: Delete rooms too?
 
-    if (!$DB->delete_records('matrix', ['id' => $matrix->id])) {
+    $hasDeletedInstance = $DB->delete_records('matrix', [
+        'id' => $matrix->id,
+    ]);
+
+    if (!$hasDeletedInstance) {
         return false;
     }
 
