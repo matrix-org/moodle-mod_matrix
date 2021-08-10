@@ -61,7 +61,13 @@ function matrix_add_instance($matrix)
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
-    $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
+    $groups = groups_get_all_groups(
+        $matrix->course,
+        0,
+        0,
+        'g.*',
+        true
+    );
 
     if (count($groups) > 0) {
         foreach ($groups as $group) {
