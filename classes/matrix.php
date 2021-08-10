@@ -162,7 +162,7 @@ final class matrix
 
         $conditions = null;
 
-        if ($courseId) {
+        if (null !== $courseId) {
             $conditions = [
                 'course_id' => $courseId,
             ];
