@@ -94,7 +94,7 @@ final class matrix
             ],
         ];
 
-        if ($groupId) {
+        if (null !== $groupId) {
             $group = groups_get_group($groupId);
 
             $existingMapping = $DB->get_record(
