@@ -244,12 +244,14 @@ final class matrix
 
             $allowedUserIds[] = $matrixUserId;
 
-            if (!in_array($matrixUserId, $joinedUserIds)) {
-                $bot->inviteUser(
-                    $matrixUserId,
-                    $room->room_id
-                );
+            if (in_array($matrixUserId, $joinedUserIds)) {
+                continue;
             }
+
+            $bot->inviteUser(
+                $matrixUserId,
+                $room->room_id
+            );
         }
 
         // Get all the staff users
