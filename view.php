@@ -71,7 +71,9 @@ if (count($possibleRooms) === 0) {
 }
 
 if (count($possibleRooms) === 1) {
-    $roomUrl = json_encode(matrix::make_room_url(reset($possibleRooms)->room_id));
+    $firstPossibleRoom = reset($possibleRooms);
+
+    $roomUrl = json_encode(matrix::make_room_url($firstPossibleRoom->room_id));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
