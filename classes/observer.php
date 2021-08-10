@@ -56,7 +56,7 @@ class observer
         );
     }
 
-    public static function observe_role_change()
+    public static function onRoleChanged()
     {
         matrix::resync_all(null); // ALL the rooms
     }

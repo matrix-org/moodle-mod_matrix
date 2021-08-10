@@ -33,22 +33,22 @@ $observers = [
     ],
     [
         'eventname' => event\role_assigned::class,
-        'callback' => '\mod_matrix\observer::observe_role_change',
+        'callback' => '\mod_matrix\observer::onRoleChanged',
         'internal' => false,
     ],
     [
         'eventname' => event\role_unassigned::class,
-        'callback' => '\mod_matrix\observer::observe_role_change',
+        'callback' => '\mod_matrix\observer::onRoleChanged',
         'internal' => false,
     ],
     [
         'eventname' => event\role_capabilities_updated::class,
-        'callback' => '\mod_matrix\observer::observe_role_change',
+        'callback' => '\mod_matrix\observer::onRoleChanged',
         'internal' => false,
     ],
     [
         'eventname' => event\role_deleted::class,
-        'callback' => '\mod_matrix\observer::observe_role_change',
+        'callback' => '\mod_matrix\observer::onRoleChanged',
         'internal' => false,
     ],
     [
