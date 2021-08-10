@@ -64,7 +64,7 @@ function matrix_add_instance($matrix)
     $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
     if (count($groups) > 0) {
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             matrix::prepareRoomForGroup(
                 $matrix->course,
                 $group->id
