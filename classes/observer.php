@@ -25,9 +25,9 @@ class observer
             ]
         );
 
-        if (!$instances || count($instances) <= 0) {
+        if ([] === $instances) {
             return;
-        } // no instance means no room
+        }
 
         matrix::sync_room_members($event->courseid, $event->objectid);
     }
@@ -43,9 +43,9 @@ class observer
             ]
         );
 
-        if (!$instances || count($instances) <= 0) {
+        if ([] === $instances) {
             return;
-        } // no instance means no room
+        }
 
         matrix::prepare_group_room($event->courseid, $event->objectid);
     }
