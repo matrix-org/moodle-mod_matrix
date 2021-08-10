@@ -14,7 +14,7 @@ defined('MOODLE_INTERNAL') || exit;
 
 class observer
 {
-    public static function observe_group_member_change($event)
+    public static function onGroupMemberChange($event)
     {
         global $DB;
 

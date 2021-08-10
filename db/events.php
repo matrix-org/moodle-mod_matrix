@@ -18,12 +18,12 @@ $observers = [
 
     [
         'eventname' => event\group_member_added::class,
-        'callback' => '\mod_matrix\observer::observe_group_member_change',
+        'callback' => '\mod_matrix\observer::onGroupMemberChange',
         'internal' => false,
     ],
     [
         'eventname' => event\group_member_removed::class,
-        'callback' => '\mod_matrix\observer::observe_group_member_change',
+        'callback' => '\mod_matrix\observer::onGroupMemberChange',
         'internal' => false,
     ],
     [
