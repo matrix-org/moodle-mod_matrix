@@ -8,6 +8,8 @@
 
 namespace mod_matrix;
 
+use core\event;
+
 defined('MOODLE_INTERNAL') || exit;
 
 class observer
@@ -30,7 +32,7 @@ class observer
         matrix::sync_room_members($event->courseid, $event->objectid);
     }
 
-    public static function observe_group_created(\core\event\group_created $event)
+    public static function observe_group_created(event\group_created $event)
     {
         global $DB;
 
