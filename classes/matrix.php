@@ -236,16 +236,16 @@ final class matrix
                 continue;
             }
 
-            $mxid = $profile['matrix_user_id'];
+            $matrixUserId = $profile['matrix_user_id'];
 
-            if (!$mxid) {
+            if (!$matrixUserId) {
                 continue;
             }
 
-            $allowedUserIds[] = $mxid;
+            $allowedUserIds[] = $matrixUserId;
 
-            if (!in_array($mxid, $joinedUserIds)) {
-                $bot->inviteUser($mxid, $room->room_id);
+            if (!in_array($matrixUserId, $joinedUserIds)) {
+                $bot->inviteUser($matrixUserId, $room->room_id);
             }
         }
 
@@ -267,26 +267,26 @@ final class matrix
                 continue;
             }
 
-            $mxid = $profile['matrix_user_id'];
+            $matrixUserId = $profile['matrix_user_id'];
 
-            if (!$mxid) {
+            if (!$matrixUserId) {
                 continue;
             }
 
-            $allowedUserIds[] = $mxid;
+            $allowedUserIds[] = $matrixUserId;
 
-            if (!in_array($mxid, $joinedUserIds)) {
-                $bot->inviteUser($mxid, $room->room_id);
+            if (!in_array($matrixUserId, $joinedUserIds)) {
+                $bot->inviteUser($matrixUserId, $room->room_id);
             }
 
-            $pls['users'][$mxid] = 99;
+            $pls['users'][$matrixUserId] = 99;
         }
         $bot->setState($room->room_id, 'm.room.power_levels', '', $pls);
 
         // Kick anyone who isn't supposed to be there
-        foreach ($joinedUserIds as $mxid) {
-            if (!in_array($mxid, $allowedUserIds)) {
-                $bot->kickUser($mxid, $room->room_id);
+        foreach ($joinedUserIds as $matrixUserId) {
+            if (!in_array($matrixUserId, $allowedUserIds)) {
+                $bot->kickUser($matrixUserId, $room->room_id);
             }
         }
     }
