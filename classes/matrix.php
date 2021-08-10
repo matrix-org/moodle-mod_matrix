@@ -181,7 +181,7 @@ final class matrix
         }
     }
 
-    public static function synchronizeRoomMembers($courseId, $groupId = null)
+    public static function synchronizeRoomMembers($courseId, $groupId = null): void
     {
         global $DB;
 
