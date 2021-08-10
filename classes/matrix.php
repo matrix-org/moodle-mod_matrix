@@ -260,7 +260,11 @@ final class matrix
             'mod/matrix:staff'
         );
 
-        $pls = $bot->getState($room->room_id, 'm.room.power_levels', '');
+        $pls = $bot->getState(
+            $room->room_id,
+            'm.room.power_levels',
+            ''
+        );
 
         $pls['users'] = [
             $bot->whoami() => 100,
