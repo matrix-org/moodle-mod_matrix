@@ -209,10 +209,10 @@ final class matrix
             $groupId = 0;
         } // Moodle wants zero instead of null
 
-        $cc = context_course::instance($courseId);
+        $context = context_course::instance($courseId);
 
         $users = get_enrolled_users(
-            $cc,
+            $context,
             'mod/matrix:view',
             $groupId
         ); // assoc of uid => user
@@ -248,7 +248,7 @@ final class matrix
         }
 
         // Get all the staff users
-        $staff = get_users_by_capability($cc, 'mod/matrix:staff');
+        $staff = get_users_by_capability($context, 'mod/matrix:staff');
 
         $pls = $bot->getState($room->room_id, 'm.room.power_levels', '');
 
