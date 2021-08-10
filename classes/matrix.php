@@ -191,7 +191,7 @@ final class matrix
             $groupId = null;
         } // we treat zero as null, but Moodle doesn't
 
-        $mapping = $DB->get_record(
+        $room = $DB->get_record(
             'matrix_rooms',
             [
                 'course_id' => $courseId,
@@ -201,7 +201,7 @@ final class matrix
             IGNORE_MISSING
         );
 
-        if (!$mapping) {
+        if (!$room) {
             return; // nothing to do
         }
 
@@ -219,7 +219,7 @@ final class matrix
 
         $allowedUserIds = [$bot->whoami()];
 
-        $joinedUserIds = $bot->getEffectiveJoins($mapping->room_id);
+        $joinedUserIds = $bot->getEffectiveJoins($room->room_id);
 
         foreach ($users as $uid => $user) {
             profile_load_custom_fields($user);
@@ -239,14 +239,14 @@ final class matrix
             $allowedUserIds[] = $mxid;
 
             if (!in_array($mxid, $joinedUserIds)) {
-                $bot->inviteUser($mxid, $mapping->room_id);
+                $bot->inviteUser($mxid, $room->room_id);
             }
         }
 
         // Get all the staff users
         $staff = get_users_by_capability($cc, 'mod/matrix:staff');
 
-        $pls = $bot->getState($mapping->room_id, 'm.room.power_levels', '');
+        $pls = $bot->getState($room->room_id, 'm.room.power_levels', '');
 
         $pls['users'] = [
             $bot->whoami() => 100,
@@ -270,17 +270,17 @@ final class matrix
             $allowedUserIds[] = $mxid;
 
             if (!in_array($mxid, $joinedUserIds)) {
-                $bot->inviteUser($mxid, $mapping->room_id);
+                $bot->inviteUser($mxid, $room->room_id);
             }
 
             $pls['users'][$mxid] = 99;
         }
-        $bot->setState($mapping->room_id, 'm.room.power_levels', '', $pls);
+        $bot->setState($room->room_id, 'm.room.power_levels', '', $pls);
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $mxid) {
             if (!in_array($mxid, $allowedUserIds)) {
-                $bot->kickUser($mxid, $mapping->room_id);
+                $bot->kickUser($mxid, $room->room_id);
             }
         }
     }
