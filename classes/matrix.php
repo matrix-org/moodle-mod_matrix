@@ -163,7 +163,9 @@ final class matrix
         $conditions = null;
 
         if ($courseId) {
-            $conditions = ['course_id' => $courseId];
+            $conditions = [
+                'course_id' => $courseId,
+            ];
         }
 
         $rooms = $DB->get_records(
@@ -172,7 +174,10 @@ final class matrix
         );
 
         foreach ($rooms as $room) {
-            self::sync_room_members($room->course_id, $room->group_id);
+            self::sync_room_members(
+                $room->course_id,
+                $room->group_id
+            );
         }
     }
 
