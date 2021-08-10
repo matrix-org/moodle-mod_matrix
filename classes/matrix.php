@@ -260,13 +260,13 @@ final class matrix
             'mod/matrix:staff'
         );
 
-        $pls = $bot->getState(
+        $powerLevels = $bot->getState(
             $room->room_id,
             'm.room.power_levels',
             ''
         );
 
-        $pls['users'] = [
+        $powerLevels['users'] = [
             $bot->whoami() => 100,
         ];
 
@@ -294,9 +294,9 @@ final class matrix
                 );
             }
 
-            $pls['users'][$matrixUserId] = 99;
+            $powerLevels['users'][$matrixUserId] = 99;
         }
-        $bot->setState($room->room_id, 'm.room.power_levels', '', $pls);
+        $bot->setState($room->room_id, 'm.room.power_levels', '', $powerLevels);
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $matrixUserId) {
