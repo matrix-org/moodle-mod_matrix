@@ -89,16 +89,16 @@ function matrix_add_instance($matrix)
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1034-L1040
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1054-L1057
  *
- * @param object $matrix
+ * @param object $id
  */
-function matrix_delete_instance($matrix): bool
+function matrix_delete_instance($id): bool
 {
     global $DB;
 
     // TODO: Delete rooms too?
 
     $hasDeletedInstance = $DB->delete_records('matrix', [
-        'id' => $matrix->id,
+        'id' => $id,
     ]);
 
     if (!$hasDeletedInstance) {
