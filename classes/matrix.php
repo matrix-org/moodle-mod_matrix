@@ -150,17 +150,17 @@ final class matrix
         if (!$existingMapping) {
             $roomId = $bot->createRoom($roomOptions);
 
-            $roomMapping = new \stdClass();
+            $room = new \stdClass();
 
-            $roomMapping->course_id = $courseId;
-            $roomMapping->group_id = null;
-            $roomMapping->room_id = $roomId;
-            $roomMapping->timecreated = time();
-            $roomMapping->timemodified = 0;
+            $room->course_id = $courseId;
+            $room->group_id = null;
+            $room->room_id = $roomId;
+            $room->timecreated = time();
+            $room->timemodified = 0;
 
             $DB->insert_record(
                 'matrix_rooms',
-                $roomMapping
+                $room
             );
         }
 
