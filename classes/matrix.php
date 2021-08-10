@@ -227,7 +227,7 @@ final class matrix
 
         $joinedUserIds = $bot->getEffectiveJoins($room->room_id);
 
-        foreach ($users as $uid => $user) {
+        foreach ($users as $user) {
             profile_load_custom_fields($user);
 
             $profile = $user->profile;
