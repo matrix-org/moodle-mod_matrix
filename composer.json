@@ -24,5 +24,11 @@
       "php": "7.2.33"
     },
     "sort-packages": true
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "mod_matrix\\": "classes/",
+      "mod_matrix\\test\\": "test/"
+    }
   }
 }
