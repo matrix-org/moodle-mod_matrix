@@ -1,5 +1,5 @@
 .PHONY: it
-it: coding-standards ## Runs the coding-standards and directory target
+it: coding-standards tests ## Runs the coding-standards and tests target
 
 .PHONY: coding-standards
 coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-normalize and fixes code style issues with friendsofphp/php-cs-fixer
@@ -23,6 +23,11 @@ release: docker-down ## Compresses all files required to install mod_matrix as a
 	rm -rf vendor/
 	composer install --no-dev --no-interaction --no-progress
 	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" .DS_Store .editorconfig .gitignore .php-cs-fixer.php Makefile README.md
+
+.PHONY: tests
+tests: vendor ## Runs unit tests with phpunit/phpunit
+	mkdir -p .build/phpunit
+	vendor/bin/phpunit --configuration=test/unit/phpunit.xml
 
 vendor: composer.json composer.lock
 	composer validate --strict
