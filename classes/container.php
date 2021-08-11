@@ -19,8 +19,23 @@ final class container
      */
     private static $instance;
 
+    /**
+     * @var array<string, \Closure>
+     */
+    private $definitions = [];
+
+    /**
+     * @var array<string, object>
+     */
+    private $services = [];
+
     private function __construct()
     {
+        $this->define(configuration::class, static function (): configuration {
+            $object = get_config('mod_matrix');
+
+            return configuration::fromObject($object);
+        });
     }
 
     public static function instance(): self
@@ -34,8 +49,48 @@ final class container
 
     public function configuration(): configuration
     {
-        $object = get_config('mod_matrix');
+        return $this->resolve(configuration::class);
+    }
 
-        return configuration::fromObject($object);
+    /**
+     * @throws \InvalidArgumentException
+     */
+    private function define(string $identifier, \Closure $closure): void
+    {
+        if (array_key_exists($identifier, $this->definitions)) {
+            throw new \InvalidArgumentException(sprintf(
+                'A service definition for identifier "%s" has already been registered.',
+                $identifier
+            ));
+        }
+
+        $container = $this;
+
+        $this->definitions[$identifier] = static function () use ($closure, $container) {
+            return $closure($container);
+        };
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    private function resolve(string $identifier)
+    {
+        if (!array_key_exists($identifier, $this->definitions)) {
+            throw new \InvalidArgumentException(sprintf(
+                'A service definition for identifier "%s" has not been registered.',
+                $identifier
+            ));
+        }
+
+        if (!array_key_exists($identifier, $this->services)) {
+            $definition = $this->definitions[$identifier];
+
+            $service = $definition($this);
+
+            $this->services[$identifier] = $service;
+        }
+
+        return $this->services[$identifier];
     }
 }
