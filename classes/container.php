@@ -31,6 +31,15 @@ final class container
 
     private function __construct()
     {
+        $this->define(bot::class, static function (self $container): bot {
+            $configuration = $container->configuration();
+
+            return new bot(
+                $configuration->hsUrl(),
+                $configuration->accessToken()
+            );
+        });
+
         $this->define(configuration::class, static function (): configuration {
             $object = get_config('mod_matrix');
 
@@ -45,6 +54,11 @@ final class container
         }
 
         return self::$instance;
+    }
+
+    public function bot(): bot
+    {
+        return $this->resolve(bot::class);
     }
 
     public function configuration(): configuration

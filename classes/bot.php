@@ -29,19 +29,6 @@ class bot
     }
 
     /**
-     * @throws \RuntimeException
-     */
-    public static function instance(): self
-    {
-        $configuration = container::instance()->configuration();
-
-        return new self(
-            $configuration->hsUrl(),
-            $configuration->accessToken()
-        );
-    }
-
-    /**
      * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
      */
     public function whoami()

@@ -46,7 +46,7 @@ final class matrix
 
         $course = get_course($courseId);
 
-        $bot = bot::instance();
+        $bot = container::instance()->bot();
 
         $whoami = $bot->whoami();
 
@@ -196,7 +196,7 @@ final class matrix
     {
         global $DB;
 
-        $bot = bot::instance();
+        $bot = container::instance()->bot();
 
         if (0 == $groupId) {
             $groupId = null;
