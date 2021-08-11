@@ -31,10 +31,10 @@ final class matrix
 
     public static function urlForRoom($roomId): string
     {
-        $conf = get_config('mod_matrix');
+        $configuration = container::instance()->configuration();
 
-        if ($conf->element_url) {
-            return $conf->element_url . '/#/room/' . $roomId;
+        if ('' !== trim($configuration->elementUrl())) {
+            return $configuration->elementUrl() . '/#/room/' . $roomId;
         }
 
         return 'https://matrix.to/#/' . $roomId;

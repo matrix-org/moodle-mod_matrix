@@ -31,4 +31,11 @@ final class container
 
         return self::$instance;
     }
+
+    public function configuration(): configuration
+    {
+        $object = get_config('mod_matrix');
+
+        return configuration::fromObject($object);
+    }
 }
