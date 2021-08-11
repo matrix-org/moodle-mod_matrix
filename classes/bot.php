@@ -195,7 +195,7 @@ class bot
         return $userIds;
     }
 
-    public function debug($val)
+    public function debug($val): void
     {
         $val = var_export($val, true);
 

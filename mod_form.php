@@ -12,7 +12,7 @@ require_once $CFG->dirroot . '/course/moodleform_mod.php';
 
 class mod_matrix_mod_form extends moodleform_mod
 {
-    protected function definition()
+    protected function definition(): void
     {
         // We don't have any config options
         $this->apply_admin_defaults();

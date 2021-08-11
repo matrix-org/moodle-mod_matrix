@@ -18,7 +18,7 @@ use PHPUnit\Framework;
  */
 final class ContainerTest extends Framework\TestCase
 {
-    public function testInstanceReturnsSameContainer()
+    public function testInstanceReturnsSameContainer(): void
     {
         $container = container::instance();
 
