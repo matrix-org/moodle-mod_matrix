@@ -26,9 +26,13 @@
     },
     "sort-packages": true
   },
+  "autoload": {
+    "psr-4": {
+      "mod_matrix\\": "classes/"
+    }
+  },
   "autoload-dev": {
     "psr-4": {
-      "mod_matrix\\": "classes/",
       "mod_matrix\\test\\": "test/"
     }
   }
