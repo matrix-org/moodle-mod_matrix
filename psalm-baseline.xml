@@ -1,2 +1,409 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.9.3@4c262932602b9bbab5020863d1eb22d49de0dbf4"/>
+<files psalm-version="4.9.3@4c262932602b9bbab5020863d1eb22d49de0dbf4">
+  <file src="index.php">
+    <MissingFile occurrences="1">
+      <code>require_once '../../config.php'</code>
+    </MissingFile>
+    <MixedAssignment occurrences="2">
+      <code>$course</code>
+      <code>$id</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="1">
+      <code>get_record</code>
+    </MixedMethodCall>
+    <UndefinedFunction occurrences="2">
+      <code>print_error('Course ID is incorrect')</code>
+      <code>required_param('id', PARAM_INT)</code>
+    </UndefinedFunction>
+    <UndefinedGlobalVariable occurrences="1">
+      <code>$DB</code>
+    </UndefinedGlobalVariable>
+    <UnusedVariable occurrences="1">
+      <code>$course</code>
+    </UnusedVariable>
+  </file>
+  <file src="lib.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>is_string($feature)</code>
+    </DocblockTypeContradiction>
+    <InvalidGlobal occurrences="1">
+      <code>global $CFG;</code>
+    </InvalidGlobal>
+    <MissingReturnType occurrences="2">
+      <code>matrix_add_instance</code>
+      <code>matrix_update_instance</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$groups</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="3">
+      <code>$group</code>
+      <code>$groups</code>
+      <code>$hasDeletedInstance</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="2">
+      <code>delete_records</code>
+      <code>insert_record</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="1">
+      <code>$group-&gt;id</code>
+    </MixedPropertyFetch>
+    <UndefinedConstant occurrences="10">
+      <code>FEATURE_BACKUP_MOODLE2</code>
+      <code>FEATURE_COMPLETION_HAS_RULES</code>
+      <code>FEATURE_COMPLETION_TRACKS_VIEWS</code>
+      <code>FEATURE_GRADE_HAS_GRADE</code>
+      <code>FEATURE_GRADE_OUTCOMES</code>
+      <code>FEATURE_GROUPINGS</code>
+      <code>FEATURE_GROUPS</code>
+      <code>FEATURE_IDNUMBER</code>
+      <code>FEATURE_MOD_INTRO</code>
+      <code>FEATURE_SHOW_DESCRIPTION</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="2">
+      <code>get_string('activity_default_name', 'matrix')</code>
+    </UndefinedFunction>
+  </file>
+  <file src="mod_form.php">
+    <MixedOperand occurrences="1">
+      <code>$CFG-&gt;dirroot</code>
+    </MixedOperand>
+    <MixedPropertyFetch occurrences="1">
+      <code>$CFG-&gt;dirroot</code>
+    </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>moodleform_mod</code>
+    </UndefinedClass>
+    <UndefinedGlobalVariable occurrences="1">
+      <code>$CFG</code>
+    </UndefinedGlobalVariable>
+    <UnresolvableInclude occurrences="1">
+      <code>require_once $CFG-&gt;dirroot . '/course/moodleform_mod.php'</code>
+    </UnresolvableInclude>
+  </file>
+  <file src="settings.php">
+    <InvalidClass occurrences="1">
+      <code>matrix\configuration</code>
+    </InvalidClass>
+    <MixedArgument occurrences="7">
+      <code>get_string('adm_eleurl_desc', 'matrix')</code>
+      <code>get_string('adm_eleurl_name', 'matrix')</code>
+      <code>get_string('adm_homeserver', 'matrix')</code>
+      <code>get_string('adm_hstoken_desc', 'matrix')</code>
+      <code>get_string('adm_hstoken_name', 'matrix')</code>
+      <code>get_string('adm_hsurl_desc', 'matrix')</code>
+      <code>get_string('adm_hsurl_name', 'matrix')</code>
+    </MixedArgument>
+    <UndefinedFunction occurrences="7">
+      <code>get_string('adm_eleurl_desc', 'matrix')</code>
+      <code>get_string('adm_eleurl_name', 'matrix')</code>
+      <code>get_string('adm_homeserver', 'matrix')</code>
+      <code>get_string('adm_hstoken_desc', 'matrix')</code>
+      <code>get_string('adm_hstoken_name', 'matrix')</code>
+      <code>get_string('adm_hsurl_desc', 'matrix')</code>
+      <code>get_string('adm_hsurl_name', 'matrix')</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Container.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>self::$instance instanceof self</code>
+    </DocblockTypeContradiction>
+    <MissingClosureReturnType occurrences="1">
+      <code>static function () use ($closure, $container) {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="1">
+      <code>resolve</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$object</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$object</code>
+      <code>$service</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="3">
+      <code>Matrix\Api</code>
+      <code>Matrix\Configuration</code>
+      <code>Matrix\Service</code>
+    </MixedInferredReturnType>
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>$this-&gt;services</code>
+    </MixedPropertyTypeCoercion>
+    <MixedReturnStatement occurrences="3">
+      <code>$this-&gt;resolve(Matrix\Api::class)</code>
+      <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
+      <code>$this-&gt;resolve(Matrix\Service::class)</code>
+    </MixedReturnStatement>
+    <UndefinedFunction occurrences="1">
+      <code>get_config('mod_matrix')</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Matrix/Api.php">
+    <InvalidOperand occurrences="1">
+      <code>mt_rand(0, 100)</code>
+    </InvalidOperand>
+    <MissingParamType occurrences="1">
+      <code>$val</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="8">
+      <code>createRoom</code>
+      <code>getEffectiveJoins</code>
+      <code>getState</code>
+      <code>inviteUser</code>
+      <code>kickUser</code>
+      <code>request</code>
+      <code>setState</code>
+      <code>whoami</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="11">
+      <code>$content</code>
+      <code>$eventType</code>
+      <code>$eventType</code>
+      <code>$opts</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$stateKey</code>
+      <code>$stateKey</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="7">
+      <code>$ev['content']</code>
+      <code>$ev['content']['membership']</code>
+      <code>$ev['content']['membership']</code>
+      <code>$ev['state_key']</code>
+      <code>$members['chunk']</code>
+      <code>$r['room_id']</code>
+      <code>$r['user_id']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="6">
+      <code>$ev</code>
+      <code>$members</code>
+      <code>$membership</code>
+      <code>$r</code>
+      <code>$r</code>
+      <code>$userIds[]</code>
+    </MixedAssignment>
+    <MixedOperand occurrences="2">
+      <code>$curl-&gt;errorCode</code>
+      <code>$curl-&gt;errorMessage</code>
+    </MixedOperand>
+    <RedundantCondition occurrences="1">
+      <code>'PUT' === $method</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Matrix/Service.php">
+    <MissingParamType occurrences="6">
+      <code>$courseId</code>
+      <code>$courseId</code>
+      <code>$courseId</code>
+      <code>$groupId</code>
+      <code>$groupId</code>
+      <code>$roomId</code>
+    </MissingParamType>
+    <MixedArgument occurrences="3">
+      <code>$courseId</code>
+      <code>$joinedUserIds</code>
+      <code>$joinedUserIds</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$profile['matrix_user_id']</code>
+      <code>$profile['matrix_user_id']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="2">
+      <code>$powerLevels['users']</code>
+      <code>$powerLevels['users']</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="3">
+      <code>$powerLevels['users'][$matrixUserId]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="23">
+      <code>$allowedUserIds[]</code>
+      <code>$allowedUserIds[]</code>
+      <code>$course</code>
+      <code>$existingRoom</code>
+      <code>$existingRoomForGroup</code>
+      <code>$group</code>
+      <code>$joinedUserIds</code>
+      <code>$matrixUserId</code>
+      <code>$matrixUserId</code>
+      <code>$matrixUserId</code>
+      <code>$powerLevels</code>
+      <code>$profile</code>
+      <code>$profile</code>
+      <code>$room</code>
+      <code>$room</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$roomOptions['creation_content']['org.matrix.moodle.group_id']</code>
+      <code>$rooms</code>
+      <code>$user</code>
+      <code>$user</code>
+      <code>$users</code>
+      <code>$whoami</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="6">
+      <code>get_record</code>
+      <code>get_record</code>
+      <code>get_record</code>
+      <code>get_records</code>
+      <code>insert_record</code>
+      <code>insert_record</code>
+    </MixedMethodCall>
+    <MixedOperand occurrences="6">
+      <code>$CFG-&gt;wwwroot</code>
+      <code>$course-&gt;fullname</code>
+      <code>$courseId</code>
+      <code>$group-&gt;name</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+    </MixedOperand>
+    <MixedPropertyFetch occurrences="9">
+      <code>$CFG-&gt;wwwroot</code>
+      <code>$course-&gt;fullname</code>
+      <code>$group-&gt;id</code>
+      <code>$group-&gt;name</code>
+      <code>$room-&gt;course_id</code>
+      <code>$room-&gt;group_id</code>
+      <code>$room-&gt;room_id</code>
+      <code>$user-&gt;profile</code>
+      <code>$user-&gt;profile</code>
+    </MixedPropertyFetch>
+    <UndefinedConstant occurrences="3">
+      <code>IGNORE_MISSING</code>
+      <code>IGNORE_MISSING</code>
+      <code>IGNORE_MISSING</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="5">
+      <code>get_course($courseId)</code>
+      <code>groups_get_group($groupId)</code>
+      <code>profile_load_custom_fields($user)</code>
+      <code>profile_load_custom_fields($user)</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Observer.php">
+    <MissingParamType occurrences="2">
+      <code>$event</code>
+      <code>$event</code>
+    </MissingParamType>
+    <MixedAssignment occurrences="2">
+      <code>$instances</code>
+      <code>$instances</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="2">
+      <code>get_records</code>
+      <code>get_records</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="3">
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;objectid</code>
+    </MixedPropertyFetch>
+  </file>
+  <file src="test/Unit/Twitter/BootstrapTest.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\Generator</code>
+    </MixedInferredReturnType>
+  </file>
+  <file src="version.php">
+    <MixedPropertyAssignment occurrences="6">
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+    </MixedPropertyAssignment>
+    <UndefinedGlobalVariable occurrences="6">
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+      <code>$plugin</code>
+    </UndefinedGlobalVariable>
+  </file>
+  <file src="view.php">
+    <MissingFile occurrences="1">
+      <code>require '../../config.php'</code>
+    </MissingFile>
+    <MixedArgument occurrences="14">
+      <code>$course-&gt;fullname</code>
+      <code>$groups</code>
+      <code>$matrix-&gt;name</code>
+      <code>$visibleGroups</code>
+      <code>$visibleGroups</code>
+      <code>$visibleGroups</code>
+      <code>MUST_EXIST</code>
+      <code>get_string('liketologin')</code>
+      <code>get_string('vw_alert_many_rooms', 'matrix')</code>
+      <code>get_string('vw_error_no_groups', 'matrix')</code>
+      <code>get_string('vw_error_no_room_in_group', 'matrix')</code>
+      <code>get_string('vw_error_no_rooms', 'matrix')</code>
+      <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
+      <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$cm</code>
+      <code>$course</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="12">
+      <code>$firstPossibleRoom</code>
+      <code>$group</code>
+      <code>$group</code>
+      <code>$groups</code>
+      <code>$id</code>
+      <code>$id</code>
+      <code>$matrix</code>
+      <code>$name</code>
+      <code>$room</code>
+      <code>$room</code>
+      <code>$visibleGroups</code>
+      <code>[$course, $cm]</code>
+    </MixedAssignment>
+    <MixedOperand occurrences="1">
+      <code>$name</code>
+    </MixedOperand>
+    <MixedPropertyFetch occurrences="11">
+      <code>$cm-&gt;id</code>
+      <code>$cm-&gt;instance</code>
+      <code>$course-&gt;fullname</code>
+      <code>$course-&gt;id</code>
+      <code>$firstPossibleRoom-&gt;room_id</code>
+      <code>$group-&gt;id</code>
+      <code>$group-&gt;id</code>
+      <code>$matrix-&gt;course</code>
+      <code>$matrix-&gt;name</code>
+      <code>$room-&gt;room_id</code>
+      <code>$room-&gt;room_id</code>
+    </MixedPropertyFetch>
+    <UndefinedConstant occurrences="2">
+      <code>MUST_EXIST</code>
+      <code>PARAM_INT</code>
+    </UndefinedConstant>
+    <UndefinedFunction occurrences="18">
+      <code>get_course_and_cm_from_cmid($id, 'matrix')</code>
+      <code>get_login_url()</code>
+      <code>get_string('liketologin')</code>
+      <code>get_string('vw_alert_many_rooms', 'matrix')</code>
+      <code>get_string('vw_error_no_groups', 'matrix')</code>
+      <code>get_string('vw_error_no_room_in_group', 'matrix')</code>
+      <code>get_string('vw_error_no_rooms', 'matrix')</code>
+      <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
+      <code>get_string('vw_join_btn', 'matrix')</code>
+      <code>get_string('vw_join_btn', 'matrix')</code>
+      <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
+      <code>groups_get_activity_allowed_groups($cm)</code>
+      <code>groups_get_all_groups($matrix-&gt;course, 0, 0, 'g.*', true)</code>
+      <code>groups_get_group_name($group-&gt;id)</code>
+      <code>has_capability('mod/matrix:view', $PAGE-&gt;context)</code>
+      <code>isguestuser()</code>
+      <code>require_login($course, true, $cm)</code>
+      <code>required_param('id', PARAM_INT)</code>
+    </UndefinedFunction>
+    <UnusedVariable occurrences="1">
+      <code>$id</code>
+    </UnusedVariable>
+  </file>
+</files>
