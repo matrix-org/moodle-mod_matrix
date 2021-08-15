@@ -1,5 +1,5 @@
 .PHONY: it
-it: coding-standards tests ## Runs the coding-standards and tests target
+it: coding-standards static-code-analysis tests ## Runs the coding-standards, static-code-analysis, and tests target
 
 .PHONY: coding-standards
 coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-normalize and fixes code style issues with friendsofphp/php-cs-fixer
@@ -24,8 +24,18 @@ release: docker-down ## Compresses all files required to install mod_matrix as a
 	mv vendor .build/vendor
 	rm -rf vendor
 	composer install --no-dev --no-interaction --no-progress
-	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" .DS_Store .editorconfig .gitignore .php-cs-fixer.php Makefile README.md
+	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" .DS_Store .editorconfig .gitignore .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md
 	mv .build/vendor vendor
+
+.PHONY: static-code-analysis
+static-code-analysis: vendor ## Runs a static code analysis with vimeo/psalm
+	mkdir -p .build/psalm
+	vendor/bin/psalm --config=psalm.xml --diff --show-info=false --stats --threads=4
+
+.PHONY: static-code-analysis-baseline
+static-code-analysis-baseline: vendor ## Generates a baseline for static code analysis with phpstan/phpstan and vimeo/psalm
+	mkdir -p .build/psalm
+	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml
 
 .PHONY: tests
 tests: vendor ## Runs unit tests with phpunit/phpunit
