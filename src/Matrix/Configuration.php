@@ -59,13 +59,6 @@ final class Configuration
             ));
         }
 
-        if (!property_exists($object, 'hs_url')) {
-            throw new \InvalidArgumentException(sprintf(
-                'Configuration should have an "%s" property, but it does not.',
-                'hs_url'
-            ));
-        }
-
         if (!property_exists($object, 'element_url')) {
             throw new \InvalidArgumentException(sprintf(
                 'Configuration should have an "%s" property, but it does not.',
@@ -80,6 +73,13 @@ final class Configuration
                 'Configuration "%s" should be a string, got "%s" instead..',
                 'element_url',
                 is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl)
+            ));
+        }
+
+        if (!property_exists($object, 'hs_url')) {
+            throw new \InvalidArgumentException(sprintf(
+                'Configuration should have an "%s" property, but it does not.',
+                'hs_url'
             ));
         }
 
