@@ -13,7 +13,7 @@ namespace mod_matrix\matrix;
 use context_course;
 use mod_matrix\container;
 
-final class matrix
+final class service
 {
     public static function urlForRoom($roomId): string
     {
