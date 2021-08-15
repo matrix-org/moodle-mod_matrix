@@ -72,13 +72,13 @@ function matrix_add_instance($matrix)
 
     if (count($groups) > 0) {
         foreach ($groups as $group) {
-            matrix::prepareRoomForGroup(
+            matrix\matrix::prepareRoomForGroup(
                 $matrix->course,
                 $group->id
             );
         }
     } else {
-        matrix::prepareRoomForGroup($matrix->course);
+        matrix\matrix::prepareRoomForGroup($matrix->course);
     }
 
     return $matrix->id;

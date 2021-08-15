@@ -29,7 +29,7 @@ class observer
             return;
         }
 
-        matrix::synchronizeRoomMembers(
+        matrix\matrix::synchronizeRoomMembers(
             $event->courseid,
             $event->objectid
         );
@@ -50,7 +50,7 @@ class observer
             return;
         }
 
-        matrix::prepareRoomForGroup(
+        matrix\matrix::prepareRoomForGroup(
             $event->courseid,
             $event->objectid
         );
@@ -58,11 +58,11 @@ class observer
 
     public static function onRoleChanged(): void
     {
-        matrix::resync_all(null); // ALL the rooms
+        matrix\matrix::resync_all(null); // ALL the rooms
     }
 
     public static function onUserEnrolmentChanged($event): void
     {
-        matrix::resync_all($event->courseid);
+        matrix\matrix::resync_all($event->courseid);
     }
 }

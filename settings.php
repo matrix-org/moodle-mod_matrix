@@ -23,7 +23,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/hs_url',
         get_string('adm_hsurl_name', 'matrix'),
         get_string('adm_hsurl_desc', 'matrix'),
-        matrix::DEFAULT_HS_URL,
+        matrix\matrix::DEFAULT_HS_URL,
         PARAM_TEXT
     ));
 
@@ -31,7 +31,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/access_token',
         get_string('adm_hstoken_name', 'matrix'),
         get_string('adm_hstoken_desc', 'matrix'),
-        matrix::DEFAULT_ACCESS_TOKEN,
+        matrix\matrix::DEFAULT_ACCESS_TOKEN,
         PARAM_TEXT
     ));
 
@@ -39,7 +39,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/element_url',
         get_string('adm_eleurl_name', 'matrix'),
         get_string('adm_eleurl_desc', 'matrix'),
-        matrix::DEFAULT_ELEMENT_URL,
+        matrix\matrix::DEFAULT_ELEMENT_URL,
         PARAM_TEXT
     ));
 }
