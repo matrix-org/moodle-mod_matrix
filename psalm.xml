@@ -10,6 +10,10 @@
     resolveFromConfigFile="true"
     strictBinaryOperands="true"
 >
+    <extraFiles>
+        <directory name="vendor/moodle/moodle/lib/" />
+    </extraFiles>
+
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
     </plugins>
