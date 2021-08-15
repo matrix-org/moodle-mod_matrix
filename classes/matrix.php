@@ -46,9 +46,9 @@ final class matrix
 
         $course = get_course($courseId);
 
-        $bot = container::instance()->bot();
+        $api = container::instance()->api();
 
-        $whoami = $bot->whoami();
+        $whoami = $api->whoami();
 
         $roomOptions = [
             'name' => $course->fullname,
@@ -113,7 +113,7 @@ final class matrix
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
 
-                $roomId = $bot->createRoom($roomOptions);
+                $roomId = $api->createRoom($roomOptions);
 
                 $roomForGroup = new \stdClass();
 
@@ -148,7 +148,7 @@ final class matrix
         );
 
         if (!$existingRoom) {
-            $roomId = $bot->createRoom($roomOptions);
+            $roomId = $api->createRoom($roomOptions);
 
             $room = new \stdClass();
 
@@ -196,7 +196,7 @@ final class matrix
     {
         global $DB;
 
-        $bot = container::instance()->bot();
+        $api = container::instance()->api();
 
         if (0 == $groupId) {
             $groupId = null;
@@ -233,10 +233,10 @@ final class matrix
         } // use an empty array
 
         $allowedUserIds = [
-            $bot->whoami(),
+            $api->whoami(),
         ];
 
-        $joinedUserIds = $bot->getEffectiveJoins($room->room_id);
+        $joinedUserIds = $api->getEffectiveJoins($room->room_id);
 
         foreach ($users as $user) {
             profile_load_custom_fields($user);
@@ -259,7 +259,7 @@ final class matrix
                 continue;
             }
 
-            $bot->inviteUser(
+            $api->inviteUser(
                 $matrixUserId,
                 $room->room_id
             );
@@ -271,14 +271,14 @@ final class matrix
             'mod/matrix:staff'
         );
 
-        $powerLevels = $bot->getState(
+        $powerLevels = $api->getState(
             $room->room_id,
             'm.room.power_levels',
             ''
         );
 
         $powerLevels['users'] = [
-            $bot->whoami() => 100,
+            $api->whoami() => 100,
         ];
 
         foreach ($staff as $user) {
@@ -299,7 +299,7 @@ final class matrix
             $allowedUserIds[] = $matrixUserId;
 
             if (!in_array($matrixUserId, $joinedUserIds)) {
-                $bot->inviteUser(
+                $api->inviteUser(
                     $matrixUserId,
                     $room->room_id
                 );
@@ -308,7 +308,7 @@ final class matrix
             $powerLevels['users'][$matrixUserId] = 99;
         }
 
-        $bot->setState(
+        $api->setState(
             $room->room_id,
             'm.room.power_levels',
             '',
@@ -321,7 +321,7 @@ final class matrix
                 continue;
             }
 
-            $bot->kickUser(
+            $api->kickUser(
                 $matrixUserId,
                 $room->room_id
             );
