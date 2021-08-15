@@ -49,21 +49,21 @@ function matrix_supports($feature)
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
  *
- * @param object $matrix
+ * @param object $module
  */
-function matrix_add_instance($matrix)
+function matrix_add_instance($module)
 {
     global $DB;
 
-    $matrix->timecreated = time();
-    $matrix->timemodified = 0;
-    $matrix->name = get_string('activity_default_name', 'matrix');
-    $matrix->id = $DB->insert_record('matrix', $matrix);
+    $module->timecreated = time();
+    $module->timemodified = 0;
+    $module->name = get_string('activity_default_name', 'matrix');
+    $module->id = $DB->insert_record('matrix', $module);
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
     $groups = groups_get_all_groups(
-        $matrix->course,
+        $module->course,
         0,
         0,
         'g.*',
@@ -73,15 +73,15 @@ function matrix_add_instance($matrix)
     if (count($groups) > 0) {
         foreach ($groups as $group) {
             matrix\matrix::prepareRoomForGroup(
-                $matrix->course,
+                $module->course,
                 $group->id
             );
         }
     } else {
-        matrix\matrix::prepareRoomForGroup($matrix->course);
+        matrix\matrix::prepareRoomForGroup($module->course);
     }
 
-    return $matrix->id;
+    return $module->id;
 }
 
 /**
