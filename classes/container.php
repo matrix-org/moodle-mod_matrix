@@ -45,6 +45,13 @@ final class container
 
             return configuration::fromObject($object);
         });
+
+        $this->define(matrix\service::class, static function (self $container): matrix\service {
+            return new matrix\service(
+                $container->api(),
+                $container->configuration()
+            );
+        });
     }
 
     public static function instance(): self
@@ -64,6 +71,11 @@ final class container
     public function configuration(): configuration
     {
         return $this->resolve(configuration::class);
+    }
+
+    public function service(): matrix\service
+    {
+        return $this->resolve(matrix\service::class);
     }
 
     /**

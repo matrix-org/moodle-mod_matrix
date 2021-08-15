@@ -29,7 +29,9 @@ class observer
             return;
         }
 
-        matrix\service::synchronizeRoomMembers(
+        $service = container::instance()->service();
+
+        $service->synchronizeRoomMembers(
             $event->courseid,
             $event->objectid
         );
@@ -50,7 +52,9 @@ class observer
             return;
         }
 
-        matrix\service::prepareRoomForGroup(
+        $service = container::instance()->service();
+
+        $service->prepareRoomForGroup(
             $event->courseid,
             $event->objectid
         );
@@ -58,11 +62,15 @@ class observer
 
     public static function onRoleChanged(): void
     {
-        matrix\service::resync_all(null); // ALL the rooms
+        $service = container::instance()->service();
+
+        $service->resync_all(null); // ALL the rooms
     }
 
     public static function onUserEnrolmentChanged($event): void
     {
-        matrix\service::resync_all($event->courseid);
+        $service = container::instance()->service();
+
+        $service->resync_all($event->courseid);
     }
 }

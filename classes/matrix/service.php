@@ -11,30 +11,38 @@ declare(strict_types=1);
 namespace mod_matrix\matrix;
 
 use context_course;
-use mod_matrix\container;
+use mod_matrix\configuration;
 
 final class service
 {
-    public static function urlForRoom($roomId): string
-    {
-        $configuration = container::instance()->configuration();
+    private $api;
 
-        if ('' !== trim($configuration->elementUrl())) {
-            return $configuration->elementUrl() . '/#/room/' . $roomId;
+    private $configuration;
+
+    public function __construct(
+        api $api,
+        configuration $configuration
+    ) {
+        $this->api = $api;
+        $this->configuration = $configuration;
+    }
+
+    public function urlForRoom($roomId): string
+    {
+        if ('' !== trim($this->configuration->elementUrl())) {
+            return $this->configuration->elementUrl() . '/#/room/' . $roomId;
         }
 
         return 'https://matrix.to/#/' . $roomId;
     }
 
-    public static function prepareRoomForGroup($courseId, $groupId = null): void
+    public function prepareRoomForGroup($courseId, $groupId = null): void
     {
         global $CFG, $DB;
 
         $course = get_course($courseId);
 
-        $api = container::instance()->api();
-
-        $whoami = $api->whoami();
+        $whoami = $this->api->whoami();
 
         $roomOptions = [
             'name' => $course->fullname,
@@ -99,7 +107,7 @@ final class service
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
 
-                $roomId = $api->createRoom($roomOptions);
+                $roomId = $this->api->createRoom($roomOptions);
 
                 $roomForGroup = new \stdClass();
 
@@ -115,7 +123,7 @@ final class service
                 );
             }
 
-            self::synchronizeRoomMembers(
+            $this->synchronizeRoomMembers(
                 $courseId,
                 $group->id
             );
@@ -134,7 +142,7 @@ final class service
         );
 
         if (!$existingRoom) {
-            $roomId = $api->createRoom($roomOptions);
+            $roomId = $this->api->createRoom($roomOptions);
 
             $room = new \stdClass();
 
@@ -150,10 +158,10 @@ final class service
             );
         }
 
-        self::synchronizeRoomMembers($courseId);
+        $this->synchronizeRoomMembers($courseId);
     }
 
-    public static function resync_all($courseId = null): void
+    public function resync_all($courseId = null): void
     {
         global $DB;
 
@@ -171,18 +179,16 @@ final class service
         );
 
         foreach ($rooms as $room) {
-            self::synchronizeRoomMembers(
+            $this->synchronizeRoomMembers(
                 $room->course_id,
                 $room->group_id
             );
         }
     }
 
-    public static function synchronizeRoomMembers($courseId, $groupId = null): void
+    public function synchronizeRoomMembers($courseId, $groupId = null): void
     {
         global $DB;
-
-        $api = container::instance()->api();
 
         if (0 == $groupId) {
             $groupId = null;
@@ -219,10 +225,10 @@ final class service
         } // use an empty array
 
         $allowedUserIds = [
-            $api->whoami(),
+            $this->api->whoami(),
         ];
 
-        $joinedUserIds = $api->getEffectiveJoins($room->room_id);
+        $joinedUserIds = $this->api->getEffectiveJoins($room->room_id);
 
         foreach ($users as $user) {
             profile_load_custom_fields($user);
@@ -245,7 +251,7 @@ final class service
                 continue;
             }
 
-            $api->inviteUser(
+            $this->api->inviteUser(
                 $matrixUserId,
                 $room->room_id
             );
@@ -257,14 +263,14 @@ final class service
             'mod/matrix:staff'
         );
 
-        $powerLevels = $api->getState(
+        $powerLevels = $this->api->getState(
             $room->room_id,
             'm.room.power_levels',
             ''
         );
 
         $powerLevels['users'] = [
-            $api->whoami() => 100,
+            $this->api->whoami() => 100,
         ];
 
         foreach ($staff as $user) {
@@ -285,7 +291,7 @@ final class service
             $allowedUserIds[] = $matrixUserId;
 
             if (!in_array($matrixUserId, $joinedUserIds)) {
-                $api->inviteUser(
+                $this->api->inviteUser(
                     $matrixUserId,
                     $room->room_id
                 );
@@ -294,7 +300,7 @@ final class service
             $powerLevels['users'][$matrixUserId] = 99;
         }
 
-        $api->setState(
+        $this->api->setState(
             $room->room_id,
             'm.room.power_levels',
             '',
@@ -307,7 +313,7 @@ final class service
                 continue;
             }
 
-            $api->kickUser(
+            $this->api->kickUser(
                 $matrixUserId,
                 $room->room_id
             );

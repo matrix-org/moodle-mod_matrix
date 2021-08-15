@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\matrix;
+use mod_matrix\container;
 use mod_matrix\twitter;
 
 require '../../config.php';
@@ -70,10 +70,12 @@ if (count($possibleRooms) === 0) {
     exit;
 }
 
+$service = container::instance()->service();
+
 if (count($possibleRooms) === 1) {
     $firstPossibleRoom = reset($possibleRooms);
 
-    $roomUrl = json_encode(matrix\service::urlForRoom($firstPossibleRoom->room_id));
+    $roomUrl = json_encode($service->urlForRoom($firstPossibleRoom->room_id));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -131,7 +133,7 @@ if (count($visibleGroups) === 1) {
         exit;
     }
 
-    $roomUrl = json_encode(matrix\service::urlForRoom($room->room_id));
+    $roomUrl = json_encode($service->urlForRoom($room->room_id));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -163,7 +165,7 @@ foreach ($visibleGroups as $id => $group) {
 
     $name = groups_get_group_name($group->id);
 
-    $roomUrl = json_encode(matrix\service::urlForRoom($room->room_id));
+    $roomUrl = json_encode($service->urlForRoom($room->room_id));
 
     echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }

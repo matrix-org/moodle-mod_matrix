@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\matrix;
+use mod_matrix\container;
 
 defined('MOODLE_INTERNAL') || exit;
 
@@ -70,15 +70,17 @@ function matrix_add_instance($module)
         true
     );
 
+    $service = container::instance()->service();
+
     if (count($groups) > 0) {
         foreach ($groups as $group) {
-            matrix\service::prepareRoomForGroup(
+            $service->prepareRoomForGroup(
                 $module->course,
                 $group->id
             );
         }
     } else {
-        matrix\service::prepareRoomForGroup($module->course);
+        $service->prepareRoomForGroup($module->course);
     }
 
     return $module->id;
