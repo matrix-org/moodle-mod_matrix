@@ -6,22 +6,22 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\test\unit;
+namespace mod_matrix\Test\Unit;
 
-use mod_matrix\container;
+use mod_matrix\Container;
 use PHPUnit\Framework;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\container
+ * @covers \mod_matrix\Container
  */
 final class ContainerTest extends Framework\TestCase
 {
     public function testInstanceReturnsSameContainer(): void
     {
-        $container = container::instance();
+        $container = Container::instance();
 
-        self::assertSame($container, container::instance());
+        self::assertSame($container, Container::instance());
     }
 }

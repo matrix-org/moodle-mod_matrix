@@ -6,8 +6,8 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\container;
-use mod_matrix\twitter;
+use mod_matrix\Container;
+use mod_matrix\Twitter;
 
 require '../../config.php';
 
@@ -62,7 +62,7 @@ $possibleRooms = $DB->get_records(
 );
 
 if (count($possibleRooms) === 0) {
-    echo twitter\bootstrap::alert(
+    echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_rooms', 'matrix')
     );
@@ -90,7 +90,7 @@ if (count($possibleRooms) === 1) {
 $groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
 
 if (count($groups) === 0) {
-    echo twitter\bootstrap::alert(
+    echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_groups', 'matrix')
     );
@@ -103,7 +103,7 @@ if (count($groups) === 0) {
 $visibleGroups = groups_get_activity_allowed_groups($cm);
 
 if (count($visibleGroups) === 0) {
-    echo twitter\bootstrap::alert(
+    echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_visible_groups', 'matrix')
     );
@@ -125,7 +125,7 @@ if (count($visibleGroups) === 1) {
     );
 
     if (!$room) {
-        echo twitter\bootstrap::alert(
+        echo Twitter\Bootstrap::alert(
             'danger',
             get_string('vw_error_no_room_in_group', 'matrix')
         );
@@ -147,7 +147,7 @@ if (count($visibleGroups) === 1) {
 
 // else multiple groups are possible
 
-echo twitter\bootstrap::alert(
+echo Twitter\Bootstrap::alert(
     'warning',
     get_string('vw_alert_many_rooms', 'matrix')
 );

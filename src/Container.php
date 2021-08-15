@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix;
 
-final class container
+final class Container
 {
     /**
      * @var self
@@ -29,23 +29,23 @@ final class container
 
     private function __construct()
     {
-        $this->define(matrix\api::class, static function (self $container): matrix\api {
+        $this->define(Matrix\Api::class, static function (self $container): Matrix\Api {
             $configuration = $container->configuration();
 
-            return new matrix\api(
+            return new Matrix\Api(
                 $configuration->hsUrl(),
                 $configuration->accessToken()
             );
         });
 
-        $this->define(matrix\configuration::class, static function (): matrix\configuration {
+        $this->define(Matrix\Configuration::class, static function (): Matrix\Configuration {
             $object = get_config('mod_matrix');
 
-            return matrix\configuration::fromObject($object);
+            return Matrix\Configuration::fromObject($object);
         });
 
-        $this->define(matrix\service::class, static function (self $container): matrix\service {
-            return new matrix\service(
+        $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
+            return new Matrix\Service(
                 $container->api(),
                 $container->configuration()
             );
@@ -61,19 +61,19 @@ final class container
         return self::$instance;
     }
 
-    public function api(): matrix\api
+    public function api(): Matrix\Api
     {
-        return $this->resolve(matrix\api::class);
+        return $this->resolve(Matrix\Api::class);
     }
 
-    public function configuration(): matrix\configuration
+    public function configuration(): Matrix\Configuration
     {
-        return $this->resolve(matrix\configuration::class);
+        return $this->resolve(Matrix\Configuration::class);
     }
 
-    public function service(): matrix\service
+    public function service(): Matrix\Service
     {
-        return $this->resolve(matrix\service::class);
+        return $this->resolve(Matrix\Service::class);
     }
 
     /**

@@ -6,16 +6,16 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\test\unit\matrix;
+namespace mod_matrix\Test\Unit\Matrix;
 
 use Ergebnis\Test\Util;
-use mod_matrix\matrix;
+use mod_matrix\Matrix;
 use PHPUnit\Framework;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\matrix\configuration
+ * @covers \mod_matrix\Matrix\Configuration
  */
 final class ConfigurationTest extends Framework\TestCase
 {
@@ -23,7 +23,7 @@ final class ConfigurationTest extends Framework\TestCase
 
     public function testDefaultReturnsConfiguration(): void
     {
-        $configuration = matrix\configuration::default();
+        $configuration = Matrix\Configuration::default();
 
         self::assertSame('', $configuration->accessToken());
         self::assertSame('https://matrix-client.matrix.org', $configuration->elementUrl());
@@ -45,7 +45,7 @@ final class ConfigurationTest extends Framework\TestCase
             'access_token'
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     /**
@@ -74,7 +74,7 @@ final class ConfigurationTest extends Framework\TestCase
             is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     public function testFromObjectRejectsObjectWhenElementUrlPropertyIsMissing(): void
@@ -92,7 +92,7 @@ final class ConfigurationTest extends Framework\TestCase
             'element_url'
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     /**
@@ -121,7 +121,7 @@ final class ConfigurationTest extends Framework\TestCase
             is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl)
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     public function testFromObjectRejectsObjectWhenHsUrlPropertyIsMissing(): void
@@ -139,7 +139,7 @@ final class ConfigurationTest extends Framework\TestCase
             'hs_url'
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     /**
@@ -168,7 +168,7 @@ final class ConfigurationTest extends Framework\TestCase
             is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
         ));
 
-        matrix\configuration::fromObject($object);
+        Matrix\Configuration::fromObject($object);
     }
 
     public function testFromObjectReturnsConfiguration(): void
@@ -181,7 +181,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object->element_url = $faker->url();
         $object->hs_url = $faker->url();
 
-        $configuration = matrix\configuration::fromObject($object);
+        $configuration = Matrix\Configuration::fromObject($object);
 
         self::assertSame($object->access_token, $configuration->accessToken());
         self::assertSame($object->element_url, $configuration->elementUrl());

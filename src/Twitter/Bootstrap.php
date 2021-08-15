@@ -8,9 +8,9 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\twitter;
+namespace mod_matrix\Twitter;
 
-final class bootstrap
+final class Bootstrap
 {
     /**
      * Renders a Twitter Bootstrap alert.

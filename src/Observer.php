@@ -12,7 +12,7 @@ use core\event;
 
 defined('MOODLE_INTERNAL') || exit;
 
-class observer
+class Observer
 {
     public static function onGroupMemberChange($event): void
     {
@@ -29,7 +29,7 @@ class observer
             return;
         }
 
-        $service = container::instance()->service();
+        $service = Container::instance()->service();
 
         $service->synchronizeRoomMembers(
             $event->courseid,
@@ -52,7 +52,7 @@ class observer
             return;
         }
 
-        $service = container::instance()->service();
+        $service = Container::instance()->service();
 
         $service->prepareRoomForGroup(
             $event->courseid,
@@ -62,14 +62,14 @@ class observer
 
     public static function onRoleChanged(): void
     {
-        $service = container::instance()->service();
+        $service = Container::instance()->service();
 
         $service->resync_all(null); // ALL the rooms
     }
 
     public static function onUserEnrolmentChanged($event): void
     {
-        $service = container::instance()->service();
+        $service = Container::instance()->service();
 
         $service->resync_all($event->courseid);
     }

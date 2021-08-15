@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\container;
+use mod_matrix\Container;
 
 defined('MOODLE_INTERNAL') || exit;
 
@@ -72,7 +72,7 @@ function matrix_add_instance($module)
         true
     );
 
-    $service = container::instance()->service();
+    $service = Container::instance()->service();
 
     if (count($groups) > 0) {
         foreach ($groups as $group) {

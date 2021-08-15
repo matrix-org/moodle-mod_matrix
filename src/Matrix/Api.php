@@ -6,13 +6,13 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\matrix;
+namespace mod_matrix\Matrix;
 
 use Curl\Curl;
 
 defined('MOODLE_INTERNAL') || exit;
 
-class api
+class Api
 {
     private $hsUrl;
 

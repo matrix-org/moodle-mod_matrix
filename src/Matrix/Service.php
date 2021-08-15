@@ -8,19 +8,19 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\matrix;
+namespace mod_matrix\Matrix;
 
 use context_course;
 
-final class service
+final class Service
 {
     private $api;
 
     private $configuration;
 
     public function __construct(
-        api $api,
-        configuration $configuration
+        Api $api,
+        Configuration $configuration
     ) {
         $this->api = $api;
         $this->configuration = $configuration;

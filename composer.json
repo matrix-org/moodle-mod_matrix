@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "mod_matrix\\": "classes/"
+      "mod_matrix\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "mod_matrix\\test\\": "test/"
+      "mod_matrix\\Test\\": "test/"
     }
   }
 }

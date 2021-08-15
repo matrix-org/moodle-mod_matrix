@@ -8,14 +8,14 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\test\unit\twitter;
+namespace mod_matrix\Test\Unit\Twitter;
 
 use Ergebnis\Test\Util;
-use mod_matrix\twitter\bootstrap;
+use mod_matrix\Twitter\Bootstrap;
 use PHPUnit\Framework;
 
 /**
- * @covers \mod_matrix\twitter\bootstrap
+ * @covers \mod_matrix\Twitter\Bootstrap
  *
  * @internal
  */
@@ -48,7 +48,7 @@ final class BootstrapTest extends Framework\TestCase
             $type
         ));
 
-        bootstrap::alert(
+        Bootstrap::alert(
             $type,
             $content
         );
@@ -63,7 +63,7 @@ final class BootstrapTest extends Framework\TestCase
 
         $content = $faker->sentence();
 
-        $alert = bootstrap::alert(
+        $alert = Bootstrap::alert(
             $type,
             $content
         );
