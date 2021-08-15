@@ -18,7 +18,7 @@ $id = required_param('id', PARAM_INT);
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
 
 /** @var moodle_database $DB */
-$matrix = $DB->get_record(
+$module = $DB->get_record(
     'matrix',
     [
         'id' => $cm->instance,
@@ -31,7 +31,7 @@ require_login($course, true, $cm);
 
 /** @var moodle_page $PAGE */
 $PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);
-$PAGE->set_title($matrix->name);
+$PAGE->set_title($module->name);
 $PAGE->set_cacheable(false);
 $PAGE->set_heading($course->fullname);
 
@@ -57,7 +57,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 $possibleRooms = $DB->get_records(
     'matrix_rooms',
     [
-        'course_id' => $matrix->course,
+        'course_id' => $module->course,
     ]
 );
 
@@ -87,7 +87,7 @@ if (count($possibleRooms) === 1) {
     exit;
 }
 
-$groups = groups_get_all_groups($matrix->course, 0, 0, 'g.*', true);
+$groups = groups_get_all_groups($module->course, 0, 0, 'g.*', true);
 
 if (count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
@@ -119,7 +119,7 @@ if (count($visibleGroups) === 1) {
     $room = $DB->get_record(
         'matrix_rooms',
         [
-            'course_id' => $matrix->course,
+            'course_id' => $module->course,
             'group_id' => $group->id,
         ]
     );
@@ -156,7 +156,7 @@ foreach ($visibleGroups as $id => $group) {
     $room = $DB->get_record(
         'matrix_rooms',
         [
-            'course_id' => $matrix->course,
+            'course_id' => $module->course,
             'group_id' => $group->id,
         ]
     );

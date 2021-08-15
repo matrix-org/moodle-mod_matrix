@@ -331,7 +331,7 @@
     <MixedArgument occurrences="14">
       <code>$course-&gt;fullname</code>
       <code>$groups</code>
-      <code>$matrix-&gt;name</code>
+      <code>$module-&gt;name</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
@@ -355,7 +355,7 @@
       <code>$groups</code>
       <code>$id</code>
       <code>$id</code>
-      <code>$matrix</code>
+      <code>$module</code>
       <code>$name</code>
       <code>$room</code>
       <code>$room</code>
@@ -373,8 +373,8 @@
       <code>$firstPossibleRoom-&gt;room_id</code>
       <code>$group-&gt;id</code>
       <code>$group-&gt;id</code>
-      <code>$matrix-&gt;course</code>
-      <code>$matrix-&gt;name</code>
+      <code>$module-&gt;course</code>
+      <code>$module-&gt;name</code>
       <code>$room-&gt;room_id</code>
       <code>$room-&gt;room_id</code>
     </MixedPropertyFetch>
@@ -395,7 +395,7 @@
       <code>get_string('vw_join_btn', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
       <code>groups_get_activity_allowed_groups($cm)</code>
-      <code>groups_get_all_groups($matrix-&gt;course, 0, 0, 'g.*', true)</code>
+      <code>groups_get_all_groups($module-&gt;course, 0, 0, 'g.*', true)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
       <code>has_capability('mod/matrix:view', $PAGE-&gt;context)</code>
       <code>isguestuser()</code>
