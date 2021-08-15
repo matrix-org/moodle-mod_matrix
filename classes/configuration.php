@@ -28,6 +28,15 @@ final class configuration
         $this->hsUrl = $hsUrl;
     }
 
+    public static function default(): self
+    {
+        return new self(
+            '',
+            'https://matrix-client.matrix.org',
+            ''
+        );
+    }
+
     /**
      * @throws \InvalidArgumentException
      */

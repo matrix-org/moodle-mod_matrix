@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\matrix;
+use mod_matrix\configuration;
 
 defined('MOODLE_INTERNAL') || exit();
 
@@ -19,11 +19,13 @@ if ($ADMIN->fulltree) {
         get_string('adm_homeserver', 'matrix')
     ));
 
+    $defaultConfiguration = configuration::default();
+
     $settings->add(new admin_setting_configtext(
         'mod_matrix/hs_url',
         get_string('adm_hsurl_name', 'matrix'),
         get_string('adm_hsurl_desc', 'matrix'),
-        matrix\matrix::DEFAULT_HS_URL,
+        $defaultConfiguration->hsUrl(),
         PARAM_TEXT
     ));
 
@@ -31,7 +33,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/access_token',
         get_string('adm_hstoken_name', 'matrix'),
         get_string('adm_hstoken_desc', 'matrix'),
-        matrix\matrix::DEFAULT_ACCESS_TOKEN,
+        $defaultConfiguration->accessToken(),
         PARAM_TEXT
     ));
 
@@ -39,7 +41,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/element_url',
         get_string('adm_eleurl_name', 'matrix'),
         get_string('adm_eleurl_desc', 'matrix'),
-        matrix\matrix::DEFAULT_ELEMENT_URL,
+        $defaultConfiguration->elementUrl(),
         PARAM_TEXT
     ));
 }

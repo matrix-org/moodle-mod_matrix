@@ -21,6 +21,15 @@ final class ConfigurationTest extends Framework\TestCase
 {
     use Util\Helper;
 
+    public function testDefaultReturnsConfiguration(): void
+    {
+        $configuration = configuration::default();
+
+        self::assertSame('', $configuration->accessToken());
+        self::assertSame('https://matrix-client.matrix.org', $configuration->elementUrl());
+        self::assertSame('', $configuration->hsUrl());
+    }
+
     public function testFromObjectRejectsObjectWhenAccessTokenPropertyIsMissing(): void
     {
         $faker = self::faker();

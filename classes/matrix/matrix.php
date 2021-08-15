@@ -15,21 +15,6 @@ use mod_matrix\container;
 
 final class matrix
 {
-    /**
-     * The default client-server API URL.
-     */
-    public const DEFAULT_HS_URL = 'https://matrix-client.matrix.org';
-
-    /**
-     * The default access token on the given homeserver.
-     */
-    public const DEFAULT_ACCESS_TOKEN = '';
-
-    /**
-     * The default Element Web URL.
-     */
-    public const DEFAULT_ELEMENT_URL = '';
-
     public static function urlForRoom($roomId): string
     {
         $configuration = container::instance()->configuration();
