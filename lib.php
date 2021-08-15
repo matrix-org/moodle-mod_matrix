@@ -111,10 +111,8 @@ function matrix_delete_instance($id): bool
 /**
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L611-L614
- *
- * @param object $matrix
  */
-function matrix_update_instance($matrix)
+function matrix_update_instance()
 {
     return true; // nothing to do
 }
