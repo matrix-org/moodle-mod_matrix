@@ -31,10 +31,10 @@ final class container
 
     private function __construct()
     {
-        $this->define(bot::class, static function (self $container): bot {
+        $this->define(matrix\bot::class, static function (self $container): matrix\bot {
             $configuration = $container->configuration();
 
-            return new bot(
+            return new matrix\bot(
                 $configuration->hsUrl(),
                 $configuration->accessToken()
             );
@@ -56,9 +56,9 @@ final class container
         return self::$instance;
     }
 
-    public function bot(): bot
+    public function bot(): matrix\bot
     {
-        return $this->resolve(bot::class);
+        return $this->resolve(matrix\bot::class);
     }
 
     public function configuration(): configuration

@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix;
+namespace mod_matrix\matrix;
 
 use Curl\Curl;
 
