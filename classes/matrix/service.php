@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace mod_matrix\matrix;
 
 use context_course;
-use mod_matrix\configuration;
 
 final class service
 {

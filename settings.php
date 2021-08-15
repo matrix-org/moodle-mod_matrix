@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\configuration;
+use mod_matrix\matrix;
 
 defined('MOODLE_INTERNAL') || exit();
 
@@ -19,7 +19,7 @@ if ($ADMIN->fulltree) {
         get_string('adm_homeserver', 'matrix')
     ));
 
-    $defaultConfiguration = configuration::default();
+    $defaultConfiguration = matrix\configuration::default();
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/hs_url',

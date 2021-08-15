@@ -38,10 +38,10 @@ final class container
             );
         });
 
-        $this->define(configuration::class, static function (): configuration {
+        $this->define(matrix\configuration::class, static function (): matrix\configuration {
             $object = get_config('mod_matrix');
 
-            return configuration::fromObject($object);
+            return matrix\configuration::fromObject($object);
         });
 
         $this->define(matrix\service::class, static function (self $container): matrix\service {
@@ -66,9 +66,9 @@ final class container
         return $this->resolve(matrix\api::class);
     }
 
-    public function configuration(): configuration
+    public function configuration(): matrix\configuration
     {
-        return $this->resolve(configuration::class);
+        return $this->resolve(matrix\configuration::class);
     }
 
     public function service(): matrix\service
