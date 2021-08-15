@@ -12,8 +12,6 @@ use Curl\Curl;
 
 defined('MOODLE_INTERNAL') || exit;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 class api
 {
     private $hsUrl;
