@@ -184,7 +184,7 @@ class api
         }
 
         $curl = new Curl();
-        $curl->setDefaultJsonDecoder($assoc = true);
+        $curl->setDefaultJsonDecoder(true);
         $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
         $curl->setHeader('Content-Type', 'application/json');
 
