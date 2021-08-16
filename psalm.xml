@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-    autoloader="test/bootstrap.php"
+    autoloader="vendor/autoload.php"
     cacheDirectory=".build/psalm"
     errorBaseline="psalm-baseline.xml"
     errorLevel="1"
