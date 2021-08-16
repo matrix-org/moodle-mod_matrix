@@ -33,6 +33,7 @@ RUN apt-get update \
         pdo \
         pdo_mysql \
         pcntl \
+        posix \
         soap \
         xmlrpc \
         zip \
