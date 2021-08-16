@@ -18,12 +18,16 @@ final class Service
 
     private $configuration;
 
+    private $roomRepository;
+
     public function __construct(
         Api $api,
-        Configuration $configuration
+        Configuration $configuration,
+        Repository\RoomRepository $roomRepository
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
+        $this->roomRepository = $roomRepository;
     }
 
     public function urlForRoom($roomId): string
@@ -92,15 +96,10 @@ final class Service
         if (null !== $groupId) {
             $group = groups_get_group($groupId);
 
-            $existingRoomForGroup = $DB->get_record(
-                'matrix_rooms',
-                [
-                    'course_id' => $courseId,
-                    'group_id' => $group->id,
-                ],
-                '*',
-                IGNORE_MISSING
-            );
+            $existingRoomForGroup = $this->roomRepository->findOneBy([
+                'course_id' => $courseId,
+                'group_id' => $group->id,
+            ]);
 
             if (!$existingRoomForGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
@@ -116,10 +115,7 @@ final class Service
                 $roomForGroup->timecreated = time();
                 $roomForGroup->timemodified = 0;
 
-                $DB->insert_record(
-                    'matrix_rooms',
-                    $roomForGroup
-                );
+                $this->roomRepository->save($roomForGroup);
             }
 
             $this->synchronizeRoomMembers(
@@ -130,15 +126,10 @@ final class Service
             return;
         }
 
-        $existingRoom = $DB->get_record(
-            'matrix_rooms',
-            [
-                'course_id' => $courseId,
-                'group_id' => null,
-            ],
-            '*',
-            IGNORE_MISSING
-        );
+        $existingRoom = $this->roomRepository->findOneBy([
+            'course_id' => $courseId,
+            'group_id' => null,
+        ]);
 
         if (!$existingRoom) {
             $roomId = $this->api->createRoom($roomOptions);
@@ -151,10 +142,7 @@ final class Service
             $room->timecreated = time();
             $room->timemodified = 0;
 
-            $DB->insert_record(
-                'matrix_rooms',
-                $room
-            );
+            $this->roomRepository->save($room);
         }
 
         $this->synchronizeRoomMembers($courseId);
@@ -172,10 +160,7 @@ final class Service
             ];
         }
 
-        $rooms = $DB->get_records(
-            'matrix_rooms',
-            $conditions
-        );
+        $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
             $this->synchronizeRoomMembers(
@@ -193,15 +178,10 @@ final class Service
             $groupId = null;
         } // we treat zero as null, but Moodle doesn't
 
-        $room = $DB->get_record(
-            'matrix_rooms',
-            [
-                'course_id' => $courseId,
-                'group_id' => $groupId,
-            ],
-            '*',
-            IGNORE_MISSING
-        );
+        $room = $this->roomRepository->findOneBy([
+            'course_id' => $courseId,
+            'group_id' => $groupId,
+        ]);
 
         if (!$room) {
             return; // nothing to do

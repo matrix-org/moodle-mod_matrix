@@ -54,12 +54,13 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$possibleRooms = $DB->get_records(
-    'matrix_rooms',
-    [
-        'course_id' => $module->course,
-    ]
-);
+$container = Container::instance();
+
+$roomRepository = $container->roomRepository();
+
+$possibleRooms = $roomRepository->findAllBy([
+    'course_id' => $module->course,
+]);
 
 if (count($possibleRooms) === 0) {
     echo Twitter\Bootstrap::alert(
@@ -72,7 +73,7 @@ if (count($possibleRooms) === 0) {
     exit;
 }
 
-$service = Container::instance()->service();
+$service = $container->service();
 
 if (count($possibleRooms) === 1) {
     $firstPossibleRoom = reset($possibleRooms);
@@ -116,13 +117,10 @@ if (count($visibleGroups) === 0) {
 if (count($visibleGroups) === 1) {
     $group = reset($visibleGroups);
 
-    $room = $DB->get_record(
-        'matrix_rooms',
-        [
-            'course_id' => $module->course,
-            'group_id' => $group->id,
-        ]
-    );
+    $room = $roomRepository->findOneBy([
+        'course_id' => $module->course,
+        'group_id' => $group->id,
+    ]);
 
     if (!$room) {
         echo Twitter\Bootstrap::alert(
@@ -153,13 +151,10 @@ echo Twitter\Bootstrap::alert(
 );
 
 foreach ($visibleGroups as $id => $group) {
-    $room = $DB->get_record(
-        'matrix_rooms',
-        [
-            'course_id' => $module->course,
-            'group_id' => $group->id,
-        ]
-    );
+    $room = $roomRepository->findOneBy([
+        'course_id' => $module->course,
+        'group_id' => $group->id,
+    ]);
 
     if (!$room) {
         continue;

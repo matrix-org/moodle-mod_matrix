@@ -44,10 +44,17 @@ final class Container
             return Matrix\Configuration::fromObject($object);
         });
 
+        $this->define(Matrix\Repository\RoomRepository::class, static function (): Matrix\Repository\RoomRepository {
+            global $DB;
+
+            return new Matrix\Repository\RoomRepository($DB);
+        });
+
         $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
             return new Matrix\Service(
                 $container->api(),
-                $container->configuration()
+                $container->configuration(),
+                $container->roomRepository()
             );
         });
     }
@@ -69,6 +76,11 @@ final class Container
     public function configuration(): Matrix\Configuration
     {
         return $this->resolve(Matrix\Configuration::class);
+    }
+
+    public function roomRepository(): Matrix\Repository\RoomRepository
+    {
+        return $this->resolve(Matrix\Repository\RoomRepository::class);
     }
 
     public function service(): Matrix\Service
