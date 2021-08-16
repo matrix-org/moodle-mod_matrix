@@ -328,7 +328,7 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="14">
+    <MixedArgument occurrences="15">
       <code>$course-&gt;fullname</code>
       <code>$groups</code>
       <code>$module-&gt;name</code>
@@ -343,6 +343,7 @@
       <code>get_string('vw_error_no_rooms', 'matrix')</code>
       <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
+      <code>ooter</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$cm</code>
@@ -362,9 +363,6 @@
       <code>$visibleGroups</code>
       <code>[$course, $cm]</code>
     </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$name</code>
-    </MixedOperand>
     <MixedPropertyFetch occurrences="11">
       <code>$cm-&gt;id</code>
       <code>$cm-&gt;instance</code>
