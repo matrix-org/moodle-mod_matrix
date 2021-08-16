@@ -22,6 +22,9 @@ RUN apt-get update \
         --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure \
         intl \
+    && docker-php-ext-configure \
+        pcntl \
+        --enable-pcntl \
     && docker-php-ext-install \
         gd \
         intl \
@@ -29,6 +32,7 @@ RUN apt-get update \
         opcache \
         pdo \
         pdo_mysql \
+        pcntl \
         soap \
         xmlrpc \
         zip \
