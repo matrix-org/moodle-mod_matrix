@@ -72,7 +72,7 @@ if (count($possibleRooms) === 0) {
     exit;
 }
 
-$service = container::instance()->service();
+$service = Container::instance()->service();
 
 if (count($possibleRooms) === 1) {
     $firstPossibleRoom = reset($possibleRooms);
