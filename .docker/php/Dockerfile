@@ -35,6 +35,8 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 COPY php.ini /usr/local/etc/php/
 
 WORKDIR "/var/www/html/"
