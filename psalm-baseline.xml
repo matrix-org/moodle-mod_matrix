@@ -85,15 +85,18 @@
     <InvalidClass occurrences="1">
       <code>matrix\configuration</code>
     </InvalidClass>
-    <MixedArgument occurrences="7">
-      <code>get_string('adm_eleurl_desc', 'matrix')</code>
-      <code>get_string('adm_eleurl_name', 'matrix')</code>
-      <code>get_string('adm_homeserver', 'matrix')</code>
-      <code>get_string('adm_hstoken_desc', 'matrix')</code>
-      <code>get_string('adm_hstoken_name', 'matrix')</code>
-      <code>get_string('adm_hsurl_desc', 'matrix')</code>
-      <code>get_string('adm_hsurl_name', 'matrix')</code>
-    </MixedArgument>
+    <UndefinedClass occurrences="4">
+      <code>admin_setting_configtext</code>
+      <code>admin_setting_configtext</code>
+      <code>admin_setting_configtext</code>
+      <code>admin_setting_heading</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="6">
+      <code>$ADMIN-&gt;fulltree</code>
+      <code>$settings</code>
+      <code>$settings</code>
+      <code>$settings</code>
+    </UndefinedDocblockClass>
     <UndefinedFunction occurrences="7">
       <code>get_string('adm_eleurl_desc', 'matrix')</code>
       <code>get_string('adm_eleurl_name', 'matrix')</code>
@@ -202,45 +205,18 @@
       <code>$groupId</code>
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="3">
-      <code>$courseId</code>
-      <code>$joinedUserIds</code>
-      <code>$joinedUserIds</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="2">
-      <code>$profile['matrix_user_id']</code>
-      <code>$profile['matrix_user_id']</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="2">
-      <code>$powerLevels['users']</code>
-      <code>$powerLevels['users']</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="3">
-      <code>$powerLevels['users'][$matrixUserId]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="23">
-      <code>$allowedUserIds[]</code>
-      <code>$allowedUserIds[]</code>
+    <MixedArrayOffset occurrences="1"/>
+    <MixedAssignment occurrences="11">
       <code>$course</code>
       <code>$existingRoom</code>
       <code>$existingRoomForGroup</code>
       <code>$group</code>
-      <code>$joinedUserIds</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$powerLevels</code>
-      <code>$profile</code>
-      <code>$profile</code>
       <code>$room</code>
       <code>$room</code>
       <code>$roomId</code>
       <code>$roomId</code>
       <code>$roomOptions['creation_content']['org.matrix.moodle.group_id']</code>
       <code>$rooms</code>
-      <code>$user</code>
-      <code>$user</code>
-      <code>$users</code>
       <code>$whoami</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="6">
@@ -259,27 +235,25 @@
       <code>$roomId</code>
       <code>$roomId</code>
     </MixedOperand>
-    <MixedPropertyFetch occurrences="9">
+    <MixedPropertyFetch occurrences="6">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;id</code>
       <code>$group-&gt;name</code>
       <code>$room-&gt;course_id</code>
       <code>$room-&gt;group_id</code>
-      <code>$room-&gt;room_id</code>
-      <code>$user-&gt;profile</code>
-      <code>$user-&gt;profile</code>
     </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>context_course</code>
+    </UndefinedClass>
     <UndefinedConstant occurrences="3">
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
-    <UndefinedFunction occurrences="5">
+    <UndefinedFunction occurrences="2">
       <code>get_course($courseId)</code>
       <code>groups_get_group($groupId)</code>
-      <code>profile_load_custom_fields($user)</code>
-      <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
   <file src="src/Observer.php">
@@ -287,12 +261,10 @@
       <code>$event</code>
       <code>$event</code>
     </MissingParamType>
-    <MixedAssignment occurrences="2">
-      <code>$instances</code>
+    <MixedAssignment occurrences="1">
       <code>$instances</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="2">
-      <code>get_records</code>
+    <MixedMethodCall occurrences="1">
       <code>get_records</code>
     </MixedMethodCall>
     <MixedPropertyFetch occurrences="3">
@@ -300,6 +272,9 @@
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;objectid</code>
     </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>event\group_created</code>
+    </UndefinedClass>
   </file>
   <file src="test/Unit/Twitter/BootstrapTest.php">
     <MixedInferredReturnType occurrences="1">
@@ -328,14 +303,23 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="15">
-      <code>$course-&gt;fullname</code>
+    <MixedArgument occurrences="24">
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;header()</code>
       <code>$groups</code>
-      <code>$module-&gt;name</code>
+      <code>$possibleRooms</code>
+      <code>$possibleRooms</code>
+      <code>$possibleRooms</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
-      <code>MUST_EXIST</code>
       <code>get_string('liketologin')</code>
       <code>get_string('vw_alert_many_rooms', 'matrix')</code>
       <code>get_string('vw_error_no_groups', 'matrix')</code>
@@ -343,13 +327,12 @@
       <code>get_string('vw_error_no_rooms', 'matrix')</code>
       <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
-      <code>ooter</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$cm</code>
       <code>$course</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="12">
+    <MixedAssignment occurrences="13">
       <code>$firstPossibleRoom</code>
       <code>$group</code>
       <code>$group</code>
@@ -358,11 +341,15 @@
       <code>$id</code>
       <code>$module</code>
       <code>$name</code>
+      <code>$possibleRooms</code>
       <code>$room</code>
       <code>$room</code>
       <code>$visibleGroups</code>
       <code>[$course, $cm]</code>
     </MixedAssignment>
+    <MixedOperand occurrences="1">
+      <code>$name</code>
+    </MixedOperand>
     <MixedPropertyFetch occurrences="11">
       <code>$cm-&gt;id</code>
       <code>$cm-&gt;instance</code>
@@ -376,10 +363,36 @@
       <code>$room-&gt;room_id</code>
       <code>$room-&gt;room_id</code>
     </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>moodle_url</code>
+    </UndefinedClass>
     <UndefinedConstant occurrences="2">
       <code>MUST_EXIST</code>
       <code>PARAM_INT</code>
     </UndefinedConstant>
+    <UndefinedDocblockClass occurrences="21">
+      <code>$DB</code>
+      <code>$DB</code>
+      <code>$DB</code>
+      <code>$DB</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$PAGE</code>
+      <code>$PAGE</code>
+      <code>$PAGE</code>
+      <code>$PAGE-&gt;context</code>
+      <code>$PAGE-&gt;set_url('/mod/matrix/view.php', ['id' =&gt; $cm-&gt;id]);</code>
+      <code>$module</code>
+      <code>echo $OUTPUT-&gt;header();</code>
+    </UndefinedDocblockClass>
     <UndefinedFunction occurrences="18">
       <code>get_course_and_cm_from_cmid($id, 'matrix')</code>
       <code>get_login_url()</code>
