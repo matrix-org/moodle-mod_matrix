@@ -66,4 +66,21 @@ final class RoomRepository
             $room
         );
     }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function remove(object $room): void
+    {
+        if (!property_exists($room, 'id')) {
+            throw new \InvalidArgumentException('Can not remove room without identifier.');
+        }
+
+        $this->database->delete_records(
+            self::TABLE,
+            [
+                'id' => $room->id,
+            ]
+        );
+    }
 }

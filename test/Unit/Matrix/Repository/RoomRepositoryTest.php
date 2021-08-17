@@ -197,4 +197,60 @@ final class RoomRepositoryTest extends Framework\TestCase
 
         self::assertSame($id, $room->id);
     }
+
+    public function testRemoveRejectsRoomWhenRoomDoesNotHaveId(): void
+    {
+        $faker = self::faker();
+
+        $id = $faker->numberBetween(1);
+
+        $room = (object) [
+            'course_id' => $faker->numberBetween(1),
+            'group_id' => $faker->numberBetween(1),
+            'room_id' => $faker->sha1(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+        ];
+
+        $database = $this->createMock(\moodle_database::class);
+
+        $roomRepository = new Matrix\Repository\RoomRepository($database);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not remove room without identifier.');
+
+        $roomRepository->remove($room);
+    }
+
+    public function testRemoveDeletesRecordForRoomWhenRoomHasId(): void
+    {
+        $faker = self::faker();
+
+        $id = $faker->numberBetween(1);
+
+        $room = (object) [
+            'course_id' => $faker->numberBetween(1),
+            'group_id' => $faker->numberBetween(1),
+            'id' => $id,
+            'room_id' => $faker->sha1(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+        ];
+
+        $database = $this->createMock(\moodle_database::class);
+
+        $database
+            ->expects(self::once())
+            ->method('delete_records')
+            ->with(
+                self::identicalTo('matrix_rooms'),
+                self::identicalTo([
+                    'id' => $id,
+                ])
+            );
+
+        $roomRepository = new Matrix\Repository\RoomRepository($database);
+
+        $roomRepository->remove($room);
+    }
 }

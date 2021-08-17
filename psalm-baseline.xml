@@ -212,7 +212,8 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$database</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="5">
+    <UndefinedClass occurrences="6">
+      <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
@@ -315,21 +316,27 @@
     </UndefinedClass>
   </file>
   <file src="test/Unit/Matrix/Repository/RoomRepositoryTest.php">
-    <InvalidArgument occurrences="5">
+    <InvalidArgument occurrences="7">
+      <code>$database</code>
+      <code>$database</code>
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
     </InvalidArgument>
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="7">
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
     </MixedArgument>
-    <UndefinedClass occurrences="5">
+    <UndefinedClass occurrences="7">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
@@ -340,6 +347,9 @@
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
+    <UnusedVariable occurrences="1">
+      <code>$id</code>
+    </UnusedVariable>
   </file>
   <file src="test/Unit/Twitter/BootstrapTest.php">
     <MixedInferredReturnType occurrences="1">
