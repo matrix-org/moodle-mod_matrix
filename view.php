@@ -17,15 +17,20 @@ $id = required_param('id', PARAM_INT);
 
 [$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
 
-/** @var moodle_database $DB */
-$module = $DB->get_record(
-    'matrix',
-    [
-        'id' => $cm->instance,
-    ],
-    '*',
-    MUST_EXIST
-);
+$container = Container::instance();
+
+$moduleRepository = $container->moduleRepository();
+
+$module = $moduleRepository->findOneBy([
+    'id' => $cm->instance,
+]);
+
+if (!$module) {
+    throw new \RuntimeException(sprintf(
+        'A Matrix module with id "%s" could not be found.',
+        $cm->instance
+    ));
+}
 
 require_login($course, true, $cm);
 
@@ -53,8 +58,6 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 
     exit;
 }
-
-$container = Container::instance();
 
 $roomRepository = $container->roomRepository();
 

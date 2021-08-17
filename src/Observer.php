@@ -16,20 +16,19 @@ class Observer
 {
     public static function onGroupMemberChange($event): void
     {
-        global $DB;
+        $container = Container::instance();
 
-        $instances = $DB->get_records(
-            'matrix',
-            [
-                'course' => $event->courseid,
-            ]
-        );
+        $moduleRepository = $container->moduleRepository();
 
-        if ([] === $instances) {
+        $modules = $moduleRepository->findAllBy([
+            'course' => $event->courseid,
+        ]);
+
+        if ([] === $modules) {
             return;
         }
 
-        $service = Container::instance()->service();
+        $service = $container->service();
 
         $service->synchronizeRoomMembers(
             $event->courseid,
@@ -39,20 +38,19 @@ class Observer
 
     public static function onGroupCreated(event\group_created $event): void
     {
-        global $DB;
+        $container = Container::instance();
 
-        $instances = $DB->get_records(
-            'matrix',
-            [
-                'course' => $event->courseid,
-            ]
-        );
+        $moduleRepository = $container->moduleRepository();
 
-        if ([] === $instances) {
+        $modules = $moduleRepository->findAllBy([
+            'course' => $event->courseid,
+        ]);
+
+        if ([] === $modules) {
             return;
         }
 
-        $service = Container::instance()->service();
+        $service = $container->service();
 
         $service->prepareRoomForGroup(
             $event->courseid,

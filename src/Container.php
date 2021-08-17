@@ -52,6 +52,12 @@ final class Container
             return Matrix\Configuration::fromObject($object);
         });
 
+        $this->define(Matrix\Repository\ModuleRepository::class, static function (): Matrix\Repository\ModuleRepository {
+            global $DB;
+
+            return new Matrix\Repository\ModuleRepository($DB);
+        });
+
         $this->define(Matrix\Repository\RoomRepository::class, static function (): Matrix\Repository\RoomRepository {
             global $DB;
 
@@ -90,6 +96,11 @@ final class Container
     public function clock(): Clock\Clock
     {
         return $this->resolve(Clock\Clock::class);
+    }
+
+    public function moduleRepository(): Matrix\Repository\ModuleRepository
+    {
+        return $this->resolve(Matrix\Repository\ModuleRepository::class);
     }
 
     public function roomRepository(): Matrix\Repository\RoomRepository

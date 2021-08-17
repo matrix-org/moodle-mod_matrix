@@ -55,8 +55,6 @@ function matrix_supports($feature)
  */
 function matrix_add_instance($module)
 {
-    global $DB;
-
     $container = Container::instance();
 
     $clock = $container->clock();
@@ -64,7 +62,10 @@ function matrix_add_instance($module)
     $module->timecreated = $clock->now()->getTimestamp();
     $module->timemodified = 0;
     $module->name = get_string('activity_default_name', 'matrix');
-    $module->id = $DB->insert_record('matrix', $module);
+
+    $moduleRepository = $container->moduleRepository();
+
+    $moduleRepository->save($module);
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
@@ -101,17 +102,19 @@ function matrix_add_instance($module)
  */
 function matrix_delete_instance($id): bool
 {
-    global $DB;
-
     // TODO: Delete rooms too?
 
-    $hasDeletedInstance = $DB->delete_records('matrix', [
+    $moduleRepository = Container::instance()->moduleRepository();
+
+    $module = $moduleRepository->findOneBy([
         'id' => $id,
     ]);
 
-    if (!$hasDeletedInstance) {
+    if (!$module) {
         return false;
     }
+
+    $moduleRepository->remove($module);
 
     return true;
 }

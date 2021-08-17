@@ -36,15 +36,10 @@
     <MixedArgument occurrences="1">
       <code>$groups</code>
     </MixedArgument>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$group</code>
       <code>$groups</code>
-      <code>$hasDeletedInstance</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="2">
-      <code>delete_records</code>
-      <code>insert_record</code>
-    </MixedMethodCall>
     <MixedPropertyFetch occurrences="1">
       <code>$group-&gt;id</code>
     </MixedPropertyFetch>
@@ -117,7 +112,8 @@
     <MissingReturnType occurrences="1">
       <code>resolve</code>
     </MissingReturnType>
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="3">
+      <code>$DB</code>
       <code>$DB</code>
       <code>$object</code>
     </MixedArgument>
@@ -125,20 +121,22 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="5">
+    <MixedInferredReturnType occurrences="6">
       <code>Clock\Clock</code>
       <code>Matrix\Api</code>
       <code>Matrix\Configuration</code>
+      <code>Matrix\Repository\ModuleRepository</code>
       <code>Matrix\Repository\RoomRepository</code>
       <code>Matrix\Service</code>
     </MixedInferredReturnType>
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="5">
+    <MixedReturnStatement occurrences="6">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
+      <code>$this-&gt;resolve(Matrix\Repository\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
     </MixedReturnStatement>
@@ -200,6 +198,29 @@
     <RedundantCondition occurrences="1">
       <code>'PUT' === $method</code>
     </RedundantCondition>
+  </file>
+  <file src="src/Matrix/Repository/ModuleRepository.php">
+    <MixedAssignment occurrences="1">
+      <code>$id</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array&lt;int, object&gt;</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1"/>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$database</code>
+    </PropertyNotSetInConstructor>
+    <UndefinedClass occurrences="6">
+      <code>$this-&gt;database</code>
+      <code>$this-&gt;database</code>
+      <code>$this-&gt;database</code>
+      <code>$this-&gt;database</code>
+      <code>$this-&gt;database</code>
+      <code>\moodle_database</code>
+    </UndefinedClass>
+    <UndefinedConstant occurrences="1">
+      <code>IGNORE_MISSING</code>
+    </UndefinedConstant>
   </file>
   <file src="src/Matrix/Repository/RoomRepository.php">
     <MixedAssignment occurrences="1">
@@ -300,12 +321,6 @@
       <code>$event</code>
       <code>$event</code>
     </MissingParamType>
-    <MixedAssignment occurrences="1">
-      <code>$instances</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>get_records</code>
-    </MixedMethodCall>
     <MixedPropertyFetch occurrences="3">
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;courseid</code>
@@ -314,6 +329,42 @@
     <UndefinedClass occurrences="1">
       <code>event\group_created</code>
     </UndefinedClass>
+  </file>
+  <file src="test/Unit/Matrix/Repository/ModuleRepositoryTest.php">
+    <InvalidArgument occurrences="8">
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
+    </InvalidArgument>
+    <MixedArgument occurrences="8">
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+    </MixedArgument>
+    <UndefinedClass occurrences="8">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+    </UndefinedClass>
+    <UndefinedConstant occurrences="2">
+      <code>IGNORE_MISSING</code>
+      <code>IGNORE_MISSING</code>
+    </UndefinedConstant>
   </file>
   <file src="test/Unit/Matrix/Repository/RoomRepositoryTest.php">
     <InvalidArgument occurrences="7">
@@ -378,7 +429,8 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="14">
+    <MixedArgument occurrences="15">
+      <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
       <code>$groups</code>
       <code>$id</code>
@@ -394,37 +446,29 @@
       <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
     </MixedArgument>
-    <MixedAssignment occurrences="8">
+    <MixedAssignment occurrences="7">
       <code>$group</code>
       <code>$group</code>
       <code>$groups</code>
       <code>$id</code>
       <code>$id</code>
-      <code>$module</code>
       <code>$name</code>
       <code>$visibleGroups</code>
     </MixedAssignment>
     <MixedOperand occurrences="1">
       <code>$name</code>
     </MixedOperand>
-    <MixedPropertyFetch occurrences="8">
+    <MixedPropertyFetch occurrences="6">
       <code>$cm-&gt;id</code>
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
       <code>$course-&gt;id</code>
       <code>$group-&gt;id</code>
       <code>$group-&gt;id</code>
-      <code>$module-&gt;course</code>
-      <code>$module-&gt;name</code>
     </MixedPropertyFetch>
-    <UndefinedConstant occurrences="2">
-      <code>MUST_EXIST</code>
+    <UndefinedConstant occurrences="1">
       <code>PARAM_INT</code>
     </UndefinedConstant>
-    <UndefinedDocblockClass occurrences="2">
-      <code>$DB</code>
-      <code>$module</code>
-    </UndefinedDocblockClass>
     <UndefinedFunction occurrences="15">
       <code>get_login_url()</code>
       <code>get_string('liketologin')</code>
