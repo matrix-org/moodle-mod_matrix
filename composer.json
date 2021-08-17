@@ -11,6 +11,7 @@
   "require": {
     "php": "^7.2 || ^8.0",
     "ext-json": "*",
+    "ergebnis/clock": "^2.2",
     "php-curl-class/php-curl-class": "^9.2.0"
   },
   "require-dev": {

@@ -4,8 +4,81 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b37e7555bbfc3a7d139db0c5cf2a970a",
+    "content-hash": "36d70f4a6a39eb86630fdb5f96ccda86",
     "packages": [
+        {
+            "name": "ergebnis/clock",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/clock.git",
+                "reference": "674b60879aa3a521ede5b313695f9573df23d004"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/clock/zipball/674b60879aa3a521ede5b313695f9573df23d004",
+                "reference": "674b60879aa3a521ede5b313695f9573df23d004",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.10.0",
+                "ergebnis/license": "^1.1.0",
+                "ergebnis/php-cs-fixer-config": "^2.5.2",
+                "ergebnis/phpstan-rules": "~0.15.3",
+                "ergebnis/test-util": "^1.3.0",
+                "infection/infection": "~0.15.3",
+                "phpstan/extension-installer": "^1.0.5",
+                "phpstan/phpstan": "~0.12.53",
+                "phpstan/phpstan-deprecation-rules": "~0.12.5",
+                "phpstan/phpstan-strict-rules": "~0.12.5",
+                "phpunit/phpunit": "^8.5.5",
+                "psalm/plugin-phpunit": "~0.12.2",
+                "vimeo/psalm": "^3.18"
+            },
+            "type": "library",
+            "extra": {
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Clock\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a simple abstraction of a clock.",
+            "homepage": "https://github.com/ergebnis/clock",
+            "keywords": [
+                "clock",
+                "system-clock",
+                "test-clock"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/clock/issues",
+                "source": "https://github.com/ergebnis/clock"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/localheinz",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-03T18:46:16+00:00"
+        },
         {
             "name": "php-curl-class/php-curl-class",
             "version": "9.2.0",
