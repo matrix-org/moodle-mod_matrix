@@ -166,39 +166,6 @@ final class RoomRepositoryTest extends Framework\TestCase
         self::assertSame($id, $room->id);
     }
 
-    public function testSaveInsertsRecordForRoomWhenRoomHasIdButItIsNull(): void
-    {
-        $faker = self::faker();
-
-        $id = $faker->numberBetween(1);
-
-        $room = (object) [
-            'course_id' => $faker->numberBetween(1),
-            'group_id' => $faker->numberBetween(1),
-            'id' => null,
-            'room_id' => $faker->sha1(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-        ];
-
-        $database = $this->createMock(\moodle_database::class);
-
-        $database
-            ->expects(self::once())
-            ->method('insert_record')
-            ->with(
-                self::identicalTo('matrix_rooms'),
-                self::identicalTo($room)
-            )
-            ->willReturn($id);
-
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
-
-        $roomRepository->save($room);
-
-        self::assertSame($id, $room->id);
-    }
-
     public function testSaveUpdatesRecordForRoomWhenRoomHasId(): void
     {
         $faker = self::faker();
