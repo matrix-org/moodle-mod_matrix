@@ -153,7 +153,7 @@ final class Service
         $this->synchronizeRoomMembers($courseId);
     }
 
-    public function resync_all($courseId = null): void
+    public function synchronizeAll($courseId = null): void
     {
         $conditions = null;
 

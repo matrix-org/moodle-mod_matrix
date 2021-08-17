@@ -62,13 +62,13 @@ class Observer
     {
         $service = Container::instance()->service();
 
-        $service->resync_all(null); // ALL the rooms
+        $service->synchronizeAll(null); // ALL the rooms
     }
 
     public static function onUserEnrolmentChanged($event): void
     {
         $service = Container::instance()->service();
 
-        $service->resync_all($event->courseid);
+        $service->synchronizeAll($event->courseid);
     }
 }
