@@ -113,33 +113,43 @@
       <code>resolve</code>
     </MissingReturnType>
     <MixedArgument occurrences="3">
-      <code>$DB</code>
-      <code>$DB</code>
       <code>$object</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="6">
+    <MixedInferredReturnType occurrences="8">
       <code>Clock\Clock</code>
       <code>Matrix\Api</code>
       <code>Matrix\Configuration</code>
       <code>Matrix\Repository\ModuleRepository</code>
       <code>Matrix\Repository\RoomRepository</code>
       <code>Matrix\Service</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
     </MixedInferredReturnType>
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="6">
+    <MixedReturnStatement occurrences="7">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
+      <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
+    <UndefinedClass occurrences="5">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+    </UndefinedClass>
     <UndefinedFunction occurrences="1">
       <code>get_config('mod_matrix')</code>
     </UndefinedFunction>

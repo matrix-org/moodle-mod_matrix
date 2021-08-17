@@ -52,16 +52,12 @@ final class Container
             return Matrix\Configuration::fromObject($object);
         });
 
-        $this->define(Matrix\Repository\ModuleRepository::class, static function (): Matrix\Repository\ModuleRepository {
-            global $DB;
-
-            return new Matrix\Repository\ModuleRepository($DB);
+        $this->define(Matrix\Repository\ModuleRepository::class, static function (self $container): Matrix\Repository\ModuleRepository {
+            return new Matrix\Repository\ModuleRepository($container->database());
         });
 
-        $this->define(Matrix\Repository\RoomRepository::class, static function (): Matrix\Repository\RoomRepository {
-            global $DB;
-
-            return new Matrix\Repository\RoomRepository($DB);
+        $this->define(Matrix\Repository\RoomRepository::class, static function (self $container): Matrix\Repository\RoomRepository {
+            return new Matrix\Repository\RoomRepository($container->database());
         });
 
         $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
@@ -71,6 +67,20 @@ final class Container
                 $container->roomRepository(),
                 $container->clock()
             );
+        });
+
+        $this->define(\moodle_database::class, static function (): \moodle_database {
+            global $DB;
+
+            if (!$DB instanceof \moodle_database) {
+                throw new \RuntimeException(sprintf(
+                    'Expected global variable $DB to reference an instance of "%s", got "%s" instead.',
+                    \moodle_database::class,
+                    is_object($DB) ? get_class($DB) : gettype($DB)
+                ));
+            }
+
+            return $DB;
         });
     }
 
@@ -96,6 +106,11 @@ final class Container
     public function clock(): Clock\Clock
     {
         return $this->resolve(Clock\Clock::class);
+    }
+
+    public function database(): \moodle_database
+    {
+        return $this->resolve(\moodle_database::class);
     }
 
     public function moduleRepository(): Matrix\Repository\ModuleRepository
