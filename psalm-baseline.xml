@@ -125,7 +125,8 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="4">
+    <MixedInferredReturnType occurrences="5">
+      <code>Clock\Clock</code>
       <code>Matrix\Api</code>
       <code>Matrix\Configuration</code>
       <code>Matrix\Repository\RoomRepository</code>
@@ -134,7 +135,8 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="4">
+    <MixedReturnStatement occurrences="5">
+      <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>

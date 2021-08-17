@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace mod_matrix;
 
+use Ergebnis\Clock;
+
 final class Container
 {
     /**
@@ -29,6 +31,12 @@ final class Container
 
     private function __construct()
     {
+        $this->define(Clock\Clock::class, static function (): Clock\Clock {
+            $timezone = new \DateTimeZone(date_default_timezone_get());
+
+            return new Clock\SystemClock($timezone);
+        });
+
         $this->define(Matrix\Api::class, static function (self $container): Matrix\Api {
             $configuration = $container->configuration();
 
@@ -54,7 +62,8 @@ final class Container
             return new Matrix\Service(
                 $container->api(),
                 $container->configuration(),
-                $container->roomRepository()
+                $container->roomRepository(),
+                $container->clock()
             );
         });
     }
@@ -76,6 +85,11 @@ final class Container
     public function configuration(): Matrix\Configuration
     {
         return $this->resolve(Matrix\Configuration::class);
+    }
+
+    public function clock(): Clock\Clock
+    {
+        return $this->resolve(Clock\Clock::class);
     }
 
     public function roomRepository(): Matrix\Repository\RoomRepository

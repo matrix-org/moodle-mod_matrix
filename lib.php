@@ -57,7 +57,9 @@ function matrix_add_instance($module)
 {
     global $DB;
 
-    $module->timecreated = time();
+    $clock = Container::instance()->clock();
+
+    $module->timecreated = $clock->now()->getTimestamp();
     $module->timemodified = 0;
     $module->name = get_string('activity_default_name', 'matrix');
     $module->id = $DB->insert_record('matrix', $module);

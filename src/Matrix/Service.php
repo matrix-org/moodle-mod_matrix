@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace mod_matrix\Matrix;
 
 use context_course;
+use Ergebnis\Clock;
 
 final class Service
 {
@@ -20,14 +21,18 @@ final class Service
 
     private $roomRepository;
 
+    private $clock;
+
     public function __construct(
         Api $api,
         Configuration $configuration,
-        Repository\RoomRepository $roomRepository
+        Repository\RoomRepository $roomRepository,
+        Clock\Clock $clock
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
         $this->roomRepository = $roomRepository;
+        $this->clock = $clock;
     }
 
     public function urlForRoom($roomId): string
@@ -112,7 +117,7 @@ final class Service
                 $roomForGroup->course_id = $courseId;
                 $roomForGroup->group_id = $group->id;
                 $roomForGroup->room_id = $roomId;
-                $roomForGroup->timecreated = time();
+                $roomForGroup->timecreated = $this->clock->now()->getTimestamp();
                 $roomForGroup->timemodified = 0;
 
                 $this->roomRepository->save($roomForGroup);
@@ -139,7 +144,7 @@ final class Service
             $room->course_id = $courseId;
             $room->group_id = null;
             $room->room_id = $roomId;
-            $room->timecreated = time();
+            $room->timecreated = $this->clock->now()->getTimestamp();
             $room->timemodified = 0;
 
             $this->roomRepository->save($room);
