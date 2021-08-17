@@ -57,7 +57,9 @@ function matrix_add_instance($module)
 {
     global $DB;
 
-    $clock = Container::instance()->clock();
+    $container = Container::instance();
+
+    $clock = $container->clock();
 
     $module->timecreated = $clock->now()->getTimestamp();
     $module->timemodified = 0;
@@ -74,7 +76,7 @@ function matrix_add_instance($module)
         true
     );
 
-    $service = Container::instance()->service();
+    $service = $container->service();
 
     if (count($groups) > 0) {
         foreach ($groups as $group) {
