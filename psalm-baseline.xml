@@ -311,17 +311,26 @@
     </UndefinedClass>
   </file>
   <file src="test/Unit/Matrix/Repository/RoomRepositoryTest.php">
-    <InvalidArgument occurrences="3">
+    <InvalidArgument occurrences="6">
+      <code>$database</code>
+      <code>$database</code>
+      <code>$database</code>
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
     </InvalidArgument>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="6">
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
     </MixedArgument>
-    <UndefinedClass occurrences="3">
+    <UndefinedClass occurrences="6">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
