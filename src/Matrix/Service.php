@@ -46,7 +46,7 @@ final class Service
 
     public function prepareRoomForGroup($courseId, $groupId = null): void
     {
-        global $CFG, $DB;
+        global $CFG;
 
         $course = get_course($courseId);
 
@@ -155,8 +155,6 @@ final class Service
 
     public function resync_all($courseId = null): void
     {
-        global $DB;
-
         $conditions = null;
 
         if (null !== $courseId) {
@@ -177,8 +175,6 @@ final class Service
 
     public function synchronizeRoomMembers($courseId, $groupId = null): void
     {
-        global $DB;
-
         if (0 == $groupId) {
             $groupId = null;
         } // we treat zero as null, but Moodle doesn't
