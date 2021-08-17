@@ -202,6 +202,9 @@
     </RedundantCondition>
   </file>
   <file src="src/Matrix/Repository/RoomRepository.php">
+    <MixedAssignment occurrences="1">
+      <code>$id</code>
+    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>array&lt;int, object&gt;</code>
     </MixedInferredReturnType>
@@ -209,7 +212,8 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$database</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="4">
+    <UndefinedClass occurrences="5">
+      <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>

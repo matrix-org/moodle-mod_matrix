@@ -138,6 +138,8 @@ final class RoomRepositoryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
+        $id = $faker->numberBetween(1);
+
         $room = (object) [
             'course_id' => $faker->numberBetween(1),
             'group_id' => $faker->numberBetween(1),
@@ -154,16 +156,21 @@ final class RoomRepositoryTest extends Framework\TestCase
             ->with(
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo($room)
-            );
+            )
+            ->willReturn($id);
 
         $roomRepository = new Matrix\Repository\RoomRepository($database);
 
         $roomRepository->save($room);
+
+        self::assertSame($id, $room->id);
     }
 
     public function testSaveInsertsRecordForRoomWhenRoomHasIdButItIsNull(): void
     {
         $faker = self::faker();
+
+        $id = $faker->numberBetween(1);
 
         $room = (object) [
             'course_id' => $faker->numberBetween(1),
@@ -182,21 +189,26 @@ final class RoomRepositoryTest extends Framework\TestCase
             ->with(
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo($room)
-            );
+            )
+            ->willReturn($id);
 
         $roomRepository = new Matrix\Repository\RoomRepository($database);
 
         $roomRepository->save($room);
+
+        self::assertSame($id, $room->id);
     }
 
-    public function testSaveInsertsRecordForRoomWhenRoomHasId(): void
+    public function testSaveUpdatesRecordForRoomWhenRoomHasId(): void
     {
         $faker = self::faker();
+
+        $id = $faker->numberBetween(1);
 
         $room = (object) [
             'course_id' => $faker->numberBetween(1),
             'group_id' => $faker->numberBetween(1),
-            'id' => $faker->numberBetween(1),
+            'id' => $id,
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
@@ -206,7 +218,7 @@ final class RoomRepositoryTest extends Framework\TestCase
 
         $database
             ->expects(self::once())
-            ->method('insert_record')
+            ->method('update_record')
             ->with(
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo($room)
@@ -215,5 +227,7 @@ final class RoomRepositoryTest extends Framework\TestCase
         $roomRepository = new Matrix\Repository\RoomRepository($database);
 
         $roomRepository->save($room);
+
+        self::assertSame($id, $room->id);
     }
 }

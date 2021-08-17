@@ -50,7 +50,21 @@ final class RoomRepository
 
     public function save(object $room): void
     {
-        $this->database->insert_record(
+        if (
+            !property_exists($room, 'id')
+            || !is_int($room->id)
+        ) {
+            $id = $this->database->insert_record(
+                self::TABLE,
+                $room
+            );
+
+            $room->id = $id;
+
+            return;
+        }
+
+        $this->database->update_record(
             self::TABLE,
             $room
         );
