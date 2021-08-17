@@ -63,7 +63,8 @@ final class RoomRepositoryTest extends Framework\TestCase
         $room = (object) [
             'course_id' => $courseId,
             'group_id' => $groupId,
-            'room_id' => $faker->numberBetween(1),
+            'id' => $faker->numberBetween(1),
+            'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
         ];
@@ -102,14 +103,16 @@ final class RoomRepositoryTest extends Framework\TestCase
             (object) [
                 'course_id' => $courseId,
                 'group_id' => $groupId,
-                'room_id' => $faker->numberBetween(1),
+                'id' => $faker->numberBetween(1),
+                'room_id' => $faker->sha1(),
                 'timecreated' => $faker->dateTime()->getTimestamp(),
                 'timemodified' => $faker->dateTime()->getTimestamp(),
             ],
             (object) [
                 'course_id' => $courseId,
                 'group_id' => $groupId,
-                'room_id' => $faker->numberBetween(1),
+                'id' => $faker->numberBetween(1),
+                'room_id' => $faker->sha1(),
                 'timecreated' => $faker->dateTime()->getTimestamp(),
                 'timemodified' => $faker->dateTime()->getTimestamp(),
             ],
