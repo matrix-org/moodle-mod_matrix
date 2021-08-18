@@ -2,5 +2,5 @@
 .data/
 .idea/
 vendor/
-.docker/docker-compose.override.yml
+.docker/docker-compose.override.yaml
 mod_matrix.zip

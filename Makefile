@@ -9,14 +9,14 @@ coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-norm
 
 .PHONY: docker-down
 docker-down: ## Stops the local development environment with Docker
-	docker compose --file .docker/docker-compose.yml down
+	docker compose --file .docker/docker-compose.yaml down
 
 .PHONY: docker-up
 docker-up: vendor ## Starts the local development environment with Docker
 	mkdir -p .data/mariadb
 	mkdir -p .data/moodle
 	composer install --no-interaction --no-progress
-	docker compose --file .docker/docker-compose.yml up --build --force-recreate --remove-orphans
+	docker compose --file .docker/docker-compose.yaml up --build --force-recreate --remove-orphans
 
 .PHONY: release
 release: docker-down ## Compresses all files required to install mod_matrix as a ZIP file
