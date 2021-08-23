@@ -74,18 +74,37 @@ $ php admin/cli/install.php
 
 to run the command line installer.
 
-#### Database
+#### Basics
 
-Select **MariaDB (native/mariadb)** as database driver, then use the following configuration values:
+| Configuration              | Value                           |
+|----------------------------|---------------------------------|
+| Language                   | `en` (default)                  |
+| Data Directory Permissions | `2777` (default)                |
+| Web Address                | your local host                 |
+| Data Directory             | `/var/www/moodledata` (default) |
+
+#### Database
 
 | Configuration     | Value              |
 |-------------------|--------------------|
+| Database driver   | `mariadb`          |
 | Database host     | `moodle_mariadb`   |
 | Database name     | `moodle` (default) |
-| Database user     | `root`             |
-| Database password | `root`             |
 | Tables prefix     | `mdl_` (default)   |
 | Database port     | `3306`             |
+| Database user     | `root`             |
+| Database password | `root`             |
+
+#### Other
+
+| Configuration                | Value                              |
+|------------------------------|------------------------------------|
+| Full site name               | `Moodle Matrix Plugin Development` |
+| Short name                   | `mmpd`                             |
+| Admin account user name      | `admin` (default)                  |
+| New admin user password      | `password`                         |
+| New admin user email address | your email address                 |
+| Upgrade key                  | (default)                          |
 
 ### Moodle Administration
 
