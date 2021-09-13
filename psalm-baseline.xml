@@ -181,7 +181,8 @@
       <code>$user</code>
       <code>$user</code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="2">
+    <MixedArrayAssignment occurrences="3">
+      <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>

@@ -38,4 +38,11 @@ final class MatrixPowerLevelTest extends Framework\TestCase
 
         self::assertSame(50, $matrixPowerLevel->toInt());
     }
+
+    public function testDefaultReturnsMatrixPowerLevel(): void
+    {
+        $matrixPowerLevel = Matrix\Domain\MatrixPowerLevel::default();
+
+        self::assertSame(0, $matrixPowerLevel->toInt());
+    }
 }

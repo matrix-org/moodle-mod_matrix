@@ -236,6 +236,16 @@ final class Service
             $botMatrixUserId,
         ];
 
+        $powerLevels = $this->api->getState(
+            $matrixRoomId,
+            'm.room.power_levels',
+            ''
+        );
+
+        $powerLevels['users'] = [
+            $botMatrixUserId => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
+        ];
+
         foreach ($users as $user) {
             $matrixUserId = $this->matrixUserIdOf($user);
 
@@ -251,6 +261,8 @@ final class Service
             }
 
             $allowedMatrixUserIds[] = $matrixUserId;
+
+            $powerLevels['users'][$matrixUserId] = Matrix\Domain\MatrixPowerLevel::default()->toInt();
         }
 
         // Get all the staff users
@@ -258,16 +270,6 @@ final class Service
             $context,
             'mod/matrix:staff'
         );
-
-        $powerLevels = $this->api->getState(
-            $matrixRoomId,
-            'm.room.power_levels',
-            ''
-        );
-
-        $powerLevels['users'] = [
-            $botMatrixUserId => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
-        ];
 
         foreach ($staff as $user) {
             $matrixUserId = $this->matrixUserIdOf($user);

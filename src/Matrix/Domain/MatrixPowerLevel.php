@@ -32,6 +32,11 @@ final class MatrixPowerLevel
         return new self(50);
     }
 
+    public static function default(): self
+    {
+        return new self(0);
+    }
+
     public function toInt(): int
     {
         return $this->value;
