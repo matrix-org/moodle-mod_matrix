@@ -88,14 +88,14 @@ function matrix_add_instance($data)
 
     if (count($groups) > 0) {
         foreach ($groups as $group) {
-            $service->prepareRoomForCourseAndGroup(
-                $module->courseId(),
+            $service->prepareRoomForModuleAndGroup(
+                $module,
                 Moodle\Domain\GroupId::fromString($group->id)
             );
         }
     } else {
-        $service->prepareRoomForCourseAndGroup(
-            $module->courseId(),
+        $service->prepareRoomForModuleAndGroup(
+            $module,
             null
         );
     }

@@ -43,13 +43,13 @@ final class Service
         return 'https://matrix.to/#/' . $roomId->toString();
     }
 
-    public function prepareRoomForCourseAndGroup(
-        Moodle\Domain\CourseId $courseId,
+    public function prepareRoomForModuleAndGroup(
+        Moodle\Domain\Module $module,
         ?Moodle\Domain\GroupId $groupId
     ): void {
         global $CFG;
 
-        $course = get_course($courseId->toInt());
+        $course = get_course($module->courseId()->toInt());
 
         $whoami = $this->api->whoami();
 
@@ -62,11 +62,11 @@ final class Service
             'topic' => sprintf(
                 '%s/course/view.php?id=%d',
                 $CFG->wwwroot,
-                $courseId->toInt()
+                $module->courseId()->toInt()
             ),
             'preset' => 'private_chat',
             'creation_content' => [
-                'org.matrix.moodle.course_id' => $courseId->toInt(),
+                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
                 //'org.matrix.moodle.group_id' => 'undefined'
             ],
             'power_level_content_override' => [
@@ -107,7 +107,7 @@ final class Service
             $group = groups_get_group($groupId->toInt());
 
             $roomForCourseAndGroup = $this->roomRepository->findOneBy([
-                'course_id' => $courseId->toInt(),
+                'course_id' => $module->courseId()->toInt(),
                 'group_id' => $groupId->toInt(),
             ]);
 
@@ -119,7 +119,7 @@ final class Service
 
                 $roomForCourseAndGroup = Moodle\Domain\Room::create(
                     Moodle\Domain\RoomId::unknown(),
-                    $courseId,
+                    $module->courseId(),
                     $groupId,
                     $roomId,
                     Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
@@ -135,7 +135,7 @@ final class Service
         }
 
         $roomForCourse = $this->roomRepository->findOneBy([
-            'course_id' => $courseId->toInt(),
+            'course_id' => $module->courseId()->toInt(),
             'group_id' => null,
         ]);
 
@@ -144,7 +144,7 @@ final class Service
 
             $roomForCourse = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
-                $courseId,
+                $module->courseId(),
                 null,
                 $roomId,
                 Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),

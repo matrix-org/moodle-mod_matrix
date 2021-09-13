@@ -39,16 +39,14 @@ class Observer
             'course' => $courseId->toInt(),
         ]);
 
-        if ([] === $modules) {
-            return;
-        }
-
         $service = $container->service();
 
-        $service->prepareRoomForCourseAndGroup(
-            $courseId,
-            Moodle\Domain\GroupId::fromString($event->objectid)
-        );
+        foreach ($modules as $module) {
+            $service->prepareRoomForModuleAndGroup(
+                $module,
+                Moodle\Domain\GroupId::fromString($event->objectid)
+            );
+        }
     }
 
     public static function onRoleChanged(): void
