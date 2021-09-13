@@ -165,4 +165,10 @@ In the  **Add an activity or resource** overlay, click on **Matrix** to add a ne
 
 Click **Save and Display**.
 
+#### Disable Recycle Bin during Development
 
+Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select the [**Plugins**](http://moodle.com.localheinz/admin/category.php?category=modules) tab. Select [**Category: Admin Tools**](http://moodle.com.localheinz/admin/category.php?category=tools).
+
+In the [**Recycle Bin**](http://moodle.com.localheinz/admin/settings.php?section=tool_recyclebin) section, deselect **Enable course recycle bin** and **Enable category recycle bin**.
+
+Click **Save changes**.
