@@ -129,12 +129,13 @@ Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select
 
 Choose **Text Input** to create a new profile field.
 
-| Configuration              | Value              |
-|----------------------------|--------------------|
-| Short name                 | `matrix_user_id`   |
-| Name                       | `Matrix User Id`   |
-| Is this field locked?      | `yes               |
-| Should the data be unique? | `yes               |
+| Configuration              | Value                                                    |
+|----------------------------|----------------------------------------------------------|
+| Short name                 | `matrix_user_id`                                         |
+| Name                       | `Matrix User Id`                                         |
+| Description                | A valid matrix user identifier, e.g., @user:example.org. |
+| Is this field locked?      | `yes                                                     |
+| Should the data be unique? | `yes                                                     |
 
 #### Add course
 
