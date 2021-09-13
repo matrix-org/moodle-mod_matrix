@@ -173,8 +173,8 @@
     </MissingParamType>
     <MixedArgument occurrences="8">
       <code>$CFG-&gt;wwwroot</code>
-      <code>$joinedUserIds</code>
-      <code>$joinedUserIds</code>
+      <code>$joinedMatrixUserIds</code>
+      <code>$joinedMatrixUserIds</code>
       <code>$room-&gt;course_id</code>
       <code>$room-&gt;group_id</code>
       <code>$room-&gt;room_id</code>
@@ -189,7 +189,7 @@
     <MixedAssignment occurrences="9">
       <code>$course</code>
       <code>$group</code>
-      <code>$joinedUserIds</code>
+      <code>$joinedMatrixUserIds</code>
       <code>$matrixUserId</code>
       <code>$powerLevels</code>
       <code>$user</code>

@@ -228,7 +228,7 @@ final class Service
 
         $matrixRoomId = Matrix\Domain\MatrixRoomId::fromString($room->room_id);
 
-        $joinedUserIds = $this->api->getMembersOfRoom($matrixRoomId);
+        $joinedMatrixUserIds = $this->api->getMembersOfRoom($matrixRoomId);
 
         $allowedUserIds = [
             $this->api->whoami(),
@@ -241,7 +241,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedUserIds)) {
+            if (!in_array($matrixUserId, $joinedMatrixUserIds)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
@@ -274,7 +274,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedUserIds)) {
+            if (!in_array($matrixUserId, $joinedMatrixUserIds)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
@@ -294,7 +294,7 @@ final class Service
         );
 
         // Kick anyone who isn't supposed to be there
-        foreach ($joinedUserIds as $matrixUserId) {
+        foreach ($joinedMatrixUserIds as $matrixUserId) {
             if (!in_array($matrixUserId, $allowedUserIds)) {
                 $this->api->kickUser(
                     $matrixUserId,
