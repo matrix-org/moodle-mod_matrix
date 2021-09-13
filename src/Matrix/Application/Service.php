@@ -52,6 +52,10 @@ final class Service
 
         $whoami = $this->api->whoami();
 
+        $botPowerLevel = Matrix\Domain\MatrixPowerLevel::bot();
+        $staffPowerLevel = Matrix\Domain\MatrixPowerLevel::staff();
+        $redactorPowerLevel = Matrix\Domain\MatrixPowerLevel::redactor();
+
         $roomOptions = [
             'name' => $course->fullname,
             'topic' => sprintf(
@@ -65,30 +69,26 @@ final class Service
                 //'org.matrix.moodle.group_id' => 'undefined'
             ],
             'power_level_content_override' => [
-                // Bot PL: 100 (exclusive rights to manage membership)
-                // Staff PL: 99 (moderators)
-                // Everyone else gets PL 0
-
-                'ban' => 100,
-                'invite' => 100,
-                'kick' => 100,
+                'ban' => $botPowerLevel->toInt(),
+                'invite' => $botPowerLevel->toInt(),
+                'kick' => $botPowerLevel->toInt(),
                 'events' => [
-                    'm.room.name' => 100,
-                    'm.room.power_levels' => 100,
-                    'm.room.history_visibility' => 99,
-                    'm.room.canonical_alias' => 99,
-                    'm.room.avatar' => 99,
-                    'm.room.tombstone' => 100,
-                    'm.room.server_acl' => 100,
-                    'm.room.encryption' => 100,
-                    'm.room.join_rules' => 100,
-                    'm.room.guest_access' => 100,
+                    'm.room.name' => $botPowerLevel->toInt(),
+                    'm.room.power_levels' => $botPowerLevel->toInt(),
+                    'm.room.history_visibility' => $staffPowerLevel->toInt(),
+                    'm.room.canonical_alias' => $staffPowerLevel->toInt(),
+                    'm.room.avatar' => $staffPowerLevel->toInt(),
+                    'm.room.tombstone' => $botPowerLevel->toInt(),
+                    'm.room.server_acl' => $botPowerLevel->toInt(),
+                    'm.room.encryption' => $botPowerLevel->toInt(),
+                    'm.room.join_rules' => $botPowerLevel->toInt(),
+                    'm.room.guest_access' => $botPowerLevel->toInt(),
                 ],
                 'events_default' => 0,
-                'state_default' => 99,
-                'redact' => 50,
+                'state_default' => $staffPowerLevel->toInt(),
+                'redact' => $redactorPowerLevel->toInt(),
                 'users' => [
-                    $whoami => 100,
+                    $whoami => $botPowerLevel->toInt(),
                 ],
             ],
             'initial_state' => [
@@ -266,7 +266,7 @@ final class Service
         );
 
         $powerLevels['users'] = [
-            $botMatrixUserId => 100,
+            $botMatrixUserId => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
         ];
 
         foreach ($staff as $user) {
@@ -285,7 +285,7 @@ final class Service
 
             $allowedMatrixUserIds[] = $matrixUserId;
 
-            $powerLevels['users'][$matrixUserId] = 99;
+            $powerLevels['users'][$matrixUserId] = Matrix\Domain\MatrixPowerLevel::staff()->toInt();
         }
 
         $this->api->setState(
