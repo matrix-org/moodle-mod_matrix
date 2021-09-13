@@ -56,7 +56,7 @@ class Observer
 
         $service = $container->service();
 
-        $service->prepareRoomForGroup(
+        $service->prepareRoomForCourseAndGroup(
             $courseId,
             Moodle\Domain\GroupId::fromString($event->objectid)
         );

@@ -43,7 +43,7 @@ final class Service
         return 'https://matrix.to/#/' . $roomId->toString();
     }
 
-    public function prepareRoomForGroup(
+    public function prepareRoomForCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         ?Moodle\Domain\GroupId $groupId
     ): void {
