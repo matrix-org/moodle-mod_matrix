@@ -45,7 +45,7 @@ final class Service
 
     public function prepareRoomForGroup(
         Moodle\Domain\CourseId $courseId,
-        ?Moodle\Domain\GroupId $groupId = null
+        ?Moodle\Domain\GroupId $groupId
     ): void {
         global $CFG;
 

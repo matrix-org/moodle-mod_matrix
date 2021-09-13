@@ -94,7 +94,10 @@ function matrix_add_instance($data)
             );
         }
     } else {
-        $service->prepareRoomForGroup($module->courseId());
+        $service->prepareRoomForGroup(
+            $module->courseId(),
+            null
+        );
     }
 
     return $module->id()->toInt();
