@@ -26,8 +26,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
         $faker = self::faker()->unique();
 
         $conditions = [
-            'course_id' => $faker->numberBetween(1),
-            'group_id' => $faker->numberBetween(1),
+            'id' => $faker->numberBetween(1),
         ];
 
         $database = $this->createMock(\moodle_database::class);
@@ -52,21 +51,19 @@ final class ModuleRepositoryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = $faker->numberBetween(1);
-        $groupId = $faker->numberBetween(1);
+        $id = $faker->numberBetween(1);
 
         $conditions = [
-            'course_id' => $courseId,
-            'group_id' => $groupId,
+            'id' => $id,
         ];
 
         $module = (object) [
-            'course_id' => $courseId,
-            'group_id' => $groupId,
-            'id' => $faker->numberBetween(1),
-            'module_id' => $faker->sha1(),
+            'course' => $faker->numberBetween(1),
+            'id' => $id,
+            'name' => $faker->sentence(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
+            'type' => $faker->numberBetween(1),
         ];
 
         $database = $this->createMock(\moodle_database::class);
@@ -100,6 +97,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
         $modules = [
             (object) [
                 'course' => $courseId,
+                'id' => $faker->numberBetween(1),
                 'name' => $faker->sentence(),
                 'timecreated' => $faker->dateTime()->getTimestamp(),
                 'timemodified' => $faker->dateTime()->getTimestamp(),
@@ -107,6 +105,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
             ],
             (object) [
                 'course' => $courseId,
+                'id' => $faker->numberBetween(1),
                 'name' => $faker->sentence(),
                 'timecreated' => $faker->dateTime()->getTimestamp(),
                 'timemodified' => $faker->dateTime()->getTimestamp(),
