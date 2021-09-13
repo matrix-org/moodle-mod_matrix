@@ -7,6 +7,7 @@
  */
 
 use mod_matrix\Container;
+use mod_matrix\Matrix;
 
 defined('MOODLE_INTERNAL') || exit;
 
@@ -55,6 +56,8 @@ function matrix_supports($feature)
  */
 function matrix_add_instance($module)
 {
+    $courseId = Matrix\Domain\CourseId::fromString($module->course);
+
     $container = Container::instance();
 
     $clock = $container->clock();
@@ -70,7 +73,7 @@ function matrix_add_instance($module)
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
     $groups = groups_get_all_groups(
-        $module->course,
+        $courseId->toInt(),
         0,
         0,
         'g.*',
@@ -82,12 +85,12 @@ function matrix_add_instance($module)
     if (count($groups) > 0) {
         foreach ($groups as $group) {
             $service->prepareRoomForGroup(
-                $module->course,
+                $courseId,
                 $group->id
             );
         }
     } else {
-        $service->prepareRoomForGroup($module->course);
+        $service->prepareRoomForGroup($courseId);
     }
 
     return $module->id;

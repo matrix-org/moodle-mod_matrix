@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.9.3@4c262932602b9bbab5020863d1eb22d49de0dbf4">
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
   <file src="index.php">
     <MissingFile occurrences="1">
       <code>require_once '../../config.php'</code>
@@ -33,8 +33,9 @@
       <code>matrix_add_instance</code>
       <code>matrix_update_instance</code>
     </MissingReturnType>
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
       <code>$groups</code>
+      <code>$module-&gt;course</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$group</code>
@@ -256,18 +257,16 @@
     </UndefinedConstant>
   </file>
   <file src="src/Matrix/Service.php">
-    <MissingParamType occurrences="6">
-      <code>$courseId</code>
-      <code>$courseId</code>
-      <code>$courseId</code>
+    <MissingParamType occurrences="3">
       <code>$groupId</code>
       <code>$groupId</code>
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="3">
-      <code>$courseId</code>
+    <MixedArgument occurrences="4">
+      <code>$CFG-&gt;wwwroot</code>
       <code>$joinedUserIds</code>
       <code>$joinedUserIds</code>
+      <code>$room-&gt;course_id</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$profile['matrix_user_id']</code>
@@ -300,10 +299,8 @@
       <code>$users</code>
       <code>$whoami</code>
     </MixedAssignment>
-    <MixedOperand occurrences="6">
-      <code>$CFG-&gt;wwwroot</code>
+    <MixedOperand occurrences="4">
       <code>$course-&gt;fullname</code>
-      <code>$courseId</code>
       <code>$group-&gt;name</code>
       <code>$roomId</code>
       <code>$roomId</code>
@@ -320,7 +317,7 @@
       <code>$conditions</code>
     </PossiblyNullArgument>
     <UndefinedFunction occurrences="5">
-      <code>get_course($courseId)</code>
+      <code>get_course($courseId-&gt;toInt())</code>
       <code>groups_get_group($groupId)</code>
       <code>profile_load_custom_fields($user)</code>
       <code>profile_load_custom_fields($user)</code>
@@ -331,6 +328,10 @@
       <code>$event</code>
       <code>$event</code>
     </MissingParamType>
+    <MixedArgument occurrences="2">
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;courseid</code>
+    </MixedArgument>
     <MixedPropertyFetch occurrences="3">
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;courseid</code>

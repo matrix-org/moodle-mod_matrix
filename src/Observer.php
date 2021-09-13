@@ -16,12 +16,14 @@ class Observer
 {
     public static function onGroupMemberChange($event): void
     {
+        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+
         $container = Container::instance();
 
         $moduleRepository = $container->moduleRepository();
 
         $modules = $moduleRepository->findAllBy([
-            'course' => $event->courseid,
+            'course' => $courseId->toInt(),
         ]);
 
         if ([] === $modules) {
@@ -31,19 +33,21 @@ class Observer
         $service = $container->service();
 
         $service->synchronizeRoomMembers(
-            $event->courseid,
+            $courseId,
             $event->objectid
         );
     }
 
     public static function onGroupCreated(event\group_created $event): void
     {
+        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+
         $container = Container::instance();
 
         $moduleRepository = $container->moduleRepository();
 
         $modules = $moduleRepository->findAllBy([
-            'course' => $event->courseid,
+            'course' => $courseId->toInt(),
         ]);
 
         if ([] === $modules) {
@@ -53,7 +57,7 @@ class Observer
         $service = $container->service();
 
         $service->prepareRoomForGroup(
-            $event->courseid,
+            $courseId,
             $event->objectid
         );
     }
@@ -67,8 +71,10 @@ class Observer
 
     public static function onUserEnrolmentChanged($event): void
     {
+        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+
         $service = Container::instance()->service();
 
-        $service->synchronizeAll($event->courseid);
+        $service->synchronizeAll($courseId);
     }
 }
