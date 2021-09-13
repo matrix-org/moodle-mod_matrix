@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace mod_matrix\Moodle\Infrastructure;
 
 use mod_matrix\Moodle;
+
 final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRepository
 {
     private const TABLE = 'matrix';
