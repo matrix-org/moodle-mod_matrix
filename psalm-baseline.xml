@@ -158,23 +158,19 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="6">
-      <code>getMembersOfRoom</code>
+    <MissingReturnType occurrences="4">
       <code>getState</code>
       <code>inviteUser</code>
       <code>kickUser</code>
       <code>setState</code>
-      <code>whoami</code>
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
     <MissingParamType occurrences="1">
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="8">
+    <MixedArgument occurrences="6">
       <code>$CFG-&gt;wwwroot</code>
-      <code>$joinedMatrixUserIds</code>
-      <code>$joinedMatrixUserIds</code>
       <code>$room-&gt;course_id</code>
       <code>$room-&gt;group_id</code>
       <code>$room-&gt;room_id</code>
@@ -186,18 +182,13 @@
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="2"/>
-    <MixedAssignment occurrences="10">
-      <code>$botMatrixUserId</code>
+    <MixedAssignment occurrences="6">
       <code>$course</code>
       <code>$group</code>
-      <code>$joinedMatrixUserIds</code>
-      <code>$matrixUserId</code>
       <code>$powerLevels</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
-      <code>$whoami</code>
     </MixedAssignment>
     <MixedOperand occurrences="4">
       <code>$course-&gt;fullname</code>
@@ -226,21 +217,21 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="7">
-      <code>getMembersOfRoom</code>
+    <MissingReturnType occurrences="5">
       <code>getState</code>
       <code>inviteUser</code>
       <code>kickUser</code>
       <code>request</code>
       <code>setState</code>
-      <code>whoami</code>
     </MissingReturnType>
-    <MixedArgument occurrences="7">
+    <MixedArgument occurrences="9">
       <code>$content</code>
+      <code>$ev['state_key']</code>
       <code>$eventType</code>
       <code>$eventType</code>
       <code>$opts</code>
       <code>$r['room_id']</code>
+      <code>$r['user_id']</code>
       <code>$stateKey</code>
       <code>$stateKey</code>
     </MixedArgument>
@@ -253,7 +244,7 @@
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="10">
+    <MixedAssignment occurrences="9">
       <code>$errorCode</code>
       <code>$errorMessage</code>
       <code>$ev</code>
@@ -263,7 +254,6 @@
       <code>$membership</code>
       <code>$r</code>
       <code>$r</code>
-      <code>$userIds[]</code>
     </MixedAssignment>
     <RedundantCondition occurrences="1">
       <code>'PUT' === $method</code>

@@ -88,7 +88,7 @@ final class Service
                 'state_default' => $staffPowerLevel->toInt(),
                 'redact' => $redactorPowerLevel->toInt(),
                 'users' => [
-                    $whoami => $botPowerLevel->toInt(),
+                    $whoami->toString() => $botPowerLevel->toInt(),
                 ],
             ],
             'initial_state' => [
@@ -232,8 +232,9 @@ final class Service
 
         $botMatrixUserId = $this->api->whoami();
 
+        /** @var array<int, Matrix\Domain\MatrixUserId> $allowedMatrixUserIds */
         $allowedMatrixUserIds = [
-            $botMatrixUserId,
+            $this->api->whoami()->toString(),
         ];
 
         $powerLevels = $this->api->getState(
@@ -243,7 +244,7 @@ final class Service
         );
 
         $powerLevels['users'] = [
-            $botMatrixUserId => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
+            $botMatrixUserId->toString() => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
         ];
 
         foreach ($users as $user) {
@@ -253,7 +254,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedMatrixUserIds)) {
+            if (!in_array($matrixUserId, $joinedMatrixUserIds, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
@@ -262,7 +263,7 @@ final class Service
 
             $allowedMatrixUserIds[] = $matrixUserId;
 
-            $powerLevels['users'][$matrixUserId] = Matrix\Domain\MatrixPowerLevel::default()->toInt();
+            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\MatrixPowerLevel::default()->toInt();
         }
 
         // Get all the staff users
@@ -278,7 +279,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedMatrixUserIds)) {
+            if (!in_array($matrixUserId, $joinedMatrixUserIds, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
@@ -287,7 +288,7 @@ final class Service
 
             $allowedMatrixUserIds[] = $matrixUserId;
 
-            $powerLevels['users'][$matrixUserId] = Matrix\Domain\MatrixPowerLevel::staff()->toInt();
+            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\MatrixPowerLevel::staff()->toInt();
         }
 
         $this->api->setState(
@@ -299,7 +300,7 @@ final class Service
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedMatrixUserIds as $matrixUserId) {
-            if (!in_array($matrixUserId, $allowedMatrixUserIds)) {
+            if (!in_array($matrixUserId, $allowedMatrixUserIds, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
                     $matrixRoomId
@@ -308,7 +309,7 @@ final class Service
         }
     }
 
-    private function matrixUserIdOf(object $user): ?string
+    private function matrixUserIdOf(object $user): ?Matrix\Domain\MatrixUserId
     {
         profile_load_custom_fields($user);
 
@@ -334,6 +335,6 @@ final class Service
             return null;
         }
 
-        return $matrixUserId;
+        return Matrix\Domain\MatrixUserId::fromString($matrixUserId);
     }
 }

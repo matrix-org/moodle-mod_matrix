@@ -15,7 +15,7 @@ interface Api
     /**
      * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
      */
-    public function whoami();
+    public function whoami(): Matrix\Domain\MatrixUserId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
@@ -25,15 +25,19 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
-     * @param mixed $userId
      */
-    public function inviteUser($userId, Matrix\Domain\MatrixRoomId $roomId);
+    public function inviteUser(
+        Matrix\Domain\MatrixUserId $userId,
+        Matrix\Domain\MatrixRoomId $roomId
+    );
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
-     * @param mixed $userId
      */
-    public function kickUser($userId, Matrix\Domain\MatrixRoomId $roomId);
+    public function kickUser(
+        Matrix\Domain\MatrixUserId $userId,
+        Matrix\Domain\MatrixRoomId $roomId
+    );
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
@@ -52,8 +56,10 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
+     *
+     * @return array<int, Matrix\Domain\MatrixUserId>
      */
-    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId);
+    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId): array;
 
     public function debug($val): void;
 }

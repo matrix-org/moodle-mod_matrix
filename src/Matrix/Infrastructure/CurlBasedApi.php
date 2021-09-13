@@ -24,14 +24,14 @@ final class CurlBasedApi implements Matrix\Application\Api
         $this->accessToken = $accessToken;
     }
 
-    public function whoami()
+    public function whoami(): Matrix\Domain\MatrixUserId
     {
         $r = $this->request(
             'GET',
             '/_matrix/client/r0/account/whoami'
         );
 
-        return $r['user_id'];
+        return Matrix\Domain\MatrixUserId::fromString($r['user_id']);
     }
 
     public function createRoom($opts = []): Matrix\Domain\MatrixRoomId
@@ -46,8 +46,10 @@ final class CurlBasedApi implements Matrix\Application\Api
         return Matrix\Domain\MatrixRoomId::fromString($r['room_id']);
     }
 
-    public function inviteUser($userId, Matrix\Domain\MatrixRoomId $roomId)
-    {
+    public function inviteUser(
+        Matrix\Domain\MatrixUserId $userId,
+        Matrix\Domain\MatrixRoomId $roomId
+    ) {
         return $this->request(
             'POST',
             sprintf(
@@ -56,13 +58,15 @@ final class CurlBasedApi implements Matrix\Application\Api
             ),
             [],
             [
-                'user_id' => $userId,
+                'user_id' => $userId->toString(),
             ]
         );
     }
 
-    public function kickUser($userId, Matrix\Domain\MatrixRoomId $roomId)
-    {
+    public function kickUser(
+        Matrix\Domain\MatrixUserId $userId,
+        Matrix\Domain\MatrixRoomId $roomId
+    ) {
         return $this->request(
             'POST',
             sprintf(
@@ -71,7 +75,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             ),
             [],
             [
-                'user_id' => $userId,
+                'user_id' => $userId->toString(),
             ]
         );
     }
@@ -104,7 +108,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId)
+    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId): array
     {
         $members = $this->request(
             'GET',
@@ -121,7 +125,7 @@ final class CurlBasedApi implements Matrix\Application\Api
                 $membership = $ev['content']['membership'];
 
                 if ('join' == $membership || 'invite' == $membership) {
-                    $userIds[] = $ev['state_key'];
+                    $userIds[] = Matrix\Domain\MatrixUserId::fromString($ev['state_key']);
                 }
             }
         }
