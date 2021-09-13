@@ -157,7 +157,10 @@ final class Service
             $this->roomRepository->save($room);
         }
 
-        $this->synchronizeRoomMembers($courseId);
+        $this->synchronizeRoomMembers(
+            $courseId,
+            null
+        );
     }
 
     public function synchronizeAll(?Moodle\Domain\CourseId $courseId = null): void
@@ -182,7 +185,7 @@ final class Service
 
     public function synchronizeRoomMembers(
         Moodle\Domain\CourseId $courseId,
-        ?Moodle\Domain\GroupId $groupId = null
+        ?Moodle\Domain\GroupId $groupId
     ): void {
         if (
             null !== $groupId
