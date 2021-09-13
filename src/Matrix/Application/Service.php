@@ -226,13 +226,13 @@ final class Service
             $users = [];
         } // use an empty array
 
-        $allowedUserIds = [
-            $this->api->whoami(),
-        ];
-
         $matrixRoomId = Matrix\Domain\MatrixRoomId::fromString($room->room_id);
 
         $joinedUserIds = $this->api->getMembersOfRoom($matrixRoomId);
+
+        $allowedUserIds = [
+            $this->api->whoami(),
+        ];
 
         foreach ($users as $user) {
             $matrixUserId = $this->matrixUserIdOf($user);
