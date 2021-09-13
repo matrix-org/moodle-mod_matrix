@@ -17,11 +17,8 @@ use mod_matrix\Matrix;
 final class Service
 {
     private $api;
-
     private $configuration;
-
     private $roomRepository;
-
     private $clock;
 
     public function __construct(

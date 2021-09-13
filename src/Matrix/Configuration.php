@@ -13,9 +13,7 @@ namespace mod_matrix\Matrix;
 final class Configuration
 {
     private $accessToken;
-
     private $elementUrl;
-
     private $hsUrl;
 
     private function __construct(

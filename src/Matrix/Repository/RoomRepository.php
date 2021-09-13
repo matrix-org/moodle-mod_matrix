@@ -13,7 +13,6 @@ namespace mod_matrix\Matrix\Repository;
 final class RoomRepository
 {
     private const TABLE = 'matrix_rooms';
-
     private $database;
 
     public function __construct(\moodle_database $database)

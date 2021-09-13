@@ -15,7 +15,6 @@ defined('MOODLE_INTERNAL') || exit;
 class Api
 {
     private $hsUrl;
-
     private $accessToken;
 
     public function __construct(
