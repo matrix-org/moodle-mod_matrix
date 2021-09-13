@@ -29,7 +29,7 @@ class Observer
         $service = $container->service();
 
         foreach ($rooms as $room) {
-            $service->synchronizeRoomMembers($room);
+            $service->synchronizeRoomMembersForRoom($room);
         }
     }
 
@@ -61,7 +61,7 @@ class Observer
     {
         $service = Container::instance()->service();
 
-        $service->synchronizeAll();
+        $service->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentChanged($event): void
@@ -70,6 +70,6 @@ class Observer
 
         $service = Container::instance()->service();
 
-        $service->synchronizeAllForCourse($courseId);
+        $service->synchronizeRoomMembersForAllRoomsOfCourse($courseId);
     }
 }

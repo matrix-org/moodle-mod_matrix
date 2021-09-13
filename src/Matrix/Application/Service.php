@@ -129,7 +129,7 @@ final class Service
                 $this->roomRepository->save($roomForCourseAndGroup);
             }
 
-            $this->synchronizeRoomMembers($roomForCourseAndGroup);
+            $this->synchronizeRoomMembersForRoom($roomForCourseAndGroup);
 
             return;
         }
@@ -154,30 +154,30 @@ final class Service
             $this->roomRepository->save($roomForCourse);
         }
 
-        $this->synchronizeRoomMembers($roomForCourse);
+        $this->synchronizeRoomMembersForRoom($roomForCourse);
     }
 
-    public function synchronizeAll(): void
+    public function synchronizeRoomMembersForAllRooms(): void
     {
         $rooms = $this->roomRepository->findAll();
 
         foreach ($rooms as $room) {
-            $this->synchronizeRoomMembers($room);
+            $this->synchronizeRoomMembersForRoom($room);
         }
     }
 
-    public function synchronizeAllForCourse(Moodle\Domain\CourseId $courseId): void
+    public function synchronizeRoomMembersForAllRoomsOfCourse(Moodle\Domain\CourseId $courseId): void
     {
         $rooms = $this->roomRepository->findAllBy([
             'course_id' => $courseId->toInt(),
         ]);
 
         foreach ($rooms as $room) {
-            $this->synchronizeRoomMembers($room);
+            $this->synchronizeRoomMembersForRoom($room);
         }
     }
 
-    public function synchronizeRoomMembers(Moodle\Domain\Room $room): void
+    public function synchronizeRoomMembersForRoom(Moodle\Domain\Room $room): void
     {
         $groupId = $room->groupId();
 
