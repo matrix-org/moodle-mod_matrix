@@ -304,19 +304,29 @@ final class Service
         }
     }
 
-    private function matrixUserIdOf(object $user)
+    private function matrixUserIdOf(object $user): ?string
     {
         profile_load_custom_fields($user);
 
-        $profile = $user->profile;
-
-        if (!$profile) {
+        if (!property_exists($user, 'profile')) {
             return null;
         }
 
-        $matrixUserId = $profile['matrix_user_id'];
+        if (!is_array($user->profile)) {
+            return null;
+        }
 
-        if (!$matrixUserId) {
+        if (!array_key_exists('matrix_user_id', $user->profile)) {
+            return null;
+        }
+
+        $matrixUserId = $user->profile['matrix_user_id'];
+
+        if (!is_string($matrixUserId)) {
+            return null;
+        }
+
+        if ('' === trim($matrixUserId)) {
             return null;
         }
 

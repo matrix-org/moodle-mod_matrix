@@ -171,9 +171,6 @@
     <MissingParamType occurrences="1">
       <code>$roomId</code>
     </MissingParamType>
-    <MissingReturnType occurrences="1">
-      <code>matrixUserIdOf</code>
-    </MissingReturnType>
     <MixedArgument occurrences="8">
       <code>$CFG-&gt;wwwroot</code>
       <code>$joinedUserIds</code>
@@ -184,28 +181,17 @@
       <code>$user</code>
       <code>$user</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$profile['matrix_user_id']</code>
-    </MixedArrayAccess>
     <MixedArrayAssignment occurrences="2">
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="3">
-      <code>$powerLevels['users'][$matrixUserId]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="15">
-      <code>$allowedUserIds[]</code>
-      <code>$allowedUserIds[]</code>
+    <MixedArrayOffset occurrences="2"/>
+    <MixedAssignment occurrences="9">
       <code>$course</code>
       <code>$group</code>
       <code>$joinedUserIds</code>
       <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
       <code>$powerLevels</code>
-      <code>$profile</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
