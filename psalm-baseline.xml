@@ -126,9 +126,9 @@
     <MixedInferredReturnType occurrences="9">
       <code>Clock\Clock</code>
       <code>Matrix\Api</code>
+      <code>Matrix\Application\ModuleRepository</code>
       <code>Matrix\Configuration</code>
       <code>Matrix\Infrastructure\ModuleNormalizer</code>
-      <code>Matrix\Repository\ModuleRepository</code>
       <code>Matrix\Repository\RoomRepository</code>
       <code>Matrix\Service</code>
       <code>\moodle_database</code>
@@ -140,9 +140,9 @@
     <MixedReturnStatement occurrences="8">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
+      <code>$this-&gt;resolve(Matrix\Application\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Infrastructure\ModuleNormalizer::class)</code>
-      <code>$this-&gt;resolve(Matrix\Repository\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
@@ -213,7 +213,7 @@
       <code>'PUT' === $method</code>
     </RedundantCondition>
   </file>
-  <file src="src/Matrix/Repository/ModuleRepository.php">
+  <file src="src/Matrix/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
@@ -341,7 +341,7 @@
       <code>event\group_created</code>
     </UndefinedClass>
   </file>
-  <file src="test/Unit/Matrix/Repository/ModuleRepositoryTest.php">
+  <file src="test/Unit/Matrix/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
     <InvalidArgument occurrences="7">
       <code>$database</code>
       <code>$database</code>

@@ -6,16 +6,17 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Matrix\Repository;
+namespace mod_matrix\Test\Unit\Matrix\Infrastructure;
 
 use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
 use PHPUnit\Framework;
+use const IGNORE_MISSING;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Repository\ModuleRepository
+ * @covers \mod_matrix\Matrix\Infrastructure\DatabaseBasedModuleRepository
  *
  * @uses \mod_matrix\Matrix\Domain\CourseId
  * @uses \mod_matrix\Matrix\Domain\Module
@@ -25,7 +26,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Matrix\Domain\Type
  * @uses \mod_matrix\Matrix\Infrastructure\ModuleNormalizer
  */
-final class ModuleRepositoryTest extends Framework\TestCase
+final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 {
     use Util\Helper;
 
@@ -50,7 +51,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
             )
             ->willReturn(null);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -90,7 +91,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
             )
             ->willReturn($normalized);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -149,7 +150,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
                 $two,
             ]);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -209,7 +210,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
             )
             ->willReturn($id);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -251,7 +252,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
                 ])
             );
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -276,7 +277,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
 
         $database = $this->createMock(\moodle_database::class);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );
@@ -312,7 +313,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
                 ])
             );
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository(
+        $moduleRepository = new Matrix\Infrastructure\DatabaseBasedModuleRepository(
             $database,
             new Matrix\Infrastructure\ModuleNormalizer()
         );

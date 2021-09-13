@@ -8,11 +8,11 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Matrix\Repository;
+namespace mod_matrix\Matrix\Infrastructure;
 
 use mod_matrix\Matrix;
 
-final class ModuleRepository
+final class DatabaseBasedModuleRepository implements Matrix\Application\ModuleRepository
 {
     private const TABLE = 'matrix';
     private $database;
@@ -42,9 +42,6 @@ final class ModuleRepository
         return $this->moduleNormalizer->denormalize($module);
     }
 
-    /**
-     * @return array<int, Matrix\Domain\Module>
-     */
     public function findAllBy(array $conditions): array
     {
         /** @var array<int, object> $modules */
@@ -85,9 +82,6 @@ final class ModuleRepository
         );
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function remove(Matrix\Domain\Module $module): void
     {
         if ($module->id()->equals(Matrix\Domain\ModuleId::unknown())) {

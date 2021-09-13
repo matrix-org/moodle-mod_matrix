@@ -46,6 +46,13 @@ final class Container
             );
         });
 
+        $this->define(Matrix\Application\ModuleRepository::class, static function (self $container): Matrix\Application\ModuleRepository {
+            return new Matrix\Infrastructure\DatabaseBasedModuleRepository(
+                $container->database(),
+                $container->moduleNormalizer()
+            );
+        });
+
         $this->define(Matrix\Configuration::class, static function (): Matrix\Configuration {
             $object = get_config('mod_matrix');
 
@@ -54,13 +61,6 @@ final class Container
 
         $this->define(Matrix\Infrastructure\ModuleNormalizer::class, static function (): Matrix\Infrastructure\ModuleNormalizer {
             return new Matrix\Infrastructure\ModuleNormalizer();
-        });
-
-        $this->define(Matrix\Repository\ModuleRepository::class, static function (self $container): Matrix\Repository\ModuleRepository {
-            return new Matrix\Repository\ModuleRepository(
-                $container->database(),
-                $container->moduleNormalizer()
-            );
         });
 
         $this->define(Matrix\Repository\RoomRepository::class, static function (self $container): Matrix\Repository\RoomRepository {
@@ -125,9 +125,9 @@ final class Container
         return $this->resolve(Matrix\Infrastructure\ModuleNormalizer::class);
     }
 
-    public function moduleRepository(): Matrix\Repository\ModuleRepository
+    public function moduleRepository(): Matrix\Application\ModuleRepository
     {
-        return $this->resolve(Matrix\Repository\ModuleRepository::class);
+        return $this->resolve(Matrix\Application\ModuleRepository::class);
     }
 
     public function roomRepository(): Matrix\Repository\RoomRepository
