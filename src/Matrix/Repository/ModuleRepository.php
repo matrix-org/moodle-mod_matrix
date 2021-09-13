@@ -10,17 +10,23 @@ declare(strict_types=1);
 
 namespace mod_matrix\Matrix\Repository;
 
+use mod_matrix\Matrix;
+
 final class ModuleRepository
 {
     private const TABLE = 'matrix';
     private $database;
+    private $moduleNormalizer;
 
-    public function __construct(\moodle_database $database)
-    {
+    public function __construct(
+        \moodle_database $database,
+        Matrix\Infrastructure\ModuleNormalizer $moduleNormalizer
+    ) {
         $this->database = $database;
+        $this->moduleNormalizer = $moduleNormalizer;
     }
 
-    public function findOneBy(array $conditions): ?object
+    public function findOneBy(array $conditions): ?Matrix\Domain\Module
     {
         $module = $this->database->get_record(
             self::TABLE,
@@ -33,55 +39,65 @@ final class ModuleRepository
             return null;
         }
 
-        return $module;
+        return $this->moduleNormalizer->denormalize($module);
     }
 
     /**
-     * @return array<int, object>
+     * @return array<int, Matrix\Domain\Module>
      */
     public function findAllBy(array $conditions): array
     {
-        return $this->database->get_records(
+        /** @var array<int, object> $modules */
+        $modules = $this->database->get_records(
             self::TABLE,
             $conditions
         );
+
+        return array_map(function (object $module): Matrix\Domain\Module {
+            return $this->moduleNormalizer->denormalize($module);
+        }, $modules);
     }
 
-    public function save(object $module): void
+    public function save(Matrix\Domain\Module $module): void
     {
-        if (
-            !property_exists($module, 'id')
-            || !is_int($module->id)
-        ) {
+        if ($module->id()->equals(Matrix\Domain\ModuleId::unknown())) {
             $id = $this->database->insert_record(
                 self::TABLE,
-                $module
+                $this->moduleNormalizer->normalize($module)
             );
 
-            $module->id = $id;
+            $reflection = new \ReflectionClass(Matrix\Domain\Module::class);
+
+            $property = $reflection->getProperty('id');
+
+            $property->setAccessible(true);
+            $property->setValue(
+                $module,
+                Matrix\Domain\ModuleId::fromInt((int) $id)
+            );
 
             return;
         }
 
         $this->database->update_record(
             self::TABLE,
-            $module
+            $this->moduleNormalizer->normalize($module)
         );
     }
 
     /**
      * @throws \InvalidArgumentException
      */
-    public function remove(object $module): void
+    public function remove(Matrix\Domain\Module $module): void
     {
-        if (!property_exists($module, 'id')) {
-            throw new \InvalidArgumentException('Can not remove module without identifier.');
+        if ($module->id()->equals(Matrix\Domain\ModuleId::unknown())) {
+            throw new \InvalidArgumentException('Can not remove module that has not yet been persisted.');
         }
 
         $this->database->delete_records(
             self::TABLE,
             [
-                'id' => $module->id,
+                'id' => $module->id()->toInt(),
             ]
         );
     }

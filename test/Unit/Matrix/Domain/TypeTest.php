@@ -21,6 +21,16 @@ final class TypeTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
      */
+    public function testFromIntReturnsType(int $value): void
+    {
+        $type = Matrix\Domain\Type::fromInt($value);
+
+        self::assertSame($value, $type->toInt());
+    }
+
+    /**
+     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     */
     public function testFromStringReturnsType(int $value): void
     {
         $type = Matrix\Domain\Type::fromString((string) $value);

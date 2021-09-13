@@ -16,6 +16,14 @@ use PHPUnit\Framework;
  * @internal
  *
  * @covers \mod_matrix\Matrix\Repository\ModuleRepository
+ *
+ * @uses \mod_matrix\Matrix\Domain\CourseId
+ * @uses \mod_matrix\Matrix\Domain\Module
+ * @uses \mod_matrix\Matrix\Domain\ModuleId
+ * @uses \mod_matrix\Matrix\Domain\Name
+ * @uses \mod_matrix\Matrix\Domain\Timestamp
+ * @uses \mod_matrix\Matrix\Domain\Type
+ * @uses \mod_matrix\Matrix\Infrastructure\ModuleNormalizer
  */
 final class ModuleRepositoryTest extends Framework\TestCase
 {
@@ -42,7 +50,10 @@ final class ModuleRepositoryTest extends Framework\TestCase
             )
             ->willReturn(null);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
         self::assertNull($moduleRepository->findOneBy($conditions));
     }
@@ -57,7 +68,7 @@ final class ModuleRepositoryTest extends Framework\TestCase
             'id' => $id,
         ];
 
-        $module = (object) [
+        $normalized = (object) [
             'course' => $faker->numberBetween(1),
             'id' => $id,
             'name' => $faker->sentence(),
@@ -77,11 +88,23 @@ final class ModuleRepositoryTest extends Framework\TestCase
                 self::identicalTo('*'),
                 self::identicalTo(IGNORE_MISSING)
             )
-            ->willReturn($module);
+            ->willReturn($normalized);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
-        self::assertSame($module, $moduleRepository->findOneBy($conditions));
+        $expected = Matrix\Domain\Module::create(
+            Matrix\Domain\ModuleId::fromString((string) $normalized->id),
+            Matrix\Domain\Type::fromString((string) $normalized->type),
+            Matrix\Domain\Name::fromString((string) $normalized->name),
+            Matrix\Domain\CourseId::fromString((string) $normalized->course),
+            Matrix\Domain\Timestamp::fromString((string) $normalized->timecreated),
+            Matrix\Domain\Timestamp::fromString((string) $normalized->timemodified)
+        );
+
+        self::assertEquals($expected, $moduleRepository->findOneBy($conditions));
     }
 
     public function testFindAllByReturnsModulesForConditions(): void
@@ -94,23 +117,22 @@ final class ModuleRepositoryTest extends Framework\TestCase
             'course' => $courseId,
         ];
 
-        $modules = [
-            (object) [
-                'course' => $courseId,
-                'id' => $faker->numberBetween(1),
-                'name' => $faker->sentence(),
-                'timecreated' => $faker->dateTime()->getTimestamp(),
-                'timemodified' => $faker->dateTime()->getTimestamp(),
-                'type' => $faker->numberBetween(1),
-            ],
-            (object) [
-                'course' => $courseId,
-                'id' => $faker->numberBetween(1),
-                'name' => $faker->sentence(),
-                'timecreated' => $faker->dateTime()->getTimestamp(),
-                'timemodified' => $faker->dateTime()->getTimestamp(),
-                'type' => $faker->numberBetween(1),
-            ],
+        $one = (object) [
+            'course' => $courseId,
+            'id' => $faker->numberBetween(1),
+            'name' => $faker->sentence(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+            'type' => $faker->numberBetween(1),
+        ];
+
+        $two = (object) [
+            'course' => $courseId,
+            'id' => $faker->numberBetween(1),
+            'name' => $faker->sentence(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+            'type' => $faker->numberBetween(1),
         ];
 
         $database = $this->createMock(\moodle_database::class);
@@ -122,26 +144,52 @@ final class ModuleRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix'),
                 self::identicalTo($conditions)
             )
-            ->willReturn($modules);
+            ->willReturn([
+                $one,
+                $two,
+            ]);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
-        self::assertSame($modules, $moduleRepository->findAllBy($conditions));
+        $expected = [
+            Matrix\Domain\Module::create(
+                Matrix\Domain\ModuleId::fromString((string) $one->id),
+                Matrix\Domain\Type::fromString((string) $one->type),
+                Matrix\Domain\Name::fromString((string) $one->name),
+                Matrix\Domain\CourseId::fromString((string) $one->course),
+                Matrix\Domain\Timestamp::fromString((string) $one->timecreated),
+                Matrix\Domain\Timestamp::fromString((string) $one->timemodified)
+            ),
+            Matrix\Domain\Module::create(
+                Matrix\Domain\ModuleId::fromString((string) $two->id),
+                Matrix\Domain\Type::fromString((string) $two->type),
+                Matrix\Domain\Name::fromString((string) $two->name),
+                Matrix\Domain\CourseId::fromString((string) $two->course),
+                Matrix\Domain\Timestamp::fromString((string) $two->timecreated),
+                Matrix\Domain\Timestamp::fromString((string) $two->timemodified)
+            ),
+        ];
+
+        self::assertEquals($expected, $moduleRepository->findAllBy($conditions));
     }
 
-    public function testSaveInsertsRecordForModuleWhenModuleDoesNotHaveId(): void
+    public function testSaveInsertsRecordForModuleWhenModuleHasNotBeenPersistedYet(): void
     {
         $faker = self::faker();
 
         $id = $faker->numberBetween(1);
 
-        $module = (object) [
-            'course' => $faker->numberBetween(1),
-            'name' => $faker->sentence(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-            'type' => $faker->numberBetween(1),
-        ];
+        $module = Matrix\Domain\Module::create(
+            Matrix\Domain\ModuleId::unknown(),
+            Matrix\Domain\Type::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Name::fromString($faker->sentence()),
+            Matrix\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+        );
 
         $database = $this->createMock(\moodle_database::class);
 
@@ -150,64 +198,41 @@ final class ModuleRepositoryTest extends Framework\TestCase
             ->method('insert_record')
             ->with(
                 self::identicalTo('matrix'),
-                self::identicalTo($module)
+                self::equalTo((object) [
+                    'course' => $module->courseId()->toInt(),
+                    'id' => $module->id()->toInt(),
+                    'name' => $module->name()->toString(),
+                    'timecreated' => $module->timecreated()->toInt(),
+                    'timemodified' => $module->timemodified()->toInt(),
+                    'type' => $module->type()->toInt(),
+                ])
             )
             ->willReturn($id);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
         $moduleRepository->save($module);
 
-        self::assertSame($id, $module->id);
+        self::assertSame($id, $module->id()->toInt());
     }
 
-    public function testSaveInsertsRecordForModuleWhenModuleHasIdButItIsNull(): void
+    public function testSaveUpdatesRecordForModuleWhenModuleHasBeenPersisted(): void
     {
         $faker = self::faker();
 
-        $id = $faker->numberBetween(1);
+        $id = Matrix\Domain\ModuleId::fromInt($faker->numberBetween(1));
 
-        $module = (object) [
-            'course' => $faker->numberBetween(1),
-            'id' => null,
-            'name' => $faker->sentence(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-            'type' => $faker->numberBetween(1),
-        ];
-
-        $database = $this->createMock(\moodle_database::class);
-
-        $database
-            ->expects(self::once())
-            ->method('insert_record')
-            ->with(
-                self::identicalTo('matrix'),
-                self::identicalTo($module)
-            )
-            ->willReturn($id);
-
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
-
-        $moduleRepository->save($module);
-
-        self::assertSame($id, $module->id);
-    }
-
-    public function testSaveUpdatesRecordForModuleWhenModuleHasId(): void
-    {
-        $faker = self::faker();
-
-        $id = $faker->numberBetween(1);
-
-        $module = (object) [
-            'course' => $faker->numberBetween(1),
-            'id' => $id,
-            'name' => $faker->sentence(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-            'type' => $faker->numberBetween(1),
-        ];
+        $module = Matrix\Domain\Module::create(
+            $id,
+            Matrix\Domain\Type::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Name::fromString($faker->sentence()),
+            Matrix\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+        );
 
         $database = $this->createMock(\moodle_database::class);
 
@@ -216,52 +241,64 @@ final class ModuleRepositoryTest extends Framework\TestCase
             ->method('update_record')
             ->with(
                 self::identicalTo('matrix'),
-                self::identicalTo($module)
+                self::equalTo((object) [
+                    'course' => $module->courseId()->toInt(),
+                    'id' => $module->id()->toInt(),
+                    'name' => $module->name()->toString(),
+                    'timecreated' => $module->timecreated()->toInt(),
+                    'timemodified' => $module->timemodified()->toInt(),
+                    'type' => $module->type()->toInt(),
+                ])
             );
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
         $moduleRepository->save($module);
 
-        self::assertSame($id, $module->id);
+        self::assertSame($id, $module->id());
     }
 
-    public function testRemoveRejectsModuleWhenModuleDoesNotHaveId(): void
+    public function testRemoveRejectsModuleWhenModuleHasNotYetBeenPersisted(): void
     {
         $faker = self::faker();
 
-        $module = (object) [
-            'course' => $faker->numberBetween(1),
-            'name' => $faker->sentence(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-            'type' => $faker->numberBetween(1),
-        ];
+        $module = Matrix\Domain\Module::create(
+            Matrix\Domain\ModuleId::unknown(),
+            Matrix\Domain\Type::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Name::fromString($faker->sentence()),
+            Matrix\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+        );
 
         $database = $this->createMock(\moodle_database::class);
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Can not remove module without identifier.');
+        $this->expectExceptionMessage('Can not remove module that has not yet been persisted.');
 
         $moduleRepository->remove($module);
     }
 
-    public function testRemoveDeletesRecordForModuleWhenModuleHasId(): void
+    public function testRemoveDeletesRecordForModuleWhenModuleHasBeenPersisted(): void
     {
         $faker = self::faker();
 
-        $id = $faker->numberBetween(1);
-
-        $module = (object) [
-            'course' => $faker->numberBetween(1),
-            'id' => $id,
-            'name' => $faker->sentence(),
-            'timecreated' => $faker->dateTime()->getTimestamp(),
-            'timemodified' => $faker->dateTime()->getTimestamp(),
-            'type' => $faker->numberBetween(1),
-        ];
+        $module = Matrix\Domain\Module::create(
+            Matrix\Domain\ModuleId::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Type::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Name::fromString($faker->sentence()),
+            Matrix\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+            Matrix\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+        );
 
         $database = $this->createMock(\moodle_database::class);
 
@@ -271,11 +308,14 @@ final class ModuleRepositoryTest extends Framework\TestCase
             ->with(
                 self::identicalTo('matrix'),
                 self::identicalTo([
-                    'id' => $id,
+                    'id' => $module->id()->toInt(),
                 ])
             );
 
-        $moduleRepository = new Matrix\Repository\ModuleRepository($database);
+        $moduleRepository = new Matrix\Repository\ModuleRepository(
+            $database,
+            new Matrix\Infrastructure\ModuleNormalizer()
+        );
 
         $moduleRepository->remove($module);
     }

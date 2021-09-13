@@ -21,6 +21,16 @@ final class CourseIdTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
      */
+    public function testFromIntReturnsCourseId(int $value): void
+    {
+        $courseId = Matrix\Domain\CourseId::fromInt($value);
+
+        self::assertSame($value, $courseId->toInt());
+    }
+
+    /**
+     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     */
     public function testFromStringReturnsCourseId(int $value): void
     {
         $courseId = Matrix\Domain\CourseId::fromString((string) $value);

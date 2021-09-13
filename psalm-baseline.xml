@@ -33,9 +33,10 @@
       <code>matrix_add_instance</code>
       <code>matrix_update_instance</code>
     </MissingReturnType>
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="3">
+      <code>$data-&gt;course</code>
       <code>$groups</code>
-      <code>$module-&gt;course</code>
+      <code>get_string('activity_default_name', 'matrix')</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$group</code>
@@ -122,10 +123,11 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="8">
+    <MixedInferredReturnType occurrences="9">
       <code>Clock\Clock</code>
       <code>Matrix\Api</code>
       <code>Matrix\Configuration</code>
+      <code>Matrix\Infrastructure\ModuleNormalizer</code>
       <code>Matrix\Repository\ModuleRepository</code>
       <code>Matrix\Repository\RoomRepository</code>
       <code>Matrix\Service</code>
@@ -135,10 +137,11 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="7">
+    <MixedReturnStatement occurrences="8">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
+      <code>$this-&gt;resolve(Matrix\Infrastructure\ModuleNormalizer::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
@@ -210,16 +213,23 @@
       <code>'PUT' === $method</code>
     </RedundantCondition>
   </file>
+  <file src="src/Matrix/Infrastructure/ModuleNormalizer.php">
+    <MixedArgument occurrences="6">
+      <code>$normalized-&gt;course</code>
+      <code>$normalized-&gt;id</code>
+      <code>$normalized-&gt;name</code>
+      <code>$normalized-&gt;timecreated</code>
+      <code>$normalized-&gt;timemodified</code>
+      <code>$normalized-&gt;type</code>
+    </MixedArgument>
+  </file>
   <file src="src/Matrix/Repository/ModuleRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>array&lt;int, object&gt;</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1"/>
-    <PropertyNotSetInConstructor occurrences="1">
+    <PropertyNotSetInConstructor occurrences="2">
       <code>$database</code>
+      <code>$moduleNormalizer</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="6">
       <code>$this-&gt;database</code>
@@ -342,8 +352,7 @@
     </UndefinedClass>
   </file>
   <file src="test/Unit/Matrix/Repository/ModuleRepositoryTest.php">
-    <InvalidArgument occurrences="8">
-      <code>$database</code>
+    <InvalidArgument occurrences="7">
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
@@ -352,8 +361,7 @@
       <code>$database</code>
       <code>$database</code>
     </InvalidArgument>
-    <MixedArgument occurrences="8">
-      <code>\moodle_database::class</code>
+    <MixedArgument occurrences="7">
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
@@ -362,8 +370,7 @@
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
     </MixedArgument>
-    <UndefinedClass occurrences="8">
-      <code>\moodle_database</code>
+    <UndefinedClass occurrences="7">
       <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
@@ -440,12 +447,11 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="15">
+    <MixedArgument occurrences="14">
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
       <code>$groups</code>
       <code>$id</code>
-      <code>$module-&gt;name</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
@@ -492,7 +498,6 @@
       <code>get_string('vw_join_btn', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
       <code>groups_get_activity_allowed_groups($cm)</code>
-      <code>groups_get_all_groups($module-&gt;course, 0, 0, 'g.*', true)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
       <code>require_login($course, true, $cm)</code>
       <code>required_param('id', PARAM_INT)</code>

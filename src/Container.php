@@ -52,8 +52,15 @@ final class Container
             return Matrix\Configuration::fromObject($object);
         });
 
+        $this->define(Matrix\Infrastructure\ModuleNormalizer::class, static function (): Matrix\Infrastructure\ModuleNormalizer {
+            return new Matrix\Infrastructure\ModuleNormalizer();
+        });
+
         $this->define(Matrix\Repository\ModuleRepository::class, static function (self $container): Matrix\Repository\ModuleRepository {
-            return new Matrix\Repository\ModuleRepository($container->database());
+            return new Matrix\Repository\ModuleRepository(
+                $container->database(),
+                $container->moduleNormalizer()
+            );
         });
 
         $this->define(Matrix\Repository\RoomRepository::class, static function (self $container): Matrix\Repository\RoomRepository {
@@ -111,6 +118,11 @@ final class Container
     public function database(): \moodle_database
     {
         return $this->resolve(\moodle_database::class);
+    }
+
+    public function moduleNormalizer(): Matrix\Infrastructure\ModuleNormalizer
+    {
+        return $this->resolve(Matrix\Infrastructure\ModuleNormalizer::class);
     }
 
     public function moduleRepository(): Matrix\Repository\ModuleRepository

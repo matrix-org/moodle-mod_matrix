@@ -7,6 +7,7 @@
  */
 
 use mod_matrix\Container;
+use mod_matrix\Matrix;
 use mod_matrix\Twitter;
 
 require '../../config.php';
@@ -25,7 +26,7 @@ $module = $moduleRepository->findOneBy([
     'id' => $cm->instance,
 ]);
 
-if (!$module) {
+if (!$module instanceof Matrix\Domain\Module) {
     throw new \RuntimeException(sprintf(
         'A Matrix module with id "%s" could not be found.',
         $cm->instance
@@ -36,7 +37,7 @@ require_login($course, true, $cm);
 
 /** @var moodle_page $PAGE */
 $PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);
-$PAGE->set_title($module->name);
+$PAGE->set_title($module->name()->toString());
 $PAGE->set_cacheable(false);
 $PAGE->set_heading($course->fullname);
 
@@ -62,7 +63,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 $roomRepository = $container->roomRepository();
 
 $possibleRooms = $roomRepository->findAllBy([
-    'course_id' => $module->course,
+    'course_id' => $module->courseId()->toInt(),
 ]);
 
 if (count($possibleRooms) === 0) {
@@ -91,7 +92,13 @@ if (count($possibleRooms) === 1) {
     exit;
 }
 
-$groups = groups_get_all_groups($module->course, 0, 0, 'g.*', true);
+$groups = groups_get_all_groups(
+    $module->courseId()->toInt(),
+    0,
+    0,
+    'g.*',
+    true
+);
 
 if (count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
@@ -121,7 +128,7 @@ if (count($visibleGroups) === 1) {
     $group = reset($visibleGroups);
 
     $room = $roomRepository->findOneBy([
-        'course_id' => $module->course,
+        'course_id' => $module->courseId()->toInt(),
         'group_id' => $group->id,
     ]);
 
@@ -155,7 +162,7 @@ echo Twitter\Bootstrap::alert(
 
 foreach ($visibleGroups as $id => $group) {
     $room = $roomRepository->findOneBy([
-        'course_id' => $module->course,
+        'course_id' => $module->courseId()->toInt(),
         'group_id' => $group->id,
     ]);
 

@@ -52,19 +52,22 @@ function matrix_supports($feature)
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
  *
- * @param object $module
+ * @param object $data
  */
-function matrix_add_instance($module)
+function matrix_add_instance($data)
 {
-    $courseId = Matrix\Domain\CourseId::fromString($module->course);
-
     $container = Container::instance();
 
     $clock = $container->clock();
 
-    $module->timecreated = $clock->now()->getTimestamp();
-    $module->timemodified = 0;
-    $module->name = get_string('activity_default_name', 'matrix');
+    $module = Matrix\Domain\Module::create(
+        Matrix\Domain\ModuleId::unknown(),
+        Matrix\Domain\Type::fromInt(0),
+        Matrix\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
+        Matrix\Domain\CourseId::fromString($data->course),
+        Matrix\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
+        Matrix\Domain\Timestamp::fromInt(0)
+    );
 
     $moduleRepository = $container->moduleRepository();
 
@@ -73,7 +76,7 @@ function matrix_add_instance($module)
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
     $groups = groups_get_all_groups(
-        $courseId->toInt(),
+        $module->courseId()->toInt(),
         0,
         0,
         'g.*',
@@ -85,15 +88,15 @@ function matrix_add_instance($module)
     if (count($groups) > 0) {
         foreach ($groups as $group) {
             $service->prepareRoomForGroup(
-                $courseId,
+                $module->courseId(),
                 $group->id
             );
         }
     } else {
-        $service->prepareRoomForGroup($courseId);
+        $service->prepareRoomForGroup($module->courseId());
     }
 
-    return $module->id;
+    return $module->id()->toInt();
 }
 
 /**
@@ -101,19 +104,17 @@ function matrix_add_instance($module)
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1034-L1040
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L1054-L1057
  *
- * @param object $id
+ * @param int|string $id
  */
 function matrix_delete_instance($id): bool
 {
-    // TODO: Delete rooms too?
-
     $moduleRepository = Container::instance()->moduleRepository();
 
     $module = $moduleRepository->findOneBy([
         'id' => $id,
     ]);
 
-    if (!$module) {
+    if (!$module instanceof Matrix\Domain\Module) {
         return false;
     }
 

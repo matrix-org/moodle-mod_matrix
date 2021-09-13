@@ -17,6 +17,11 @@ final class CourseId
         $this->value = $value;
     }
 
+    public static function fromInt(int $value): self
+    {
+        return new self($value);
+    }
+
     public static function fromString(string $value): self
     {
         return new self((int) $value);
