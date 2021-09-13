@@ -145,8 +145,8 @@ final class CurlBasedApi implements Matrix\Application\Api
     }
 
     /**
-     * @throws \Exception
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     private function request(
         string $method,
@@ -180,7 +180,42 @@ final class CurlBasedApi implements Matrix\Application\Api
         }
 
         if ($curl->error) {
-            throw new \Exception('request failed - Code: ' . $curl->errorCode . ' Message: ' . $curl->errorMessage);
+            $httpStatusCode = $curl->httpStatusCode;
+            $httpErrorMessage = $curl->httpErrorMessage;
+
+            if (
+                is_array($curl->response)
+                && array_key_exists('errcode', $curl->response)
+                && array_key_exists('error', $curl->response)
+            ) {
+                $errorCode = $curl->response['errcode'];
+                $errorMessage = $curl->response['error'];
+
+                throw new \RuntimeException(
+                    <<<TXT
+Sending a request failed with HTTP status code ${httpStatusCode} and error message ${httpErrorMessage}.
+
+The response contains a specific error code and message.
+
+Error code
+---------
+
+${errorCode}
+
+Error message
+---------
+
+${errorMessage}
+
+TXT
+                );
+            }
+
+            throw new \RuntimeException(
+                <<<TXT
+Sending a request failed with HTTP status code ${httpStatusCode} and error message ${httpErrorMessage}.
+TXT
+            );
         }
 
         return $curl->response;
