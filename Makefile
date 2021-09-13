@@ -37,7 +37,7 @@ static-code-analysis: vendor ## Runs a static code analysis with vimeo/psalm
 static-code-analysis-baseline: vendor ## Generates a baseline for static code analysis with phpstan/phpstan and vimeo/psalm
 	mkdir -p .build/psalm
 	vendor/bin/psalm --config=psalm.xml --clear-cache
-	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml
+	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml --threads=4
 
 .PHONY: tests
 tests: vendor ## Runs unit tests with phpunit/phpunit
