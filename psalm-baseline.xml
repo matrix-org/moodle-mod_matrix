@@ -123,10 +123,10 @@
     <MixedInferredReturnType occurrences="8">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
+      <code>Matrix\Application\Configuration</code>
       <code>Matrix\Application\ModuleRepository</code>
       <code>Matrix\Application\RoomRepository</code>
       <code>Matrix\Application\Service</code>
-      <code>Matrix\Infrastructure\Configuration</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
     </MixedInferredReturnType>
@@ -136,10 +136,10 @@
     <MixedReturnStatement occurrences="7">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
+      <code>$this-&gt;resolve(Matrix\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Service::class)</code>
-      <code>$this-&gt;resolve(Matrix\Infrastructure\Configuration::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
     <UndefinedClass occurrences="5">

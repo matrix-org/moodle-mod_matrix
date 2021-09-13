@@ -21,7 +21,7 @@ if ($ADMIN->fulltree) {
         get_string('adm_homeserver', 'matrix')
     ));
 
-    $defaultConfiguration = Matrix\Infrastructure\Configuration::default();
+    $defaultConfiguration = Matrix\Application\Configuration::default();
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/hs_url',

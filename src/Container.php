@@ -46,6 +46,12 @@ final class Container
             );
         });
 
+        $this->define(Matrix\Application\Configuration::class, static function (): Matrix\Application\Configuration {
+            $object = get_config('mod_matrix');
+
+            return Matrix\Application\Configuration::fromObject($object);
+        });
+
         $this->define(Matrix\Application\ModuleRepository::class, static function (self $container): Matrix\Application\ModuleRepository {
             return new Matrix\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
@@ -64,11 +70,6 @@ final class Container
                 $container->roomRepository(),
                 $container->clock()
             );
-        });
-        $this->define(Matrix\Infrastructure\Configuration::class, static function (): Matrix\Infrastructure\Configuration {
-            $object = get_config('mod_matrix');
-
-            return Matrix\Infrastructure\Configuration::fromObject($object);
         });
 
         $this->define(\moodle_database::class, static function (): \moodle_database {
@@ -100,9 +101,9 @@ final class Container
         return $this->resolve(Matrix\Application\Api::class);
     }
 
-    public function configuration(): Matrix\Infrastructure\Configuration
+    public function configuration(): Matrix\Application\Configuration
     {
-        return $this->resolve(Matrix\Infrastructure\Configuration::class);
+        return $this->resolve(Matrix\Application\Configuration::class);
     }
 
     public function clock(): Clock\Clock
