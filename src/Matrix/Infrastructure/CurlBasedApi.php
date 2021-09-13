@@ -104,7 +104,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function getEffectiveJoins(Matrix\Domain\MatrixRoomId $roomId)
+    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId)
     {
         $members = $this->request(
             'GET',

@@ -53,7 +53,7 @@ interface Api
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
      */
-    public function getEffectiveJoins(Matrix\Domain\MatrixRoomId $roomId);
+    public function getMembersOfRoom(Matrix\Domain\MatrixRoomId $roomId);
 
     public function debug($val): void;
 }

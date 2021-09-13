@@ -232,7 +232,7 @@ final class Service
 
         $matrixRoomId = Matrix\Domain\MatrixRoomId::fromString($room->room_id);
 
-        $joinedUserIds = $this->api->getEffectiveJoins($matrixRoomId);
+        $joinedUserIds = $this->api->getMembersOfRoom($matrixRoomId);
 
         foreach ($users as $user) {
             profile_load_custom_fields($user);
