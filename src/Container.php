@@ -49,7 +49,7 @@ final class Container
         $this->define(Matrix\Application\ModuleRepository::class, static function (self $container): Matrix\Application\ModuleRepository {
             return new Matrix\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
-                $container->moduleNormalizer()
+                new Matrix\Infrastructure\ModuleNormalizer()
             );
         });
 
@@ -61,10 +61,6 @@ final class Container
             $object = get_config('mod_matrix');
 
             return Matrix\Configuration::fromObject($object);
-        });
-
-        $this->define(Matrix\Infrastructure\ModuleNormalizer::class, static function (): Matrix\Infrastructure\ModuleNormalizer {
-            return new Matrix\Infrastructure\ModuleNormalizer();
         });
 
         $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
@@ -118,11 +114,6 @@ final class Container
     public function database(): \moodle_database
     {
         return $this->resolve(\moodle_database::class);
-    }
-
-    public function moduleNormalizer(): Matrix\Infrastructure\ModuleNormalizer
-    {
-        return $this->resolve(Matrix\Infrastructure\ModuleNormalizer::class);
     }
 
     public function moduleRepository(): Matrix\Application\ModuleRepository
