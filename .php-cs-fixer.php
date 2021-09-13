@@ -77,8 +77,10 @@ $config
         ],
         'class_attributes_separation' => [
             'elements' => [
+                'const' => 'only_if_meta',
                 'method' => 'one',
-                'property' => 'one',
+                'property' => 'only_if_meta',
+                'trait_import' => 'one',
             ],
         ],
         'class_definition' => [
