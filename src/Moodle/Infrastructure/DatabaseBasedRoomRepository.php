@@ -16,13 +16,17 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
 {
     private const TABLE = 'matrix_rooms';
     private $database;
+    private $roomNormalizer;
 
-    public function __construct(\moodle_database $database)
-    {
+    public function __construct(
+        \moodle_database $database,
+        RoomNormalizer $roomNormalizer
+    ) {
         $this->database = $database;
+        $this->roomNormalizer = $roomNormalizer;
     }
 
-    public function findOneBy(array $conditions): ?object
+    public function findOneBy(array $conditions): ?Moodle\Domain\Room
     {
         $room = $this->database->get_record(
             self::TABLE,
@@ -35,46 +39,59 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             return null;
         }
 
-        return $room;
+        return $this->roomNormalizer->denormalize($room);
     }
 
     public function findAllBy(array $conditions): array
     {
-        return $this->database->get_records(
+        /** @var array<int, object> $rooms */
+        $rooms = $this->database->get_records(
             self::TABLE,
             $conditions
         );
+
+        return array_map(function (object $room): Moodle\Domain\Room {
+            return $this->roomNormalizer->denormalize($room);
+        }, $rooms);
     }
 
-    public function save(object $room): void
+    public function save(Moodle\Domain\Room $room): void
     {
-        if (!property_exists($room, 'id')) {
+        if ($room->id()->equals(Moodle\Domain\RoomId::unknown())) {
             $id = $this->database->insert_record(
                 self::TABLE,
-                $room
+                $this->roomNormalizer->normalize($room)
             );
 
-            $room->id = $id;
+            $reflection = new \ReflectionClass(Moodle\Domain\Room::class);
+
+            $property = $reflection->getProperty('id');
+
+            $property->setAccessible(true);
+            $property->setValue(
+                $room,
+                Moodle\Domain\RoomId::fromInt((int) $id)
+            );
 
             return;
         }
 
         $this->database->update_record(
             self::TABLE,
-            $room
+            $this->roomNormalizer->normalize($room)
         );
     }
 
-    public function remove(object $room): void
+    public function remove(Moodle\Domain\Room $room): void
     {
-        if (!property_exists($room, 'id')) {
-            throw new \InvalidArgumentException('Can not remove room without identifier.');
+        if ($room->id()->equals(Moodle\Domain\RoomId::unknown())) {
+            throw new \InvalidArgumentException('Can not remove room that has not yet been persisted.');
         }
 
         $this->database->delete_records(
             self::TABLE,
             [
-                'id' => $room->id,
+                'id' => $room->id()->toInt(),
             ]
         );
     }

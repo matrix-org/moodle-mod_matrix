@@ -66,7 +66,7 @@ $possibleRooms = $roomRepository->findAllBy([
     'course_id' => $module->courseId()->toInt(),
 ]);
 
-if (count($possibleRooms) === 0) {
+if ([] === $possibleRooms) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_rooms', 'matrix')
@@ -82,7 +82,7 @@ $service = $container->service();
 if (count($possibleRooms) === 1) {
     $firstPossibleRoom = reset($possibleRooms);
 
-    $roomUrl = json_encode($service->urlForRoom($firstPossibleRoom->room_id));
+    $roomUrl = json_encode($service->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -132,7 +132,7 @@ if (count($visibleGroups) === 1) {
         'group_id' => $group->id,
     ]);
 
-    if (!$room) {
+    if (null === $room) {
         echo Twitter\Bootstrap::alert(
             'danger',
             get_string('vw_error_no_room_in_group', 'matrix')
@@ -143,7 +143,7 @@ if (count($visibleGroups) === 1) {
         exit;
     }
 
-    $roomUrl = json_encode($service->urlForRoom($room->room_id));
+    $roomUrl = json_encode($service->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -166,13 +166,13 @@ foreach ($visibleGroups as $id => $group) {
         'group_id' => $group->id,
     ]);
 
-    if (!$room) {
+    if (null === $room) {
         continue;
     }
 
     $name = groups_get_group_name($group->id);
 
-    $roomUrl = json_encode($service->urlForRoom($room->room_id));
+    $roomUrl = json_encode($service->urlForRoom($room->matrixRoomId()));
 
     echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }

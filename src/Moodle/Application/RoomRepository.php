@@ -10,19 +10,21 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Application;
 
+use mod_matrix\Moodle;
+
 interface RoomRepository
 {
-    public function findOneBy(array $conditions): ?object;
+    public function findOneBy(array $conditions): ?Moodle\Domain\Room;
 
     /**
-     * @return array<int, object>
+     * @return array<int, Moodle\Domain\Room>
      */
     public function findAllBy(array $conditions): array;
 
-    public function save(object $room): void;
+    public function save(Moodle\Domain\Room $room): void;
 
     /**
      * @throws \InvalidArgumentException
      */
-    public function remove(object $room): void;
+    public function remove(Moodle\Domain\Room $room): void;
 }

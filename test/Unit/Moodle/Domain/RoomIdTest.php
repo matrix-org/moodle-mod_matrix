@@ -40,4 +40,31 @@ final class RoomIdTest extends Framework\TestCase
 
         self::assertSame($value, $roomId->toInt());
     }
+
+    public function testUnknownReturnsRoomId(): void
+    {
+        $roomId = Moodle\Domain\RoomId::unknown();
+
+        self::assertSame(-1, $roomId->toInt());
+    }
+
+    public function testEqualsReturnsFalseWhenValueIsDifferent(): void
+    {
+        $faker = self::faker();
+
+        $one = Moodle\Domain\RoomId::fromInt($faker->numberBetween(1));
+        $two = Moodle\Domain\RoomId::fromInt($faker->numberBetween(1));
+
+        self::assertFalse($one->equals($two));
+    }
+
+    public function testEqualsReturnsFalseWhenValueIsSame(): void
+    {
+        $value = self::faker()->numberBetween(1);
+
+        $one = Moodle\Domain\RoomId::fromInt($value);
+        $two = Moodle\Domain\RoomId::fromInt($value);
+
+        self::assertTrue($one->equals($two));
+    }
 }

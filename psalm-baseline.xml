@@ -166,14 +166,8 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
-    <MissingParamType occurrences="1">
-      <code>$roomId</code>
-    </MissingParamType>
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="3">
       <code>$CFG-&gt;wwwroot</code>
-      <code>$room-&gt;course_id</code>
-      <code>$room-&gt;group_id</code>
-      <code>$room-&gt;room_id</code>
       <code>$user</code>
       <code>$user</code>
     </MixedArgument>
@@ -190,11 +184,9 @@
       <code>$user</code>
       <code>$users</code>
     </MixedAssignment>
-    <MixedOperand occurrences="4">
+    <MixedOperand occurrences="2">
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
     </MixedOperand>
     <MixedPropertyFetch occurrences="3">
       <code>$CFG-&gt;wwwroot</code>
@@ -283,12 +275,9 @@
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>array</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1"/>
-    <PropertyNotSetInConstructor occurrences="1">
+    <PropertyNotSetInConstructor occurrences="2">
       <code>$database</code>
+      <code>$roomNormalizer</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="6">
       <code>$this-&gt;database</code>
@@ -301,6 +290,11 @@
     <UndefinedConstant occurrences="1">
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
+  </file>
+  <file src="src/Moodle/Infrastructure/RoomNormalizer.php">
+    <MixedArgument occurrences="1">
+      <code>$normalized-&gt;room_id</code>
+    </MixedArgument>
   </file>
   <file src="src/Observer.php">
     <MissingParamType occurrences="2">
@@ -364,7 +358,10 @@
       <code>$database</code>
       <code>$database</code>
     </InvalidArgument>
-    <MixedArgument occurrences="7">
+    <MixedArgument occurrences="10">
+      <code>$normalized-&gt;room_id</code>
+      <code>$one-&gt;room_id</code>
+      <code>$two-&gt;room_id</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
@@ -386,9 +383,6 @@
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
-    <UnusedVariable occurrences="1">
-      <code>$id</code>
-    </UnusedVariable>
   </file>
   <file src="test/Unit/Twitter/BootstrapTest.php">
     <MixedInferredReturnType occurrences="1">

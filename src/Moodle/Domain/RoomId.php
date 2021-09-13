@@ -20,6 +20,11 @@ final class RoomId
         $this->value = $value;
     }
 
+    public static function unknown(): self
+    {
+        return new self(-1);
+    }
+
     public static function fromInt(int $value): self
     {
         return new self($value);
@@ -33,5 +38,10 @@ final class RoomId
     public function toInt(): int
     {
         return $this->value;
+    }
+
+    public function equals(self $other): bool
+    {
+        return $this->value === $other->value;
     }
 }

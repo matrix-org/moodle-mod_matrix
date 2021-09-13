@@ -60,7 +60,10 @@ final class Container
         });
 
         $this->define(Moodle\Application\RoomRepository::class, static function (self $container): Moodle\Application\RoomRepository {
-            return new Moodle\Infrastructure\DatabaseBasedRoomRepository($container->database());
+            return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
+                $container->database(),
+                new Moodle\Infrastructure\RoomNormalizer()
+            );
         });
 
         $this->define(Matrix\Application\Service::class, static function (self $container): Matrix\Application\Service {

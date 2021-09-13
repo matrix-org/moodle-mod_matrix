@@ -34,13 +34,13 @@ final class Service
         $this->clock = $clock;
     }
 
-    public function urlForRoom($roomId): string
+    public function urlForRoom(Matrix\Domain\RoomId $roomId): string
     {
         if ('' !== trim($this->configuration->elementUrl())) {
-            return $this->configuration->elementUrl() . '/#/room/' . $roomId;
+            return $this->configuration->elementUrl() . '/#/room/' . $roomId->toString();
         }
 
-        return 'https://matrix.to/#/' . $roomId;
+        return 'https://matrix.to/#/' . $roomId->toString();
     }
 
     public function prepareRoomForGroup(
@@ -111,19 +111,20 @@ final class Service
                 'group_id' => $groupId->toInt(),
             ]);
 
-            if (!$existingRoomForGroup) {
+            if (null === $existingRoomForGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
                 $roomId = $this->api->createRoom($roomOptions);
 
-                $roomForGroup = new \stdClass();
-
-                $roomForGroup->course_id = $courseId->toInt();
-                $roomForGroup->group_id = $groupId->toInt();
-                $roomForGroup->room_id = $roomId->toString();
-                $roomForGroup->timecreated = $this->clock->now()->getTimestamp();
-                $roomForGroup->timemodified = 0;
+                $roomForGroup = Moodle\Domain\Room::create(
+                    Moodle\Domain\RoomId::unknown(),
+                    $courseId,
+                    $groupId,
+                    $roomId,
+                    Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
+                    Moodle\Domain\Timestamp::fromInt(0)
+                );
 
                 $this->roomRepository->save($roomForGroup);
             }
@@ -141,16 +142,17 @@ final class Service
             'group_id' => null,
         ]);
 
-        if (!$existingRoom) {
+        if (null === $existingRoom) {
             $roomId = $this->api->createRoom($roomOptions);
 
-            $room = new \stdClass();
-
-            $room->course_id = $courseId->toInt();
-            $room->group_id = null;
-            $room->room_id = $roomId->toString();
-            $room->timecreated = $this->clock->now()->getTimestamp();
-            $room->timemodified = 0;
+            $room = Moodle\Domain\Room::create(
+                Moodle\Domain\RoomId::unknown(),
+                $courseId,
+                null,
+                $roomId,
+                Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
+                Moodle\Domain\Timestamp::fromInt(0)
+            );
 
             $this->roomRepository->save($room);
         }
@@ -171,15 +173,9 @@ final class Service
         $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
-            $groupId = null;
-
-            if (null !== $room->group_id) {
-                $groupId = Moodle\Domain\GroupId::fromString($room->group_id);
-            }
-
             $this->synchronizeRoomMembers(
-                Moodle\Domain\CourseId::fromString($room->course_id),
-                $groupId
+                $room->courseId(),
+                $room->groupId()
             );
         }
     }
@@ -207,7 +203,7 @@ final class Service
             ]);
         }
 
-        if (!$room) {
+        if (null === $room) {
             return; // nothing to do
         }
 
@@ -227,9 +223,7 @@ final class Service
             $users = [];
         } // use an empty array
 
-        $roomId = Matrix\Domain\RoomId::fromString($room->room_id);
-
-        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($roomId);
+        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoami();
 
@@ -239,7 +233,7 @@ final class Service
         ];
 
         $powerLevels = $this->api->getState(
-            $roomId,
+            $room->matrixRoomId(),
             'm.room.power_levels',
             ''
         );
@@ -258,7 +252,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $roomId
+                    $room->matrixRoomId()
                 );
             }
 
@@ -283,7 +277,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $roomId
+                    $room->matrixRoomId()
                 );
             }
 
@@ -293,7 +287,7 @@ final class Service
         }
 
         $this->api->setState(
-            $roomId,
+            $room->matrixRoomId(),
             'm.room.power_levels',
             '',
             $powerLevels
@@ -304,7 +298,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
-                    $roomId
+                    $room->matrixRoomId()
                 );
             }
         }
