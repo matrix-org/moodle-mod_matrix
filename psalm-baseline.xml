@@ -125,8 +125,8 @@
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\ModuleRepository</code>
       <code>Matrix\Application\RoomRepository</code>
+      <code>Matrix\Application\Service</code>
       <code>Matrix\Infrastructure\Configuration</code>
-      <code>Matrix\Service</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
     </MixedInferredReturnType>
@@ -138,8 +138,8 @@
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomRepository::class)</code>
+      <code>$this-&gt;resolve(Matrix\Application\Service::class)</code>
       <code>$this-&gt;resolve(Matrix\Infrastructure\Configuration::class)</code>
-      <code>$this-&gt;resolve(Matrix\Service::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
     <UndefinedClass occurrences="5">
@@ -166,6 +166,73 @@
       <code>setState</code>
       <code>whoami</code>
     </MissingReturnType>
+  </file>
+  <file src="src/Matrix/Application/Service.php">
+    <MissingParamType occurrences="3">
+      <code>$groupId</code>
+      <code>$groupId</code>
+      <code>$roomId</code>
+    </MissingParamType>
+    <MixedArgument occurrences="4">
+      <code>$CFG-&gt;wwwroot</code>
+      <code>$joinedUserIds</code>
+      <code>$joinedUserIds</code>
+      <code>$room-&gt;course_id</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$profile['matrix_user_id']</code>
+      <code>$profile['matrix_user_id']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="2">
+      <code>$powerLevels['users']</code>
+      <code>$powerLevels['users']</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="3">
+      <code>$powerLevels['users'][$matrixUserId]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="18">
+      <code>$allowedUserIds[]</code>
+      <code>$allowedUserIds[]</code>
+      <code>$course</code>
+      <code>$group</code>
+      <code>$joinedUserIds</code>
+      <code>$matrixUserId</code>
+      <code>$matrixUserId</code>
+      <code>$matrixUserId</code>
+      <code>$powerLevels</code>
+      <code>$profile</code>
+      <code>$profile</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+      <code>$roomOptions['creation_content']['org.matrix.moodle.group_id']</code>
+      <code>$user</code>
+      <code>$user</code>
+      <code>$users</code>
+      <code>$whoami</code>
+    </MixedAssignment>
+    <MixedOperand occurrences="4">
+      <code>$course-&gt;fullname</code>
+      <code>$group-&gt;name</code>
+      <code>$roomId</code>
+      <code>$roomId</code>
+    </MixedOperand>
+    <MixedPropertyFetch occurrences="6">
+      <code>$CFG-&gt;wwwroot</code>
+      <code>$course-&gt;fullname</code>
+      <code>$group-&gt;id</code>
+      <code>$group-&gt;name</code>
+      <code>$user-&gt;profile</code>
+      <code>$user-&gt;profile</code>
+    </MixedPropertyFetch>
+    <PossiblyNullArgument occurrences="1">
+      <code>$conditions</code>
+    </PossiblyNullArgument>
+    <UndefinedFunction occurrences="5">
+      <code>get_course($courseId-&gt;toInt())</code>
+      <code>groups_get_group($groupId)</code>
+      <code>profile_load_custom_fields($user)</code>
+      <code>profile_load_custom_fields($user)</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedApi.php">
     <InvalidOperand occurrences="1">
@@ -264,73 +331,6 @@
     <UndefinedConstant occurrences="1">
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
-  </file>
-  <file src="src/Matrix/Service.php">
-    <MissingParamType occurrences="3">
-      <code>$groupId</code>
-      <code>$groupId</code>
-      <code>$roomId</code>
-    </MissingParamType>
-    <MixedArgument occurrences="4">
-      <code>$CFG-&gt;wwwroot</code>
-      <code>$joinedUserIds</code>
-      <code>$joinedUserIds</code>
-      <code>$room-&gt;course_id</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="2">
-      <code>$profile['matrix_user_id']</code>
-      <code>$profile['matrix_user_id']</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="2">
-      <code>$powerLevels['users']</code>
-      <code>$powerLevels['users']</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="3">
-      <code>$powerLevels['users'][$matrixUserId]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="18">
-      <code>$allowedUserIds[]</code>
-      <code>$allowedUserIds[]</code>
-      <code>$course</code>
-      <code>$group</code>
-      <code>$joinedUserIds</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$matrixUserId</code>
-      <code>$powerLevels</code>
-      <code>$profile</code>
-      <code>$profile</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
-      <code>$roomOptions['creation_content']['org.matrix.moodle.group_id']</code>
-      <code>$user</code>
-      <code>$user</code>
-      <code>$users</code>
-      <code>$whoami</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="4">
-      <code>$course-&gt;fullname</code>
-      <code>$group-&gt;name</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
-    </MixedOperand>
-    <MixedPropertyFetch occurrences="6">
-      <code>$CFG-&gt;wwwroot</code>
-      <code>$course-&gt;fullname</code>
-      <code>$group-&gt;id</code>
-      <code>$group-&gt;name</code>
-      <code>$user-&gt;profile</code>
-      <code>$user-&gt;profile</code>
-    </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="1">
-      <code>$conditions</code>
-    </PossiblyNullArgument>
-    <UndefinedFunction occurrences="5">
-      <code>get_course($courseId-&gt;toInt())</code>
-      <code>groups_get_group($groupId)</code>
-      <code>profile_load_custom_fields($user)</code>
-      <code>profile_load_custom_fields($user)</code>
-    </UndefinedFunction>
   </file>
   <file src="src/Observer.php">
     <MissingParamType occurrences="2">

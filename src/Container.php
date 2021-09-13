@@ -57,19 +57,18 @@ final class Container
             return new Matrix\Infrastructure\DatabaseBasedRoomRepository($container->database());
         });
 
-        $this->define(Matrix\Infrastructure\Configuration::class, static function (): Matrix\Infrastructure\Configuration {
-            $object = get_config('mod_matrix');
-
-            return Matrix\Infrastructure\Configuration::fromObject($object);
-        });
-
-        $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
-            return new Matrix\Service(
+        $this->define(Matrix\Application\Service::class, static function (self $container): Matrix\Application\Service {
+            return new Matrix\Application\Service(
                 $container->api(),
                 $container->configuration(),
                 $container->roomRepository(),
                 $container->clock()
             );
+        });
+        $this->define(Matrix\Infrastructure\Configuration::class, static function (): Matrix\Infrastructure\Configuration {
+            $object = get_config('mod_matrix');
+
+            return Matrix\Infrastructure\Configuration::fromObject($object);
         });
 
         $this->define(\moodle_database::class, static function (): \moodle_database {
@@ -126,9 +125,9 @@ final class Container
         return $this->resolve(Matrix\Application\RoomRepository::class);
     }
 
-    public function service(): Matrix\Service
+    public function service(): Matrix\Application\Service
     {
-        return $this->resolve(Matrix\Service::class);
+        return $this->resolve(Matrix\Application\Service::class);
     }
 
     /**
