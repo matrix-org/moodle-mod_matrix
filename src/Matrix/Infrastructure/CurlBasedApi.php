@@ -6,13 +6,12 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Matrix;
+namespace mod_matrix\Matrix\Infrastructure;
 
 use Curl\Curl;
+use mod_matrix\Matrix;
 
-defined('MOODLE_INTERNAL') || exit;
-
-class Api
+final class CurlBasedApi implements Matrix\Application\Api
 {
     private $hsUrl;
     private $accessToken;
@@ -25,9 +24,6 @@ class Api
         $this->accessToken = $accessToken;
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
-     */
     public function whoami()
     {
         $r = $this->request(
@@ -38,10 +34,6 @@ class Api
         return $r['user_id'];
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
-     * @param mixed $opts
-     */
     public function createRoom($opts = [])
     {
         $r = $this->request(
@@ -54,11 +46,6 @@ class Api
         return $r['room_id'];
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
-     * @param mixed $userId
-     * @param mixed $roomId
-     */
     public function inviteUser($userId, $roomId)
     {
         return $this->request(
@@ -71,11 +58,6 @@ class Api
         );
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
-     * @param mixed $userId
-     * @param mixed $roomId
-     */
     public function kickUser($userId, $roomId)
     {
         return $this->request(
@@ -88,12 +70,6 @@ class Api
         );
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
-     * @param mixed $roomId
-     * @param mixed $eventType
-     * @param mixed $stateKey
-     */
     public function getState($roomId, $eventType, $stateKey)
     {
         return $this->request(
@@ -102,13 +78,6 @@ class Api
         );
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
-     * @param mixed $roomId
-     * @param mixed $eventType
-     * @param mixed $stateKey
-     * @param mixed $content
-     */
     public function setState($roomId, $eventType, $stateKey, $content)
     {
         return $this->request(
@@ -119,10 +88,6 @@ class Api
         );
     }
 
-    /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
-     * @param mixed $roomId
-     */
     public function getEffectiveJoins($roomId)
     {
         $members = $this->request(

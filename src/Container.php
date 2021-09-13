@@ -37,10 +37,10 @@ final class Container
             return new Clock\SystemClock($timezone);
         });
 
-        $this->define(Matrix\Api::class, static function (self $container): Matrix\Api {
+        $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
             $configuration = $container->configuration();
 
-            return new Matrix\Api(
+            return new Matrix\Infrastructure\CurlBasedApi(
                 $configuration->hsUrl(),
                 $configuration->accessToken()
             );
@@ -96,9 +96,9 @@ final class Container
         return self::$instance;
     }
 
-    public function api(): Matrix\Api
+    public function api(): Matrix\Application\Api
     {
-        return $this->resolve(Matrix\Api::class);
+        return $this->resolve(Matrix\Application\Api::class);
     }
 
     public function configuration(): Matrix\Infrastructure\Configuration
