@@ -33,8 +33,9 @@
       <code>matrix_add_instance</code>
       <code>matrix_update_instance</code>
     </MissingReturnType>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="4">
       <code>$data-&gt;course</code>
+      <code>$group-&gt;id</code>
       <code>$groups</code>
       <code>get_string('activity_default_name', 'matrix')</code>
     </MixedArgument>
@@ -168,16 +169,15 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
-    <MissingParamType occurrences="3">
-      <code>$groupId</code>
-      <code>$groupId</code>
+    <MissingParamType occurrences="1">
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="5">
       <code>$CFG-&gt;wwwroot</code>
       <code>$joinedUserIds</code>
       <code>$joinedUserIds</code>
       <code>$room-&gt;course_id</code>
+      <code>$room-&gt;group_id</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$profile['matrix_user_id']</code>
@@ -190,7 +190,7 @@
     <MixedArrayOffset occurrences="3">
       <code>$powerLevels['users'][$matrixUserId]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="18">
+    <MixedAssignment occurrences="17">
       <code>$allowedUserIds[]</code>
       <code>$allowedUserIds[]</code>
       <code>$course</code>
@@ -204,7 +204,6 @@
       <code>$profile</code>
       <code>$roomId</code>
       <code>$roomId</code>
-      <code>$roomOptions['creation_content']['org.matrix.moodle.group_id']</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
@@ -216,10 +215,9 @@
       <code>$roomId</code>
       <code>$roomId</code>
     </MixedOperand>
-    <MixedPropertyFetch occurrences="6">
+    <MixedPropertyFetch occurrences="5">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
-      <code>$group-&gt;id</code>
       <code>$group-&gt;name</code>
       <code>$user-&gt;profile</code>
       <code>$user-&gt;profile</code>
@@ -229,7 +227,7 @@
     </PossiblyNullArgument>
     <UndefinedFunction occurrences="5">
       <code>get_course($courseId-&gt;toInt())</code>
-      <code>groups_get_group($groupId)</code>
+      <code>groups_get_group($groupId-&gt;toInt())</code>
       <code>profile_load_custom_fields($user)</code>
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
@@ -337,9 +335,10 @@
       <code>$event</code>
       <code>$event</code>
     </MissingParamType>
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="3">
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;courseid</code>
+      <code>$event-&gt;objectid</code>
     </MixedArgument>
     <MixedPropertyFetch occurrences="3">
       <code>$event-&gt;courseid</code>

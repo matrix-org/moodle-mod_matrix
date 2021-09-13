@@ -42,8 +42,10 @@ final class Service
         return 'https://matrix.to/#/' . $roomId;
     }
 
-    public function prepareRoomForGroup(Matrix\Domain\CourseId $courseId, $groupId = null): void
-    {
+    public function prepareRoomForGroup(
+        Matrix\Domain\CourseId $courseId,
+        ?Matrix\Domain\GroupId $groupId = null
+    ): void {
         global $CFG;
 
         $course = get_course($courseId->toInt());
@@ -101,23 +103,23 @@ final class Service
         ];
 
         if (null !== $groupId) {
-            $group = groups_get_group($groupId);
+            $group = groups_get_group($groupId->toInt());
 
             $existingRoomForGroup = $this->roomRepository->findOneBy([
                 'course_id' => $courseId->toInt(),
-                'group_id' => $group->id,
+                'group_id' => $groupId->toInt(),
             ]);
 
             if (!$existingRoomForGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
-                $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $group->id;
+                $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
                 $roomId = $this->api->createRoom($roomOptions);
 
                 $roomForGroup = new \stdClass();
 
                 $roomForGroup->course_id = $courseId->toInt();
-                $roomForGroup->group_id = $group->id;
+                $roomForGroup->group_id = $groupId->toInt();
                 $roomForGroup->room_id = $roomId;
                 $roomForGroup->timecreated = $this->clock->now()->getTimestamp();
                 $roomForGroup->timemodified = 0;
@@ -127,7 +129,7 @@ final class Service
 
             $this->synchronizeRoomMembers(
                 $courseId,
-                $group->id
+                $groupId
             );
 
             return;
@@ -168,30 +170,48 @@ final class Service
         $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
+            $groupId = null;
+
+            if (null !== $room->group_id) {
+                $groupId = Matrix\Domain\GroupId::fromString($room->group_id);
+            }
+
             $this->synchronizeRoomMembers(
                 Matrix\Domain\CourseId::fromString($room->course_id),
-                $room->group_id
+                $groupId
             );
         }
     }
 
-    public function synchronizeRoomMembers(Matrix\Domain\CourseId $courseId, $groupId = null): void
-    {
-        if (0 == $groupId) {
+    public function synchronizeRoomMembers(
+        Matrix\Domain\CourseId $courseId,
+        ?Matrix\Domain\GroupId $groupId = null
+    ): void {
+        if (
+            null !== $groupId
+            && $groupId->equals(Matrix\Domain\GroupId::fromInt(0))
+        ) {
             $groupId = null;
         } // we treat zero as null, but Moodle doesn't
 
-        $room = $this->roomRepository->findOneBy([
-            'course_id' => $courseId->toInt(),
-            'group_id' => $groupId,
-        ]);
+        if (null !== $groupId) {
+            $room = $this->roomRepository->findOneBy([
+                'course_id' => $courseId->toInt(),
+                'group_id' => $groupId->toInt(),
+            ]);
+        } else {
+            $room = $this->roomRepository->findOneBy([
+                'course_id' => $courseId->toInt(),
+                'group_id' => null,
+            ]);
+        }
 
         if (!$room) {
             return; // nothing to do
         }
 
-        if (null == $groupId) {
-            $groupId = 0;
+        if (null === $groupId) {
+            $groupId = Matrix\Domain\GroupId::fromInt(0);
         } // Moodle wants zero instead of null
 
         $context = context_course::instance($courseId->toInt());
@@ -199,7 +219,7 @@ final class Service
         $users = get_enrolled_users(
             $context,
             'mod/matrix:view',
-            $groupId
+            $groupId->toInt()
         ); // assoc of uid => user
 
         if (!$users) {

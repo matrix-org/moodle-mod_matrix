@@ -89,7 +89,7 @@ function matrix_add_instance($data)
         foreach ($groups as $group) {
             $service->prepareRoomForGroup(
                 $module->courseId(),
-                $group->id
+                Matrix\Domain\GroupId::fromString($group->id)
             );
         }
     } else {

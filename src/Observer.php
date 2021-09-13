@@ -34,7 +34,7 @@ class Observer
 
         $service->synchronizeRoomMembers(
             $courseId,
-            $event->objectid
+            Matrix\Domain\GroupId::fromString($event->objectid)
         );
     }
 
@@ -58,7 +58,7 @@ class Observer
 
         $service->prepareRoomForGroup(
             $courseId,
-            $event->objectid
+            Matrix\Domain\GroupId::fromString($event->objectid)
         );
     }
 
