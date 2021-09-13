@@ -21,6 +21,7 @@ final class ModuleNormalizer
             Moodle\Domain\Type::fromString((string) $normalized->type),
             Moodle\Domain\Name::fromString((string) $normalized->name),
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
+            Moodle\Domain\SectionId::fromString((string) $normalized->section),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified)
         );
@@ -33,6 +34,7 @@ final class ModuleNormalizer
             'type' => $denormalized->type()->toInt(),
             'name' => $denormalized->name()->toString(),
             'course' => $denormalized->courseId()->toInt(),
+            'section' => $denormalized->sectionId()->toInt(),
             'timecreated' => $denormalized->timecreated()->toInt(),
             'timemodified' => $denormalized->timemodified()->toInt(),
         ];

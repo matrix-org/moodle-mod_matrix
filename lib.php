@@ -65,6 +65,7 @@ function matrix_add_instance($data)
         Moodle\Domain\Type::fromInt(0),
         Moodle\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
         Moodle\Domain\CourseId::fromString($data->course),
+        Moodle\Domain\SectionId::fromInt($data->section),
         Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
         Moodle\Domain\Timestamp::fromInt(0)
     );

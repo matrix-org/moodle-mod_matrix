@@ -41,5 +41,29 @@ function xmldb_matrix_upgrade($oldversion = 0)
         upgrade_mod_savepoint(true, 2020110948, 'matrix');
     }
 
+    if (2021091300 > $oldversion) {
+        $table = new xmldb_table('matrix');
+
+        $dbman->add_field(
+            $table,
+            new xmldb_field(
+                'section',
+                XMLDB_TYPE_INTEGER,
+                10,
+                true,
+                true,
+                false,
+                0,
+                'course'
+            )
+        );
+
+        upgrade_mod_savepoint(
+            true,
+            2021091300,
+            'matrix'
+        );
+    }
+
     return true;
 }

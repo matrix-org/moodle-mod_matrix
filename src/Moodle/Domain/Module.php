@@ -14,6 +14,7 @@ final class Module
     private $type;
     private $name;
     private $courseId;
+    private $sectionId;
     private $timecreated;
     private $timemodified;
 
@@ -22,6 +23,7 @@ final class Module
         Type $type,
         Name $name,
         CourseId $courseId,
+        SectionId $sectionId,
         Timestamp $timecreated,
         Timestamp $timemodified
     ) {
@@ -29,6 +31,7 @@ final class Module
         $this->type = $type;
         $this->name = $name;
         $this->courseId = $courseId;
+        $this->sectionId = $sectionId;
         $this->timecreated = $timecreated;
         $this->timemodified = $timemodified;
     }
@@ -38,6 +41,7 @@ final class Module
         Type $type,
         Name $name,
         CourseId $courseId,
+        SectionId $sectionId,
         Timestamp $timecreated,
         Timestamp $timemodified
     ): self {
@@ -46,6 +50,7 @@ final class Module
             $type,
             $name,
             $courseId,
+            $sectionId,
             $timecreated,
             $timemodified
         );
@@ -69,6 +74,11 @@ final class Module
     public function courseId(): CourseId
     {
         return $this->courseId;
+    }
+
+    public function sectionId(): SectionId
+    {
+        return $this->sectionId;
     }
 
     public function timecreated(): Timestamp

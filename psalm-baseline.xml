@@ -33,8 +33,9 @@
       <code>matrix_add_instance</code>
       <code>matrix_update_instance</code>
     </MissingReturnType>
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="5">
       <code>$data-&gt;course</code>
+      <code>$data-&gt;section</code>
       <code>$group-&gt;id</code>
       <code>$groups</code>
       <code>get_string('activity_default_name', 'matrix')</code>

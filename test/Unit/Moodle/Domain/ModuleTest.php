@@ -35,6 +35,7 @@ final class ModuleTest extends Framework\TestCase
         $type = Moodle\Domain\Type::fromInt($faker->numberBetween(1));
         $name = Moodle\Domain\Name::fromString($faker->sentence());
         $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
+        $sectionId = Moodle\Domain\SectionId::fromInt($faker->numberBetween(1));
         $timecreated = Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp());
         $timemodified = Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp());
 
@@ -43,6 +44,7 @@ final class ModuleTest extends Framework\TestCase
             $type,
             $name,
             $courseId,
+            $sectionId,
             $timecreated,
             $timemodified
         );
@@ -51,6 +53,7 @@ final class ModuleTest extends Framework\TestCase
         self::assertSame($type, $module->type());
         self::assertSame($name, $module->name());
         self::assertSame($courseId, $module->courseId());
+        self::assertSame($sectionId, $module->sectionId());
         self::assertSame($timemodified, $module->timemodified());
         self::assertSame($timecreated, $module->timecreated());
     }
