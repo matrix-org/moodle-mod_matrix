@@ -30,11 +30,13 @@ release: docker-down ## Compresses all files required to install mod_matrix as a
 .PHONY: static-code-analysis
 static-code-analysis: vendor ## Runs a static code analysis with vimeo/psalm
 	mkdir -p .build/psalm
-	vendor/bin/psalm --config=psalm.xml --diff --show-info=false --stats --threads=4
+	vendor/bin/psalm --config=psalm.xml --clear-cache
+	vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4
 
 .PHONY: static-code-analysis-baseline
 static-code-analysis-baseline: vendor ## Generates a baseline for static code analysis with phpstan/phpstan and vimeo/psalm
 	mkdir -p .build/psalm
+	vendor/bin/psalm --config=psalm.xml --clear-cache
 	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml
 
 .PHONY: tests
