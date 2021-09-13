@@ -234,7 +234,7 @@ final class Service
 
         /** @var array<int, Matrix\Domain\MatrixUserId> $allowedMatrixUserIds */
         $allowedMatrixUserIds = [
-            $this->api->whoami()->toString(),
+            $this->api->whoami(),
         ];
 
         $powerLevels = $this->api->getState(
