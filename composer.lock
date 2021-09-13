@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95f074dd3b1f1a7557d3dd5f7be6072c",
+    "content-hash": "fcb7c1b9f19323ae6c2b7287fe35eb21",
     "packages": [
         {
             "name": "ergebnis/clock",
@@ -81,16 +81,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.2.0",
+            "version": "9.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "8b73ad5b3556585282ad58a22689d54aef614a9d"
+                "reference": "e6de01c8c3755d2b015195d671d22a3c71020d15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8b73ad5b3556585282ad58a22689d54aef614a9d",
-                "reference": "8b73ad5b3556585282ad58a22689d54aef614a9d",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/e6de01c8c3755d2b015195d671d22a3c71020d15",
+                "reference": "e6de01c8c3755d2b015195d671d22a3c71020d15",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.2.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.4.0"
             },
-            "time": "2021-06-23T14:50:09+00:00"
+            "time": "2021-09-04T18:28:24+00:00"
         }
     ],
     "packages-dev": [
