@@ -8,6 +8,9 @@
 
 namespace mod_matrix\Matrix\Domain;
 
+/**
+ * @psalm-immutable
+ */
 final class Type
 {
     private $value;
