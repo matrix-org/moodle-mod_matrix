@@ -230,7 +230,7 @@ final class Service
 
         $joinedMatrixUserIds = $this->api->getMembersOfRoom($matrixRoomId);
 
-        $allowedUserIds = [
+        $allowedMatrixUserIds = [
             $this->api->whoami(),
         ];
 
@@ -248,7 +248,7 @@ final class Service
                 );
             }
 
-            $allowedUserIds[] = $matrixUserId;
+            $allowedMatrixUserIds[] = $matrixUserId;
         }
 
         // Get all the staff users
@@ -281,7 +281,7 @@ final class Service
                 );
             }
 
-            $allowedUserIds[] = $matrixUserId;
+            $allowedMatrixUserIds[] = $matrixUserId;
 
             $powerLevels['users'][$matrixUserId] = 99;
         }
@@ -295,7 +295,7 @@ final class Service
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedMatrixUserIds as $matrixUserId) {
-            if (!in_array($matrixUserId, $allowedUserIds)) {
+            if (!in_array($matrixUserId, $allowedMatrixUserIds)) {
                 $this->api->kickUser(
                     $matrixUserId,
                     $matrixRoomId
