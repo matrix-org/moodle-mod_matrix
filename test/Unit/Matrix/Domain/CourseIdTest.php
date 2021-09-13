@@ -8,7 +8,6 @@
 
 namespace mod_matrix\Test\Unit\Matrix\Domain;
 
-use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
 use PHPUnit\Framework;
 
@@ -19,8 +18,6 @@ use PHPUnit\Framework;
  */
 final class CourseIdTest extends Framework\TestCase
 {
-    use Util\Helper;
-
     /**
      * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
      */
