@@ -159,7 +159,7 @@
       <code>$val</code>
     </MissingParamType>
     <MissingReturnType occurrences="6">
-      <code>getEffectiveJoins</code>
+      <code>getMembersOfRoom</code>
       <code>getState</code>
       <code>inviteUser</code>
       <code>kickUser</code>
@@ -171,16 +171,20 @@
     <MissingParamType occurrences="1">
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="6">
+    <MissingReturnType occurrences="1">
+      <code>matrixUserIdOf</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="8">
       <code>$CFG-&gt;wwwroot</code>
       <code>$joinedUserIds</code>
       <code>$joinedUserIds</code>
       <code>$room-&gt;course_id</code>
       <code>$room-&gt;group_id</code>
       <code>$room-&gt;room_id</code>
+      <code>$user</code>
+      <code>$user</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="2">
-      <code>$profile['matrix_user_id']</code>
+    <MixedArrayAccess occurrences="1">
       <code>$profile['matrix_user_id']</code>
     </MixedArrayAccess>
     <MixedArrayAssignment occurrences="2">
@@ -199,8 +203,8 @@
       <code>$matrixUserId</code>
       <code>$matrixUserId</code>
       <code>$matrixUserId</code>
+      <code>$matrixUserId</code>
       <code>$powerLevels</code>
-      <code>$profile</code>
       <code>$profile</code>
       <code>$user</code>
       <code>$user</code>
@@ -213,20 +217,17 @@
       <code>$roomId</code>
       <code>$roomId</code>
     </MixedOperand>
-    <MixedPropertyFetch occurrences="5">
+    <MixedPropertyFetch occurrences="3">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
-      <code>$user-&gt;profile</code>
-      <code>$user-&gt;profile</code>
     </MixedPropertyFetch>
     <PossiblyNullArgument occurrences="1">
       <code>$conditions</code>
     </PossiblyNullArgument>
-    <UndefinedFunction occurrences="5">
+    <UndefinedFunction occurrences="4">
       <code>get_course($courseId-&gt;toInt())</code>
       <code>groups_get_group($groupId-&gt;toInt())</code>
-      <code>profile_load_custom_fields($user)</code>
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
@@ -238,7 +239,7 @@
       <code>$val</code>
     </MissingParamType>
     <MissingReturnType occurrences="7">
-      <code>getEffectiveJoins</code>
+      <code>getMembersOfRoom</code>
       <code>getState</code>
       <code>inviteUser</code>
       <code>kickUser</code>

@@ -235,17 +235,9 @@ final class Service
         $joinedUserIds = $this->api->getMembersOfRoom($matrixRoomId);
 
         foreach ($users as $user) {
-            profile_load_custom_fields($user);
+            $matrixUserId = $this->matrixUserIdOf($user);
 
-            $profile = $user->profile;
-
-            if (!$profile) {
-                continue;
-            }
-
-            $matrixUserId = $profile['matrix_user_id'];
-
-            if (!$matrixUserId) {
+            if (null === $matrixUserId) {
                 continue;
             }
 
@@ -276,17 +268,9 @@ final class Service
         ];
 
         foreach ($staff as $user) {
-            profile_load_custom_fields($user);
+            $matrixUserId = $this->matrixUserIdOf($user);
 
-            $profile = $user->profile;
-
-            if (!$profile) {
-                continue;
-            }
-
-            $matrixUserId = $profile['matrix_user_id'];
-
-            if (!$matrixUserId) {
+            if (null === $matrixUserId) {
                 continue;
             }
 
@@ -318,5 +302,24 @@ final class Service
                 );
             }
         }
+    }
+
+    private function matrixUserIdOf(object $user)
+    {
+        profile_load_custom_fields($user);
+
+        $profile = $user->profile;
+
+        if (!$profile) {
+            return null;
+        }
+
+        $matrixUserId = $profile['matrix_user_id'];
+
+        if (!$matrixUserId) {
+            return null;
+        }
+
+        return $matrixUserId;
     }
 }
