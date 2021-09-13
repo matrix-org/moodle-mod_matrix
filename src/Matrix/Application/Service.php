@@ -129,7 +129,7 @@ final class Service
                 $this->roomRepository->save($roomForGroup);
             }
 
-            $this->synchronizeRoomMembers(
+            $this->synchronizeRoomMembersForCourseAndGroup(
                 $courseId,
                 $groupId
             );
@@ -157,7 +157,7 @@ final class Service
             $this->roomRepository->save($room);
         }
 
-        $this->synchronizeRoomMembers(
+        $this->synchronizeRoomMembersForCourseAndGroup(
             $courseId,
             null
         );
@@ -176,14 +176,14 @@ final class Service
         $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
-            $this->synchronizeRoomMembers(
+            $this->synchronizeRoomMembersForCourseAndGroup(
                 $room->courseId(),
                 $room->groupId()
             );
         }
     }
 
-    public function synchronizeRoomMembers(
+    public function synchronizeRoomMembersForCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         ?Moodle\Domain\GroupId $groupId
     ): void {

@@ -32,7 +32,7 @@ class Observer
 
         $service = $container->service();
 
-        $service->synchronizeRoomMembers(
+        $service->synchronizeRoomMembersForCourseAndGroup(
             $courseId,
             Moodle\Domain\GroupId::fromString($event->objectid)
         );
