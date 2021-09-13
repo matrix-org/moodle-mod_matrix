@@ -34,7 +34,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         return $r['user_id'];
     }
 
-    public function createRoom($opts = [])
+    public function createRoom($opts = []): Matrix\Domain\MatrixRoomId
     {
         $r = $this->request(
             'POST',
@@ -43,14 +43,17 @@ final class CurlBasedApi implements Matrix\Application\Api
             $opts
         );
 
-        return $r['room_id'];
+        return Matrix\Domain\MatrixRoomId::fromString($r['room_id']);
     }
 
-    public function inviteUser($userId, $roomId)
+    public function inviteUser($userId, Matrix\Domain\MatrixRoomId $roomId)
     {
         return $this->request(
             'POST',
-            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/invite',
+            sprintf(
+                '/_matrix/client/r0/rooms/%s/invite',
+                urlencode($roomId->toString())
+            ),
             [],
             [
                 'user_id' => $userId,
@@ -58,11 +61,14 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function kickUser($userId, $roomId)
+    public function kickUser($userId, Matrix\Domain\MatrixRoomId $roomId)
     {
         return $this->request(
             'POST',
-            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/kick',
+            sprintf(
+                '/_matrix/client/r0/rooms/%s/kick',
+                urlencode($roomId->toString())
+            ),
             [],
             [
                 'user_id' => $userId,
@@ -70,29 +76,42 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function getState($roomId, $eventType, $stateKey)
+    public function getState(Matrix\Domain\MatrixRoomId $roomId, $eventType, $stateKey)
     {
         return $this->request(
             'GET',
-            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/state/' . urlencode($eventType) . '/' . urlencode($stateKey)
+            sprintf(
+                '/_matrix/client/r0/rooms/%s/state/%s/%s',
+                urlencode($roomId->toString()),
+                urlencode($eventType),
+                urlencode($stateKey)
+            )
         );
     }
 
-    public function setState($roomId, $eventType, $stateKey, $content)
+    public function setState(Matrix\Domain\MatrixRoomId $roomId, $eventType, $stateKey, $content)
     {
         return $this->request(
             'PUT',
-            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/state/' . urlencode($eventType) . '/' . urlencode($stateKey),
+            sprintf(
+                '/_matrix/client/r0/rooms/%s/state/%s/%s',
+                urlencode($roomId->toString()),
+                urlencode($eventType),
+                urlencode($stateKey)
+            ),
             [],
             $content
         );
     }
 
-    public function getEffectiveJoins($roomId)
+    public function getEffectiveJoins(Matrix\Domain\MatrixRoomId $roomId)
     {
         $members = $this->request(
             'GET',
-            '/_matrix/client/r0/rooms/' . urlencode($roomId) . '/members'
+            sprintf(
+                '/_matrix/client/r0/rooms/%s/members',
+                urlencode($roomId->toString())
+            )
         );
 
         $userIds = [];

@@ -120,7 +120,7 @@ final class Service
 
                 $roomForGroup->course_id = $courseId->toInt();
                 $roomForGroup->group_id = $groupId->toInt();
-                $roomForGroup->room_id = $roomId;
+                $roomForGroup->room_id = $roomId->toString();
                 $roomForGroup->timecreated = $this->clock->now()->getTimestamp();
                 $roomForGroup->timemodified = 0;
 
@@ -147,7 +147,7 @@ final class Service
 
             $room->course_id = $courseId->toInt();
             $room->group_id = null;
-            $room->room_id = $roomId;
+            $room->room_id = $roomId->toString();
             $room->timecreated = $this->clock->now()->getTimestamp();
             $room->timemodified = 0;
 
@@ -230,7 +230,7 @@ final class Service
             $this->api->whoami(),
         ];
 
-        $joinedUserIds = $this->api->getEffectiveJoins($room->room_id);
+        $joinedUserIds = $this->api->getEffectiveJoins(Matrix\Domain\MatrixRoomId::fromString($room->room_id));
 
         foreach ($users as $user) {
             profile_load_custom_fields($user);
@@ -255,7 +255,7 @@ final class Service
 
             $this->api->inviteUser(
                 $matrixUserId,
-                $room->room_id
+                Matrix\Domain\MatrixRoomId::fromString($room->room_id)
             );
         }
 
@@ -266,7 +266,7 @@ final class Service
         );
 
         $powerLevels = $this->api->getState(
-            $room->room_id,
+            Matrix\Domain\MatrixRoomId::fromString($room->room_id),
             'm.room.power_levels',
             ''
         );
@@ -295,7 +295,7 @@ final class Service
             if (!in_array($matrixUserId, $joinedUserIds)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $room->room_id
+                    Matrix\Domain\MatrixRoomId::fromString($room->room_id)
                 );
             }
 
@@ -303,7 +303,7 @@ final class Service
         }
 
         $this->api->setState(
-            $room->room_id,
+            Matrix\Domain\MatrixRoomId::fromString($room->room_id),
             'm.room.power_levels',
             '',
             $powerLevels
@@ -317,7 +317,7 @@ final class Service
 
             $this->api->kickUser(
                 $matrixUserId,
-                $room->room_id
+                Matrix\Domain\MatrixRoomId::fromString($room->room_id)
             );
         }
     }

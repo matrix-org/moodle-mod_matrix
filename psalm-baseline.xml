@@ -158,8 +158,7 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="7">
-      <code>createRoom</code>
+    <MissingReturnType occurrences="6">
       <code>getEffectiveJoins</code>
       <code>getState</code>
       <code>inviteUser</code>
@@ -172,12 +171,13 @@
     <MissingParamType occurrences="1">
       <code>$roomId</code>
     </MissingParamType>
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="6">
       <code>$CFG-&gt;wwwroot</code>
       <code>$joinedUserIds</code>
       <code>$joinedUserIds</code>
       <code>$room-&gt;course_id</code>
       <code>$room-&gt;group_id</code>
+      <code>$room-&gt;room_id</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$profile['matrix_user_id']</code>
@@ -190,7 +190,7 @@
     <MixedArrayOffset occurrences="3">
       <code>$powerLevels['users'][$matrixUserId]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="17">
+    <MixedAssignment occurrences="15">
       <code>$allowedUserIds[]</code>
       <code>$allowedUserIds[]</code>
       <code>$course</code>
@@ -202,8 +202,6 @@
       <code>$powerLevels</code>
       <code>$profile</code>
       <code>$profile</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
@@ -239,8 +237,7 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="8">
-      <code>createRoom</code>
+    <MissingReturnType occurrences="7">
       <code>getEffectiveJoins</code>
       <code>getState</code>
       <code>inviteUser</code>
@@ -249,16 +246,12 @@
       <code>setState</code>
       <code>whoami</code>
     </MissingReturnType>
-    <MixedArgument occurrences="11">
+    <MixedArgument occurrences="7">
       <code>$content</code>
       <code>$eventType</code>
       <code>$eventType</code>
       <code>$opts</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
-      <code>$roomId</code>
+      <code>$r['room_id']</code>
       <code>$stateKey</code>
       <code>$stateKey</code>
     </MixedArgument>
