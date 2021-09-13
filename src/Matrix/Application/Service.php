@@ -228,12 +228,12 @@ final class Service
 
         $matrixRoomId = Matrix\Domain\MatrixRoomId::fromString($room->room_id);
 
-        $joinedMatrixUserIds = $this->api->getMembersOfRoom($matrixRoomId);
+        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($matrixRoomId);
 
-        $botMatrixUserId = $this->api->whoami();
+        $matrixUserIdOfBot = $this->api->whoami();
 
-        /** @var array<int, Matrix\Domain\MatrixUserId> $allowedMatrixUserIds */
-        $allowedMatrixUserIds = [
+        /** @var array<int, Matrix\Domain\MatrixUserId> $matrixUserIdsOfUsersAllowedInTheRoom */
+        $matrixUserIdsOfUsersAllowedInTheRoom = [
             $this->api->whoami(),
         ];
 
@@ -244,7 +244,7 @@ final class Service
         );
 
         $powerLevels['users'] = [
-            $botMatrixUserId->toString() => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
+            $matrixUserIdOfBot->toString() => Matrix\Domain\MatrixPowerLevel::bot()->toInt(),
         ];
 
         foreach ($users as $user) {
@@ -254,14 +254,14 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedMatrixUserIds, false)) {
+            if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
                 );
             }
 
-            $allowedMatrixUserIds[] = $matrixUserId;
+            $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
 
             $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\MatrixPowerLevel::default()->toInt();
         }
@@ -279,14 +279,14 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $joinedMatrixUserIds, false)) {
+            if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
                 );
             }
 
-            $allowedMatrixUserIds[] = $matrixUserId;
+            $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
 
             $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\MatrixPowerLevel::staff()->toInt();
         }
@@ -299,8 +299,8 @@ final class Service
         );
 
         // Kick anyone who isn't supposed to be there
-        foreach ($joinedMatrixUserIds as $matrixUserId) {
-            if (!in_array($matrixUserId, $allowedMatrixUserIds, false)) {
+        foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
+            if (!in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
                     $matrixRoomId
