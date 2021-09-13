@@ -129,10 +129,7 @@ final class Service
                 $this->roomRepository->save($roomForCourseAndGroup);
             }
 
-            $this->synchronizeRoomMembersForCourseAndGroup(
-                $courseId,
-                $groupId
-            );
+            $this->synchronizeRoomMembers($roomForCourseAndGroup);
 
             return;
         }
@@ -157,10 +154,7 @@ final class Service
             $this->roomRepository->save($roomForCourse);
         }
 
-        $this->synchronizeRoomMembersForCourseAndGroup(
-            $courseId,
-            null
-        );
+        $this->synchronizeRoomMembers($roomForCourse);
     }
 
     public function synchronizeAll(?Moodle\Domain\CourseId $courseId = null): void
@@ -176,45 +170,19 @@ final class Service
         $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
-            $this->synchronizeRoomMembersForCourseAndGroup(
-                $room->courseId(),
-                $room->groupId()
-            );
+            $this->synchronizeRoomMembers($room);
         }
     }
 
-    public function synchronizeRoomMembersForCourseAndGroup(
-        Moodle\Domain\CourseId $courseId,
-        ?Moodle\Domain\GroupId $groupId
-    ): void {
-        if (
-            null !== $groupId
-            && $groupId->equals(Moodle\Domain\GroupId::fromInt(0))
-        ) {
-            $groupId = null;
-        } // we treat zero as null, but Moodle doesn't
-
-        if (null !== $groupId) {
-            $room = $this->roomRepository->findOneBy([
-                'course_id' => $courseId->toInt(),
-                'group_id' => $groupId->toInt(),
-            ]);
-        } else {
-            $room = $this->roomRepository->findOneBy([
-                'course_id' => $courseId->toInt(),
-                'group_id' => null,
-            ]);
-        }
-
-        if (null === $room) {
-            return; // nothing to do
-        }
+    public function synchronizeRoomMembers(Moodle\Domain\Room $room): void
+    {
+        $groupId = $room->groupId();
 
         if (null === $groupId) {
             $groupId = Moodle\Domain\GroupId::fromInt(0);
         } // Moodle wants zero instead of null
 
-        $context = context_course::instance($courseId->toInt());
+        $context = context_course::instance($room->courseId()->toInt());
 
         $users = get_enrolled_users(
             $context,

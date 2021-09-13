@@ -17,25 +17,20 @@ class Observer
     public static function onGroupMemberChange($event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
         $container = Container::instance();
 
-        $moduleRepository = $container->moduleRepository();
-
-        $modules = $moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
+        $rooms = $container->roomRepository()->findAllBy([
+            'course_id' => $courseId->toInt(),
+            'group_id' => $groupId->toInt(),
         ]);
-
-        if ([] === $modules) {
-            return;
-        }
 
         $service = $container->service();
 
-        $service->synchronizeRoomMembersForCourseAndGroup(
-            $courseId,
-            Moodle\Domain\GroupId::fromString($event->objectid)
-        );
+        foreach ($rooms as $room) {
+            $service->synchronizeRoomMembers($room);
+        }
     }
 
     public static function onGroupCreated(event\group_created $event): void
