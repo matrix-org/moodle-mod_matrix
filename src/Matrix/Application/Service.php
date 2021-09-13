@@ -177,6 +177,20 @@ final class Service
         }
     }
 
+    public function synchronizeRoomMembersForAllRoomsOfCourseAndGroup(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $rooms = $this->roomRepository->findAllBy([
+            'course_id' => $courseId->toInt(),
+            'group_id' => $groupId->toInt(),
+        ]);
+
+        foreach ($rooms as $room) {
+            $this->synchronizeRoomMembersForRoom($room);
+        }
+    }
+
     public function synchronizeRoomMembersForRoom(Moodle\Domain\Room $room): void
     {
         $groupId = $room->groupId();
