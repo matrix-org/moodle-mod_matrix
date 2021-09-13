@@ -249,16 +249,14 @@ final class Service
                 continue;
             }
 
-            $allowedUserIds[] = $matrixUserId;
-
-            if (in_array($matrixUserId, $joinedUserIds)) {
-                continue;
+            if (!in_array($matrixUserId, $joinedUserIds)) {
+                $this->api->inviteUser(
+                    $matrixUserId,
+                    $matrixRoomId
+                );
             }
 
-            $this->api->inviteUser(
-                $matrixUserId,
-                $matrixRoomId
-            );
+            $allowedUserIds[] = $matrixUserId;
         }
 
         // Get all the staff users
@@ -292,14 +290,14 @@ final class Service
                 continue;
             }
 
-            $allowedUserIds[] = $matrixUserId;
-
             if (!in_array($matrixUserId, $joinedUserIds)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $matrixRoomId
                 );
             }
+
+            $allowedUserIds[] = $matrixUserId;
 
             $powerLevels['users'][$matrixUserId] = 99;
         }
@@ -313,14 +311,12 @@ final class Service
 
         // Kick anyone who isn't supposed to be there
         foreach ($joinedUserIds as $matrixUserId) {
-            if (in_array($matrixUserId, $allowedUserIds)) {
-                continue;
+            if (!in_array($matrixUserId, $allowedUserIds)) {
+                $this->api->kickUser(
+                    $matrixUserId,
+                    $matrixRoomId
+                );
             }
-
-            $this->api->kickUser(
-                $matrixUserId,
-                $matrixRoomId
-            );
         }
     }
 }
