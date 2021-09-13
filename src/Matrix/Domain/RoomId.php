@@ -6,12 +6,12 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Domain;
+namespace mod_matrix\Matrix\Domain;
 
 /**
  * @psalm-immutable
  */
-final class MatrixUserId
+final class RoomId
 {
     private $value;
 

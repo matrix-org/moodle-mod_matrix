@@ -37,19 +37,19 @@ final class Container
             return new Clock\SystemClock($timezone);
         });
 
-        $this->define(Moodle\Application\Api::class, static function (self $container): Moodle\Application\Api {
+        $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
             $configuration = $container->configuration();
 
-            return new Moodle\Infrastructure\CurlBasedApi(
+            return new Matrix\Infrastructure\CurlBasedApi(
                 $configuration->hsUrl(),
                 $configuration->accessToken()
             );
         });
 
-        $this->define(Moodle\Application\Configuration::class, static function (): Moodle\Application\Configuration {
+        $this->define(Matrix\Application\Configuration::class, static function (): Matrix\Application\Configuration {
             $object = get_config('mod_matrix');
 
-            return Moodle\Application\Configuration::fromObject($object);
+            return Matrix\Application\Configuration::fromObject($object);
         });
 
         $this->define(Moodle\Application\ModuleRepository::class, static function (self $container): Moodle\Application\ModuleRepository {
@@ -63,8 +63,8 @@ final class Container
             return new Moodle\Infrastructure\DatabaseBasedRoomRepository($container->database());
         });
 
-        $this->define(Moodle\Application\Service::class, static function (self $container): Moodle\Application\Service {
-            return new Moodle\Application\Service(
+        $this->define(Matrix\Application\Service::class, static function (self $container): Matrix\Application\Service {
+            return new Matrix\Application\Service(
                 $container->api(),
                 $container->configuration(),
                 $container->roomRepository(),
@@ -96,14 +96,14 @@ final class Container
         return self::$instance;
     }
 
-    public function api(): Moodle\Application\Api
+    public function api(): Matrix\Application\Api
     {
-        return $this->resolve(Moodle\Application\Api::class);
+        return $this->resolve(Matrix\Application\Api::class);
     }
 
-    public function configuration(): Moodle\Application\Configuration
+    public function configuration(): Matrix\Application\Configuration
     {
-        return $this->resolve(Moodle\Application\Configuration::class);
+        return $this->resolve(Matrix\Application\Configuration::class);
     }
 
     public function clock(): Clock\Clock
@@ -126,9 +126,9 @@ final class Container
         return $this->resolve(Moodle\Application\RoomRepository::class);
     }
 
-    public function service(): Moodle\Application\Service
+    public function service(): Matrix\Application\Service
     {
-        return $this->resolve(Moodle\Application\Service::class);
+        return $this->resolve(Matrix\Application\Service::class);
     }
 
     /**

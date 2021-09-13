@@ -8,23 +8,23 @@
 
 namespace mod_matrix\Test\Unit\Moodle\Domain;
 
-use mod_matrix\Moodle;
+use mod_matrix\Matrix;
 use PHPUnit\Framework;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\Moodle\Domain\MatrixUserId
+ * @covers \mod_matrix\Matrix\Domain\UserId
  */
-final class MatrixUserIdTest extends Framework\TestCase
+final class UserIdTest extends Framework\TestCase
 {
     /**
      * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::arbitrary()
      */
     public function testFromStringReturnsMatrixUserId(string $value): void
     {
-        $matrixUserId = Moodle\Domain\MatrixUserId::fromString($value);
+        $userId = Matrix\Domain\UserId::fromString($value);
 
-        self::assertSame($value, $matrixUserId->toString());
+        self::assertSame($value, $userId->toString());
     }
 }

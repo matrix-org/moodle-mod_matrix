@@ -6,12 +6,12 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Infrastructure;
+namespace mod_matrix\Matrix\Infrastructure;
 
 use Curl\Curl;
-use mod_matrix\Moodle;
+use mod_matrix\Matrix;
 
-final class CurlBasedApi implements Moodle\Application\Api
+final class CurlBasedApi implements Matrix\Application\Api
 {
     private $hsUrl;
     private $accessToken;
@@ -24,17 +24,17 @@ final class CurlBasedApi implements Moodle\Application\Api
         $this->accessToken = $accessToken;
     }
 
-    public function whoami(): Moodle\Domain\MatrixUserId
+    public function whoami(): Matrix\Domain\UserId
     {
         $r = $this->request(
             'GET',
             '/_matrix/client/r0/account/whoami'
         );
 
-        return Moodle\Domain\MatrixUserId::fromString($r['user_id']);
+        return Matrix\Domain\UserId::fromString($r['user_id']);
     }
 
-    public function createRoom($opts = []): Moodle\Domain\MatrixRoomId
+    public function createRoom($opts = []): Matrix\Domain\RoomId
     {
         $r = $this->request(
             'POST',
@@ -43,12 +43,12 @@ final class CurlBasedApi implements Moodle\Application\Api
             $opts
         );
 
-        return Moodle\Domain\MatrixRoomId::fromString($r['room_id']);
+        return Matrix\Domain\RoomId::fromString($r['room_id']);
     }
 
     public function inviteUser(
-        Moodle\Domain\MatrixUserId $userId,
-        Moodle\Domain\MatrixRoomId $roomId
+        Matrix\Domain\UserId $userId,
+        Matrix\Domain\RoomId $roomId
     ) {
         return $this->request(
             'POST',
@@ -64,8 +64,8 @@ final class CurlBasedApi implements Moodle\Application\Api
     }
 
     public function kickUser(
-        Moodle\Domain\MatrixUserId $userId,
-        Moodle\Domain\MatrixRoomId $roomId
+        Matrix\Domain\UserId $userId,
+        Matrix\Domain\RoomId $roomId
     ) {
         return $this->request(
             'POST',
@@ -80,7 +80,7 @@ final class CurlBasedApi implements Moodle\Application\Api
         );
     }
 
-    public function getState(Moodle\Domain\MatrixRoomId $roomId, $eventType, $stateKey)
+    public function getState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey)
     {
         return $this->request(
             'GET',
@@ -93,7 +93,7 @@ final class CurlBasedApi implements Moodle\Application\Api
         );
     }
 
-    public function setState(Moodle\Domain\MatrixRoomId $roomId, $eventType, $stateKey, $content)
+    public function setState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey, $content)
     {
         return $this->request(
             'PUT',
@@ -108,7 +108,7 @@ final class CurlBasedApi implements Moodle\Application\Api
         );
     }
 
-    public function getMembersOfRoom(Moodle\Domain\MatrixRoomId $roomId): array
+    public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array
     {
         $members = $this->request(
             'GET',
@@ -125,7 +125,7 @@ final class CurlBasedApi implements Moodle\Application\Api
                 $membership = $ev['content']['membership'];
 
                 if ('join' == $membership || 'invite' == $membership) {
-                    $userIds[] = Moodle\Domain\MatrixUserId::fromString($ev['state_key']);
+                    $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
                 }
             }
         }

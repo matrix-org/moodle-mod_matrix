@@ -8,10 +8,11 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Application;
+namespace mod_matrix\Matrix\Application;
 
 use context_course;
 use Ergebnis\Clock;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 final class Service
@@ -22,8 +23,8 @@ final class Service
     private $clock;
 
     public function __construct(
-        Moodle\Application\Api $api,
-        Moodle\Application\Configuration $configuration,
+        Matrix\Application\Api $api,
+        Matrix\Application\Configuration $configuration,
         Moodle\Application\RoomRepository $roomRepository,
         Clock\Clock $clock
     ) {
@@ -52,9 +53,9 @@ final class Service
 
         $whoami = $this->api->whoami();
 
-        $botPowerLevel = Moodle\Domain\MatrixPowerLevel::bot();
-        $staffPowerLevel = Moodle\Domain\MatrixPowerLevel::staff();
-        $redactorPowerLevel = Moodle\Domain\MatrixPowerLevel::redactor();
+        $botPowerLevel = Matrix\Domain\PowerLevel::bot();
+        $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
+        $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
         $roomOptions = [
             'name' => $course->fullname,
@@ -226,25 +227,25 @@ final class Service
             $users = [];
         } // use an empty array
 
-        $matrixRoomId = Moodle\Domain\MatrixRoomId::fromString($room->room_id);
+        $roomId = Matrix\Domain\RoomId::fromString($room->room_id);
 
-        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($matrixRoomId);
+        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($roomId);
 
         $matrixUserIdOfBot = $this->api->whoami();
 
-        /** @var array<int, Moodle\Domain\MatrixUserId> $matrixUserIdsOfUsersAllowedInTheRoom */
+        /** @var array<int, \mod_matrix\Matrix\Domain\UserId> $matrixUserIdsOfUsersAllowedInTheRoom */
         $matrixUserIdsOfUsersAllowedInTheRoom = [
             $this->api->whoami(),
         ];
 
         $powerLevels = $this->api->getState(
-            $matrixRoomId,
+            $roomId,
             'm.room.power_levels',
             ''
         );
 
         $powerLevels['users'] = [
-            $matrixUserIdOfBot->toString() => Moodle\Domain\MatrixPowerLevel::bot()->toInt(),
+            $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
         ];
 
         foreach ($users as $user) {
@@ -257,13 +258,13 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $matrixRoomId
+                    $roomId
                 );
             }
 
             $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
 
-            $powerLevels['users'][$matrixUserId->toString()] = Moodle\Domain\MatrixPowerLevel::default()->toInt();
+            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
         // Get all the staff users
@@ -282,17 +283,17 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $matrixRoomId
+                    $roomId
                 );
             }
 
             $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
 
-            $powerLevels['users'][$matrixUserId->toString()] = Moodle\Domain\MatrixPowerLevel::staff()->toInt();
+            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
         }
 
         $this->api->setState(
-            $matrixRoomId,
+            $roomId,
             'm.room.power_levels',
             '',
             $powerLevels
@@ -303,13 +304,13 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
-                    $matrixRoomId
+                    $roomId
                 );
             }
         }
     }
 
-    private function matrixUserIdOf(object $user): ?Moodle\Domain\MatrixUserId
+    private function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
     {
         profile_load_custom_fields($user);
 
@@ -335,6 +336,6 @@ final class Service
             return null;
         }
 
-        return Moodle\Domain\MatrixUserId::fromString($matrixUserId);
+        return Matrix\Domain\UserId::fromString($matrixUserId);
     }
 }

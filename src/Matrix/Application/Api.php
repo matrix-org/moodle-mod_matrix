@@ -6,37 +6,37 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Application;
+namespace mod_matrix\Matrix\Application;
 
-use mod_matrix\Moodle;
+use mod_matrix\Matrix;
 
 interface Api
 {
     /**
      * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
      */
-    public function whoami(): Moodle\Domain\MatrixUserId;
+    public function whoami(): Matrix\Domain\UserId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
      * @param mixed $opts
      */
-    public function createRoom($opts = []): Moodle\Domain\MatrixRoomId;
+    public function createRoom($opts = []): Matrix\Domain\RoomId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
      */
     public function inviteUser(
-        Moodle\Domain\MatrixUserId $userId,
-        Moodle\Domain\MatrixRoomId $roomId
+        Matrix\Domain\UserId $userId,
+        Matrix\Domain\RoomId $roomId
     );
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
      */
     public function kickUser(
-        Moodle\Domain\MatrixUserId $userId,
-        Moodle\Domain\MatrixRoomId $roomId
+        Matrix\Domain\UserId $userId,
+        Matrix\Domain\RoomId $roomId
     );
 
     /**
@@ -44,7 +44,7 @@ interface Api
      * @param mixed $eventType
      * @param mixed $stateKey
      */
-    public function getState(Moodle\Domain\MatrixRoomId $roomId, $eventType, $stateKey);
+    public function getState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey);
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
@@ -52,14 +52,14 @@ interface Api
      * @param mixed $stateKey
      * @param mixed $content
      */
-    public function setState(Moodle\Domain\MatrixRoomId $roomId, $eventType, $stateKey, $content);
+    public function setState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey, $content);
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
      *
-     * @return array<int, Moodle\Domain\MatrixUserId>
+     * @return array<int, Matrix\Domain\UserId>
      */
-    public function getMembersOfRoom(Moodle\Domain\MatrixRoomId $roomId): array;
+    public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array;
 
     public function debug($val): void;
 }

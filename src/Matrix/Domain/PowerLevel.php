@@ -6,9 +6,9 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Domain;
+namespace mod_matrix\Matrix\Domain;
 
-final class MatrixPowerLevel
+final class PowerLevel
 {
     private $value;
 
