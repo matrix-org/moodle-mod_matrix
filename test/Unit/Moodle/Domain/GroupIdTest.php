@@ -51,7 +51,7 @@ final class GroupIdTest extends Framework\TestCase
         self::assertFalse($one->equals($two));
     }
 
-    public function testEqualsReturnsFalseWhenValueIsSame(): void
+    public function testEqualsReturnsTrueWhenValueIsSame(): void
     {
         $value = self::faker()->numberBetween(1);
 
