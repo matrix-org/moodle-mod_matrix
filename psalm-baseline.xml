@@ -127,9 +127,9 @@
       <code>Clock\Clock</code>
       <code>Matrix\Api</code>
       <code>Matrix\Application\ModuleRepository</code>
+      <code>Matrix\Application\RoomRepository</code>
       <code>Matrix\Configuration</code>
       <code>Matrix\Infrastructure\ModuleNormalizer</code>
-      <code>Matrix\Repository\RoomRepository</code>
       <code>Matrix\Service</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
@@ -141,9 +141,9 @@
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\ModuleRepository::class)</code>
+      <code>$this-&gt;resolve(Matrix\Application\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Infrastructure\ModuleNormalizer::class)</code>
-      <code>$this-&gt;resolve(Matrix\Repository\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
@@ -233,12 +233,12 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Matrix/Repository/RoomRepository.php">
+  <file src="src/Matrix/Infrastructure/DatabaseBasedRoomRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>array&lt;int, object&gt;</code>
+      <code>array</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="1"/>
     <PropertyNotSetInConstructor occurrences="1">
@@ -374,7 +374,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="test/Unit/Matrix/Repository/RoomRepositoryTest.php">
+  <file src="test/Unit/Matrix/Infrastructure/DatabaseBasedRoomRepositoryTest.php">
     <InvalidArgument occurrences="7">
       <code>$database</code>
       <code>$database</code>

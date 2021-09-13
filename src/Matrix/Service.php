@@ -24,7 +24,7 @@ final class Service
     public function __construct(
         Api $api,
         Configuration $configuration,
-        Repository\RoomRepository $roomRepository,
+        Matrix\Application\RoomRepository $roomRepository,
         Clock\Clock $clock
     ) {
         $this->api = $api;

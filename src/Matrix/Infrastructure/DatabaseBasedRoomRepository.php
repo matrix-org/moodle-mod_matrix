@@ -8,9 +8,11 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Matrix\Repository;
+namespace mod_matrix\Matrix\Infrastructure;
 
-final class RoomRepository
+use mod_matrix\Matrix;
+
+final class DatabaseBasedRoomRepository implements Matrix\Application\RoomRepository
 {
     private const TABLE = 'matrix_rooms';
     private $database;
@@ -36,9 +38,6 @@ final class RoomRepository
         return $room;
     }
 
-    /**
-     * @return array<int, object>
-     */
     public function findAllBy(array $conditions): array
     {
         return $this->database->get_records(
@@ -66,9 +65,6 @@ final class RoomRepository
         );
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function remove(object $room): void
     {
         if (!property_exists($room, 'id')) {

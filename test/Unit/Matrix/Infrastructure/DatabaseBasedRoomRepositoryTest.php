@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Matrix\Repository;
+namespace mod_matrix\Test\Unit\Matrix\Infrastructure;
 
 use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
@@ -15,9 +15,9 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Repository\RoomRepository
+ * @covers \mod_matrix\Matrix\Infrastructure\DatabaseBasedRoomRepository
  */
-final class RoomRepositoryTest extends Framework\TestCase
+final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 {
     use Util\Helper;
 
@@ -43,7 +43,7 @@ final class RoomRepositoryTest extends Framework\TestCase
             )
             ->willReturn(null);
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         self::assertNull($roomRepository->findOneBy($conditions));
     }
@@ -82,7 +82,7 @@ final class RoomRepositoryTest extends Framework\TestCase
             )
             ->willReturn($room);
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         self::assertSame($room, $roomRepository->findOneBy($conditions));
     }
@@ -129,7 +129,7 @@ final class RoomRepositoryTest extends Framework\TestCase
             )
             ->willReturn($rooms);
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         self::assertSame($rooms, $roomRepository->findAllBy($conditions));
     }
@@ -159,7 +159,7 @@ final class RoomRepositoryTest extends Framework\TestCase
             )
             ->willReturn($id);
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         $roomRepository->save($room);
 
@@ -191,7 +191,7 @@ final class RoomRepositoryTest extends Framework\TestCase
                 self::identicalTo($room)
             );
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         $roomRepository->save($room);
 
@@ -214,7 +214,7 @@ final class RoomRepositoryTest extends Framework\TestCase
 
         $database = $this->createMock(\moodle_database::class);
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Can not remove room without identifier.');
@@ -249,7 +249,7 @@ final class RoomRepositoryTest extends Framework\TestCase
                 ])
             );
 
-        $roomRepository = new Matrix\Repository\RoomRepository($database);
+        $roomRepository = new Matrix\Infrastructure\DatabaseBasedRoomRepository($database);
 
         $roomRepository->remove($room);
     }
