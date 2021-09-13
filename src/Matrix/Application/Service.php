@@ -230,7 +230,9 @@ final class Service
             $this->api->whoami(),
         ];
 
-        $joinedUserIds = $this->api->getEffectiveJoins(Matrix\Domain\MatrixRoomId::fromString($room->room_id));
+        $matrixRoomId = Matrix\Domain\MatrixRoomId::fromString($room->room_id);
+
+        $joinedUserIds = $this->api->getEffectiveJoins($matrixRoomId);
 
         foreach ($users as $user) {
             profile_load_custom_fields($user);
@@ -255,7 +257,7 @@ final class Service
 
             $this->api->inviteUser(
                 $matrixUserId,
-                Matrix\Domain\MatrixRoomId::fromString($room->room_id)
+                $matrixRoomId
             );
         }
 
@@ -266,7 +268,7 @@ final class Service
         );
 
         $powerLevels = $this->api->getState(
-            Matrix\Domain\MatrixRoomId::fromString($room->room_id),
+            $matrixRoomId,
             'm.room.power_levels',
             ''
         );
@@ -295,7 +297,7 @@ final class Service
             if (!in_array($matrixUserId, $joinedUserIds)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    Matrix\Domain\MatrixRoomId::fromString($room->room_id)
+                    $matrixRoomId
                 );
             }
 
@@ -303,7 +305,7 @@ final class Service
         }
 
         $this->api->setState(
-            Matrix\Domain\MatrixRoomId::fromString($room->room_id),
+            $matrixRoomId,
             'm.room.power_levels',
             '',
             $powerLevels
@@ -317,7 +319,7 @@ final class Service
 
             $this->api->kickUser(
                 $matrixUserId,
-                Matrix\Domain\MatrixRoomId::fromString($room->room_id)
+                $matrixRoomId
             );
         }
     }
