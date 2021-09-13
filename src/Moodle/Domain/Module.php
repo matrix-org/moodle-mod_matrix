@@ -18,14 +18,14 @@ final class Module
     private $timemodified;
 
     private function __construct(
-        ModuleId $moduleId,
+        ModuleId $id,
         Type $type,
         Name $name,
         CourseId $courseId,
         Timestamp $timecreated,
         Timestamp $timemodified
     ) {
-        $this->id = $moduleId;
+        $this->id = $id;
         $this->type = $type;
         $this->name = $name;
         $this->courseId = $courseId;
@@ -34,7 +34,7 @@ final class Module
     }
 
     public static function create(
-        ModuleId $moduleId,
+        ModuleId $id,
         Type $type,
         Name $name,
         CourseId $courseId,
@@ -42,7 +42,7 @@ final class Module
         Timestamp $timemodified
     ): self {
         return new self(
-            $moduleId,
+            $id,
             $type,
             $name,
             $courseId,
