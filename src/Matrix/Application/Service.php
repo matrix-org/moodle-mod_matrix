@@ -230,8 +230,10 @@ final class Service
 
         $joinedMatrixUserIds = $this->api->getMembersOfRoom($matrixRoomId);
 
+        $botMatrixUserId = $this->api->whoami();
+
         $allowedMatrixUserIds = [
-            $this->api->whoami(),
+            $botMatrixUserId,
         ];
 
         foreach ($users as $user) {
@@ -264,7 +266,7 @@ final class Service
         );
 
         $powerLevels['users'] = [
-            $this->api->whoami() => 100,
+            $botMatrixUserId => 100,
         ];
 
         foreach ($staff as $user) {

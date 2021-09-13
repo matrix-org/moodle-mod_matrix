@@ -186,7 +186,8 @@
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
     <MixedArrayOffset occurrences="2"/>
-    <MixedAssignment occurrences="9">
+    <MixedAssignment occurrences="10">
+      <code>$botMatrixUserId</code>
       <code>$course</code>
       <code>$group</code>
       <code>$joinedMatrixUserIds</code>
