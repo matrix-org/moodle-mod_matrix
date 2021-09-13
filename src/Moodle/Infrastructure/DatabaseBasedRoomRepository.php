@@ -42,6 +42,16 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
         return $this->roomNormalizer->denormalize($room);
     }
 
+    public function findAll(): array
+    {
+        /** @var array<int, object> $rooms */
+        $rooms = $this->database->get_records(self::TABLE);
+
+        return array_map(function (object $room): Moodle\Domain\Room {
+            return $this->roomNormalizer->denormalize($room);
+        }, $rooms);
+    }
+
     public function findAllBy(array $conditions): array
     {
         /** @var array<int, object> $rooms */

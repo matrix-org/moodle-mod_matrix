@@ -194,9 +194,6 @@
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
     </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="1">
-      <code>$conditions</code>
-    </PossiblyNullArgument>
     <UndefinedFunction occurrences="4">
       <code>get_course($courseId-&gt;toInt())</code>
       <code>groups_get_group($groupId-&gt;toInt())</code>
@@ -280,7 +277,8 @@
       <code>$database</code>
       <code>$roomNormalizer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="6">
+    <UndefinedClass occurrences="7">
+      <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
       <code>$this-&gt;database</code>
@@ -350,7 +348,8 @@
     </UndefinedConstant>
   </file>
   <file src="test/Unit/Moodle/Infrastructure/DatabaseBasedRoomRepositoryTest.php">
-    <InvalidArgument occurrences="7">
+    <InvalidArgument occurrences="8">
+      <code>$database</code>
       <code>$database</code>
       <code>$database</code>
       <code>$database</code>
@@ -359,9 +358,11 @@
       <code>$database</code>
       <code>$database</code>
     </InvalidArgument>
-    <MixedArgument occurrences="10">
+    <MixedArgument occurrences="13">
       <code>$normalized-&gt;room_id</code>
       <code>$one-&gt;room_id</code>
+      <code>$one-&gt;room_id</code>
+      <code>$two-&gt;room_id</code>
       <code>$two-&gt;room_id</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
@@ -370,8 +371,10 @@
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
       <code>\moodle_database::class</code>
+      <code>\moodle_database::class</code>
     </MixedArgument>
-    <UndefinedClass occurrences="7">
+    <UndefinedClass occurrences="8">
+      <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>

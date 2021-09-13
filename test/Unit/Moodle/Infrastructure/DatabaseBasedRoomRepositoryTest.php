@@ -180,6 +180,66 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         self::assertEquals($expected, $roomRepository->findAllBy($conditions));
     }
 
+    public function testFindAllReturnsRooms(): void
+    {
+        $faker = self::faker();
+
+        $one = (object) [
+            'course_id' => $faker->numberBetween(1),
+            'group_id' => $faker->numberBetween(1),
+            'id' => $faker->numberBetween(1),
+            'room_id' => $faker->sha1(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+        ];
+
+        $two = (object) [
+            'course_id' => $faker->numberBetween(1),
+            'group_id' => null,
+            'id' => $faker->numberBetween(1),
+            'room_id' => $faker->sha1(),
+            'timecreated' => $faker->dateTime()->getTimestamp(),
+            'timemodified' => $faker->dateTime()->getTimestamp(),
+        ];
+
+        $database = $this->createMock(\moodle_database::class);
+
+        $database
+            ->expects(self::once())
+            ->method('get_records')
+            ->with(self::identicalTo('matrix_rooms'))
+            ->willReturn([
+                $one,
+                $two,
+            ]);
+
+        $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
+            $database,
+            new Moodle\Infrastructure\RoomNormalizer()
+        );
+
+        $expected = [
+            Moodle\Domain\Room::create(
+                Moodle\Domain\RoomId::fromString((string) $one->id),
+                Moodle\Domain\CourseId::fromString((string) $one->course_id),
+                Moodle\Domain\GroupId::fromString((string) $one->group_id),
+                Matrix\Domain\RoomId::fromString($one->room_id),
+                Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
+                Moodle\Domain\Timestamp::fromString((string) $one->timemodified)
+            ),
+            Moodle\Domain\Room::create(
+                Moodle\Domain\RoomId::fromString((string) $two->id),
+                Moodle\Domain\CourseId::fromString((string) $two->course_id),
+                null,
+                Matrix\Domain\RoomId::fromString($two->room_id),
+                Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
+                Moodle\Domain\Timestamp::fromString((string) $two->timemodified)
+            ),
+        ];
+
+        self::assertEquals($expected, $roomRepository->findAll());
+    }
+
     public function testSaveInsertsRecordForRoomWhenRoomDoesNotHaveId(): void
     {
         $faker = self::faker();

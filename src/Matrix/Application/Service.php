@@ -159,15 +159,13 @@ final class Service
 
     public function synchronizeAll(?Moodle\Domain\CourseId $courseId = null): void
     {
-        $conditions = null;
-
         if (null !== $courseId) {
-            $conditions = [
+            $rooms = $this->roomRepository->findAllBy([
                 'course_id' => $courseId->toInt(),
-            ];
+            ]);
+        } else {
+            $rooms = $this->roomRepository->findAll();
         }
-
-        $rooms = $this->roomRepository->findAllBy($conditions);
 
         foreach ($rooms as $room) {
             $this->synchronizeRoomMembers($room);

@@ -19,6 +19,11 @@ interface RoomRepository
     /**
      * @return array<int, Moodle\Domain\Room>
      */
+    public function findAll(): array;
+
+    /**
+     * @return array<int, Moodle\Domain\Room>
+     */
     public function findAllBy(array $conditions): array;
 
     public function save(Moodle\Domain\Room $room): void;
