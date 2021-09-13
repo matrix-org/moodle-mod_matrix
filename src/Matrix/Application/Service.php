@@ -106,18 +106,18 @@ final class Service
         if (null !== $groupId) {
             $group = groups_get_group($groupId->toInt());
 
-            $existingRoomForCourseAndGroup = $this->roomRepository->findOneBy([
+            $roomForCourseAndGroup = $this->roomRepository->findOneBy([
                 'course_id' => $courseId->toInt(),
                 'group_id' => $groupId->toInt(),
             ]);
 
-            if (null === $existingRoomForCourseAndGroup) {
+            if (null === $roomForCourseAndGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
                 $roomId = $this->api->createRoom($roomOptions);
 
-                $roomForGroup = Moodle\Domain\Room::create(
+                $roomForCourseAndGroup = Moodle\Domain\Room::create(
                     Moodle\Domain\RoomId::unknown(),
                     $courseId,
                     $groupId,
@@ -126,7 +126,7 @@ final class Service
                     Moodle\Domain\Timestamp::fromInt(0)
                 );
 
-                $this->roomRepository->save($roomForGroup);
+                $this->roomRepository->save($roomForCourseAndGroup);
             }
 
             $this->synchronizeRoomMembersForCourseAndGroup(
@@ -137,15 +137,15 @@ final class Service
             return;
         }
 
-        $existingRoomForCourse = $this->roomRepository->findOneBy([
+        $roomForCourse = $this->roomRepository->findOneBy([
             'course_id' => $courseId->toInt(),
             'group_id' => null,
         ]);
 
-        if (null === $existingRoomForCourse) {
+        if (null === $roomForCourse) {
             $roomId = $this->api->createRoom($roomOptions);
 
-            $room = Moodle\Domain\Room::create(
+            $roomForCourse = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
                 $courseId,
                 null,
@@ -154,7 +154,7 @@ final class Service
                 Moodle\Domain\Timestamp::fromInt(0)
             );
 
-            $this->roomRepository->save($room);
+            $this->roomRepository->save($roomForCourse);
         }
 
         $this->synchronizeRoomMembersForCourseAndGroup(
