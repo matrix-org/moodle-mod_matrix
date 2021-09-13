@@ -157,15 +157,20 @@ final class Service
         $this->synchronizeRoomMembers($roomForCourse);
     }
 
-    public function synchronizeAll(?Moodle\Domain\CourseId $courseId = null): void
+    public function synchronizeAll(): void
     {
-        if (null !== $courseId) {
-            $rooms = $this->roomRepository->findAllBy([
-                'course_id' => $courseId->toInt(),
-            ]);
-        } else {
-            $rooms = $this->roomRepository->findAll();
+        $rooms = $this->roomRepository->findAll();
+
+        foreach ($rooms as $room) {
+            $this->synchronizeRoomMembers($room);
         }
+    }
+
+    public function synchronizeAllForCourse(Moodle\Domain\CourseId $courseId): void
+    {
+        $rooms = $this->roomRepository->findAllBy([
+            'course_id' => $courseId->toInt(),
+        ]);
 
         foreach ($rooms as $room) {
             $this->synchronizeRoomMembers($room);
