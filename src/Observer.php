@@ -16,7 +16,7 @@ class Observer
 {
     public static function onGroupMemberChange($event): void
     {
-        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         $container = Container::instance();
 
@@ -34,13 +34,13 @@ class Observer
 
         $service->synchronizeRoomMembers(
             $courseId,
-            Matrix\Domain\GroupId::fromString($event->objectid)
+            Moodle\Domain\GroupId::fromString($event->objectid)
         );
     }
 
     public static function onGroupCreated(event\group_created $event): void
     {
-        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         $container = Container::instance();
 
@@ -58,7 +58,7 @@ class Observer
 
         $service->prepareRoomForGroup(
             $courseId,
-            Matrix\Domain\GroupId::fromString($event->objectid)
+            Moodle\Domain\GroupId::fromString($event->objectid)
         );
     }
 
@@ -71,7 +71,7 @@ class Observer
 
     public static function onUserEnrolmentChanged($event): void
     {
-        $courseId = Matrix\Domain\CourseId::fromString($event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         $service = Container::instance()->service();
 

@@ -7,7 +7,7 @@
  */
 
 use mod_matrix\Container;
-use mod_matrix\Matrix;
+use mod_matrix\Moodle;
 
 defined('MOODLE_INTERNAL') || exit;
 
@@ -60,13 +60,13 @@ function matrix_add_instance($data)
 
     $clock = $container->clock();
 
-    $module = Matrix\Domain\Module::create(
-        Matrix\Domain\ModuleId::unknown(),
-        Matrix\Domain\Type::fromInt(0),
-        Matrix\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
-        Matrix\Domain\CourseId::fromString($data->course),
-        Matrix\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-        Matrix\Domain\Timestamp::fromInt(0)
+    $module = Moodle\Domain\Module::create(
+        Moodle\Domain\ModuleId::unknown(),
+        Moodle\Domain\Type::fromInt(0),
+        Moodle\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
+        Moodle\Domain\CourseId::fromString($data->course),
+        Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
+        Moodle\Domain\Timestamp::fromInt(0)
     );
 
     $moduleRepository = $container->moduleRepository();
@@ -89,7 +89,7 @@ function matrix_add_instance($data)
         foreach ($groups as $group) {
             $service->prepareRoomForGroup(
                 $module->courseId(),
-                Matrix\Domain\GroupId::fromString($group->id)
+                Moodle\Domain\GroupId::fromString($group->id)
             );
         }
     } else {
@@ -114,7 +114,7 @@ function matrix_delete_instance($id): bool
         'id' => $id,
     ]);
 
-    if (!$module instanceof Matrix\Domain\Module) {
+    if (!$module instanceof Moodle\Domain\Module) {
         return false;
     }
 

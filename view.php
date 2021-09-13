@@ -7,7 +7,7 @@
  */
 
 use mod_matrix\Container;
-use mod_matrix\Matrix;
+use mod_matrix\Moodle;
 use mod_matrix\Twitter;
 
 require '../../config.php';
@@ -26,7 +26,7 @@ $module = $moduleRepository->findOneBy([
     'id' => $cm->instance,
 ]);
 
-if (!$module instanceof Matrix\Domain\Module) {
+if (!$module instanceof Moodle\Domain\Module) {
     throw new \RuntimeException(sprintf(
         'A Matrix module with id "%s" could not be found.',
         $cm->instance

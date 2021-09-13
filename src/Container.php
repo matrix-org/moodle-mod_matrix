@@ -37,34 +37,34 @@ final class Container
             return new Clock\SystemClock($timezone);
         });
 
-        $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
+        $this->define(Moodle\Application\Api::class, static function (self $container): Moodle\Application\Api {
             $configuration = $container->configuration();
 
-            return new Matrix\Infrastructure\CurlBasedApi(
+            return new Moodle\Infrastructure\CurlBasedApi(
                 $configuration->hsUrl(),
                 $configuration->accessToken()
             );
         });
 
-        $this->define(Matrix\Application\Configuration::class, static function (): Matrix\Application\Configuration {
+        $this->define(Moodle\Application\Configuration::class, static function (): Moodle\Application\Configuration {
             $object = get_config('mod_matrix');
 
-            return Matrix\Application\Configuration::fromObject($object);
+            return Moodle\Application\Configuration::fromObject($object);
         });
 
-        $this->define(Matrix\Application\ModuleRepository::class, static function (self $container): Matrix\Application\ModuleRepository {
-            return new Matrix\Infrastructure\DatabaseBasedModuleRepository(
+        $this->define(Moodle\Application\ModuleRepository::class, static function (self $container): Moodle\Application\ModuleRepository {
+            return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
-                new Matrix\Infrastructure\ModuleNormalizer()
+                new Moodle\Infrastructure\ModuleNormalizer()
             );
         });
 
-        $this->define(Matrix\Application\RoomRepository::class, static function (self $container): Matrix\Application\RoomRepository {
-            return new Matrix\Infrastructure\DatabaseBasedRoomRepository($container->database());
+        $this->define(Moodle\Application\RoomRepository::class, static function (self $container): Moodle\Application\RoomRepository {
+            return new Moodle\Infrastructure\DatabaseBasedRoomRepository($container->database());
         });
 
-        $this->define(Matrix\Application\Service::class, static function (self $container): Matrix\Application\Service {
-            return new Matrix\Application\Service(
+        $this->define(Moodle\Application\Service::class, static function (self $container): Moodle\Application\Service {
+            return new Moodle\Application\Service(
                 $container->api(),
                 $container->configuration(),
                 $container->roomRepository(),
@@ -96,14 +96,14 @@ final class Container
         return self::$instance;
     }
 
-    public function api(): Matrix\Application\Api
+    public function api(): Moodle\Application\Api
     {
-        return $this->resolve(Matrix\Application\Api::class);
+        return $this->resolve(Moodle\Application\Api::class);
     }
 
-    public function configuration(): Matrix\Application\Configuration
+    public function configuration(): Moodle\Application\Configuration
     {
-        return $this->resolve(Matrix\Application\Configuration::class);
+        return $this->resolve(Moodle\Application\Configuration::class);
     }
 
     public function clock(): Clock\Clock
@@ -116,19 +116,19 @@ final class Container
         return $this->resolve(\moodle_database::class);
     }
 
-    public function moduleRepository(): Matrix\Application\ModuleRepository
+    public function moduleRepository(): Moodle\Application\ModuleRepository
     {
-        return $this->resolve(Matrix\Application\ModuleRepository::class);
+        return $this->resolve(Moodle\Application\ModuleRepository::class);
     }
 
-    public function roomRepository(): Matrix\Application\RoomRepository
+    public function roomRepository(): Moodle\Application\RoomRepository
     {
-        return $this->resolve(Matrix\Application\RoomRepository::class);
+        return $this->resolve(Moodle\Application\RoomRepository::class);
     }
 
-    public function service(): Matrix\Application\Service
+    public function service(): Moodle\Application\Service
     {
-        return $this->resolve(Matrix\Application\Service::class);
+        return $this->resolve(Moodle\Application\Service::class);
     }
 
     /**
