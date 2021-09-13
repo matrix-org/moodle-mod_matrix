@@ -213,16 +213,6 @@
       <code>'PUT' === $method</code>
     </RedundantCondition>
   </file>
-  <file src="src/Matrix/Infrastructure/ModuleNormalizer.php">
-    <MixedArgument occurrences="6">
-      <code>$normalized-&gt;course</code>
-      <code>$normalized-&gt;id</code>
-      <code>$normalized-&gt;name</code>
-      <code>$normalized-&gt;timecreated</code>
-      <code>$normalized-&gt;timemodified</code>
-      <code>$normalized-&gt;type</code>
-    </MixedArgument>
-  </file>
   <file src="src/Matrix/Repository/ModuleRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
