@@ -106,12 +106,12 @@ final class Service
         if (null !== $groupId) {
             $group = groups_get_group($groupId->toInt());
 
-            $existingRoomForGroup = $this->roomRepository->findOneBy([
+            $existingRoomForCourseAndGroup = $this->roomRepository->findOneBy([
                 'course_id' => $courseId->toInt(),
                 'group_id' => $groupId->toInt(),
             ]);
 
-            if (null === $existingRoomForGroup) {
+            if (null === $existingRoomForCourseAndGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
@@ -137,12 +137,12 @@ final class Service
             return;
         }
 
-        $existingRoom = $this->roomRepository->findOneBy([
+        $existingRoomForCourse = $this->roomRepository->findOneBy([
             'course_id' => $courseId->toInt(),
             'group_id' => null,
         ]);
 
-        if (null === $existingRoom) {
+        if (null === $existingRoomForCourse) {
             $roomId = $this->api->createRoom($roomOptions);
 
             $room = Moodle\Domain\Room::create(
