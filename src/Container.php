@@ -57,10 +57,10 @@ final class Container
             return new Matrix\Infrastructure\DatabaseBasedRoomRepository($container->database());
         });
 
-        $this->define(Matrix\Configuration::class, static function (): Matrix\Configuration {
+        $this->define(Matrix\Infrastructure\Configuration::class, static function (): Matrix\Infrastructure\Configuration {
             $object = get_config('mod_matrix');
 
-            return Matrix\Configuration::fromObject($object);
+            return Matrix\Infrastructure\Configuration::fromObject($object);
         });
 
         $this->define(Matrix\Service::class, static function (self $container): Matrix\Service {
@@ -101,9 +101,9 @@ final class Container
         return $this->resolve(Matrix\Api::class);
     }
 
-    public function configuration(): Matrix\Configuration
+    public function configuration(): Matrix\Infrastructure\Configuration
     {
-        return $this->resolve(Matrix\Configuration::class);
+        return $this->resolve(Matrix\Infrastructure\Configuration::class);
     }
 
     public function clock(): Clock\Clock

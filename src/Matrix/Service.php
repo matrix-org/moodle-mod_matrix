@@ -23,7 +23,7 @@ final class Service
 
     public function __construct(
         Api $api,
-        Configuration $configuration,
+        Matrix\Infrastructure\Configuration $configuration,
         Matrix\Application\RoomRepository $roomRepository,
         Clock\Clock $clock
     ) {

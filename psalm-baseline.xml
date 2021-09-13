@@ -79,9 +79,6 @@
     </UnresolvableInclude>
   </file>
   <file src="settings.php">
-    <InvalidClass occurrences="1">
-      <code>matrix\configuration</code>
-    </InvalidClass>
     <UndefinedClass occurrences="4">
       <code>admin_setting_configtext</code>
       <code>admin_setting_configtext</code>
@@ -128,7 +125,7 @@
       <code>Matrix\Api</code>
       <code>Matrix\Application\ModuleRepository</code>
       <code>Matrix\Application\RoomRepository</code>
-      <code>Matrix\Configuration</code>
+      <code>Matrix\Infrastructure\Configuration</code>
       <code>Matrix\Service</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
@@ -141,7 +138,7 @@
       <code>$this-&gt;resolve(Matrix\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomRepository::class)</code>
-      <code>$this-&gt;resolve(Matrix\Configuration::class)</code>
+      <code>$this-&gt;resolve(Matrix\Infrastructure\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Service::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
