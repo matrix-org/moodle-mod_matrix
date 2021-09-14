@@ -60,8 +60,17 @@ final class Service
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
+        $sectionName = get_section_name(
+            $module->courseId()->toInt(),
+            $module->sectionId()->toInt()
+        );
+
         $roomOptions = [
-            'name' => $course->fullname,
+            'name' => sprintf(
+                '%s (%s)',
+                $course->fullname,
+                $sectionName
+            ),
             'topic' => sprintf(
                 '%s/course/view.php?id=%d',
                 $CFG->wwwroot,
@@ -115,7 +124,12 @@ final class Service
             ]);
 
             if (null === $roomForModuleAndGroup) {
-                $roomOptions['name'] = $group->name . ': ' . $course->fullname;
+                $roomOptions['name'] = sprintf(
+                    '%s: %s (%s)',
+                    $group->name,
+                    $course->fullname,
+                    $sectionName
+                );
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
                 $roomId = $this->api->createRoom($roomOptions);
