@@ -19,12 +19,22 @@ class Observer
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $service = Container::instance()->service();
+        $container = Container::instance();
 
-        $service->synchronizeRoomMembersForAllRoomsOfCourseAndGroup(
-            $courseId,
-            $groupId
-        );
+        $moduleRepository = $container->moduleRepository();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $service = $container->service();
+
+        foreach ($modules as $module) {
+            $service->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
+                $module->id(),
+                $groupId
+            );
+        }
     }
 
     public static function onGroupCreated(event\group_created $event): void
@@ -60,8 +70,18 @@ class Observer
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $service = Container::instance()->service();
+        $container = Container::instance();
 
-        $service->synchronizeRoomMembersForAllRoomsOfCourse($courseId);
+        $moduleRepository = $container->moduleRepository();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $service = $container->service();
+
+        foreach ($modules as $module) {
+            $service->synchronizeRoomMembersForAllRoomsOfModule($module->id());
+        }
     }
 }

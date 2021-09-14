@@ -35,8 +35,8 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         $faker = self::faker()->unique();
 
         $conditions = [
-            'course_id' => $faker->numberBetween(1),
             'group_id' => $faker->numberBetween(1),
+            'module_id' => $faker->numberBetween(1),
         ];
 
         $database = $this->createMock(\moodle_database::class);
@@ -64,18 +64,18 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = $faker->numberBetween(1);
+        $moduleId = $faker->numberBetween(1);
         $groupId = $faker->numberBetween(1);
 
         $conditions = [
-            'course_id' => $courseId,
             'group_id' => $groupId,
+            'module_id' => $moduleId,
         ];
 
         $normalized = (object) [
-            'course_id' => $courseId,
             'group_id' => $groupId,
             'id' => $faker->numberBetween(1),
+            'module_id' => $moduleId,
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
@@ -101,7 +101,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $expected = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromString((string) $normalized->id),
-            Moodle\Domain\CourseId::fromString((string) $normalized->course_id),
+            Moodle\Domain\ModuleId::fromString((string) $normalized->module_id),
             Moodle\Domain\GroupId::fromString((string) $normalized->group_id),
             Matrix\Domain\RoomId::fromString($normalized->room_id),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
@@ -115,25 +115,25 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = $faker->numberBetween(1);
+        $moduleId = $faker->numberBetween(1);
 
         $conditions = [
-            'course_id' => $courseId,
+            'module_id' => $moduleId,
         ];
 
         $one = (object) [
-            'course_id' => $courseId,
             'group_id' => $faker->numberBetween(1),
             'id' => $faker->numberBetween(1),
+            'module_id' => $moduleId,
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
         ];
 
         $two = (object) [
-            'course_id' => $courseId,
             'group_id' => null,
             'id' => $faker->numberBetween(1),
+            'module_id' => $moduleId,
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
@@ -161,7 +161,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         $expected = [
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $one->id),
-                Moodle\Domain\CourseId::fromString((string) $one->course_id),
+                Moodle\Domain\ModuleId::fromString((string) $one->module_id),
                 Moodle\Domain\GroupId::fromString((string) $one->group_id),
                 Matrix\Domain\RoomId::fromString($one->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
@@ -169,7 +169,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ),
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $two->id),
-                Moodle\Domain\CourseId::fromString((string) $two->course_id),
+                Moodle\Domain\ModuleId::fromString((string) $two->module_id),
                 null,
                 Matrix\Domain\RoomId::fromString($two->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
@@ -185,18 +185,18 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         $faker = self::faker();
 
         $one = (object) [
-            'course_id' => $faker->numberBetween(1),
             'group_id' => $faker->numberBetween(1),
             'id' => $faker->numberBetween(1),
+            'module_id' => $faker->numberBetween(1),
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
         ];
 
         $two = (object) [
-            'course_id' => $faker->numberBetween(1),
             'group_id' => null,
             'id' => $faker->numberBetween(1),
+            'module_id' => $faker->numberBetween(1),
             'room_id' => $faker->sha1(),
             'timecreated' => $faker->dateTime()->getTimestamp(),
             'timemodified' => $faker->dateTime()->getTimestamp(),
@@ -221,7 +221,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         $expected = [
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $one->id),
-                Moodle\Domain\CourseId::fromString((string) $one->course_id),
+                Moodle\Domain\ModuleId::fromString((string) $one->module_id),
                 Moodle\Domain\GroupId::fromString((string) $one->group_id),
                 Matrix\Domain\RoomId::fromString($one->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
@@ -229,7 +229,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ),
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $two->id),
-                Moodle\Domain\CourseId::fromString((string) $two->course_id),
+                Moodle\Domain\ModuleId::fromString((string) $two->module_id),
                 null,
                 Matrix\Domain\RoomId::fromString($two->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
@@ -250,7 +250,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::unknown(),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
@@ -265,9 +265,9 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->with(
                 self::identicalTo('matrix_rooms'),
                 self::equalTo((object) [
-                    'course_id' => $room->courseId()->toInt(),
                     'group_id' => $groupId->toInt(),
                     'id' => $room->id()->toInt(),
+                    'module_id' => $room->moduleId()->toInt(),
                     'room_id' => $room->matrixRoomId()->toString(),
                     'timecreated' => $room->timecreated()->toInt(),
                     'timemodified' => $room->timemodified()->toInt(),
@@ -294,7 +294,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             $id,
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
@@ -309,9 +309,9 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->with(
                 self::identicalTo('matrix_rooms'),
                 self::equalTo((object) [
-                    'course_id' => $room->courseId()->toInt(),
                     'group_id' => $groupId->toInt(),
                     'id' => $room->id()->toInt(),
+                    'module_id' => $room->moduleId()->toInt(),
                     'room_id' => $room->matrixRoomId()->toString(),
                     'timecreated' => $room->timecreated()->toInt(),
                     'timemodified' => $room->timemodified()->toInt(),
@@ -334,7 +334,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::unknown(),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\GroupId::fromInt($faker->numberBetween(1)),
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -360,7 +360,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\GroupId::fromInt($faker->numberBetween(1)),
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),

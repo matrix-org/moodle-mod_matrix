@@ -13,7 +13,7 @@ use mod_matrix\Matrix;
 final class Room
 {
     private $id;
-    private $courseId;
+    private $moduleId;
     private $groupId;
     private $matrixRoomId;
     private $timecreated;
@@ -21,14 +21,14 @@ final class Room
 
     private function __construct(
         RoomId $id,
-        CourseId $courseId,
+        ModuleId $moduleId,
         ?GroupId $groupId,
         Matrix\Domain\RoomId $matrixRoomId,
         Timestamp $timecreated,
         Timestamp $timemodified
     ) {
         $this->id = $id;
-        $this->courseId = $courseId;
+        $this->moduleId = $moduleId;
         $this->groupId = $groupId;
         $this->matrixRoomId = $matrixRoomId;
         $this->timecreated = $timecreated;
@@ -37,7 +37,7 @@ final class Room
 
     public static function create(
         RoomId $id,
-        CourseId $courseId,
+        ModuleId $moduleId,
         ?GroupId $groupId,
         Matrix\Domain\RoomId $matrixRoomId,
         Timestamp $timecreated,
@@ -45,7 +45,7 @@ final class Room
     ): self {
         return new self(
             $id,
-            $courseId,
+            $moduleId,
             $groupId,
             $matrixRoomId,
             $timecreated,
@@ -58,9 +58,9 @@ final class Room
         return $this->id;
     }
 
-    public function courseId(): CourseId
+    public function moduleId(): ModuleId
     {
-        return $this->courseId;
+        return $this->moduleId;
     }
 
     public function groupId(): ?GroupId

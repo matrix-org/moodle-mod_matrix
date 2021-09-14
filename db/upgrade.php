@@ -65,5 +65,44 @@ function xmldb_matrix_upgrade($oldversion = 0)
         );
     }
 
+    if (2021091400 > $oldversion) {
+        $DB->delete_records('matrix_rooms');
+
+        $table = new xmldb_table('matrix_rooms');
+
+        $dbman->add_field(
+            $table,
+            new xmldb_field(
+                'module_id',
+                XMLDB_TYPE_INTEGER,
+                10,
+                true,
+                true,
+                false,
+                0,
+                'course_id'
+            )
+        );
+
+        $dbman->drop_field(
+            $table,
+            new xmldb_field(
+                'course_id',
+                XMLDB_TYPE_INTEGER,
+                10,
+                true,
+                false,
+                false,
+                null
+            )
+        );
+
+        upgrade_mod_savepoint(
+            true,
+            2021091400,
+            'matrix'
+        );
+    }
+
     return true;
 }

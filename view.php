@@ -63,7 +63,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 $roomRepository = $container->roomRepository();
 
 $possibleRooms = $roomRepository->findAllBy([
-    'course_id' => $module->courseId()->toInt(),
+    'module_id' => $module->id()->toInt(),
 ]);
 
 if ([] === $possibleRooms) {
@@ -128,8 +128,8 @@ if (count($visibleGroups) === 1) {
     $group = reset($visibleGroups);
 
     $room = $roomRepository->findOneBy([
-        'course_id' => $module->courseId()->toInt(),
         'group_id' => $group->id,
+        'module_id' => $module->id()->toInt(),
     ]);
 
     if (null === $room) {
@@ -162,8 +162,8 @@ echo Twitter\Bootstrap::alert(
 
 foreach ($visibleGroups as $id => $group) {
     $room = $roomRepository->findOneBy([
-        'course_id' => $module->courseId()->toInt(),
         'group_id' => $group->id,
+        'module_id' => $module->id()->toInt(),
     ]);
 
     if (null === $room) {

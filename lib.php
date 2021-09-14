@@ -112,7 +112,9 @@ function matrix_add_instance($data)
  */
 function matrix_delete_instance($id): bool
 {
-    $moduleRepository = Container::instance()->moduleRepository();
+    $container = Container::instance();
+
+    $moduleRepository = $container->moduleRepository();
 
     $module = $moduleRepository->findOneBy([
         'id' => $id,
@@ -120,6 +122,20 @@ function matrix_delete_instance($id): bool
 
     if (!$module instanceof Moodle\Domain\Module) {
         return false;
+    }
+
+    $roomRepository = $container->roomRepository();
+
+    $rooms = $roomRepository->findAllBy([
+        'module_id' => $module->id()->toInt(),
+    ]);
+
+    $service = $container->service();
+
+    foreach ($rooms as $room) {
+        $service->removeRoom($room);
+
+        $roomRepository->remove($room);
     }
 
     $moduleRepository->remove($module);

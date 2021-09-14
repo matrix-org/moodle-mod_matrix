@@ -70,6 +70,7 @@ final class Container
             return new Matrix\Application\Service(
                 $container->api(),
                 $container->configuration(),
+                $container->moduleRepository(),
                 $container->roomRepository(),
                 $container->clock()
             );

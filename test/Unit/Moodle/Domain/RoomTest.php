@@ -36,7 +36,7 @@ final class RoomTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\RoomId::fromInt($faker->numberBetween(1));
-        $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
+        $moduleId = Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1));
         $groupId = null;
         $matrixRoomId = Matrix\Domain\RoomId::fromString($faker->sha1());
         $timecreated = Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp());
@@ -44,7 +44,7 @@ final class RoomTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             $id,
-            $courseId,
+            $moduleId,
             $groupId,
             $matrixRoomId,
             $timecreated,
@@ -52,7 +52,7 @@ final class RoomTest extends Framework\TestCase
         );
 
         self::assertSame($id, $room->id());
-        self::assertSame($courseId, $room->courseId());
+        self::assertSame($moduleId, $room->moduleId());
         self::assertSame($groupId, $room->groupId());
         self::assertSame($matrixRoomId, $room->matrixRoomId());
         self::assertSame($timemodified, $room->timemodified());
@@ -64,7 +64,7 @@ final class RoomTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\RoomId::fromInt($faker->numberBetween(1));
-        $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
+        $moduleId = Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1));
         $groupId = Moodle\Domain\GroupId::fromInt($faker->numberBetween(1));
         $matrixRoomId = Matrix\Domain\RoomId::fromString($faker->sha1());
         $timecreated = Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp());
@@ -72,7 +72,7 @@ final class RoomTest extends Framework\TestCase
 
         $room = Moodle\Domain\Room::create(
             $id,
-            $courseId,
+            $moduleId,
             $groupId,
             $matrixRoomId,
             $timecreated,
@@ -80,7 +80,7 @@ final class RoomTest extends Framework\TestCase
         );
 
         self::assertSame($id, $room->id());
-        self::assertSame($courseId, $room->courseId());
+        self::assertSame($moduleId, $room->moduleId());
         self::assertSame($groupId, $room->groupId());
         self::assertSame($matrixRoomId, $room->matrixRoomId());
         self::assertSame($timemodified, $room->timemodified());

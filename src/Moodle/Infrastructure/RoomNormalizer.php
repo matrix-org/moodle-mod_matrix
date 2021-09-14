@@ -25,7 +25,7 @@ final class RoomNormalizer
 
         return Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromString((string) $normalized->id),
-            Moodle\Domain\CourseId::fromString((string) $normalized->course_id),
+            Moodle\Domain\ModuleId::fromString((string) $normalized->module_id),
             $groupId,
             Matrix\Domain\RoomId::fromString($normalized->room_id),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
@@ -43,7 +43,7 @@ final class RoomNormalizer
 
         return (object) [
             'id' => $denormalized->id()->toInt(),
-            'course_id' => $denormalized->courseId()->toInt(),
+            'module_id' => $denormalized->moduleId()->toInt(),
             'group_id' => $groupId,
             'room_id' => $denormalized->matrixRoomId()->toString(),
             'timecreated' => $denormalized->timecreated()->toInt(),

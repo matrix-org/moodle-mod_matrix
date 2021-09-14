@@ -195,7 +195,7 @@
       <code>$group-&gt;name</code>
     </MixedPropertyFetch>
     <UndefinedFunction occurrences="4">
-      <code>get_course($courseId-&gt;toInt())</code>
+      <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
       <code>groups_get_group($groupId-&gt;toInt())</code>
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>

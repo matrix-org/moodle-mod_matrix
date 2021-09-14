@@ -8,6 +8,7 @@
 
 namespace mod_matrix\Test\Unit\Moodle\Domain;
 
+use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
 use PHPUnit\Framework;
 
@@ -18,6 +19,8 @@ use PHPUnit\Framework;
  */
 final class UserIdTest extends Framework\TestCase
 {
+    use Util\Helper;
+
     /**
      * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::arbitrary()
      */
@@ -26,5 +29,25 @@ final class UserIdTest extends Framework\TestCase
         $userId = Matrix\Domain\UserId::fromString($value);
 
         self::assertSame($value, $userId->toString());
+    }
+
+    public function testEqualsReturnsFalseWhenValueIsDifferent(): void
+    {
+        $faker = self::faker();
+
+        $one = Matrix\Domain\UserId::fromString($faker->sha1());
+        $two = Matrix\Domain\UserId::fromString($faker->sha1());
+
+        self::assertFalse($one->equals($two));
+    }
+
+    public function testEqualsReturnsTrueWhenValueIsSame(): void
+    {
+        $value = self::faker()->sha1();
+
+        $one = Matrix\Domain\UserId::fromString($value);
+        $two = Matrix\Domain\UserId::fromString($value);
+
+        self::assertTrue($one->equals($two));
     }
 }

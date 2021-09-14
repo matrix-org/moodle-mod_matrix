@@ -19,17 +19,20 @@ final class Service
 {
     private $api;
     private $configuration;
+    private $moduleRepository;
     private $roomRepository;
     private $clock;
 
     public function __construct(
         Matrix\Application\Api $api,
         Matrix\Application\Configuration $configuration,
+        Moodle\Application\ModuleRepository $moduleRepository,
         Moodle\Application\RoomRepository $roomRepository,
         Clock\Clock $clock
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
+        $this->moduleRepository = $moduleRepository;
         $this->roomRepository = $roomRepository;
         $this->clock = $clock;
     }
@@ -106,55 +109,55 @@ final class Service
         if (null !== $groupId) {
             $group = groups_get_group($groupId->toInt());
 
-            $roomForCourseAndGroup = $this->roomRepository->findOneBy([
-                'course_id' => $module->courseId()->toInt(),
+            $roomForModuleAndGroup = $this->roomRepository->findOneBy([
+                'module_id' => $module->id()->toInt(),
                 'group_id' => $groupId->toInt(),
             ]);
 
-            if (null === $roomForCourseAndGroup) {
+            if (null === $roomForModuleAndGroup) {
                 $roomOptions['name'] = $group->name . ': ' . $course->fullname;
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
                 $roomId = $this->api->createRoom($roomOptions);
 
-                $roomForCourseAndGroup = Moodle\Domain\Room::create(
+                $roomForModuleAndGroup = Moodle\Domain\Room::create(
                     Moodle\Domain\RoomId::unknown(),
-                    $module->courseId(),
+                    $module->id(),
                     $groupId,
                     $roomId,
                     Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
                     Moodle\Domain\Timestamp::fromInt(0)
                 );
 
-                $this->roomRepository->save($roomForCourseAndGroup);
+                $this->roomRepository->save($roomForModuleAndGroup);
             }
 
-            $this->synchronizeRoomMembersForRoom($roomForCourseAndGroup);
+            $this->synchronizeRoomMembersForRoom($roomForModuleAndGroup);
 
             return;
         }
 
-        $roomForCourse = $this->roomRepository->findOneBy([
-            'course_id' => $module->courseId()->toInt(),
+        $roomForModule = $this->roomRepository->findOneBy([
+            'module_id' => $module->id()->toInt(),
             'group_id' => null,
         ]);
 
-        if (null === $roomForCourse) {
+        if (null === $roomForModule) {
             $roomId = $this->api->createRoom($roomOptions);
 
-            $roomForCourse = Moodle\Domain\Room::create(
+            $roomForModule = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
-                $module->courseId(),
+                $module->id(),
                 null,
                 $roomId,
                 Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
                 Moodle\Domain\Timestamp::fromInt(0)
             );
 
-            $this->roomRepository->save($roomForCourse);
+            $this->roomRepository->save($roomForModule);
         }
 
-        $this->synchronizeRoomMembersForRoom($roomForCourse);
+        $this->synchronizeRoomMembersForRoom($roomForModule);
     }
 
     public function synchronizeRoomMembersForAllRooms(): void
@@ -166,10 +169,10 @@ final class Service
         }
     }
 
-    public function synchronizeRoomMembersForAllRoomsOfCourse(Moodle\Domain\CourseId $courseId): void
+    public function synchronizeRoomMembersForAllRoomsOfModule(Moodle\Domain\ModuleId $moduleId): void
     {
         $rooms = $this->roomRepository->findAllBy([
-            'course_id' => $courseId->toInt(),
+            'module_id' => $moduleId->toInt(),
         ]);
 
         foreach ($rooms as $room) {
@@ -177,13 +180,13 @@ final class Service
         }
     }
 
-    public function synchronizeRoomMembersForAllRoomsOfCourseAndGroup(
-        Moodle\Domain\CourseId $courseId,
+    public function synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
+        Moodle\Domain\ModuleId $moduleId,
         Moodle\Domain\GroupId $groupId
     ): void {
         $rooms = $this->roomRepository->findAllBy([
-            'course_id' => $courseId->toInt(),
             'group_id' => $groupId->toInt(),
+            'module_id' => $moduleId->toInt(),
         ]);
 
         foreach ($rooms as $room) {
@@ -199,7 +202,18 @@ final class Service
             $groupId = Moodle\Domain\GroupId::fromInt(0);
         } // Moodle wants zero instead of null
 
-        $context = context_course::instance($room->courseId()->toInt());
+        $module = $this->moduleRepository->findOneBy([
+            'id' => $room->moduleId()->toInt(),
+        ]);
+
+        if (!$module instanceof Moodle\Domain\Module) {
+            throw new \RuntimeException(sprintf(
+                'Module with id "%d" was not found.',
+                $room->moduleId()->toInt()
+            ));
+        }
+
+        $context = context_course::instance($module->courseId()->toInt());
 
         $users = get_enrolled_users(
             $context,
@@ -290,6 +304,29 @@ final class Service
                 );
             }
         }
+    }
+
+    public function removeRoom(Moodle\Domain\Room $room): void
+    {
+        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
+
+        $matrixUserIdOfBot = $this->api->whoami();
+
+        foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
+            if ($matrixUserId->equals($matrixUserIdOfBot)) {
+                continue;
+            }
+
+            $this->api->kickUser(
+                $matrixUserId,
+                $room->matrixRoomId()
+            );
+        }
+
+        $this->api->kickUser(
+            $matrixUserIdOfBot,
+            $room->matrixRoomId()
+        );
     }
 
     private function matrixUserIdOf(object $user): ?Matrix\Domain\UserId

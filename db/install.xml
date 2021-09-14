@@ -18,10 +18,10 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
             </KEYS>
         </TABLE>
-        <TABLE NAME="matrix_rooms" COMMENT="Matrix rooms for groups and courses">
+        <TABLE NAME="matrix_rooms" COMMENT="Matrix rooms for modules and groups">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />
+                <FIELD NAME="module_id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />
                 <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />
                 <FIELD NAME="room_id" TYPE="text" NOTNULL="true" SEQUENCE="false" />
                 <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />

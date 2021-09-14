@@ -35,17 +35,17 @@ final class RoomNormalizerTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = $faker->numberBetween(1);
         $groupId = $faker->numberBetween(1);
         $id = $faker->numberBetween(1);
         $matrixRoomId = $faker->sha1();
+        $moduleId = $faker->numberBetween(1);
         $timecreated = $faker->dateTime()->getTimestamp();
         $timemodified = $faker->dateTime()->getTimestamp();
 
         $normalized = (object) [
-            'course_id' => $courseId,
             'group_id' => $groupId,
             'id' => $id,
+            'module_id' => $moduleId,
             'room_id' => $matrixRoomId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -57,7 +57,7 @@ final class RoomNormalizerTest extends Framework\TestCase
 
         $expected = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromInt($id),
-            Moodle\Domain\CourseId::fromInt($courseId),
+            Moodle\Domain\ModuleId::fromInt($moduleId),
             Moodle\Domain\GroupId::fromInt($groupId),
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -71,17 +71,17 @@ final class RoomNormalizerTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = (string) $faker->numberBetween(1);
         $groupId = (string) $faker->numberBetween(1);
         $id = (string) $faker->numberBetween(1);
         $matrixRoomId = $faker->sha1();
+        $moduleId = (string) $faker->numberBetween(1);
         $timecreated = (string) $faker->dateTime()->getTimestamp();
         $timemodified = (string) $faker->dateTime()->getTimestamp();
 
         $normalized = (object) [
-            'course_id' => $courseId,
             'group_id' => $groupId,
             'id' => $id,
+            'module_id' => $moduleId,
             'room_id' => $matrixRoomId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -93,7 +93,7 @@ final class RoomNormalizerTest extends Framework\TestCase
 
         $expected = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromString($id),
-            Moodle\Domain\CourseId::fromString($courseId),
+            Moodle\Domain\ModuleId::fromString($moduleId),
             Moodle\Domain\GroupId::fromString($groupId),
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromString($timecreated),
@@ -107,17 +107,17 @@ final class RoomNormalizerTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $courseId = $faker->numberBetween(1);
         $groupId = null;
         $id = $faker->numberBetween(1);
         $matrixRoomId = $faker->sha1();
+        $moduleId = $faker->numberBetween(1);
         $timecreated = $faker->dateTime()->getTimestamp();
         $timemodified = $faker->dateTime()->getTimestamp();
 
         $normalized = (object) [
-            'course_id' => $courseId,
             'group_id' => $groupId,
             'id' => $id,
+            'module_id' => $moduleId,
             'room_id' => $matrixRoomId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -129,7 +129,7 @@ final class RoomNormalizerTest extends Framework\TestCase
 
         $expected = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromInt($id),
-            Moodle\Domain\CourseId::fromInt($courseId),
+            Moodle\Domain\ModuleId::fromInt($moduleId),
             null,
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -147,7 +147,7 @@ final class RoomNormalizerTest extends Framework\TestCase
 
         $denormalized = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -159,9 +159,9 @@ final class RoomNormalizerTest extends Framework\TestCase
         $normalized = $roomNormalizer->normalize($denormalized);
 
         $expected = (object) [
-            'course_id' => $denormalized->courseId()->toInt(),
             'group_id' => $groupId->toInt(),
             'id' => $denormalized->id()->toInt(),
+            'module_id' => $denormalized->moduleId()->toInt(),
             'room_id' => $denormalized->matrixRoomId()->toString(),
             'timecreated' => $denormalized->timecreated()->toInt(),
             'timemodified' => $denormalized->timemodified()->toInt(),
