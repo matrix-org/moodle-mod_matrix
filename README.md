@@ -173,3 +173,7 @@ Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select
 In the [**Recycle Bin**](http://moodle.com.localheinz/admin/settings.php?section=tool_recyclebin) section, deselect **Enable course recycle bin** and **Enable category recycle bin**.
 
 Click **Save changes**.
+
+## Contributing
+
+Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
