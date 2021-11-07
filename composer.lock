@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc9e6fb387fa8b21d665c90167b69ddb",
+    "content-hash": "d6b839dbf02eb7d960212715775da207",
     "packages": [
         {
             "name": "ergebnis/clock",
@@ -5317,12 +5317,12 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.3 || ^8.0",
         "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.2.33"
+        "php": "7.3.30"
     },
     "plugin-api-version": "2.1.0"
 }

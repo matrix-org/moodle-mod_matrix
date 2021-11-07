@@ -1,4 +1,4 @@
-FROM php:7.2.33-fpm
+FROM php:7.3.32-fpm
 
 RUN apt-get update \
     && apt-get install \
@@ -13,6 +13,7 @@ RUN apt-get update \
         libjpeg-dev \
         libpng-dev \
         libxml2-dev \
+        libzip-dev \
         unzip \
         zip \
         zlib1g-dev \
