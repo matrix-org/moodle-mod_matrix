@@ -26,3 +26,26 @@ coding-standards:
   script:
     - "composer normalize --ansi --dry-run"
     - "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --dry-run --verbose"
+
+static-code-analysis:
+  stage: "build"
+
+  tags:
+    - "docker-large"
+
+  image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
+
+  cache:
+    key:
+      files:
+        - "composer.lock"
+    paths:
+      - "vendor/"
+
+  before_script:
+    - "composer validate --ansi --strict"
+    - "composer install --ansi --no-interaction --no-progress"
+    - "mkdir -p .build/psalm"
+
+  script:
+    - "vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4"
