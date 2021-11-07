@@ -1,9 +1,20 @@
 # CONTRIBUTING
 
-
 We are using [GitLab CI](https://docs.gitlab.com/ee/ci/) as a continuous integration system.
 
 For details, take a look at [`.gitlab-ci.yml`](.gitlab-ci.yml)
+
+## Code Coverage
+
+We are using [Xdebug](https://xdebug.org) to collect code coverage from running unit tests with [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit).
+
+Enable Xdebug and run
+
+```sh
+$ make code-coverage
+```
+
+to collect code coverage from running unit tests.
 
 ## Coding Standards
 
