@@ -20,6 +20,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
  * @uses \mod_matrix\Moodle\Domain\Type
  */
