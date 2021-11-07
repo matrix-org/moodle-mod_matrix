@@ -7,6 +7,16 @@ coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-norm
 	mkdir -p .build/php-cs-fixer
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --verbose
 
+.PHONY: docker-build
+docker-build: ## Builds Dockerfiles
+	docker build --platform=linux/amd64 --tag gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/mariadb-dev:latest .docker/mariadb/
+	docker build --platform=linux/amd64 --tag gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest .docker/php/
+
+.PHONY: docker-push
+docker-push: docker-build ## Pushes Dockerfiles
+	docker push gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/mariadb-dev:latest
+	docker push gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest
+
 .PHONY: docker-down
 docker-down: ## Stops the local development environment with Docker
 	docker compose --file .docker/docker-compose.yaml down
