@@ -35,3 +35,19 @@ static-code-analysis:
 
   script:
     - "vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4"
+
+tests:
+  stage: "build"
+
+  tags:
+    - "docker-large"
+
+  image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
+
+  before_script:
+    - "composer validate --ansi --strict"
+    - "composer install --ansi --no-interaction --no-progress"
+    - "mkdir -p .build/phpunit"
+
+  script:
+    - "vendor/bin/phpunit --configuration=test/Unit/phpunit.xml"
