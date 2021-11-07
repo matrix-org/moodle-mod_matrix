@@ -167,8 +167,13 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="8">
       <code>$CFG-&gt;wwwroot</code>
+      <code>$course-&gt;fullname</code>
+      <code>$course-&gt;fullname</code>
+      <code>$group-&gt;name</code>
+      <code>$sectionName</code>
+      <code>$sectionName</code>
       <code>$user</code>
       <code>$user</code>
     </MixedArgument>
@@ -177,24 +182,21 @@
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="6">
+    <MixedAssignment occurrences="7">
       <code>$course</code>
       <code>$group</code>
       <code>$powerLevels</code>
+      <code>$sectionName</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
     </MixedAssignment>
-    <MixedOperand occurrences="2">
-      <code>$course-&gt;fullname</code>
-      <code>$group-&gt;name</code>
-    </MixedOperand>
     <MixedPropertyFetch occurrences="3">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
     </MixedPropertyFetch>
-    <UndefinedFunction occurrences="4">
+    <UndefinedFunction occurrences="5">
       <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
       <code>groups_get_group($groupId-&gt;toInt())</code>
       <code>profile_load_custom_fields($user)</code>
