@@ -11,13 +11,6 @@ coding-standards:
 
   image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
 
-  cache:
-    key:
-      files:
-        - "composer.lock"
-    paths:
-      - "vendor/"
-
   before_script:
     - "composer validate --ansi --strict"
     - "composer install --ansi --no-interaction --no-progress"
@@ -34,13 +27,6 @@ static-code-analysis:
     - "docker-large"
 
   image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
-
-  cache:
-    key:
-      files:
-        - "composer.lock"
-    paths:
-      - "vendor/"
 
   before_script:
     - "composer validate --ansi --strict"
