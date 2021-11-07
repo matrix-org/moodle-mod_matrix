@@ -44,10 +44,16 @@ tests:
 
   image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
 
+  artifacts:
+    reports:
+      cobertura: ".build/phpunit/cobertura.xml"
+      junit: ".build/phpunit/junit.xml"
+    when: "always"
+
   before_script:
     - "composer validate --ansi --strict"
     - "composer install --ansi --no-interaction --no-progress"
     - "mkdir -p .build/phpunit"
 
   script:
-    - "vendor/bin/phpunit --configuration=test/Unit/phpunit.xml"
+    - "XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=test/Unit/phpunit.xml --colors=never --coverage-cobertura=.build/phpunit/cobertura.xml --coverage-text --log-junit=.build/phpunit/junit.xml"

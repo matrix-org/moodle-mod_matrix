@@ -1,6 +1,11 @@
 .PHONY: it
 it: coding-standards static-code-analysis tests ## Runs the coding-standards, static-code-analysis, and tests target
 
+.PHONY: code-coverage
+code-coverage: ## Collects code coverage from running unit tests with phpunit/phpunit
+	mkdir -p .build/phpunit
+	XDEBUG_MODE=coverage vendor/bin/phpunit --configuration=test/unit/phpunit.xml --coverage-text
+
 .PHONY: coding-standards
 coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-normalize and fixes code style issues with friendsofphp/php-cs-fixer
 	composer normalize

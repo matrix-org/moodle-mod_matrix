@@ -1,4 +1,6 @@
-FROM php:7.3.32-fpm
+ARG MODE="prod"
+
+FROM php:7.3.32-fpm AS prod
 
 RUN apt-get update \
     && apt-get install \
@@ -46,3 +48,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY php.ini /usr/local/etc/php/
 
 WORKDIR "/var/www/html/"
+
+FROM prod AS dev
+
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug
+
+FROM ${MODE} AS final
