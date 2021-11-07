@@ -41,6 +41,18 @@ make static-code-analysis-baseline
 
 to regenerate the baseline in [`../psalm-baseline.xml`](psalm-baseline.xml).
 
+## Tests
+
+We are using [`phpunit/phpunit`](https://github.com/sebastianbergmann/phpunit) to drive the development.
+
+Run
+
+```sh
+make tests
+```
+
+to run all the tests.
+
 ## Extra lazy?
 
 Run
@@ -49,7 +61,7 @@ Run
 $ make
 ```
 
-to enforce coding standards and run a static code analysis!
+to enforce coding standards, run a static code analysis, and run tests!
 
 ## Help
 
