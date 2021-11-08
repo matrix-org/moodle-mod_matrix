@@ -15,7 +15,7 @@ coding-standards: vendor ## Normalizes composer.json with ergebnis/composer-norm
 .PHONY: docker-build
 docker-build: ## Builds Dockerfiles
 	docker build --platform=linux/amd64 --tag gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/mariadb-dev:latest .docker/mariadb/
-	docker build --platform=linux/amd64 --tag gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest .docker/php/
+	docker build --platform=linux/amd64 --tag gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest .docker/php/ --build-arg MODE=dev
 
 .PHONY: docker-push
 docker-push: docker-build ## Pushes Dockerfiles
