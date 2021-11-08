@@ -68,6 +68,14 @@ to enter the container.
 
 Run
 
+```
+$ cd /var/www/html
+```
+
+to change into the root of the Moodle installation (working directory is set to the root of the Moodle plugin).
+
+Run
+
 ```shell
 $ php admin/cli/install.php
 ```
