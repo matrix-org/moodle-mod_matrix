@@ -84,8 +84,8 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function getState(
         Matrix\Domain\RoomId $roomId,
-        $eventType,
-        $stateKey
+        string $eventType,
+        string $stateKey
     ) {
         return $this->request(
             'GET',

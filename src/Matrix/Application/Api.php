@@ -45,14 +45,11 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/rooms/-roomId-/state/-eventType-/-stateKey-
-     *
-     * @param mixed $eventType
-     * @param mixed $stateKey
      */
     public function getState(
         Matrix\Domain\RoomId $roomId,
-        $eventType,
-        $stateKey
+        string $eventType,
+        string $stateKey
     );
 
     /**
