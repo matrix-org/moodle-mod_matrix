@@ -19,6 +19,7 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
+     *
      * @param mixed $opts
      */
     public function createRoom($opts = []): Matrix\Domain\RoomId;
@@ -41,6 +42,7 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
+     *
      * @param mixed $eventType
      * @param mixed $stateKey
      */
@@ -52,6 +54,7 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
+     *
      * @param mixed $eventType
      * @param mixed $stateKey
      * @param mixed $content
