@@ -235,18 +235,10 @@
       <code>post</code>
       <code>put</code>
     </MissingReturnType>
-    <MixedAssignment occurrences="12">
-      <code>$errorCode</code>
-      <code>$errorCode</code>
+    <MixedAssignment occurrences="4">
       <code>$errorCode</code>
       <code>$errorMessage</code>
-      <code>$errorMessage</code>
-      <code>$errorMessage</code>
       <code>$httpErrorMessage</code>
-      <code>$httpErrorMessage</code>
-      <code>$httpErrorMessage</code>
-      <code>$httpStatusCode</code>
-      <code>$httpStatusCode</code>
       <code>$httpStatusCode</code>
     </MixedAssignment>
   </file>

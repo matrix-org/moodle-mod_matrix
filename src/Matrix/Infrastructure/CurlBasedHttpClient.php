@@ -33,44 +33,7 @@ final class CurlBasedHttpClient implements HttpClient
 
         $curl->get($this->baseUrl . $path, $qs);
 
-        if ($curl->error) {
-            $httpStatusCode = $curl->httpStatusCode;
-            $httpErrorMessage = $curl->httpErrorMessage;
-
-            if (
-                \is_array($curl->response)
-                && \array_key_exists('errcode', $curl->response)
-                && \array_key_exists('error', $curl->response)
-            ) {
-                $errorCode = $curl->response['errcode'];
-                $errorMessage = $curl->response['error'];
-
-                throw new \RuntimeException(
-                    <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-
-The response contains a specific error code and message.
-
-Error code
----------
-
-{$errorCode}
-
-Error message
----------
-
-{$errorMessage}
-
-TXT
-                );
-            }
-
-            throw new \RuntimeException(
-                <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-TXT
-            );
-        }
+        self::ensureResponseDoesNotContainError($curl);
 
         return $curl->response;
     }
@@ -85,44 +48,7 @@ TXT
         $curl->setUrl($this->baseUrl . $path, $qs);
         $curl->post($curl->getUrl(), $body);
 
-        if ($curl->error) {
-            $httpStatusCode = $curl->httpStatusCode;
-            $httpErrorMessage = $curl->httpErrorMessage;
-
-            if (
-                \is_array($curl->response)
-                && \array_key_exists('errcode', $curl->response)
-                && \array_key_exists('error', $curl->response)
-            ) {
-                $errorCode = $curl->response['errcode'];
-                $errorMessage = $curl->response['error'];
-
-                throw new \RuntimeException(
-                    <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-
-The response contains a specific error code and message.
-
-Error code
----------
-
-{$errorCode}
-
-Error message
----------
-
-{$errorMessage}
-
-TXT
-                );
-            }
-
-            throw new \RuntimeException(
-                <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-TXT
-            );
-        }
+        self::ensureResponseDoesNotContainError($curl);
 
         return $curl->response;
     }
@@ -137,6 +63,27 @@ TXT
         $curl->setUrl($this->baseUrl . $path, $qs);
         $curl->put($curl->getUrl(), $body);
 
+        self::ensureResponseDoesNotContainError($curl);
+
+        return $curl->response;
+    }
+
+    private function createCurl(): Curl
+    {
+        $curl = new Curl();
+
+        $curl->setDefaultJsonDecoder(true);
+        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
+        $curl->setHeader('Content-Type', 'application/json');
+
+        return $curl;
+    }
+
+    /**
+     * @throws \RuntimeException
+     */
+    private static function ensureResponseDoesNotContainError(Curl $curl): void
+    {
         if ($curl->error) {
             $httpStatusCode = $curl->httpStatusCode;
             $httpErrorMessage = $curl->httpErrorMessage;
@@ -175,18 +122,5 @@ Sending a request failed with HTTP status code {$httpStatusCode} and error messa
 TXT
             );
         }
-
-        return $curl->response;
-    }
-
-    private function createCurl(): Curl
-    {
-        $curl = new Curl();
-
-        $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
-        $curl->setHeader('Content-Type', 'application/json');
-
-        return $curl;
     }
 }
