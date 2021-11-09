@@ -80,8 +80,11 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function getState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey)
-    {
+    public function getState(
+        Matrix\Domain\RoomId $roomId,
+        $eventType,
+        $stateKey
+    ) {
         return $this->request(
             'GET',
             sprintf(
@@ -93,8 +96,12 @@ final class CurlBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function setState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey, $content)
-    {
+    public function setState(
+        Matrix\Domain\RoomId $roomId,
+        $eventType,
+        $stateKey,
+        $content
+    ) {
         return $this->request(
             'PUT',
             sprintf(

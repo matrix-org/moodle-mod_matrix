@@ -44,7 +44,11 @@ interface Api
      * @param mixed $eventType
      * @param mixed $stateKey
      */
-    public function getState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey);
+    public function getState(
+        Matrix\Domain\RoomId $roomId,
+        $eventType,
+        $stateKey
+    );
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
@@ -52,7 +56,12 @@ interface Api
      * @param mixed $stateKey
      * @param mixed $content
      */
-    public function setState(Matrix\Domain\RoomId $roomId, $eventType, $stateKey, $content);
+    public function setState(
+        Matrix\Domain\RoomId $roomId,
+        $eventType,
+        $stateKey,
+        $content
+    );
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
