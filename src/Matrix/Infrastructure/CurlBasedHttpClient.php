@@ -42,10 +42,8 @@ final class CurlBasedHttpClient implements HttpClient
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl($this->baseUrl . $path);
-
         $curl->post(
-            $curl->getUrl(),
+            $this->baseUrl . $path,
             $body,
         );
 
@@ -60,10 +58,8 @@ final class CurlBasedHttpClient implements HttpClient
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl($this->baseUrl . $path);
-
         $curl->put(
-            $curl->getUrl(),
+            $this->baseUrl . $path,
             $body,
         );
 
