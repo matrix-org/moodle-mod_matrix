@@ -6,7 +6,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || exit();
+\defined('MOODLE_INTERNAL') || exit();
 
 $capabilities = [
     // Ability to add a new instance.

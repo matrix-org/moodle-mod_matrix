@@ -42,9 +42,9 @@ final class BootstrapTest extends Framework\TestCase
         ];
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Type needs to be one "%s", got "%s" instead.',
-            implode('", "', $types),
+            \implode('", "', $types),
             $type,
         ));
 

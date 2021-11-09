@@ -30,10 +30,10 @@ final class Bootstrap
             'warning',
         ];
 
-        if (!in_array($type, $types, true)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\in_array($type, $types, true)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Type needs to be one "%s", got "%s" instead.',
-                implode('", "', $types),
+                \implode('", "', $types),
                 $type,
             ));
         }

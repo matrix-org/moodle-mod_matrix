@@ -40,7 +40,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object->hs_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration should have an "%s" property, but it does not.',
             'access_token',
         ));
@@ -68,10 +68,10 @@ final class ConfigurationTest extends Framework\TestCase
         $object->hs_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'access_token',
-            is_object($accessToken) ? get_class($accessToken) : gettype($accessToken),
+            \is_object($accessToken) ? \get_class($accessToken) : \gettype($accessToken),
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -87,7 +87,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object->hs_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration should have an "%s" property, but it does not.',
             'element_url',
         ));
@@ -115,10 +115,10 @@ final class ConfigurationTest extends Framework\TestCase
         $object->hs_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'element_url',
-            is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl),
+            \is_object($elementUrl) ? \get_class($elementUrl) : \gettype($elementUrl),
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -134,7 +134,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object->element_url = $faker->sha1();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration should have an "%s" property, but it does not.',
             'hs_url',
         ));
@@ -162,10 +162,10 @@ final class ConfigurationTest extends Framework\TestCase
         $object->hs_url = $hsUrl;
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(\sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'hs_url',
-            is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl),
+            \is_object($hsUrl) ? \get_class($hsUrl) : \gettype($hsUrl),
         ));
 
         Matrix\Application\Configuration::fromObject($object);

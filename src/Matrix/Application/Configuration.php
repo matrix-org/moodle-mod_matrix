@@ -40,8 +40,8 @@ final class Configuration
      */
     public static function fromObject(\stdClass $object): self
     {
-        if (!property_exists($object, 'access_token')) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\property_exists($object, 'access_token')) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration should have an "%s" property, but it does not.',
                 'access_token',
             ));
@@ -49,16 +49,16 @@ final class Configuration
 
         $accessToken = $object->access_token;
 
-        if (!is_string($accessToken)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\is_string($accessToken)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration "%s" should be a string, got "%s" instead.',
                 'access_token',
-                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken),
+                \is_object($accessToken) ? \get_class($accessToken) : \gettype($accessToken),
             ));
         }
 
-        if (!property_exists($object, 'element_url')) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\property_exists($object, 'element_url')) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration should have an "%s" property, but it does not.',
                 'element_url',
             ));
@@ -66,16 +66,16 @@ final class Configuration
 
         $elementUrl = $object->element_url;
 
-        if (!is_string($elementUrl)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\is_string($elementUrl)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration "%s" should be a string, got "%s" instead..',
                 'element_url',
-                is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl),
+                \is_object($elementUrl) ? \get_class($elementUrl) : \gettype($elementUrl),
             ));
         }
 
-        if (!property_exists($object, 'hs_url')) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\property_exists($object, 'hs_url')) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration should have an "%s" property, but it does not.',
                 'hs_url',
             ));
@@ -83,11 +83,11 @@ final class Configuration
 
         $hsUrl = $object->hs_url;
 
-        if (!is_string($hsUrl)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\is_string($hsUrl)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'Configuration "%s" should be a string, got "%s" instead..',
                 'hs_url',
-                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl),
+                \is_object($hsUrl) ? \get_class($hsUrl) : \gettype($hsUrl),
             ));
         }
 

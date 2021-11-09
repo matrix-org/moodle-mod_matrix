@@ -35,7 +35,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
             IGNORE_MISSING,
         );
 
-        if (!is_object($module)) {
+        if (!\is_object($module)) {
             return null;
         }
 
@@ -50,7 +50,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
             $conditions,
         );
 
-        return array_map(function (object $module): Moodle\Domain\Module {
+        return \array_map(function (object $module): Moodle\Domain\Module {
             return $this->moduleNormalizer->denormalize($module);
         }, $modules);
     }

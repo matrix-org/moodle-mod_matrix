@@ -39,7 +39,7 @@ final class Service
 
     public function urlForRoom(Matrix\Domain\RoomId $roomId): string
     {
-        if ('' !== trim($this->configuration->elementUrl())) {
+        if ('' !== \trim($this->configuration->elementUrl())) {
             return $this->configuration->elementUrl() . '/#/room/' . $roomId->toString();
         }
 
@@ -66,12 +66,12 @@ final class Service
         );
 
         $roomOptions = [
-            'name' => sprintf(
+            'name' => \sprintf(
                 '%s (%s)',
                 $course->fullname,
                 $sectionName,
             ),
-            'topic' => sprintf(
+            'topic' => \sprintf(
                 '%s/course/view.php?id=%d',
                 $CFG->wwwroot,
                 $module->courseId()->toInt(),
@@ -124,7 +124,7 @@ final class Service
             ]);
 
             if (null === $roomForModuleAndGroup) {
-                $roomOptions['name'] = sprintf(
+                $roomOptions['name'] = \sprintf(
                     '%s: %s (%s)',
                     $group->name,
                     $course->fullname,
@@ -221,7 +221,7 @@ final class Service
         ]);
 
         if (!$module instanceof Moodle\Domain\Module) {
-            throw new \RuntimeException(sprintf(
+            throw new \RuntimeException(\sprintf(
                 'Module with id "%d" was not found.',
                 $room->moduleId()->toInt(),
             ));
@@ -265,7 +265,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $room->matrixRoomId(),
@@ -290,7 +290,7 @@ final class Service
                 continue;
             }
 
-            if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
                     $room->matrixRoomId(),
@@ -311,7 +311,7 @@ final class Service
 
         // Kick anyone who isn't supposed to be there
         foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
-            if (!in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
+            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
                     $room->matrixRoomId(),
@@ -347,25 +347,25 @@ final class Service
     {
         profile_load_custom_fields($user);
 
-        if (!property_exists($user, 'profile')) {
+        if (!\property_exists($user, 'profile')) {
             return null;
         }
 
-        if (!is_array($user->profile)) {
+        if (!\is_array($user->profile)) {
             return null;
         }
 
-        if (!array_key_exists('matrix_user_id', $user->profile)) {
+        if (!\array_key_exists('matrix_user_id', $user->profile)) {
             return null;
         }
 
         $matrixUserId = $user->profile['matrix_user_id'];
 
-        if (!is_string($matrixUserId)) {
+        if (!\is_string($matrixUserId)) {
             return null;
         }
 
-        if ('' === trim($matrixUserId)) {
+        if ('' === \trim($matrixUserId)) {
             return null;
         }
 

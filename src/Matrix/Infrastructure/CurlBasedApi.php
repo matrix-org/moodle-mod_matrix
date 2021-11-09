@@ -52,9 +52,9 @@ final class CurlBasedApi implements Matrix\Application\Api
     ): void {
         $this->request(
             'POST',
-            sprintf(
+            \sprintf(
                 '/_matrix/client/r0/rooms/%s/invite',
-                urlencode($roomId->toString()),
+                \urlencode($roomId->toString()),
             ),
             [],
             [
@@ -69,9 +69,9 @@ final class CurlBasedApi implements Matrix\Application\Api
     ): void {
         $this->request(
             'POST',
-            sprintf(
+            \sprintf(
                 '/_matrix/client/r0/rooms/%s/kick',
-                urlencode($roomId->toString()),
+                \urlencode($roomId->toString()),
             ),
             [],
             [
@@ -87,11 +87,11 @@ final class CurlBasedApi implements Matrix\Application\Api
     ) {
         return $this->request(
             'GET',
-            sprintf(
+            \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
-                urlencode($roomId->toString()),
-                urlencode($eventType),
-                urlencode($stateKey),
+                \urlencode($roomId->toString()),
+                \urlencode($eventType),
+                \urlencode($stateKey),
             ),
         );
     }
@@ -104,11 +104,11 @@ final class CurlBasedApi implements Matrix\Application\Api
     ): void {
         $this->request(
             'PUT',
-            sprintf(
+            \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
-                urlencode($roomId->toString()),
-                urlencode($eventType),
-                urlencode($stateKey),
+                \urlencode($roomId->toString()),
+                \urlencode($eventType),
+                \urlencode($stateKey),
             ),
             [],
             $content,
@@ -119,9 +119,9 @@ final class CurlBasedApi implements Matrix\Application\Api
     {
         $members = $this->request(
             'GET',
-            sprintf(
+            \sprintf(
                 '/_matrix/client/r0/rooms/%s/members',
-                urlencode($roomId->toString()),
+                \urlencode($roomId->toString()),
             ),
         );
 
@@ -142,11 +142,11 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function debug($val): void
     {
-        $val = var_export($val, true);
+        $val = \var_export($val, true);
 
         $this->request(
             'PUT',
-            '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . microtime() . 'r' . mt_rand(0, 100),
+            '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . \microtime() . 'r' . \mt_rand(0, 100),
             [],
             [
                 'msgtype' => 'm.text',
@@ -171,7 +171,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             'PUT',
         ];
 
-        if (!in_array($method, $allowedMethods, true)) {
+        if (!\in_array($method, $allowedMethods, true)) {
             throw new \InvalidArgumentException('unknown method: ' . $method);
         }
 
@@ -195,9 +195,9 @@ final class CurlBasedApi implements Matrix\Application\Api
             $httpErrorMessage = $curl->httpErrorMessage;
 
             if (
-                is_array($curl->response)
-                && array_key_exists('errcode', $curl->response)
-                && array_key_exists('error', $curl->response)
+                \is_array($curl->response)
+                && \array_key_exists('errcode', $curl->response)
+                && \array_key_exists('error', $curl->response)
             ) {
                 $errorCode = $curl->response['errcode'];
                 $errorMessage = $curl->response['error'];

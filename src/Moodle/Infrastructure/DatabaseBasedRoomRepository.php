@@ -35,7 +35,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             IGNORE_MISSING,
         );
 
-        if (!is_object($room)) {
+        if (!\is_object($room)) {
             return null;
         }
 
@@ -47,7 +47,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
         /** @var array<int, object> $rooms */
         $rooms = $this->database->get_records(self::TABLE);
 
-        return array_map(function (object $room): Moodle\Domain\Room {
+        return \array_map(function (object $room): Moodle\Domain\Room {
             return $this->roomNormalizer->denormalize($room);
         }, $rooms);
     }
@@ -60,7 +60,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             $conditions,
         );
 
-        return array_map(function (object $room): Moodle\Domain\Room {
+        return \array_map(function (object $room): Moodle\Domain\Room {
             return $this->roomNormalizer->denormalize($room);
         }, $rooms);
     }

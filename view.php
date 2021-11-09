@@ -27,7 +27,7 @@ $module = $moduleRepository->findOneBy([
 ]);
 
 if (!$module instanceof Moodle\Domain\Module) {
-    throw new \RuntimeException(sprintf(
+    throw new \RuntimeException(\sprintf(
         'A Matrix module with id "%s" could not be found.',
         $cm->instance,
     ));
@@ -46,7 +46,7 @@ echo $OUTPUT->header();
 
 if (!has_capability('mod/matrix:view', $PAGE->context)) {
     echo $OUTPUT->confirm(
-        sprintf(
+        \sprintf(
             '<p>%s</p>%s',
             get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix'),
             get_string('liketologin'),
@@ -79,10 +79,10 @@ if ([] === $possibleRooms) {
 
 $service = $container->service();
 
-if (count($possibleRooms) === 1) {
-    $firstPossibleRoom = reset($possibleRooms);
+if (\count($possibleRooms) === 1) {
+    $firstPossibleRoom = \reset($possibleRooms);
 
-    $roomUrl = json_encode($service->urlForRoom($firstPossibleRoom->matrixRoomId()));
+    $roomUrl = \json_encode($service->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -100,7 +100,7 @@ $groups = groups_get_all_groups(
     true,
 );
 
-if (count($groups) === 0) {
+if (\count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_groups', 'matrix'),
@@ -113,7 +113,7 @@ if (count($groups) === 0) {
 
 $visibleGroups = groups_get_activity_allowed_groups($cm);
 
-if (count($visibleGroups) === 0) {
+if (\count($visibleGroups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string('vw_error_no_visible_groups', 'matrix'),
@@ -124,8 +124,8 @@ if (count($visibleGroups) === 0) {
     exit;
 }
 
-if (count($visibleGroups) === 1) {
-    $group = reset($visibleGroups);
+if (\count($visibleGroups) === 1) {
+    $group = \reset($visibleGroups);
 
     $room = $roomRepository->findOneBy([
         'group_id' => $group->id,
@@ -143,7 +143,7 @@ if (count($visibleGroups) === 1) {
         exit;
     }
 
-    $roomUrl = json_encode($service->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($service->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -172,7 +172,7 @@ foreach ($visibleGroups as $id => $group) {
 
     $name = groups_get_group_name($group->id);
 
-    $roomUrl = json_encode($service->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($service->urlForRoom($room->matrixRoomId()));
 
     echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }

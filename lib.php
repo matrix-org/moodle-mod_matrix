@@ -9,7 +9,7 @@
 use mod_matrix\Container;
 use mod_matrix\Moodle;
 
-defined('MOODLE_INTERNAL') || exit;
+\defined('MOODLE_INTERNAL') || exit;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -24,7 +24,7 @@ global $CFG;
  */
 function matrix_supports($feature)
 {
-    if (!is_string($feature)) {
+    if (!\is_string($feature)) {
         return null;
     }
 
@@ -41,7 +41,7 @@ function matrix_supports($feature)
         FEATURE_SHOW_DESCRIPTION => true,
     ];
 
-    if (!array_key_exists($feature, $features)) {
+    if (!\array_key_exists($feature, $features)) {
         return null;
     }
 
@@ -86,7 +86,7 @@ function matrix_add_instance($data)
 
     $service = $container->service();
 
-    if (count($groups) > 0) {
+    if (\count($groups) > 0) {
         foreach ($groups as $group) {
             $service->prepareRoomForModuleAndGroup(
                 $module,

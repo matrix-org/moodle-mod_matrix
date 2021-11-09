@@ -10,7 +10,7 @@ namespace mod_matrix;
 
 use core\event;
 
-defined('MOODLE_INTERNAL') || exit;
+\defined('MOODLE_INTERNAL') || exit;
 
 class Observer
 {

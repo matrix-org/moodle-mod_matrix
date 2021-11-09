@@ -32,7 +32,7 @@ final class Container
     private function __construct()
     {
         $this->define(Clock\Clock::class, static function (): Clock\Clock {
-            $timezone = new \DateTimeZone(date_default_timezone_get());
+            $timezone = new \DateTimeZone(\date_default_timezone_get());
 
             return new Clock\SystemClock($timezone);
         });
@@ -80,10 +80,10 @@ final class Container
             global $DB;
 
             if (!$DB instanceof \moodle_database) {
-                throw new \RuntimeException(sprintf(
+                throw new \RuntimeException(\sprintf(
                     'Expected global variable $DB to reference an instance of "%s", got "%s" instead.',
                     \moodle_database::class,
-                    is_object($DB) ? get_class($DB) : gettype($DB),
+                    \is_object($DB) ? \get_class($DB) : \gettype($DB),
                 ));
             }
 
@@ -140,8 +140,8 @@ final class Container
      */
     private function define(string $identifier, \Closure $closure): void
     {
-        if (array_key_exists($identifier, $this->definitions)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (\array_key_exists($identifier, $this->definitions)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'A service definition for identifier "%s" has already been registered.',
                 $identifier,
             ));
@@ -159,14 +159,14 @@ final class Container
      */
     private function resolve(string $identifier)
     {
-        if (!array_key_exists($identifier, $this->definitions)) {
-            throw new \InvalidArgumentException(sprintf(
+        if (!\array_key_exists($identifier, $this->definitions)) {
+            throw new \InvalidArgumentException(\sprintf(
                 'A service definition for identifier "%s" has not been registered.',
                 $identifier,
             ));
         }
 
-        if (!array_key_exists($identifier, $this->services)) {
+        if (!\array_key_exists($identifier, $this->services)) {
             $definition = $this->definitions[$identifier];
 
             $service = $definition($this);

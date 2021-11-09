@@ -8,7 +8,7 @@
 
 use mod_matrix\Matrix;
 
-defined('MOODLE_INTERNAL') || exit();
+\defined('MOODLE_INTERNAL') || exit();
 
 require_once __DIR__ . '/vendor/autoload.php';
 

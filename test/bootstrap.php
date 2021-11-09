@@ -18,12 +18,12 @@ $CFG->libdir = __DIR__ . '/../vendor/moodle/moodle/lib';
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L278-L280
  */
-define('CACHE_DISABLE_ALL', true);
+\define('CACHE_DISABLE_ALL', true);
 
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L398-L401https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L398-L401
  */
-define('MOODLE_INTERNAL', true);
+\define('MOODLE_INTERNAL', true);
 
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L404
@@ -38,7 +38,7 @@ require_once __DIR__ . '/../vendor/moodle/moodle/lib/setuplib.php';
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L593
  */
-spl_autoload_register('core_component::classloader');
+\spl_autoload_register('core_component::classloader');
 
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/setup.php#L600-L618
