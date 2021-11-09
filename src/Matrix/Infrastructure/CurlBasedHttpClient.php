@@ -29,11 +29,7 @@ final class CurlBasedHttpClient implements HttpClient
         string $path,
         array $qs = []
     ) {
-        $curl = new Curl();
-
-        $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
-        $curl->setHeader('Content-Type', 'application/json');
+        $curl = $this->createCurl();
 
         $curl->get($this->baseUrl . $path, $qs);
 
@@ -84,11 +80,7 @@ TXT
         array $qs = [],
         array $body = []
     ) {
-        $curl = new Curl();
-
-        $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
-        $curl->setHeader('Content-Type', 'application/json');
+        $curl = $this->createCurl();
 
         $curl->setUrl($this->baseUrl . $path, $qs);
         $curl->post($curl->getUrl(), $body);
@@ -140,11 +132,7 @@ TXT
         array $qs = [],
         array $body = []
     ) {
-        $curl = new Curl();
-
-        $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
-        $curl->setHeader('Content-Type', 'application/json');
+        $curl = $this->createCurl();
 
         $curl->setUrl($this->baseUrl . $path, $qs);
         $curl->put($curl->getUrl(), $body);
@@ -189,5 +177,16 @@ TXT
         }
 
         return $curl->response;
+    }
+
+    private function createCurl(): Curl
+    {
+        $curl = new Curl();
+
+        $curl->setDefaultJsonDecoder(true);
+        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
+        $curl->setHeader('Content-Type', 'application/json');
+
+        return $curl;
     }
 }
