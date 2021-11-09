@@ -119,17 +119,4 @@ final class HttpClientBasedApi implements Matrix\Application\Api
 
         return $userIds;
     }
-
-    public function debug($val): void
-    {
-        $val = \var_export($val, true);
-
-        $this->httpClient->put(
-            '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . \microtime() . 'r' . \mt_rand(0, 100),
-            [
-                'msgtype' => 'm.text',
-                'body' => $val,
-            ],
-        );
-    }
 }

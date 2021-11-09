@@ -153,9 +153,6 @@
     </UndefinedFunction>
   </file>
   <file src="src/Matrix/Application/Api.php">
-    <MissingParamType occurrences="1">
-      <code>$val</code>
-    </MissingParamType>
     <MissingReturnType occurrences="1">
       <code>getState</code>
     </MissingReturnType>
@@ -218,12 +215,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Infrastructure/HttpClientBasedApi.php">
-    <InvalidOperand occurrences="1">
-      <code>\mt_rand(0, 100)</code>
-    </InvalidOperand>
-    <MissingParamType occurrences="1">
-      <code>$val</code>
-    </MissingParamType>
     <MissingReturnType occurrences="1">
       <code>getState</code>
     </MissingReturnType>
