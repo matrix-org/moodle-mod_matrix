@@ -48,13 +48,13 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix'),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
-                self::identicalTo(IGNORE_MISSING)
+                self::identicalTo(IGNORE_MISSING),
             )
             ->willReturn(null);
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         self::assertNull($moduleRepository->findOneBy($conditions));
@@ -89,13 +89,13 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix'),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
-                self::identicalTo(IGNORE_MISSING)
+                self::identicalTo(IGNORE_MISSING),
             )
             ->willReturn($normalized);
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $expected = Moodle\Domain\Module::create(
@@ -105,7 +105,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
             Moodle\Domain\SectionId::fromString((string) $normalized->section),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
-            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified)
+            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified),
         );
 
         self::assertEquals($expected, $moduleRepository->findOneBy($conditions));
@@ -148,7 +148,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->method('get_records')
             ->with(
                 self::identicalTo('matrix'),
-                self::identicalTo($conditions)
+                self::identicalTo($conditions),
             )
             ->willReturn([
                 $one,
@@ -157,7 +157,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $expected = [
@@ -168,7 +168,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                 Moodle\Domain\CourseId::fromString((string) $one->course),
                 Moodle\Domain\SectionId::fromString((string) $one->section),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $one->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $one->timemodified),
             ),
             Moodle\Domain\Module::create(
                 Moodle\Domain\ModuleId::fromString((string) $two->id),
@@ -177,7 +177,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                 Moodle\Domain\CourseId::fromString((string) $two->course),
                 Moodle\Domain\SectionId::fromString((string) $two->section),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $two->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $two->timemodified),
             ),
         ];
 
@@ -197,7 +197,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -215,13 +215,13 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                     'timecreated' => $module->timecreated()->toInt(),
                     'timemodified' => $module->timemodified()->toInt(),
                     'type' => $module->type()->toInt(),
-                ])
+                ]),
             )
             ->willReturn($id);
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $moduleRepository->save($module);
@@ -242,7 +242,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -260,12 +260,12 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                     'timecreated' => $module->timecreated()->toInt(),
                     'timemodified' => $module->timemodified()->toInt(),
                     'type' => $module->type()->toInt(),
-                ])
+                ]),
             );
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $moduleRepository->save($module);
@@ -284,14 +284,14 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $this->expectException(\InvalidArgumentException::class);
@@ -311,7 +311,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -323,12 +323,12 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix'),
                 self::identicalTo([
                     'id' => $module->id()->toInt(),
-                ])
+                ]),
             );
 
         $moduleRepository = new Moodle\Infrastructure\DatabaseBasedModuleRepository(
             $database,
-            new Moodle\Infrastructure\ModuleNormalizer()
+            new Moodle\Infrastructure\ModuleNormalizer(),
         );
 
         $moduleRepository->remove($module);

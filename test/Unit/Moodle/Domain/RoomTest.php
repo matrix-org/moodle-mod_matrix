@@ -48,7 +48,7 @@ final class RoomTest extends Framework\TestCase
             $groupId,
             $matrixRoomId,
             $timecreated,
-            $timemodified
+            $timemodified,
         );
 
         self::assertSame($id, $room->id());
@@ -76,7 +76,7 @@ final class RoomTest extends Framework\TestCase
             $groupId,
             $matrixRoomId,
             $timecreated,
-            $timemodified
+            $timemodified,
         );
 
         self::assertSame($id, $room->id());

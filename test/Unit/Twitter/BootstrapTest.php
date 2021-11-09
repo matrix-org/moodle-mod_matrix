@@ -45,12 +45,12 @@ final class BootstrapTest extends Framework\TestCase
         $this->expectExceptionMessage(sprintf(
             'Type needs to be one "%s", got "%s" instead.',
             implode('", "', $types),
-            $type
+            $type,
         ));
 
         Bootstrap::alert(
             $type,
-            $content
+            $content,
         );
     }
 
@@ -65,7 +65,7 @@ final class BootstrapTest extends Framework\TestCase
 
         $alert = Bootstrap::alert(
             $type,
-            $content
+            $content,
         );
 
         $expexted = <<<TXT

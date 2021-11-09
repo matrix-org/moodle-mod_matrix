@@ -42,7 +42,7 @@ final class Container
 
             return new Matrix\Infrastructure\CurlBasedApi(
                 $configuration->hsUrl(),
-                $configuration->accessToken()
+                $configuration->accessToken(),
             );
         });
 
@@ -55,14 +55,14 @@ final class Container
         $this->define(Moodle\Application\ModuleRepository::class, static function (self $container): Moodle\Application\ModuleRepository {
             return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
-                new Moodle\Infrastructure\ModuleNormalizer()
+                new Moodle\Infrastructure\ModuleNormalizer(),
             );
         });
 
         $this->define(Moodle\Application\RoomRepository::class, static function (self $container): Moodle\Application\RoomRepository {
             return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
                 $container->database(),
-                new Moodle\Infrastructure\RoomNormalizer()
+                new Moodle\Infrastructure\RoomNormalizer(),
             );
         });
 
@@ -72,7 +72,7 @@ final class Container
                 $container->configuration(),
                 $container->moduleRepository(),
                 $container->roomRepository(),
-                $container->clock()
+                $container->clock(),
             );
         });
 
@@ -83,7 +83,7 @@ final class Container
                 throw new \RuntimeException(sprintf(
                     'Expected global variable $DB to reference an instance of "%s", got "%s" instead.',
                     \moodle_database::class,
-                    is_object($DB) ? get_class($DB) : gettype($DB)
+                    is_object($DB) ? get_class($DB) : gettype($DB),
                 ));
             }
 
@@ -143,7 +143,7 @@ final class Container
         if (array_key_exists($identifier, $this->definitions)) {
             throw new \InvalidArgumentException(sprintf(
                 'A service definition for identifier "%s" has already been registered.',
-                $identifier
+                $identifier,
             ));
         }
 
@@ -162,7 +162,7 @@ final class Container
         if (!array_key_exists($identifier, $this->definitions)) {
             throw new \InvalidArgumentException(sprintf(
                 'A service definition for identifier "%s" has not been registered.',
-                $identifier
+                $identifier,
             ));
         }
 

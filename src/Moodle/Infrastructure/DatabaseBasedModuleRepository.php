@@ -32,7 +32,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
             self::TABLE,
             $conditions,
             '*',
-            IGNORE_MISSING
+            IGNORE_MISSING,
         );
 
         if (!is_object($module)) {
@@ -47,7 +47,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
         /** @var array<int, object> $modules */
         $modules = $this->database->get_records(
             self::TABLE,
-            $conditions
+            $conditions,
         );
 
         return array_map(function (object $module): Moodle\Domain\Module {
@@ -60,7 +60,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
         if ($module->id()->equals(Moodle\Domain\ModuleId::unknown())) {
             $id = $this->database->insert_record(
                 self::TABLE,
-                $this->moduleNormalizer->normalize($module)
+                $this->moduleNormalizer->normalize($module),
             );
 
             $reflection = new \ReflectionClass(Moodle\Domain\Module::class);
@@ -70,7 +70,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
             $property->setAccessible(true);
             $property->setValue(
                 $module,
-                Moodle\Domain\ModuleId::fromInt((int) $id)
+                Moodle\Domain\ModuleId::fromInt((int) $id),
             );
 
             return;
@@ -78,7 +78,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
 
         $this->database->update_record(
             self::TABLE,
-            $this->moduleNormalizer->normalize($module)
+            $this->moduleNormalizer->normalize($module),
         );
     }
 
@@ -92,7 +92,7 @@ final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRe
             self::TABLE,
             [
                 'id' => $module->id()->toInt(),
-            ]
+            ],
         );
     }
 }

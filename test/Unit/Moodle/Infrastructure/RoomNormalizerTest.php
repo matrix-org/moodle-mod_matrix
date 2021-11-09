@@ -63,7 +63,7 @@ final class RoomNormalizerTest extends Framework\TestCase
             Moodle\Domain\GroupId::fromInt($groupId),
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
-            Moodle\Domain\Timestamp::fromInt($timemodified)
+            Moodle\Domain\Timestamp::fromInt($timemodified),
         );
 
         self::assertEquals($expected, $denormalized);
@@ -99,7 +99,7 @@ final class RoomNormalizerTest extends Framework\TestCase
             Moodle\Domain\GroupId::fromString($groupId),
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromString($timecreated),
-            Moodle\Domain\Timestamp::fromString($timemodified)
+            Moodle\Domain\Timestamp::fromString($timemodified),
         );
 
         self::assertEquals($expected, $denormalized);
@@ -135,7 +135,7 @@ final class RoomNormalizerTest extends Framework\TestCase
             null,
             Matrix\Domain\RoomId::fromString($matrixRoomId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
-            Moodle\Domain\Timestamp::fromInt($timemodified)
+            Moodle\Domain\Timestamp::fromInt($timemodified),
         );
 
         self::assertEquals($expected, $denormalized);
@@ -153,7 +153,7 @@ final class RoomNormalizerTest extends Framework\TestCase
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $roomNormalizer = new Moodle\Infrastructure\RoomNormalizer();

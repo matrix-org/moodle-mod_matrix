@@ -32,7 +32,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             self::TABLE,
             $conditions,
             '*',
-            IGNORE_MISSING
+            IGNORE_MISSING,
         );
 
         if (!is_object($room)) {
@@ -57,7 +57,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
         /** @var array<int, object> $rooms */
         $rooms = $this->database->get_records(
             self::TABLE,
-            $conditions
+            $conditions,
         );
 
         return array_map(function (object $room): Moodle\Domain\Room {
@@ -70,7 +70,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
         if ($room->id()->equals(Moodle\Domain\RoomId::unknown())) {
             $id = $this->database->insert_record(
                 self::TABLE,
-                $this->roomNormalizer->normalize($room)
+                $this->roomNormalizer->normalize($room),
             );
 
             $reflection = new \ReflectionClass(Moodle\Domain\Room::class);
@@ -80,7 +80,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             $property->setAccessible(true);
             $property->setValue(
                 $room,
-                Moodle\Domain\RoomId::fromInt((int) $id)
+                Moodle\Domain\RoomId::fromInt((int) $id),
             );
 
             return;
@@ -88,7 +88,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
 
         $this->database->update_record(
             self::TABLE,
-            $this->roomNormalizer->normalize($room)
+            $this->roomNormalizer->normalize($room),
         );
     }
 
@@ -102,7 +102,7 @@ final class DatabaseBasedRoomRepository implements Moodle\Application\RoomReposi
             self::TABLE,
             [
                 'id' => $room->id()->toInt(),
-            ]
+            ],
         );
     }
 }

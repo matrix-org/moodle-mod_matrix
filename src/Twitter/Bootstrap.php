@@ -34,7 +34,7 @@ final class Bootstrap
             throw new \InvalidArgumentException(sprintf(
                 'Type needs to be one "%s", got "%s" instead.',
                 implode('", "', $types),
-                $type
+                $type,
             ));
         }
 

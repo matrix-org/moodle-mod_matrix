@@ -54,14 +54,14 @@ function xmldb_matrix_upgrade($oldversion = 0)
                 true,
                 false,
                 0,
-                'course'
-            )
+                'course',
+            ),
         );
 
         upgrade_mod_savepoint(
             true,
             2021091300,
-            'matrix'
+            'matrix',
         );
     }
 
@@ -80,8 +80,8 @@ function xmldb_matrix_upgrade($oldversion = 0)
                 true,
                 false,
                 0,
-                'course_id'
-            )
+                'course_id',
+            ),
         );
 
         $dbman->drop_field(
@@ -93,14 +93,14 @@ function xmldb_matrix_upgrade($oldversion = 0)
                 true,
                 false,
                 false,
-                null
-            )
+                null,
+            ),
         );
 
         upgrade_mod_savepoint(
             true,
             2021091400,
-            'matrix'
+            'matrix',
         );
     }
 

@@ -62,19 +62,19 @@ final class Service
 
         $sectionName = get_section_name(
             $module->courseId()->toInt(),
-            $module->sectionId()->toInt()
+            $module->sectionId()->toInt(),
         );
 
         $roomOptions = [
             'name' => sprintf(
                 '%s (%s)',
                 $course->fullname,
-                $sectionName
+                $sectionName,
             ),
             'topic' => sprintf(
                 '%s/course/view.php?id=%d',
                 $CFG->wwwroot,
-                $module->courseId()->toInt()
+                $module->courseId()->toInt(),
             ),
             'preset' => 'private_chat',
             'creation_content' => [
@@ -128,7 +128,7 @@ final class Service
                     '%s: %s (%s)',
                     $group->name,
                     $course->fullname,
-                    $sectionName
+                    $sectionName,
                 );
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
@@ -140,7 +140,7 @@ final class Service
                     $groupId,
                     $roomId,
                     Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
-                    Moodle\Domain\Timestamp::fromInt(0)
+                    Moodle\Domain\Timestamp::fromInt(0),
                 );
 
                 $this->roomRepository->save($roomForModuleAndGroup);
@@ -165,7 +165,7 @@ final class Service
                 null,
                 $roomId,
                 Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
-                Moodle\Domain\Timestamp::fromInt(0)
+                Moodle\Domain\Timestamp::fromInt(0),
             );
 
             $this->roomRepository->save($roomForModule);
@@ -223,7 +223,7 @@ final class Service
         if (!$module instanceof Moodle\Domain\Module) {
             throw new \RuntimeException(sprintf(
                 'Module with id "%d" was not found.',
-                $room->moduleId()->toInt()
+                $room->moduleId()->toInt(),
             ));
         }
 
@@ -232,7 +232,7 @@ final class Service
         $users = get_enrolled_users(
             $context,
             'mod/matrix:view',
-            $groupId->toInt()
+            $groupId->toInt(),
         ); // assoc of uid => user
 
         if (!$users) {
@@ -251,7 +251,7 @@ final class Service
         $powerLevels = $this->api->getState(
             $room->matrixRoomId(),
             'm.room.power_levels',
-            ''
+            '',
         );
 
         $powerLevels['users'] = [
@@ -268,7 +268,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $room->matrixRoomId()
+                    $room->matrixRoomId(),
                 );
             }
 
@@ -280,7 +280,7 @@ final class Service
         // Get all the staff users
         $staff = get_users_by_capability(
             $context,
-            'mod/matrix:staff'
+            'mod/matrix:staff',
         );
 
         foreach ($staff as $user) {
@@ -293,7 +293,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $matrixUserId,
-                    $room->matrixRoomId()
+                    $room->matrixRoomId(),
                 );
             }
 
@@ -306,7 +306,7 @@ final class Service
             $room->matrixRoomId(),
             'm.room.power_levels',
             '',
-            $powerLevels
+            $powerLevels,
         );
 
         // Kick anyone who isn't supposed to be there
@@ -314,7 +314,7 @@ final class Service
             if (!in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 $this->api->kickUser(
                     $matrixUserId,
-                    $room->matrixRoomId()
+                    $room->matrixRoomId(),
                 );
             }
         }
@@ -333,13 +333,13 @@ final class Service
 
             $this->api->kickUser(
                 $matrixUserId,
-                $room->matrixRoomId()
+                $room->matrixRoomId(),
             );
         }
 
         $this->api->kickUser(
             $matrixUserIdOfBot,
-            $room->matrixRoomId()
+            $room->matrixRoomId(),
         );
     }
 

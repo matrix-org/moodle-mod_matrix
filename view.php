@@ -29,7 +29,7 @@ $module = $moduleRepository->findOneBy([
 if (!$module instanceof Moodle\Domain\Module) {
     throw new \RuntimeException(sprintf(
         'A Matrix module with id "%s" could not be found.',
-        $cm->instance
+        $cm->instance,
     ));
 }
 
@@ -49,10 +49,10 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
         sprintf(
             '<p>%s</p>%s',
             get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix'),
-            get_string('liketologin')
+            get_string('liketologin'),
         ),
         get_login_url(),
-        new moodle_url('/course/view.php', ['id' => $course->id])
+        new moodle_url('/course/view.php', ['id' => $course->id]),
     );
 
     echo $OUTPUT->footer();
@@ -69,7 +69,7 @@ $possibleRooms = $roomRepository->findAllBy([
 if ([] === $possibleRooms) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_rooms', 'matrix')
+        get_string('vw_error_no_rooms', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -97,13 +97,13 @@ $groups = groups_get_all_groups(
     0,
     0,
     'g.*',
-    true
+    true,
 );
 
 if (count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_groups', 'matrix')
+        get_string('vw_error_no_groups', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -116,7 +116,7 @@ $visibleGroups = groups_get_activity_allowed_groups($cm);
 if (count($visibleGroups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_visible_groups', 'matrix')
+        get_string('vw_error_no_visible_groups', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -135,7 +135,7 @@ if (count($visibleGroups) === 1) {
     if (null === $room) {
         echo Twitter\Bootstrap::alert(
             'danger',
-            get_string('vw_error_no_room_in_group', 'matrix')
+            get_string('vw_error_no_room_in_group', 'matrix'),
         );
 
         echo $OUTPUT->footer();
@@ -157,7 +157,7 @@ if (count($visibleGroups) === 1) {
 
 echo Twitter\Bootstrap::alert(
     'warning',
-    get_string('vw_alert_many_rooms', 'matrix')
+    get_string('vw_alert_many_rooms', 'matrix'),
 );
 
 foreach ($visibleGroups as $id => $group) {

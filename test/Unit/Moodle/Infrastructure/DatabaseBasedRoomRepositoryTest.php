@@ -50,13 +50,13 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
-                self::identicalTo(IGNORE_MISSING)
+                self::identicalTo(IGNORE_MISSING),
             )
             ->willReturn(null);
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         self::assertNull($roomRepository->findOneBy($conditions));
@@ -92,13 +92,13 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
-                self::identicalTo(IGNORE_MISSING)
+                self::identicalTo(IGNORE_MISSING),
             )
             ->willReturn($normalized);
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $expected = Moodle\Domain\Room::create(
@@ -107,7 +107,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             Moodle\Domain\GroupId::fromString((string) $normalized->group_id),
             Matrix\Domain\RoomId::fromString($normalized->room_id),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
-            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified)
+            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified),
         );
 
         self::assertEquals($expected, $roomRepository->findOneBy($conditions));
@@ -148,7 +148,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->method('get_records')
             ->with(
                 self::identicalTo('matrix_rooms'),
-                self::identicalTo($conditions)
+                self::identicalTo($conditions),
             )
             ->willReturn([
                 $one,
@@ -157,7 +157,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $expected = [
@@ -167,7 +167,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 Moodle\Domain\GroupId::fromString((string) $one->group_id),
                 Matrix\Domain\RoomId::fromString($one->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $one->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $one->timemodified),
             ),
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $two->id),
@@ -175,7 +175,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 null,
                 Matrix\Domain\RoomId::fromString($two->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $two->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $two->timemodified),
             ),
         ];
 
@@ -217,7 +217,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $expected = [
@@ -227,7 +227,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 Moodle\Domain\GroupId::fromString((string) $one->group_id),
                 Matrix\Domain\RoomId::fromString($one->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $one->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $one->timemodified),
             ),
             Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::fromString((string) $two->id),
@@ -235,7 +235,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 null,
                 Matrix\Domain\RoomId::fromString($two->room_id),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
-                Moodle\Domain\Timestamp::fromString((string) $two->timemodified)
+                Moodle\Domain\Timestamp::fromString((string) $two->timemodified),
             ),
         ];
 
@@ -256,7 +256,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -273,13 +273,13 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                     'room_id' => $room->matrixRoomId()->toString(),
                     'timecreated' => $room->timecreated()->toInt(),
                     'timemodified' => $room->timemodified()->toInt(),
-                ])
+                ]),
             )
             ->willReturn($id);
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $roomRepository->save($room);
@@ -300,7 +300,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             $groupId,
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -317,12 +317,12 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                     'room_id' => $room->matrixRoomId()->toString(),
                     'timecreated' => $room->timecreated()->toInt(),
                     'timemodified' => $room->timemodified()->toInt(),
-                ])
+                ]),
             );
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $roomRepository->save($room);
@@ -340,14 +340,14 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             Moodle\Domain\GroupId::fromInt($faker->numberBetween(1)),
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $this->expectException(\InvalidArgumentException::class);
@@ -366,7 +366,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             Moodle\Domain\GroupId::fromInt($faker->numberBetween(1)),
             Matrix\Domain\RoomId::fromString($faker->sha1()),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $database = $this->createMock(\moodle_database::class);
@@ -378,12 +378,12 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
                 self::identicalTo('matrix_rooms'),
                 self::identicalTo([
                     'id' => $room->id()->toInt(),
-                ])
+                ]),
             );
 
         $roomRepository = new Moodle\Infrastructure\DatabaseBasedRoomRepository(
             $database,
-            new Moodle\Infrastructure\RoomNormalizer()
+            new Moodle\Infrastructure\RoomNormalizer(),
         );
 
         $roomRepository->remove($room);

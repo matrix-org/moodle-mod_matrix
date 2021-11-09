@@ -32,7 +32,7 @@ class Observer
         foreach ($modules as $module) {
             $service->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
                 $module->id(),
-                $groupId
+                $groupId,
             );
         }
     }
@@ -54,7 +54,7 @@ class Observer
         foreach ($modules as $module) {
             $service->prepareRoomForModuleAndGroup(
                 $module,
-                Moodle\Domain\GroupId::fromString($event->objectid)
+                Moodle\Domain\GroupId::fromString($event->objectid),
             );
         }
     }

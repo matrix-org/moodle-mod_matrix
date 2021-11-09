@@ -31,7 +31,7 @@ final class Configuration
         return new self(
             '',
             'https://matrix-client.matrix.org',
-            ''
+            '',
         );
     }
 
@@ -43,7 +43,7 @@ final class Configuration
         if (!property_exists($object, 'access_token')) {
             throw new \InvalidArgumentException(sprintf(
                 'Configuration should have an "%s" property, but it does not.',
-                'access_token'
+                'access_token',
             ));
         }
 
@@ -53,14 +53,14 @@ final class Configuration
             throw new \InvalidArgumentException(sprintf(
                 'Configuration "%s" should be a string, got "%s" instead.',
                 'access_token',
-                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
+                is_object($accessToken) ? get_class($accessToken) : gettype($accessToken),
             ));
         }
 
         if (!property_exists($object, 'element_url')) {
             throw new \InvalidArgumentException(sprintf(
                 'Configuration should have an "%s" property, but it does not.',
-                'element_url'
+                'element_url',
             ));
         }
 
@@ -70,14 +70,14 @@ final class Configuration
             throw new \InvalidArgumentException(sprintf(
                 'Configuration "%s" should be a string, got "%s" instead..',
                 'element_url',
-                is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl)
+                is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl),
             ));
         }
 
         if (!property_exists($object, 'hs_url')) {
             throw new \InvalidArgumentException(sprintf(
                 'Configuration should have an "%s" property, but it does not.',
-                'hs_url'
+                'hs_url',
             ));
         }
 
@@ -87,14 +87,14 @@ final class Configuration
             throw new \InvalidArgumentException(sprintf(
                 'Configuration "%s" should be a string, got "%s" instead..',
                 'hs_url',
-                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
+                is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl),
             ));
         }
 
         return new self(
             $accessToken,
             $elementUrl,
-            $hsUrl
+            $hsUrl,
         );
     }
 

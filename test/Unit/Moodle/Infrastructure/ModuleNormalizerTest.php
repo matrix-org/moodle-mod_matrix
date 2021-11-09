@@ -62,7 +62,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($courseId),
             Moodle\Domain\SectionId::fromInt($sectionId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
-            Moodle\Domain\Timestamp::fromInt($timemodified)
+            Moodle\Domain\Timestamp::fromInt($timemodified),
         );
 
         self::assertEquals($expected, $denormalized);
@@ -101,7 +101,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromString($courseId),
             Moodle\Domain\SectionId::fromString($sectionId),
             Moodle\Domain\Timestamp::fromString($timecreated),
-            Moodle\Domain\Timestamp::fromString($timemodified)
+            Moodle\Domain\Timestamp::fromString($timemodified),
         );
 
         self::assertEquals($expected, $denormalized);
@@ -118,7 +118,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp())
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
         );
 
         $moduleNormalizer = new Moodle\Infrastructure\ModuleNormalizer();

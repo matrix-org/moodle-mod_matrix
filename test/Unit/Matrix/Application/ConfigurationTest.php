@@ -42,7 +42,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
             'Configuration should have an "%s" property, but it does not.',
-            'access_token'
+            'access_token',
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -71,7 +71,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectExceptionMessage(sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'access_token',
-            is_object($accessToken) ? get_class($accessToken) : gettype($accessToken)
+            is_object($accessToken) ? get_class($accessToken) : gettype($accessToken),
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -89,7 +89,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
             'Configuration should have an "%s" property, but it does not.',
-            'element_url'
+            'element_url',
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -118,7 +118,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectExceptionMessage(sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'element_url',
-            is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl)
+            is_object($elementUrl) ? get_class($elementUrl) : gettype($elementUrl),
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -136,7 +136,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
             'Configuration should have an "%s" property, but it does not.',
-            'hs_url'
+            'hs_url',
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -165,7 +165,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectExceptionMessage(sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
             'hs_url',
-            is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl)
+            is_object($hsUrl) ? get_class($hsUrl) : gettype($hsUrl),
         ));
 
         Matrix\Application\Configuration::fromObject($object);

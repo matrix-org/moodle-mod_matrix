@@ -67,7 +67,7 @@ function matrix_add_instance($data)
         Moodle\Domain\CourseId::fromString($data->course),
         Moodle\Domain\SectionId::fromInt($data->section),
         Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-        Moodle\Domain\Timestamp::fromInt(0)
+        Moodle\Domain\Timestamp::fromInt(0),
     );
 
     $moduleRepository = $container->moduleRepository();
@@ -81,7 +81,7 @@ function matrix_add_instance($data)
         0,
         0,
         'g.*',
-        true
+        true,
     );
 
     $service = $container->service();
@@ -90,13 +90,13 @@ function matrix_add_instance($data)
         foreach ($groups as $group) {
             $service->prepareRoomForModuleAndGroup(
                 $module,
-                Moodle\Domain\GroupId::fromString($group->id)
+                Moodle\Domain\GroupId::fromString($group->id),
             );
         }
     } else {
         $service->prepareRoomForModuleAndGroup(
             $module,
-            null
+            null,
         );
     }
 

@@ -47,7 +47,7 @@ final class ModuleTest extends Framework\TestCase
             $courseId,
             $sectionId,
             $timecreated,
-            $timemodified
+            $timemodified,
         );
 
         self::assertSame($id, $module->id());

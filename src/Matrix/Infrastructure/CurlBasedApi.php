@@ -28,7 +28,7 @@ final class CurlBasedApi implements Matrix\Application\Api
     {
         $r = $this->request(
             'GET',
-            '/_matrix/client/r0/account/whoami'
+            '/_matrix/client/r0/account/whoami',
         );
 
         return Matrix\Domain\UserId::fromString($r['user_id']);
@@ -40,7 +40,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             'POST',
             '/_matrix/client/r0/createRoom',
             [],
-            $opts
+            $opts,
         );
 
         return Matrix\Domain\RoomId::fromString($r['room_id']);
@@ -54,12 +54,12 @@ final class CurlBasedApi implements Matrix\Application\Api
             'POST',
             sprintf(
                 '/_matrix/client/r0/rooms/%s/invite',
-                urlencode($roomId->toString())
+                urlencode($roomId->toString()),
             ),
             [],
             [
                 'user_id' => $userId->toString(),
-            ]
+            ],
         );
     }
 
@@ -71,12 +71,12 @@ final class CurlBasedApi implements Matrix\Application\Api
             'POST',
             sprintf(
                 '/_matrix/client/r0/rooms/%s/kick',
-                urlencode($roomId->toString())
+                urlencode($roomId->toString()),
             ),
             [],
             [
                 'user_id' => $userId->toString(),
-            ]
+            ],
         );
     }
 
@@ -88,8 +88,8 @@ final class CurlBasedApi implements Matrix\Application\Api
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
                 urlencode($roomId->toString()),
                 urlencode($eventType),
-                urlencode($stateKey)
-            )
+                urlencode($stateKey),
+            ),
         );
     }
 
@@ -101,10 +101,10 @@ final class CurlBasedApi implements Matrix\Application\Api
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
                 urlencode($roomId->toString()),
                 urlencode($eventType),
-                urlencode($stateKey)
+                urlencode($stateKey),
             ),
             [],
-            $content
+            $content,
         );
     }
 
@@ -114,8 +114,8 @@ final class CurlBasedApi implements Matrix\Application\Api
             'GET',
             sprintf(
                 '/_matrix/client/r0/rooms/%s/members',
-                urlencode($roomId->toString())
-            )
+                urlencode($roomId->toString()),
+            ),
         );
 
         $userIds = [];
@@ -144,7 +144,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             [
                 'msgtype' => 'm.text',
                 'body' => $val,
-            ]
+            ],
         );
     }
 

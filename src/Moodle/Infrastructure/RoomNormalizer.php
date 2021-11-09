@@ -29,7 +29,7 @@ final class RoomNormalizer
             $groupId,
             Matrix\Domain\RoomId::fromString($normalized->room_id),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
-            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified)
+            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified),
         );
     }
 

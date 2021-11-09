@@ -23,7 +23,7 @@ final class ModuleNormalizer
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
             Moodle\Domain\SectionId::fromString((string) $normalized->section),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
-            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified)
+            Moodle\Domain\Timestamp::fromString((string) $normalized->timemodified),
         );
     }
 

@@ -49,7 +49,7 @@ final class Room
             $groupId,
             $matrixRoomId,
             $timecreated,
-            $timemodified
+            $timemodified,
         );
     }
 

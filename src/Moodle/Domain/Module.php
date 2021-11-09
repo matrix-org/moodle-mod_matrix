@@ -52,7 +52,7 @@ final class Module
             $courseId,
             $sectionId,
             $timecreated,
-            $timemodified
+            $timemodified,
         );
     }
 
