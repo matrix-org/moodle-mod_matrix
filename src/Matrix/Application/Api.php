@@ -48,7 +48,7 @@ interface Api
      */
     public function getState(
         Matrix\Domain\RoomId $roomId,
-        string $eventType,
+        Matrix\Domain\EventType $eventType,
         string $stateKey
     );
 
@@ -57,7 +57,7 @@ interface Api
      */
     public function setState(
         Matrix\Domain\RoomId $roomId,
-        string $eventType,
+        Matrix\Domain\EventType $eventType,
         string $stateKey,
         array $content
     ): void;

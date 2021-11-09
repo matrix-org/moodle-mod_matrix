@@ -84,7 +84,7 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function getState(
         Matrix\Domain\RoomId $roomId,
-        string $eventType,
+        Matrix\Domain\EventType $eventType,
         string $stateKey
     ) {
         return $this->request(
@@ -92,7 +92,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
                 \urlencode($roomId->toString()),
-                \urlencode($eventType),
+                \urlencode($eventType->toString()),
                 \urlencode($stateKey),
             ),
         );
@@ -100,7 +100,7 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function setState(
         Matrix\Domain\RoomId $roomId,
-        string $eventType,
+        Matrix\Domain\EventType $eventType,
         string $stateKey,
         array $content
     ): void {
@@ -109,7 +109,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
                 \urlencode($roomId->toString()),
-                \urlencode($eventType),
+                \urlencode($eventType->toString()),
                 \urlencode($stateKey),
             ),
             [],

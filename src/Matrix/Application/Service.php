@@ -250,7 +250,7 @@ final class Service
 
         $powerLevels = $this->api->getState(
             $room->matrixRoomId(),
-            'm.room.power_levels',
+            Matrix\Domain\EventType::fromString('m.room.power_levels'),
             '',
         );
 
@@ -304,7 +304,7 @@ final class Service
 
         $this->api->setState(
             $room->matrixRoomId(),
-            'm.room.power_levels',
+            Matrix\Domain\EventType::fromString('m.room.power_levels'),
             '',
             $powerLevels,
         );
