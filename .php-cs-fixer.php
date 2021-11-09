@@ -20,7 +20,6 @@ $config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\P
     'final_class' => false,
     'native_function_invocation' => false,
     'phpdoc_no_package' => false,
-    'phpdoc_separation' => false,
     'psr_autoloading' => false,
 ]);
 
