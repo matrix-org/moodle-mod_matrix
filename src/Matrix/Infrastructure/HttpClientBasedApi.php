@@ -21,7 +21,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         $this->httpClient = $httpClient;
     }
 
-    public function whoami(): Matrix\Domain\UserId
+    public function whoAmI(): Matrix\Domain\UserId
     {
         $r = $this->httpClient->get('/_matrix/client/r0/account/whoami');
 

@@ -20,7 +20,7 @@ interface Api
     /**
      * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/account/whoami
      */
-    public function whoami(): Matrix\Domain\UserId;
+    public function whoAmI(): Matrix\Domain\UserId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/createRoom

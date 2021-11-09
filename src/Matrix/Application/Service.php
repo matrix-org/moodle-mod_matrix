@@ -54,7 +54,7 @@ final class Service
 
         $course = get_course($module->courseId()->toInt());
 
-        $whoami = $this->api->whoami();
+        $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
@@ -241,11 +241,11 @@ final class Service
 
         $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
 
-        $matrixUserIdOfBot = $this->api->whoami();
+        $matrixUserIdOfBot = $this->api->whoAmI();
 
         /** @var array<int, \mod_matrix\Matrix\Domain\UserId> $matrixUserIdsOfUsersAllowedInTheRoom */
         $matrixUserIdsOfUsersAllowedInTheRoom = [
-            $this->api->whoami(),
+            $this->api->whoAmI(),
         ];
 
         $powerLevels = $this->api->getState(
@@ -326,7 +326,7 @@ final class Service
     {
         $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
 
-        $matrixUserIdOfBot = $this->api->whoami();
+        $matrixUserIdOfBot = $this->api->whoAmI();
 
         foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
             if ($matrixUserId->equals($matrixUserIdOfBot)) {
