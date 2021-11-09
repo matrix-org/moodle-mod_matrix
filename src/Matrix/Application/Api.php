@@ -54,16 +54,12 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#put-/_matrix/client/r0/rooms/-roomId-/state/-eventType-/-stateKey-
-     *
-     * @param mixed $eventType
-     * @param mixed $stateKey
-     * @param mixed $content
      */
     public function setState(
         Matrix\Domain\RoomId $roomId,
-        $eventType,
-        $stateKey,
-        $content
+        string $eventType,
+        string $stateKey,
+        array $content
     ): void;
 
     /**

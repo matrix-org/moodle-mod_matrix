@@ -161,11 +161,12 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
-    <MixedArgument occurrences="8">
+    <MixedArgument occurrences="9">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
+      <code>$powerLevels</code>
       <code>$sectionName</code>
       <code>$sectionName</code>
       <code>$user</code>
@@ -207,13 +208,10 @@
       <code>getState</code>
       <code>request</code>
     </MissingReturnType>
-    <MixedArgument occurrences="6">
-      <code>$content</code>
+    <MixedArgument occurrences="3">
       <code>$ev['state_key']</code>
-      <code>$eventType</code>
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
-      <code>$stateKey</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="7">
       <code>$ev['content']</code>

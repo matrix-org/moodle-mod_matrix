@@ -100,9 +100,9 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function setState(
         Matrix\Domain\RoomId $roomId,
-        $eventType,
-        $stateKey,
-        $content
+        string $eventType,
+        string $stateKey,
+        array $content
     ): void {
         $this->request(
             'PUT',
