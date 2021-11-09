@@ -311,12 +311,14 @@ final class Service
 
         // Kick anyone who isn't supposed to be there
         foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
-            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
-                $this->api->kickUser(
-                    $matrixUserId,
-                    $room->matrixRoomId(),
-                );
+            if (\in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
+                continue;
             }
+
+            $this->api->kickUser(
+                $matrixUserId,
+                $room->matrixRoomId(),
+            );
         }
     }
 
