@@ -251,7 +251,7 @@ final class Service
         $powerLevels = $this->api->getState(
             $room->matrixRoomId(),
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
-            '',
+            Matrix\Domain\StateKey::fromString(''),
         );
 
         $powerLevels['users'] = [
@@ -305,7 +305,7 @@ final class Service
         $this->api->setState(
             $room->matrixRoomId(),
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
-            '',
+            Matrix\Domain\StateKey::fromString(''),
             $powerLevels,
         );
 
