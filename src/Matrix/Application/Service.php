@@ -261,7 +261,7 @@ final class Service
         foreach ($users as $user) {
             $matrixUserId = $this->matrixUserIdOf($user);
 
-            if (null === $matrixUserId) {
+            if (!$matrixUserId instanceof Matrix\Domain\UserId) {
                 continue;
             }
 
