@@ -22,7 +22,6 @@ $config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\P
     'phpdoc_no_package' => false,
     'phpdoc_separation' => false,
     'psr_autoloading' => false,
-    'simple_to_complex_string_variable' => false,
 ]);
 
 $config->getFinder()
