@@ -39,8 +39,8 @@ final class Bootstrap
         }
 
         return <<<TXT
-<div class="alert alert-${type}">
-    ${content}
+<div class="alert alert-{$type}">
+    {$content}
 </div>
 TXT;
     }

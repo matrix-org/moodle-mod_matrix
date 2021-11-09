@@ -69,8 +69,8 @@ final class BootstrapTest extends Framework\TestCase
         );
 
         $expexted = <<<TXT
-<div class="alert alert-${type}">
-    ${content}
+<div class="alert alert-{$type}">
+    {$content}
 </div>
 TXT;
 

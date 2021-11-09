@@ -204,19 +204,19 @@ final class CurlBasedApi implements Matrix\Application\Api
 
                 throw new \RuntimeException(
                     <<<TXT
-Sending a request failed with HTTP status code ${httpStatusCode} and error message ${httpErrorMessage}.
+Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
 
 The response contains a specific error code and message.
 
 Error code
 ---------
 
-${errorCode}
+{$errorCode}
 
 Error message
 ---------
 
-${errorMessage}
+{$errorMessage}
 
 TXT
                 );
@@ -224,7 +224,7 @@ TXT
 
             throw new \RuntimeException(
                 <<<TXT
-Sending a request failed with HTTP status code ${httpStatusCode} and error message ${httpErrorMessage}.
+Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
 TXT
             );
         }
