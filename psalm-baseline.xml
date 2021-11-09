@@ -24,7 +24,7 @@
   </file>
   <file src="lib.php">
     <DocblockTypeContradiction occurrences="1">
-      <code>is_string($feature)</code>
+      <code>\is_string($feature)</code>
     </DocblockTypeContradiction>
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
@@ -156,9 +156,8 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="2">
+    <MissingReturnType occurrences="1">
       <code>getState</code>
-      <code>setState</code>
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/Service.php">
@@ -199,7 +198,7 @@
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedApi.php">
     <InvalidOperand occurrences="1">
-      <code>mt_rand(0, 100)</code>
+      <code>\mt_rand(0, 100)</code>
     </InvalidOperand>
     <MissingParamType occurrences="1">
       <code>$val</code>
