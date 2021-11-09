@@ -10,25 +10,20 @@ declare(strict_types=1);
 
 namespace mod_matrix\Matrix\Infrastructure;
 
-use Curl\Curl;
 use mod_matrix\Matrix;
 
 final class CurlBasedApi implements Matrix\Application\Api
 {
-    private $hsUrl;
-    private $accessToken;
+    private $httpClient;
 
-    public function __construct(
-        string $hsUrl,
-        string $accessToken
-    ) {
-        $this->hsUrl = $hsUrl;
-        $this->accessToken = $accessToken;
+    public function __construct(HttpClient $httpClient)
+    {
+        $this->httpClient = $httpClient;
     }
 
     public function whoami(): Matrix\Domain\UserId
     {
-        $r = $this->request(
+        $r = $this->httpClient->request(
             'GET',
             '/_matrix/client/r0/account/whoami',
         );
@@ -38,7 +33,7 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function createRoom(array $options): Matrix\Domain\RoomId
     {
-        $r = $this->request(
+        $r = $this->httpClient->request(
             'POST',
             '/_matrix/client/r0/createRoom',
             [],
@@ -52,7 +47,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
     ): void {
-        $this->request(
+        $this->httpClient->request(
             'POST',
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/invite',
@@ -69,7 +64,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
     ): void {
-        $this->request(
+        $this->httpClient->request(
             'POST',
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/kick',
@@ -87,7 +82,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\EventType $eventType,
         Matrix\Domain\StateKey $stateKey
     ) {
-        return $this->request(
+        return $this->httpClient->request(
             'GET',
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
@@ -104,7 +99,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\StateKey $stateKey,
         array $content
     ): void {
-        $this->request(
+        $this->httpClient->request(
             'PUT',
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
@@ -119,7 +114,7 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array
     {
-        $members = $this->request(
+        $members = $this->httpClient->request(
             'GET',
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/members',
@@ -146,7 +141,7 @@ final class CurlBasedApi implements Matrix\Application\Api
     {
         $val = \var_export($val, true);
 
-        $this->request(
+        $this->httpClient->request(
             'PUT',
             '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . \microtime() . 'r' . \mt_rand(0, 100),
             [],
@@ -155,82 +150,5 @@ final class CurlBasedApi implements Matrix\Application\Api
                 'body' => $val,
             ],
         );
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    private function request(
-        string $method,
-        string $path,
-        array $qs = [],
-        array $body = []
-    ) {
-        $allowedMethods = [
-            'GET',
-            'POST',
-            'PUT',
-        ];
-
-        if (!\in_array($method, $allowedMethods, true)) {
-            throw new \InvalidArgumentException('unknown method: ' . $method);
-        }
-
-        $curl = new Curl();
-        $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
-        $curl->setHeader('Content-Type', 'application/json');
-
-        if ('GET' === $method) {
-            $curl->get($this->hsUrl . $path, $qs);
-        } elseif ('POST' === $method) {
-            $curl->setUrl($this->hsUrl . $path, $qs);
-            $curl->post($curl->getUrl(), $body);
-        } elseif ('PUT' === $method) {
-            $curl->setUrl($this->hsUrl . $path, $qs);
-            $curl->put($curl->getUrl(), $body);
-        }
-
-        if ($curl->error) {
-            $httpStatusCode = $curl->httpStatusCode;
-            $httpErrorMessage = $curl->httpErrorMessage;
-
-            if (
-                \is_array($curl->response)
-                && \array_key_exists('errcode', $curl->response)
-                && \array_key_exists('error', $curl->response)
-            ) {
-                $errorCode = $curl->response['errcode'];
-                $errorMessage = $curl->response['error'];
-
-                throw new \RuntimeException(
-                    <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-
-The response contains a specific error code and message.
-
-Error code
----------
-
-{$errorCode}
-
-Error message
----------
-
-{$errorMessage}
-
-TXT
-                );
-            }
-
-            throw new \RuntimeException(
-                <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-TXT
-            );
-        }
-
-        return $curl->response;
     }
 }

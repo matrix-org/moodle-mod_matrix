@@ -204,9 +204,8 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="2">
+    <MissingReturnType occurrences="1">
       <code>getState</code>
-      <code>request</code>
     </MissingReturnType>
     <MixedArgument occurrences="3">
       <code>$ev['state_key']</code>
@@ -222,16 +221,20 @@
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="9">
-      <code>$errorCode</code>
-      <code>$errorMessage</code>
+    <MixedAssignment occurrences="5">
       <code>$ev</code>
-      <code>$httpErrorMessage</code>
-      <code>$httpStatusCode</code>
       <code>$members</code>
       <code>$membership</code>
       <code>$r</code>
       <code>$r</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
+    <MixedAssignment occurrences="4">
+      <code>$errorCode</code>
+      <code>$errorMessage</code>
+      <code>$httpErrorMessage</code>
+      <code>$httpStatusCode</code>
     </MixedAssignment>
     <RedundantCondition occurrences="1">
       <code>'PUT' === $method</code>
