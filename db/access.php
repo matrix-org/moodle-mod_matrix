@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @package   mod_matrix
  * @copyright 2020, New Vector Ltd (Trading as Element)
