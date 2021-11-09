@@ -36,13 +36,13 @@ final class CurlBasedApi implements Matrix\Application\Api
         return Matrix\Domain\UserId::fromString($r['user_id']);
     }
 
-    public function createRoom(array $opts): Matrix\Domain\RoomId
+    public function createRoom(array $options): Matrix\Domain\RoomId
     {
         $r = $this->request(
             'POST',
             '/_matrix/client/r0/createRoom',
             [],
-            $opts,
+            $options,
         );
 
         return Matrix\Domain\RoomId::fromString($r['room_id']);

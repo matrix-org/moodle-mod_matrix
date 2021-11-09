@@ -25,7 +25,7 @@ interface Api
     /**
      * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/createRoom
      */
-    public function createRoom(array $opts): Matrix\Domain\RoomId;
+    public function createRoom(array $options): Matrix\Domain\RoomId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/rooms/-roomId-/invite
