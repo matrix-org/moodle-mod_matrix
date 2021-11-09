@@ -40,7 +40,7 @@ final class Container
         $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
             $configuration = $container->configuration();
 
-            return new Matrix\Infrastructure\CurlBasedApi(new Matrix\Infrastructure\CurlBasedHttpClient(
+            return new Matrix\Infrastructure\HttpClientBasedApi(new Matrix\Infrastructure\CurlBasedHttpClient(
                 $configuration->hsUrl(),
                 $configuration->accessToken(),
             ));

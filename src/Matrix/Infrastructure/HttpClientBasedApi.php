@@ -12,7 +12,7 @@ namespace mod_matrix\Matrix\Infrastructure;
 
 use mod_matrix\Matrix;
 
-final class CurlBasedApi implements Matrix\Application\Api
+final class HttpClientBasedApi implements Matrix\Application\Api
 {
     private $httpClient;
 

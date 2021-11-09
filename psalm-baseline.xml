@@ -197,7 +197,27 @@
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
-  <file src="src/Matrix/Infrastructure/CurlBasedApi.php">
+  <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
+    <MissingReturnType occurrences="3">
+      <code>get</code>
+      <code>post</code>
+      <code>put</code>
+    </MissingReturnType>
+    <MixedAssignment occurrences="4">
+      <code>$errorCode</code>
+      <code>$errorMessage</code>
+      <code>$httpErrorMessage</code>
+      <code>$httpStatusCode</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Matrix/Infrastructure/HttpClient.php">
+    <MissingReturnType occurrences="3">
+      <code>get</code>
+      <code>post</code>
+      <code>put</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Matrix/Infrastructure/HttpClientBasedApi.php">
     <InvalidOperand occurrences="1">
       <code>\mt_rand(0, 100)</code>
     </InvalidOperand>
@@ -228,26 +248,6 @@
       <code>$r</code>
       <code>$r</code>
     </MixedAssignment>
-  </file>
-  <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
-    <MissingReturnType occurrences="3">
-      <code>get</code>
-      <code>post</code>
-      <code>put</code>
-    </MissingReturnType>
-    <MixedAssignment occurrences="4">
-      <code>$errorCode</code>
-      <code>$errorMessage</code>
-      <code>$httpErrorMessage</code>
-      <code>$httpStatusCode</code>
-    </MixedAssignment>
-  </file>
-  <file src="src/Matrix/Infrastructure/HttpClient.php">
-    <MissingReturnType occurrences="3">
-      <code>get</code>
-      <code>post</code>
-      <code>put</code>
-    </MissingReturnType>
   </file>
   <file src="src/Moodle/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
