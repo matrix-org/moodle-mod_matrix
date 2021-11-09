@@ -13,13 +13,26 @@ namespace mod_matrix\Matrix\Infrastructure;
 interface HttpClient
 {
     /**
-     * @throws \InvalidArgumentException
      * @throws \RuntimeException
-     *
-     * @return mixed
      */
-    public function request(
-        string $method,
+    public function get(
+        string $path,
+        array $qs = []
+    );
+
+    /**
+     * @throws \RuntimeException
+     */
+    public function post(
+        string $path,
+        array $qs = [],
+        array $body = []
+    );
+
+    /**
+     * @throws \RuntimeException
+     */
+    public function put(
         string $path,
         array $qs = [],
         array $body = []

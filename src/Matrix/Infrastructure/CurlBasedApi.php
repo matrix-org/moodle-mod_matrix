@@ -23,18 +23,14 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function whoami(): Matrix\Domain\UserId
     {
-        $r = $this->httpClient->request(
-            'GET',
-            '/_matrix/client/r0/account/whoami',
-        );
+        $r = $this->httpClient->get('/_matrix/client/r0/account/whoami');
 
         return Matrix\Domain\UserId::fromString($r['user_id']);
     }
 
     public function createRoom(array $options): Matrix\Domain\RoomId
     {
-        $r = $this->httpClient->request(
-            'POST',
+        $r = $this->httpClient->post(
             '/_matrix/client/r0/createRoom',
             [],
             $options,
@@ -47,8 +43,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
     ): void {
-        $this->httpClient->request(
-            'POST',
+        $this->httpClient->post(
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/invite',
                 \urlencode($roomId->toString()),
@@ -64,8 +59,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
     ): void {
-        $this->httpClient->request(
-            'POST',
+        $this->httpClient->post(
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/kick',
                 \urlencode($roomId->toString()),
@@ -82,15 +76,12 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\EventType $eventType,
         Matrix\Domain\StateKey $stateKey
     ) {
-        return $this->httpClient->request(
-            'GET',
-            \sprintf(
-                '/_matrix/client/r0/rooms/%s/state/%s/%s',
-                \urlencode($roomId->toString()),
-                \urlencode($eventType->toString()),
-                \urlencode($stateKey->toString()),
-            ),
-        );
+        return $this->httpClient->get(\sprintf(
+            '/_matrix/client/r0/rooms/%s/state/%s/%s',
+            \urlencode($roomId->toString()),
+            \urlencode($eventType->toString()),
+            \urlencode($stateKey->toString()),
+        ));
     }
 
     public function setState(
@@ -99,8 +90,7 @@ final class CurlBasedApi implements Matrix\Application\Api
         Matrix\Domain\StateKey $stateKey,
         array $content
     ): void {
-        $this->httpClient->request(
-            'PUT',
+        $this->httpClient->put(
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
                 \urlencode($roomId->toString()),
@@ -114,13 +104,10 @@ final class CurlBasedApi implements Matrix\Application\Api
 
     public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array
     {
-        $members = $this->httpClient->request(
-            'GET',
-            \sprintf(
-                '/_matrix/client/r0/rooms/%s/members',
-                \urlencode($roomId->toString()),
-            ),
-        );
+        $members = $this->httpClient->get(\sprintf(
+            '/_matrix/client/r0/rooms/%s/members',
+            \urlencode($roomId->toString()),
+        ));
 
         $userIds = [];
 
@@ -141,8 +128,7 @@ final class CurlBasedApi implements Matrix\Application\Api
     {
         $val = \var_export($val, true);
 
-        $this->httpClient->request(
-            'PUT',
+        $this->httpClient->put(
             '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . \microtime() . 'r' . \mt_rand(0, 100),
             [],
             [

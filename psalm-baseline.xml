@@ -230,15 +230,32 @@
     </MixedAssignment>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
-    <MixedAssignment occurrences="4">
+    <MissingReturnType occurrences="3">
+      <code>get</code>
+      <code>post</code>
+      <code>put</code>
+    </MissingReturnType>
+    <MixedAssignment occurrences="12">
+      <code>$errorCode</code>
+      <code>$errorCode</code>
       <code>$errorCode</code>
       <code>$errorMessage</code>
+      <code>$errorMessage</code>
+      <code>$errorMessage</code>
+      <code>$httpErrorMessage</code>
+      <code>$httpErrorMessage</code>
       <code>$httpErrorMessage</code>
       <code>$httpStatusCode</code>
+      <code>$httpStatusCode</code>
+      <code>$httpStatusCode</code>
     </MixedAssignment>
-    <RedundantCondition occurrences="1">
-      <code>'PUT' === $method</code>
-    </RedundantCondition>
+  </file>
+  <file src="src/Matrix/Infrastructure/HttpClient.php">
+    <MissingReturnType occurrences="3">
+      <code>get</code>
+      <code>post</code>
+      <code>put</code>
+    </MissingReturnType>
   </file>
   <file src="src/Moodle/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
