@@ -122,7 +122,7 @@ Log in with the credentials for the administrator account created created when r
 
 #### Install the `mod_matrix` plugin
 
-Provide configuration values to finish the configuration of the plugin:
+Navigate to [http://127.0.0.1/admin/settings.php?section=modsettingmatrix](http://127.0.0.1/admin/settings.php?section=modsettingmatrix) and provide configuration values to finish the configuration of the plugin:
 
 | Configuration     | Value              |
 |-------------------|--------------------|
