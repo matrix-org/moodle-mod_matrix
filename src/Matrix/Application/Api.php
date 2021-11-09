@@ -12,20 +12,23 @@ namespace mod_matrix\Matrix\Application;
 
 use mod_matrix\Matrix;
 
+/**
+ * @see https://matrix.org/docs/api/client-server/#overview
+ */
 interface Api
 {
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/User32data/getTokenOwner
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/account/whoami
      */
     public function whoami(): Matrix\Domain\UserId;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/createRoom
      */
     public function createRoom(array $opts): Matrix\Domain\RoomId;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/rooms/-roomId-/invite
      */
     public function inviteUser(
         Matrix\Domain\UserId $userId,
@@ -33,7 +36,7 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/r0/rooms/-roomId-/kick
      */
     public function kickUser(
         Matrix\Domain\UserId $userId,
@@ -41,7 +44,7 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/rooms/-roomId-/state/-eventType-/-stateKey-
      *
      * @param mixed $eventType
      * @param mixed $stateKey
@@ -53,7 +56,7 @@ interface Api
     );
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/setRoomStateWithKey
+     * @see https://matrix.org/docs/api/client-server/#put-/_matrix/client/r0/rooms/-roomId-/state/-eventType-/-stateKey-
      *
      * @param mixed $eventType
      * @param mixed $stateKey
@@ -67,7 +70,7 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/rooms/-roomId-/members
      *
      * @return array<int, Matrix\Domain\UserId>
      */
