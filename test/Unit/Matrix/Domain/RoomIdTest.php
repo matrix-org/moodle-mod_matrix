@@ -10,6 +10,7 @@ namespace mod_matrix\Test\Unit\Matrix\Domain;
 
 use mod_matrix\Matrix;
 use PHPUnit\Framework;
+
 /**
  * @internal
  *
