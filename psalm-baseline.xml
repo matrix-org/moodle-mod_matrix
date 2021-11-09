@@ -204,10 +204,9 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="3">
+    <MissingReturnType occurrences="2">
       <code>getState</code>
       <code>request</code>
-      <code>setState</code>
     </MissingReturnType>
     <MixedArgument occurrences="9">
       <code>$content</code>

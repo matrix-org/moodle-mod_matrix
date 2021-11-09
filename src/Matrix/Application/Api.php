@@ -61,7 +61,7 @@ interface Api
         $eventType,
         $stateKey,
         $content
-    );
+    ): void;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getMembersByRoom

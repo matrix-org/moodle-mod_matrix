@@ -101,8 +101,8 @@ final class CurlBasedApi implements Matrix\Application\Api
         $eventType,
         $stateKey,
         $content
-    ) {
-        return $this->request(
+    ): void {
+        $this->request(
             'PUT',
             sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
