@@ -17,7 +17,7 @@ interface HttpClient
      */
     public function get(
         string $path,
-        array $qs = []
+        array $query = []
     );
 
     /**
@@ -25,7 +25,7 @@ interface HttpClient
      */
     public function post(
         string $path,
-        array $qs = [],
+        array $query = [],
         array $body = []
     );
 
@@ -34,7 +34,7 @@ interface HttpClient
      */
     public function put(
         string $path,
-        array $qs = [],
+        array $query = [],
         array $body = []
     );
 }
