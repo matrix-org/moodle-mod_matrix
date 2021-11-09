@@ -15,7 +15,6 @@ $header = <<<'TXT'
 TXT;
 
 $config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\Php73($header), [
-    'declare_strict_types' => false,
     'final_class' => false,
     'phpdoc_no_package' => false,
     'psr_autoloading' => false,
