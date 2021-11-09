@@ -84,20 +84,23 @@ final class CurlBasedHttpClient implements HttpClient
      */
     private static function ensureResponseDoesNotContainError(Curl $curl): void
     {
-        if ($curl->error) {
-            $httpStatusCode = $curl->httpStatusCode;
-            $httpErrorMessage = $curl->httpErrorMessage;
+        if (!$curl->error) {
+            return;
+        }
 
-            if (
-                \is_array($curl->response)
-                && \array_key_exists('errcode', $curl->response)
-                && \array_key_exists('error', $curl->response)
-            ) {
-                $errorCode = $curl->response['errcode'];
-                $errorMessage = $curl->response['error'];
+        $httpStatusCode = $curl->httpStatusCode;
+        $httpErrorMessage = $curl->httpErrorMessage;
 
-                throw new \RuntimeException(
-                    <<<TXT
+        if (
+            \is_array($curl->response)
+            && \array_key_exists('errcode', $curl->response)
+            && \array_key_exists('error', $curl->response)
+        ) {
+            $errorCode = $curl->response['errcode'];
+            $errorMessage = $curl->response['error'];
+
+            throw new \RuntimeException(
+                <<<TXT
 Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
 
 The response contains a specific error code and message.
@@ -113,14 +116,13 @@ Error message
 {$errorMessage}
 
 TXT
-                );
-            }
-
-            throw new \RuntimeException(
-                <<<TXT
-Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
-TXT
             );
         }
+
+        throw new \RuntimeException(
+            <<<TXT
+Sending a request failed with HTTP status code {$httpStatusCode} and error message {$httpErrorMessage}.
+TXT
+        );
     }
 }
