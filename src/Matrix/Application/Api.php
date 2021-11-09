@@ -21,10 +21,8 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32creation/createRoom
-     *
-     * @param mixed $opts
      */
-    public function createRoom($opts = []): Matrix\Domain\RoomId;
+    public function createRoom(array $opts = []): Matrix\Domain\RoomId;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/inviteBy3PID
