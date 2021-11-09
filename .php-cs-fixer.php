@@ -25,7 +25,6 @@ $config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\P
     'simple_to_complex_string_variable' => false,
     'single_line_after_imports' => false,
     'strict_comparison' => false,
-    'trailing_comma_in_multiline' => false,
 ]);
 
 $config->getFinder()
