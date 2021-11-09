@@ -25,16 +25,11 @@ final class CurlBasedHttpClient implements HttpClient
         $this->accessToken = $accessToken;
     }
 
-    public function get(
-        string $path,
-        array $query = []
-    ) {
+    public function get(string $path)
+    {
         $curl = $this->createCurl();
 
-        $curl->get(
-            $this->baseUrl . $path,
-            $query,
-        );
+        $curl->get($this->baseUrl . $path);
 
         self::ensureResponseDoesNotContainError($curl);
 
@@ -43,15 +38,11 @@ final class CurlBasedHttpClient implements HttpClient
 
     public function post(
         string $path,
-        array $query = [],
         array $body = []
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl(
-            $this->baseUrl . $path,
-            $query,
-        );
+        $curl->setUrl($this->baseUrl . $path);
 
         $curl->post(
             $curl->getUrl(),
@@ -65,15 +56,11 @@ final class CurlBasedHttpClient implements HttpClient
 
     public function put(
         string $path,
-        array $query = [],
         array $body = []
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl(
-            $this->baseUrl . $path,
-            $query,
-        );
+        $curl->setUrl($this->baseUrl . $path);
 
         $curl->put(
             $curl->getUrl(),

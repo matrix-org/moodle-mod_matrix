@@ -15,17 +15,13 @@ interface HttpClient
     /**
      * @throws \RuntimeException
      */
-    public function get(
-        string $path,
-        array $query = []
-    );
+    public function get(string $path);
 
     /**
      * @throws \RuntimeException
      */
     public function post(
         string $path,
-        array $query = [],
         array $body = []
     );
 
@@ -34,7 +30,6 @@ interface HttpClient
      */
     public function put(
         string $path,
-        array $query = [],
         array $body = []
     );
 }

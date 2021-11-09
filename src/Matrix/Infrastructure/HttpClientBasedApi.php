@@ -32,7 +32,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
     {
         $r = $this->httpClient->post(
             '/_matrix/client/r0/createRoom',
-            [],
             $options,
         );
 
@@ -48,7 +47,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
                 '/_matrix/client/r0/rooms/%s/invite',
                 \urlencode($roomId->toString()),
             ),
-            [],
             [
                 'user_id' => $userId->toString(),
             ],
@@ -64,7 +62,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
                 '/_matrix/client/r0/rooms/%s/kick',
                 \urlencode($roomId->toString()),
             ),
-            [],
             [
                 'user_id' => $userId->toString(),
             ],
@@ -97,7 +94,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
                 \urlencode($eventType->toString()),
                 \urlencode($stateKey->toString()),
             ),
-            [],
             $content,
         );
     }
@@ -130,7 +126,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
 
         $this->httpClient->put(
             '/_matrix/client/r0/rooms/!cujtuCldotJLtvQGiQ:localhost/send/m.room.message/m' . \microtime() . 'r' . \mt_rand(0, 100),
-            [],
             [
                 'msgtype' => 'm.text',
                 'body' => $val,
