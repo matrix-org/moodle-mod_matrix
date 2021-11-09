@@ -49,8 +49,8 @@ final class CurlBasedApi implements Matrix\Application\Api
     public function inviteUser(
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
-    ) {
-        return $this->request(
+    ): void {
+        $this->request(
             'POST',
             sprintf(
                 '/_matrix/client/r0/rooms/%s/invite',

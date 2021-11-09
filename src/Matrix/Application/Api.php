@@ -29,7 +29,7 @@ interface Api
     public function inviteUser(
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
-    );
+    ): void;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32membership/kick
