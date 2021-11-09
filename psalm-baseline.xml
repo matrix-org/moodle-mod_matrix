@@ -156,10 +156,8 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="4">
+    <MissingReturnType occurrences="2">
       <code>getState</code>
-      <code>inviteUser</code>
-      <code>kickUser</code>
       <code>setState</code>
     </MissingReturnType>
   </file>
@@ -206,10 +204,8 @@
     <MissingParamType occurrences="1">
       <code>$val</code>
     </MissingParamType>
-    <MissingReturnType occurrences="5">
+    <MissingReturnType occurrences="3">
       <code>getState</code>
-      <code>inviteUser</code>
-      <code>kickUser</code>
       <code>request</code>
       <code>setState</code>
     </MissingReturnType>

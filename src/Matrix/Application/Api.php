@@ -37,7 +37,7 @@ interface Api
     public function kickUser(
         Matrix\Domain\UserId $userId,
         Matrix\Domain\RoomId $roomId
-    );
+    ): void;
 
     /**
      * @see https://matrix.org/docs/api/client-server/#!/Room32participation/getRoomStateWithKey
