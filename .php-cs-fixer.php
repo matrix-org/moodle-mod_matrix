@@ -24,7 +24,6 @@ $config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\P
     'psr_autoloading' => false,
     'simple_to_complex_string_variable' => false,
     'single_line_after_imports' => false,
-    'strict_comparison' => false,
 ]);
 
 $config->getFinder()
