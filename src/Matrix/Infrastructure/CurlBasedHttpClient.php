@@ -29,7 +29,7 @@ final class CurlBasedHttpClient implements HttpClient
     {
         $curl = $this->createCurl();
 
-        $curl->get($this->baseUrl . $path);
+        $curl->get($path);
 
         self::ensureResponseDoesNotContainError($curl);
 
@@ -43,7 +43,7 @@ final class CurlBasedHttpClient implements HttpClient
         $curl = $this->createCurl();
 
         $curl->post(
-            $this->baseUrl . $path,
+            $path,
             $body,
         );
 
@@ -59,7 +59,7 @@ final class CurlBasedHttpClient implements HttpClient
         $curl = $this->createCurl();
 
         $curl->put(
-            $this->baseUrl . $path,
+            $path,
             $body,
         );
 
@@ -75,6 +75,7 @@ final class CurlBasedHttpClient implements HttpClient
         $curl->setDefaultJsonDecoder(true);
         $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
         $curl->setHeader('Content-Type', 'application/json');
+        $curl->setUrl($this->baseUrl);
 
         return $curl;
     }
