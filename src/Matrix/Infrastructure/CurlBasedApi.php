@@ -124,7 +124,7 @@ final class CurlBasedApi implements Matrix\Application\Api
             if ($ev['content'] && $ev['content']['membership']) {
                 $membership = $ev['content']['membership'];
 
-                if ('join' == $membership || 'invite' == $membership) {
+                if ('join' === $membership || 'invite' === $membership) {
                     $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
                 }
             }
