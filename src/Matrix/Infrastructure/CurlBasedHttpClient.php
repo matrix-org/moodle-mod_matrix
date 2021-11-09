@@ -31,7 +31,10 @@ final class CurlBasedHttpClient implements HttpClient
     ) {
         $curl = $this->createCurl();
 
-        $curl->get($this->baseUrl . $path, $query);
+        $curl->get(
+            $this->baseUrl . $path,
+            $query,
+        );
 
         self::ensureResponseDoesNotContainError($curl);
 
@@ -45,8 +48,15 @@ final class CurlBasedHttpClient implements HttpClient
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl($this->baseUrl . $path, $query);
-        $curl->post($curl->getUrl(), $body);
+        $curl->setUrl(
+            $this->baseUrl . $path,
+            $query,
+        );
+
+        $curl->post(
+            $curl->getUrl(),
+            $body,
+        );
 
         self::ensureResponseDoesNotContainError($curl);
 
@@ -60,8 +70,15 @@ final class CurlBasedHttpClient implements HttpClient
     ) {
         $curl = $this->createCurl();
 
-        $curl->setUrl($this->baseUrl . $path, $query);
-        $curl->put($curl->getUrl(), $body);
+        $curl->setUrl(
+            $this->baseUrl . $path,
+            $query,
+        );
+
+        $curl->put(
+            $curl->getUrl(),
+            $body,
+        );
 
         self::ensureResponseDoesNotContainError($curl);
 
