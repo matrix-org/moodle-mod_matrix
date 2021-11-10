@@ -105,6 +105,11 @@ final class HttpClientBasedApi implements Matrix\Application\Api
             \urlencode($roomId->toString()),
         ));
 
+        $memberships = [
+            'invite',
+            'join',
+        ];
+
         $userIds = [];
 
         foreach ($members['chunk'] as $ev) {
@@ -127,11 +132,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
             }
 
             $membership = $content['membership'];
-
-            $memberships = [
-                'invite',
-                'join',
-            ];
 
             if (\in_array($membership, $memberships, true)) {
                 $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
