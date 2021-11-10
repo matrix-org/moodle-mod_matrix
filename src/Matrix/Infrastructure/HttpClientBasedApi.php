@@ -85,7 +85,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\EventType $eventType,
         Matrix\Domain\StateKey $stateKey,
-        array $content
+        array $state
     ): void {
         $this->httpClient->put(
             \sprintf(
@@ -94,7 +94,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
                 \urlencode($eventType->toString()),
                 \urlencode($stateKey->toString()),
             ),
-            $content,
+            $state,
         );
     }
 

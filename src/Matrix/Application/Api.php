@@ -59,7 +59,7 @@ interface Api
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\EventType $eventType,
         Matrix\Domain\StateKey $stateKey,
-        array $content
+        array $state
     ): void;
 
     /**
