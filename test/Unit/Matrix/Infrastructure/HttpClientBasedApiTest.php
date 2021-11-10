@@ -318,11 +318,18 @@ final class HttpClientBasedApiTest extends Framework\TestCase
             )))
             ->willReturn([
                 'chunk' => [
+                    $faker->word(),
+                    [
+                        'foo' => null,
+                    ],
                     [
                         'content' => null,
                     ],
                     [
                         'content' => [],
+                    ],
+                    [
+                        'content' => $faker->words(),
                     ],
                     [
                         'content' => [

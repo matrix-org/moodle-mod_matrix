@@ -108,12 +108,28 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         $userIds = [];
 
         foreach ($members['chunk'] as $ev) {
-            if ($ev['content'] && $ev['content']['membership']) {
-                $membership = $ev['content']['membership'];
+            if (!\is_array($ev)) {
+                continue;
+            }
 
-                if ('join' === $membership || 'invite' === $membership) {
-                    $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
-                }
+            if (!\array_key_exists('content', $ev)) {
+                continue;
+            }
+
+            $content = $ev['content'];
+
+            if (!\is_array($content)) {
+                continue;
+            }
+
+            if (!\array_key_exists('membership', $content)) {
+                continue;
+            }
+
+            $membership = $content['membership'];
+
+            if ('join' === $membership || 'invite' === $membership) {
+                $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
             }
         }
 

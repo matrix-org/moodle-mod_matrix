@@ -223,17 +223,13 @@
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="7">
-      <code>$ev['content']</code>
-      <code>$ev['content']['membership']</code>
-      <code>$ev['content']['membership']</code>
-      <code>$ev['state_key']</code>
+    <MixedArrayAccess occurrences="3">
       <code>$members['chunk']</code>
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="5">
-      <code>$ev</code>
+      <code>$content</code>
       <code>$members</code>
       <code>$membership</code>
       <code>$r</code>
