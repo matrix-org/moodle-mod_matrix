@@ -305,6 +305,15 @@
       <code>event\group_created</code>
     </UndefinedClass>
   </file>
+  <file src="test/Unit/Matrix/Infrastructure/HttpClientBasedApiTest.php">
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="1">
+      <code>$actual</code>
+    </MixedAssignment>
+  </file>
   <file src="test/Unit/Moodle/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
     <InvalidArgument occurrences="7">
       <code>$database</code>
