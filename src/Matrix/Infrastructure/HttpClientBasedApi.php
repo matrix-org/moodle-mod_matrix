@@ -128,7 +128,12 @@ final class HttpClientBasedApi implements Matrix\Application\Api
 
             $membership = $content['membership'];
 
-            if ('join' === $membership || 'invite' === $membership) {
+            $memberships = [
+                'invite',
+                'join',
+            ];
+
+            if (\in_array($membership, $memberships, true)) {
                 $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
             }
         }
