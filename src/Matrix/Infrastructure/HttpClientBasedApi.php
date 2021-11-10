@@ -133,9 +133,11 @@ final class HttpClientBasedApi implements Matrix\Application\Api
 
             $membership = $content['membership'];
 
-            if (\in_array($membership, $memberships, true)) {
-                $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
+            if (!\in_array($membership, $memberships, true)) {
+                continue;
             }
+
+            $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
         }
 
         return $userIds;
