@@ -20,6 +20,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Matrix\Infrastructure\HttpClientBasedApi
  *
  * @uses \mod_matrix\Matrix\Domain\EventType
+ * @uses \mod_matrix\Matrix\Domain\Membership
  * @uses \mod_matrix\Matrix\Domain\RoomId
  * @uses \mod_matrix\Matrix\Domain\StateKey
  * @uses \mod_matrix\Matrix\Domain\UserId

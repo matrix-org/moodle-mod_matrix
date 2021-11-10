@@ -106,8 +106,8 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         ));
 
         $memberships = [
-            'invite',
-            'join',
+            Matrix\Domain\Membership::invite()->toString(),
+            Matrix\Domain\Membership::join()->toString(),
         ];
 
         $userIds = [];
