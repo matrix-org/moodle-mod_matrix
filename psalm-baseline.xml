@@ -219,7 +219,7 @@
       <code>getState</code>
     </MissingReturnType>
     <MixedArgument occurrences="3">
-      <code>$ev['state_key']</code>
+      <code>$event['state_key']</code>
       <code>$r['room_id']</code>
       <code>$r['user_id']</code>
     </MixedArgument>

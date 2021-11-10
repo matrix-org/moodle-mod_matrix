@@ -112,16 +112,16 @@ final class HttpClientBasedApi implements Matrix\Application\Api
 
         $userIds = [];
 
-        foreach ($members['chunk'] as $ev) {
-            if (!\is_array($ev)) {
+        foreach ($members['chunk'] as $event) {
+            if (!\is_array($event)) {
                 continue;
             }
 
-            if (!\array_key_exists('content', $ev)) {
+            if (!\array_key_exists('content', $event)) {
                 continue;
             }
 
-            $content = $ev['content'];
+            $content = $event['content'];
 
             if (!\is_array($content)) {
                 continue;
@@ -137,7 +137,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
                 continue;
             }
 
-            $userIds[] = Matrix\Domain\UserId::fromString($ev['state_key']);
+            $userIds[] = Matrix\Domain\UserId::fromString($event['state_key']);
         }
 
         return $userIds;
