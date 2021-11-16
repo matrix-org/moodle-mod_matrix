@@ -302,7 +302,8 @@
     </UndefinedClass>
   </file>
   <file src="test/Unit/Matrix/Infrastructure/HttpClientBasedApiTest.php">
-    <MixedArgumentTypeCoercion occurrences="2">
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$faker-&gt;words()</code>
       <code>$faker-&gt;words()</code>
       <code>$faker-&gt;words()</code>
     </MixedArgumentTypeCoercion>

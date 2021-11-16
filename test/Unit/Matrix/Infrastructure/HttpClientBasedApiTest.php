@@ -215,7 +215,43 @@ final class HttpClientBasedApiTest extends Framework\TestCase
         self::assertSame($state, $actual);
     }
 
-    public function testSetStateSetsState(): void
+    public function testSetStateSetsStateWhenStateKeyIsEmptyString(): void
+    {
+        $faker = self::faker();
+
+        $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
+        $eventType = Matrix\Domain\EventType::fromString($faker->word());
+        $stateKey = Matrix\Domain\StateKey::fromString('');
+        $state = \array_combine(
+            $faker->words(),
+            $faker->words(),
+        );
+
+        $httpClient = $this->createMock(Matrix\Infrastructure\HttpClient::class);
+
+        $httpClient
+            ->expects(self::once())
+            ->method('put')
+            ->with(
+                self::identicalTo(\sprintf(
+                    '/_matrix/client/r0/rooms/%s/state/%s',
+                    \urlencode($roomId->toString()),
+                    \urlencode($eventType->toString()),
+                )),
+                self::identicalTo($state),
+            );
+
+        $api = new Matrix\Infrastructure\HttpClientBasedApi($httpClient);
+
+        $api->setState(
+            $roomId,
+            $eventType,
+            $stateKey,
+            $state,
+        );
+    }
+
+    public function testSetStateSetsStateWhenStateKeyIsNotAnEmptyString(): void
     {
         $faker = self::faker();
 
