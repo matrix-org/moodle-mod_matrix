@@ -87,6 +87,19 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         Matrix\Domain\StateKey $stateKey,
         array $state
     ): void {
+        if ($stateKey->toString() === '') {
+            $this->httpClient->put(
+                \sprintf(
+                    '/_matrix/client/r0/rooms/%s/state/%s',
+                    \urlencode($roomId->toString()),
+                    \urlencode($eventType->toString()),
+                ),
+                $state,
+            );
+
+            return;
+        }
+
         $this->httpClient->put(
             \sprintf(
                 '/_matrix/client/r0/rooms/%s/state/%s/%s',
