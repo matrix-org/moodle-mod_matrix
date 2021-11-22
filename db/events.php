@@ -9,50 +9,50 @@ declare(strict_types=1);
  */
 
 use core\event;
-use mod_matrix\Observer;
+use mod_matrix\Matrix;
 
 \defined('MOODLE_INTERNAL') || exit();
 
 $observers = (static function (): array {
     $map = [
         event\group_created::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onGroupCreated',
         ],
         event\group_member_added::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onGroupMemberChange',
         ],
         event\group_member_removed::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onGroupMemberChange',
         ],
         event\role_assigned::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onRoleChanged',
         ],
         event\role_capabilities_updated::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onRoleChanged',
         ],
         event\role_deleted::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onRoleChanged',
         ],
         event\role_unassigned::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onRoleChanged',
         ],
         event\user_enrolment_created::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onUserEnrolmentChanged',
         ],
         event\user_enrolment_deleted::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onUserEnrolmentChanged',
         ],
         event\user_enrolment_updated::class => [
-            Observer::class,
+            Matrix\Infrastructure\Observer::class,
             'onUserEnrolmentChanged',
         ],
     ];
