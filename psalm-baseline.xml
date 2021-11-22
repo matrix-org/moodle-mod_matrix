@@ -208,17 +208,14 @@
     </MixedAssignment>
   </file>
   <file src="src/Matrix/Infrastructure/EventSubscriber.php">
-    <MissingParamType occurrences="2">
-      <code>$event</code>
+    <MissingParamType occurrences="1">
       <code>$event</code>
     </MissingParamType>
-    <MixedArgument occurrences="3">
-      <code>$event-&gt;courseid</code>
+    <MixedArgument occurrences="2">
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;objectid</code>
     </MixedArgument>
-    <MixedPropertyFetch occurrences="3">
-      <code>$event-&gt;courseid</code>
+    <MixedPropertyFetch occurrences="2">
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;objectid</code>
     </MixedPropertyFetch>

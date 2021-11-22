@@ -80,17 +80,23 @@ final class EventSubscriber
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
     {
-        self::onUserEnrolmentChanged($event);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+
+        self::onUserEnrolmentChanged($courseId);
     }
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
-        self::onUserEnrolmentChanged($event);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+
+        self::onUserEnrolmentChanged($courseId);
     }
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
-        self::onUserEnrolmentChanged($event);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+
+        self::onUserEnrolmentChanged($courseId);
     }
 
     private static function onGroupMemberChange($event): void
@@ -116,10 +122,8 @@ final class EventSubscriber
         }
     }
 
-    private static function onUserEnrolmentChanged($event): void
+    private static function onUserEnrolmentChanged(Moodle\Domain\CourseId $courseId): void
     {
-        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
-
         $container = Container::instance();
 
         $moduleRepository = $container->moduleRepository();
