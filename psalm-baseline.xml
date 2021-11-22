@@ -207,6 +207,25 @@
       <code>$httpStatusCode</code>
     </MixedAssignment>
   </file>
+  <file src="src/Matrix/Infrastructure/EventSubscriber.php">
+    <MissingParamType occurrences="2">
+      <code>$event</code>
+      <code>$event</code>
+    </MissingParamType>
+    <MixedArgument occurrences="3">
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;objectid</code>
+    </MixedArgument>
+    <MixedPropertyFetch occurrences="3">
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;courseid</code>
+      <code>$event-&gt;objectid</code>
+    </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>event\group_created</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Matrix/Infrastructure/HttpClient.php">
     <MissingReturnType occurrences="3">
       <code>get</code>
@@ -235,25 +254,6 @@
       <code>$r</code>
       <code>$r</code>
     </MixedAssignment>
-  </file>
-  <file src="src/Matrix/Infrastructure/Observer.php">
-    <MissingParamType occurrences="2">
-      <code>$event</code>
-      <code>$event</code>
-    </MissingParamType>
-    <MixedArgument occurrences="3">
-      <code>$event-&gt;courseid</code>
-      <code>$event-&gt;courseid</code>
-      <code>$event-&gt;objectid</code>
-    </MixedArgument>
-    <MixedPropertyFetch occurrences="3">
-      <code>$event-&gt;courseid</code>
-      <code>$event-&gt;courseid</code>
-      <code>$event-&gt;objectid</code>
-    </MixedPropertyFetch>
-    <UndefinedClass occurrences="1">
-      <code>event\group_created</code>
-    </UndefinedClass>
   </file>
   <file src="src/Moodle/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
