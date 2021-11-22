@@ -1,9 +1,371 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.12.0@e42bc4a23f67acba28a23bb09c348e2ff38a1d87">
-  <file src="index.php">
+  <file src="../../config.php">
+    <InvalidGlobal occurrences="1">
+      <code>global $CFG;</code>
+    </InvalidGlobal>
+    <UndefinedGlobalVariable occurrences="1">
+      <code>$CFG</code>
+    </UndefinedGlobalVariable>
+  </file>
+  <file src="../../lib/behat/lib.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>'\\Symfony\\Component\\Process\\Process'</code>
+    </ArgumentTypeCoercion>
+    <InvalidOperand occurrences="3">
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+    </InvalidOperand>
+    <InvalidReturnStatement occurrences="1">
+      <code>$behatrunprocess</code>
+    </InvalidReturnStatement>
     <MissingFile occurrences="1">
-      <code>require_once '../../config.php'</code>
+      <code>require_once(__DIR__ . "/../../vendor/autoload.php")</code>
     </MissingFile>
+    <MissingReturnType occurrences="2">
+      <code>behat_shutdown_function</code>
+      <code>behat_update_vars_for_process</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="27">
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot_parent</code>
+      <code>$CFG-&gt;behat_dataroot_parent</code>
+      <code>$CFG-&gt;behat_dataroot_parent</code>
+      <code>$CFG-&gt;behat_extraallowedsettings</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;dataroot</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;phpunit_dataroot</code>
+      <code>$_SERVER['HTTP_HOST']</code>
+      <code>$_SERVER['HTTP_HOST']</code>
+      <code>$_SERVER['REQUEST_URI']</code>
+      <code>$_SERVER['SCRIPT_FILENAME']</code>
+      <code>$_SERVER['SCRIPT_FILENAME']</code>
+      <code>$_SERVER['SCRIPT_NAME']</code>
+      <code>$behatconfig['behat_wwwroot']</code>
+      <code>$cmd</code>
+      <code>$errorcode</code>
+      <code>$key</code>
+      <code>$permissions</code>
+      <code>$permissions</code>
+      <code>$phperrors</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$CFG-&gt;behat_parallel_run[$behatrunprocess - 1]</code>
+    </MixedArrayAccess>
+    <MixedArrayOffset occurrences="1">
+      <code>$allowed[$key]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="15">
+      <code>$behatconfig</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$cmd</code>
+      <code>$key</code>
+      <code>$parallelconfig</code>
+      <code>$permissions</code>
+      <code>$permissions</code>
+      <code>$phperrors</code>
+      <code>$process</code>
+      <code>$requestedhost</code>
+      <code>$run</code>
+      <code>$run</code>
+      <code>$value</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>bool|int</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>get_field</code>
+    </MixedMethodCall>
+    <MixedOperand occurrences="10">
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$_SERVER['SCRIPT_FILENAME']</code>
+      <code>$errorcode</code>
+      <code>$parallelconfig['behat_dataroot']</code>
+      <code>$run</code>
+      <code>$run</code>
+    </MixedOperand>
+    <MixedPropertyAssignment occurrences="10">
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+    </MixedPropertyAssignment>
+    <MixedPropertyFetch occurrences="25">
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot_parent</code>
+      <code>$CFG-&gt;behat_extraallowedsettings</code>
+      <code>$CFG-&gt;behat_parallel_run</code>
+      <code>$CFG-&gt;behat_parallel_run</code>
+      <code>$CFG-&gt;behat_parallel_run</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;behatrunprocess</code>
+      <code>$CFG-&gt;dataroot</code>
+      <code>$CFG-&gt;dbtype</code>
+      <code>$CFG-&gt;directorypermissions</code>
+      <code>$CFG-&gt;directorypermissions</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;phpunit_dataroot</code>
+      <code>$CFG-&gt;phpunit_prefix</code>
+      <code>$CFG-&gt;prefix</code>
+      <code>$CFG-&gt;wwwroot</code>
+      <code>$CFG-&gt;{$key}</code>
+    </MixedPropertyFetch>
+    <MixedReturnStatement occurrences="2">
+      <code>$behatrunprocess</code>
+      <code>json_decode($phperrors, true)</code>
+    </MixedReturnStatement>
+    <NullArgument occurrences="1">
+      <code>null</code>
+    </NullArgument>
+    <NullableReturnStatement occurrences="1">
+      <code>$behatrunprocess</code>
+    </NullableReturnStatement>
+    <PossiblyInvalidOperand occurrences="5">
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+      <code>$behatrunprocess</code>
+    </PossiblyInvalidOperand>
+    <PossiblyNullArgument occurrences="1">
+      <code>$cwd</code>
+    </PossiblyNullArgument>
+    <PossiblyUndefinedArrayOffset occurrences="2">
+      <code>$parsedurl['host']</code>
+      <code>$parsedurl['path']</code>
+    </PossiblyUndefinedArrayOffset>
+    <UndefinedFunction occurrences="1">
+      <code>set_config('process_errors', $errorstosave, 'tool_behat')</code>
+    </UndefinedFunction>
+    <UnusedForeachValue occurrences="1">
+      <code>$value</code>
+    </UnusedForeachValue>
+    <UnusedVariable occurrences="2">
+      <code>$matchespath</code>
+      <code>$matchespath</code>
+    </UnusedVariable>
+  </file>
+  <file src="../../lib/setup.php">
+    <InvalidArgument occurrences="2">
+      <code>14</code>
+      <code>17</code>
+    </InvalidArgument>
+    <InvalidGlobal occurrences="12">
+      <code>global $CFG;</code>
+      <code>global $COURSE;</code>
+      <code>global $DB;</code>
+      <code>global $FULLME;</code>
+      <code>global $FULLSCRIPT;</code>
+      <code>global $ME;</code>
+      <code>global $OUTPUT;</code>
+      <code>global $PAGE;</code>
+      <code>global $SCRIPT;</code>
+      <code>global $SESSION;</code>
+      <code>global $SITE;</code>
+      <code>global $USER;</code>
+    </InvalidGlobal>
+    <MixedArgument occurrences="7">
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;debug</code>
+      <code>$CFG-&gt;umaskpermissions</code>
+      <code>$_SERVER['argv'][0]</code>
+      <code>COMPONENT_CLASSLOADER</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$CFG-&gt;config_php_settings['forced_plugin_settings']</code>
+      <code>$_SERVER['argv'][0]</code>
+    </MixedArrayAccess>
+    <MixedOperand occurrences="13">
+      <code>$CFG-&gt;debug</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;libdir</code>
+      <code>$CFG-&gt;libdir</code>
+      <code>$CFG-&gt;libdir</code>
+      <code>$CFG-&gt;libdir</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+      <code>$_SERVER['SERVER_PROTOCOL']</code>
+    </MixedOperand>
+    <MixedPropertyAssignment occurrences="28">
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+      <code>$CFG</code>
+    </MixedPropertyAssignment>
+    <MixedPropertyFetch occurrences="22">
+      <code>$CFG-&gt;backuptempdir</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_dataroot</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_prefix</code>
+      <code>$CFG-&gt;behat_wwwroot</code>
+      <code>$CFG-&gt;behatrunprocess</code>
+      <code>$CFG-&gt;cachedir</code>
+      <code>$CFG-&gt;config_php_settings</code>
+      <code>$CFG-&gt;debug</code>
+      <code>$CFG-&gt;debugdisplay</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;disableonclickaddoninstall</code>
+      <code>$CFG-&gt;earlyprofilingenabled</code>
+      <code>$CFG-&gt;filepermissions</code>
+      <code>$CFG-&gt;forced_plugin_settings</code>
+      <code>$CFG-&gt;langlocalroot</code>
+      <code>$CFG-&gt;langotherroot</code>
+      <code>$CFG-&gt;libdir</code>
+      <code>$CFG-&gt;localcachedir</code>
+      <code>$CFG-&gt;tempdir</code>
+      <code>$CFG-&gt;umaskpermissions</code>
+    </MixedPropertyFetch>
+    <RedundantCondition occurrences="3">
+      <code>!CLI_SCRIPT</code>
+      <code>!CLI_SCRIPT</code>
+      <code>!PHPUNIT_TEST</code>
+    </RedundantCondition>
+    <TypeDoesNotContainType occurrences="10">
+      <code>!isset($CFG-&gt;wwwroot)</code>
+      <code>$CFG-&gt;dataroot === false</code>
+      <code>$CFG-&gt;wwwroot === 'http://example.com/moodle'</code>
+      <code>$CFG-&gt;wwwroot === 'http://example.com/moodle'</code>
+      <code>AJAX_SCRIPT</code>
+      <code>CLI_SCRIPT</code>
+      <code>NO_DEBUG_DISPLAY</code>
+      <code>NO_OUTPUT_BUFFERING</code>
+      <code>PHPUNIT_TEST</code>
+      <code>WS_SERVER</code>
+    </TypeDoesNotContainType>
+    <UndefinedClass occurrences="1">
+      <code>core_date</code>
+    </UndefinedClass>
+    <UndefinedFunction occurrences="2">
+      <code>'early_ws_exception_handler'</code>
+      <code>profiling_start()</code>
+    </UndefinedFunction>
+    <UnresolvableInclude occurrences="5">
+      <code>require_once("$CFG-&gt;dirroot/lib/configonlylib.php")</code>
+      <code>require_once($CFG-&gt;dirroot . '/webservice/lib.php')</code>
+      <code>require_once($CFG-&gt;libdir . '/xhprof/xhprof_moodle.php')</code>
+      <code>require_once($CFG-&gt;libdir .'/classes/component.php')</code>
+      <code>require_once($CFG-&gt;libdir .'/setuplib.php')</code>
+    </UnresolvableInclude>
+  </file>
+  <file src="../../lib/testing/lib.php">
+    <InvalidDocblock occurrences="1">
+      <code>function testing_cli_fix_directory_separator($path) {</code>
+    </InvalidDocblock>
+    <InvalidOperand occurrences="1">
+      <code>$CFG-&gt;filepermissions != $CFG-&gt;filepermissions</code>
+    </InvalidOperand>
+    <MissingReturnType occurrences="1">
+      <code>testing_cli_fix_directory_separator</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="8">
+      <code>$CFG-&gt;directorypermissions</code>
+      <code>$_SERVER['argv'][0]</code>
+      <code>$cwd</code>
+      <code>$dirseparator</code>
+      <code>$dirseparator</code>
+      <code>$path</code>
+      <code>$path</code>
+      <code>$permissions</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$curlinfo['http_code']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$curlinfo</code>
+      <code>$cwd</code>
+      <code>$path</code>
+      <code>$permissions</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>string</code>
+    </MixedInferredReturnType>
+    <MixedOperand occurrences="3">
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;filepermissions</code>
+      <code>$CFG-&gt;{$varname}</code>
+    </MixedOperand>
+    <MixedPropertyAssignment occurrences="1">
+      <code>$CFG</code>
+    </MixedPropertyAssignment>
+    <MixedPropertyFetch occurrences="5">
+      <code>$CFG-&gt;admin</code>
+      <code>$CFG-&gt;directorypermissions</code>
+      <code>$CFG-&gt;dirroot</code>
+      <code>$CFG-&gt;filepermissions</code>
+      <code>$CFG-&gt;{$varname}</code>
+    </MixedPropertyFetch>
+    <MixedReturnStatement occurrences="1">
+      <code>$path</code>
+    </MixedReturnStatement>
+    <PossiblyNullArgument occurrences="1">
+      <code>$errordetails['message']</code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$errordetails['message']</code>
+    </PossiblyNullArrayAccess>
+    <RedundantCondition occurrences="1">
+      <code>$CFG-&gt;ostype = 'WINDOWS'</code>
+    </RedundantCondition>
+  </file>
+  <file src="index.php">
     <MixedAssignment occurrences="2">
       <code>$course</code>
       <code>$id</code>
@@ -11,13 +373,9 @@
     <MixedMethodCall occurrences="1">
       <code>get_record</code>
     </MixedMethodCall>
-    <UndefinedFunction occurrences="2">
-      <code>print_error('Course ID is incorrect')</code>
+    <UndefinedFunction occurrences="1">
       <code>required_param('id', PARAM_INT)</code>
     </UndefinedFunction>
-    <UndefinedGlobalVariable occurrences="1">
-      <code>$DB</code>
-    </UndefinedGlobalVariable>
     <UnusedVariable occurrences="1">
       <code>$course</code>
     </UnusedVariable>
@@ -409,9 +767,6 @@
     </UndefinedGlobalVariable>
   </file>
   <file src="view.php">
-    <MissingFile occurrences="1">
-      <code>require '../../config.php'</code>
-    </MissingFile>
     <MixedArgument occurrences="14">
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
@@ -448,9 +803,6 @@
       <code>$group-&gt;id</code>
       <code>$group-&gt;id</code>
     </MixedPropertyFetch>
-    <UndefinedConstant occurrences="1">
-      <code>PARAM_INT</code>
-    </UndefinedConstant>
     <UndefinedFunction occurrences="15">
       <code>get_login_url()</code>
       <code>get_string('liketologin')</code>
@@ -467,6 +819,9 @@
       <code>require_login($course, true, $cm)</code>
       <code>required_param('id', PARAM_INT)</code>
     </UndefinedFunction>
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>bootstrap_renderer</code>
+    </UnnecessaryVarAnnotation>
     <UnusedVariable occurrences="1">
       <code>$id</code>
     </UnusedVariable>
