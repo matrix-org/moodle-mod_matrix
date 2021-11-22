@@ -288,7 +288,7 @@ final class HttpClientBasedApiTest extends Framework\TestCase
         );
     }
 
-    public function testGetMembersOfRoomReturnsEmptyArrayWhenRoomDoesNotHaveAnyMembers(): void
+    public function testListUsersReturnsEmptyArrayWhenRoomDoesNotHaveAnyMembers(): void
     {
         $faker = self::faker();
 
@@ -309,12 +309,12 @@ final class HttpClientBasedApiTest extends Framework\TestCase
 
         $api = new Matrix\Infrastructure\HttpClientBasedApi($httpClient);
 
-        $actual = $api->getMembersOfRoom($roomId);
+        $actual = $api->listUsers($roomId);
 
         self::assertSame([], $actual);
     }
 
-    public function testGetMembersOfRoomReturnsArrayOfUserIdsWhenRoomHasInvitedOrJoinedMembers(): void
+    public function testListUsersReturnsArrayOfUserIdsWhenRoomHasInvitedOrJoinedMembers(): void
     {
         $faker = self::faker();
 
@@ -402,7 +402,7 @@ final class HttpClientBasedApiTest extends Framework\TestCase
 
         $api = new Matrix\Infrastructure\HttpClientBasedApi($httpClient);
 
-        $actual = $api->getMembersOfRoom($roomId);
+        $actual = $api->listUsers($roomId);
 
         $expected = [
             Matrix\Domain\UserId::fromString($userIdTwo),

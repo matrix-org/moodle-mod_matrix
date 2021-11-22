@@ -111,7 +111,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array
+    public function listUsers(Matrix\Domain\RoomId $roomId): array
     {
         $members = $this->httpClient->get(\sprintf(
             '/_matrix/client/r0/rooms/%s/members',

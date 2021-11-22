@@ -239,7 +239,7 @@ final class Service
             $users = [];
         } // use an empty array
 
-        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
+        $matrixUserIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
@@ -324,7 +324,7 @@ final class Service
 
     public function removeRoom(Moodle\Domain\Room $room): void
     {
-        $matrixUserIdsOfUsersInTheRoom = $this->api->getMembersOfRoom($room->matrixRoomId());
+        $matrixUserIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 

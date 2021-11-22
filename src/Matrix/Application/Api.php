@@ -67,5 +67,5 @@ interface Api
      *
      * @return array<int, Matrix\Domain\UserId>
      */
-    public function getMembersOfRoom(Matrix\Domain\RoomId $roomId): array;
+    public function listUsers(Matrix\Domain\RoomId $roomId): array;
 }
