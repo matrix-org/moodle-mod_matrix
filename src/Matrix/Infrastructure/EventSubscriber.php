@@ -18,6 +18,28 @@ use mod_matrix\Moodle;
 
 final class EventSubscriber
 {
+    public static function onGroupCreated(event\group_created $event): void
+    {
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+
+        $container = Container::instance();
+
+        $moduleRepository = $container->moduleRepository();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $service = $container->service();
+
+        foreach ($modules as $module) {
+            $service->prepareRoomForModuleAndGroup(
+                $module,
+                Moodle\Domain\GroupId::fromString($event->objectid),
+            );
+        }
+    }
+
     public static function onGroupMemberChange($event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
@@ -37,28 +59,6 @@ final class EventSubscriber
             $service->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
                 $module->id(),
                 $groupId,
-            );
-        }
-    }
-
-    public static function onGroupCreated(event\group_created $event): void
-    {
-        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
-
-        $container = Container::instance();
-
-        $moduleRepository = $container->moduleRepository();
-
-        $modules = $moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        $service = $container->service();
-
-        foreach ($modules as $module) {
-            $service->prepareRoomForModuleAndGroup(
-                $module,
-                Moodle\Domain\GroupId::fromString($event->objectid),
             );
         }
     }
