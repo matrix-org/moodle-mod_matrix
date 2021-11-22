@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 
 use core\event;
+use mod_matrix\Observer;
 
 \defined('MOODLE_INTERNAL') || exit();
 
@@ -19,52 +20,82 @@ $observers = [
     // * If anything in this file changes, bump the version number.
 
     [
-        'callback' => '\mod_matrix\Observer::onGroupMemberChange',
+        'callback' => [
+            Observer::class,
+            'onGroupMemberChange',
+        ],
         'eventname' => event\group_member_added::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onGroupMemberChange',
+        'callback' => [
+            Observer::class,
+            'onGroupMemberChange',
+        ],
         'eventname' => event\group_member_removed::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onGroupCreated',
+        'callback' => [
+            Observer::class,
+            'onGroupCreated',
+        ],
         'eventname' => event\group_created::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onRoleChanged',
+        'callback' => [
+            Observer::class,
+            'onRoleChanged',
+        ],
         'eventname' => event\role_assigned::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onRoleChanged',
+        'callback' => [
+            Observer::class,
+            'onRoleChanged',
+        ],
         'eventname' => event\role_unassigned::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onRoleChanged',
+        'callback' => [
+            Observer::class,
+            'onRoleChanged',
+        ],
         'eventname' => event\role_capabilities_updated::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onRoleChanged',
+        'callback' => [
+            Observer::class,
+            'onRoleChanged',
+        ],
         'eventname' => event\role_deleted::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onUserEnrolmentChanged',
+        'callback' => [
+            Observer::class,
+            'onUserEnrolmentChanged',
+        ],
         'eventname' => event\user_enrolment_created::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onUserEnrolmentChanged',
+        'callback' => [
+            Observer::class,
+            'onUserEnrolmentChanged',
+        ],
         'eventname' => event\user_enrolment_deleted::class,
         'internal' => false,
     ],
     [
-        'callback' => '\mod_matrix\Observer::onUserEnrolmentChanged',
+        'callback' => [
+            Observer::class,
+            'onUserEnrolmentChanged',
+        ],
         'eventname' => event\user_enrolment_updated::class,
         'internal' => false,
     ],
