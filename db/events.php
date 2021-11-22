@@ -16,43 +16,43 @@ use mod_matrix\Matrix;
 $observers = (static function (): array {
     $map = [
         event\group_created::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onGroupCreated',
         ],
         event\group_member_added::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onGroupMemberChange',
         ],
         event\group_member_removed::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onGroupMemberChange',
         ],
         event\role_assigned::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onRoleChanged',
         ],
         event\role_capabilities_updated::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onRoleChanged',
         ],
         event\role_deleted::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onRoleChanged',
         ],
         event\role_unassigned::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onRoleChanged',
         ],
         event\user_enrolment_created::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onUserEnrolmentChanged',
         ],
         event\user_enrolment_deleted::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onUserEnrolmentChanged',
         ],
         event\user_enrolment_updated::class => [
-            Matrix\Infrastructure\Observer::class,
+            Matrix\Infrastructure\EventSubscriber::class,
             'onUserEnrolmentChanged',
         ],
     ];

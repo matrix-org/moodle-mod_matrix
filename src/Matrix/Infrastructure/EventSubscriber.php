@@ -16,7 +16,7 @@ use mod_matrix\Moodle;
 
 \defined('MOODLE_INTERNAL') || exit;
 
-final class Observer
+final class EventSubscriber
 {
     public static function onGroupMemberChange($event): void
     {
