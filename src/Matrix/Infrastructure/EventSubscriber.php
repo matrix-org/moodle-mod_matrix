@@ -40,7 +40,52 @@ final class EventSubscriber
         }
     }
 
-    public static function onGroupMemberChange($event): void
+    public static function onGroupMemberAdded(event\group_member_added $event): void
+    {
+        self::onGroupMemberChange($event);
+    }
+
+    public static function onGroupMemberRemoved(event\group_member_removed $event): void
+    {
+        self::onGroupMemberChange($event);
+    }
+
+    public static function onRoleAssigned(event\role_assigned $event): void
+    {
+        self::onRoleChanged();
+    }
+
+    public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
+    {
+        self::onRoleChanged();
+    }
+
+    public static function onRoleDeleted(event\role_deleted $event): void
+    {
+        self::onRoleChanged();
+    }
+
+    public static function onRoleUnassigned(event\role_unassigned $event): void
+    {
+        self::onRoleChanged();
+    }
+
+    public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
+    {
+        self::onUserEnrolmentChanged($event);
+    }
+
+    public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
+    {
+        self::onUserEnrolmentChanged($event);
+    }
+
+    public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
+    {
+        self::onUserEnrolmentChanged($event);
+    }
+
+    private static function onGroupMemberChange($event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
@@ -63,14 +108,14 @@ final class EventSubscriber
         }
     }
 
-    public static function onRoleChanged(): void
+    private static function onRoleChanged(): void
     {
         $service = Container::instance()->service();
 
         $service->synchronizeRoomMembersForAllRooms();
     }
 
-    public static function onUserEnrolmentChanged($event): void
+    private static function onUserEnrolmentChanged($event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 

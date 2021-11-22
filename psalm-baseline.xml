@@ -222,8 +222,17 @@
       <code>$event-&gt;courseid</code>
       <code>$event-&gt;objectid</code>
     </MixedPropertyFetch>
-    <UndefinedClass occurrences="1">
+    <UndefinedClass occurrences="10">
       <code>event\group_created</code>
+      <code>event\group_member_added</code>
+      <code>event\group_member_removed</code>
+      <code>event\role_assigned</code>
+      <code>event\role_capabilities_updated</code>
+      <code>event\role_deleted</code>
+      <code>event\role_unassigned</code>
+      <code>event\user_enrolment_created</code>
+      <code>event\user_enrolment_deleted</code>
+      <code>event\user_enrolment_updated</code>
     </UndefinedClass>
   </file>
   <file src="src/Matrix/Infrastructure/HttpClient.php">

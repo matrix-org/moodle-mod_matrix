@@ -21,39 +21,39 @@ $observers = (static function (): array {
         ],
         event\group_member_added::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onGroupMemberChange',
+            'onGroupMemberAdded',
         ],
         event\group_member_removed::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onGroupMemberChange',
+            'onGroupMemberRemoved',
         ],
         event\role_assigned::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onRoleChanged',
+            'onRoleAssigned',
         ],
         event\role_capabilities_updated::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onRoleChanged',
+            'onRoleCapabilitiesUpdated',
         ],
         event\role_deleted::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onRoleChanged',
+            'onRoleDeleted',
         ],
         event\role_unassigned::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onRoleChanged',
+            'onRoleUnassigned',
         ],
         event\user_enrolment_created::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onUserEnrolmentChanged',
+            'onUserEnrolmentCreated',
         ],
         event\user_enrolment_deleted::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onUserEnrolmentChanged',
+            'onUserEnrolmentDeleted',
         ],
         event\user_enrolment_updated::class => [
             Matrix\Infrastructure\EventSubscriber::class,
-            'onUserEnrolmentChanged',
+            'onUserEnrolmentUpdated',
         ],
     ];
 
