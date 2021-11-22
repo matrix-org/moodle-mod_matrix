@@ -52,22 +52,30 @@ final class EventSubscriber
 
     public static function onRoleAssigned(event\role_assigned $event): void
     {
-        self::onRoleChanged();
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
     {
-        self::onRoleChanged();
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleDeleted(event\role_deleted $event): void
     {
-        self::onRoleChanged();
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
     {
-        self::onRoleChanged();
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
@@ -106,13 +114,6 @@ final class EventSubscriber
                 $groupId,
             );
         }
-    }
-
-    private static function onRoleChanged(): void
-    {
-        $service = Container::instance()->service();
-
-        $service->synchronizeRoomMembersForAllRooms();
     }
 
     private static function onUserEnrolmentChanged($event): void
