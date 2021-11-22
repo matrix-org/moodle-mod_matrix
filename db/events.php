@@ -15,6 +15,10 @@ use mod_matrix\Observer;
 
 $observers = (static function (): array {
     $map = [
+        event\group_created::class => [
+            Observer::class,
+            'onGroupCreated',
+        ],
         event\group_member_added::class => [
             Observer::class,
             'onGroupMemberChange',
@@ -23,15 +27,7 @@ $observers = (static function (): array {
             Observer::class,
             'onGroupMemberChange',
         ],
-        event\group_created::class => [
-            Observer::class,
-            'onGroupCreated',
-        ],
         event\role_assigned::class => [
-            Observer::class,
-            'onRoleChanged',
-        ],
-        event\role_unassigned::class => [
             Observer::class,
             'onRoleChanged',
         ],
@@ -40,6 +36,10 @@ $observers = (static function (): array {
             'onRoleChanged',
         ],
         event\role_deleted::class => [
+            Observer::class,
+            'onRoleChanged',
+        ],
+        event\role_unassigned::class => [
             Observer::class,
             'onRoleChanged',
         ],
