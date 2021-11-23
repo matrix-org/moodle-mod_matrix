@@ -124,18 +124,8 @@ final class EventSubscriber
 
     private static function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
     {
-        $container = Container::instance();
+        $service = Container::instance()->service();
 
-        $moduleRepository = $container->moduleRepository();
-
-        $modules = $moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        $service = $container->service();
-
-        foreach ($modules as $module) {
-            $service->synchronizeRoomMembersForAllRoomsOfModule($module->id());
-        }
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 }
