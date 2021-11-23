@@ -224,6 +224,22 @@ final class Service
         }
     }
 
+    public function synchronizeRoomsMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $modules = $this->moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        foreach ($modules as $module) {
+            $this->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
+                $module->id(),
+                $groupId,
+            );
+        }
+    }
+
     public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
     {
         $modules = $this->moduleRepository->findAllBy([

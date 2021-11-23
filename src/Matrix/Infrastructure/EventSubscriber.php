@@ -112,21 +112,11 @@ final class EventSubscriber
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
-        $container = Container::instance();
+        $service = Container::instance()->service();
 
-        $moduleRepository = $container->moduleRepository();
-
-        $modules = $moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        $service = $container->service();
-
-        foreach ($modules as $module) {
-            $service->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
-                $module->id(),
-                $groupId,
-            );
-        }
+        $service->synchronizeRoomsMembersForAllRoomsOfAllModulesInCourseAndGroup(
+            $courseId,
+            $groupId,
+        );
     }
 }
