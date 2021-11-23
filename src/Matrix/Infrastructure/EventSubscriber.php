@@ -18,6 +18,9 @@ use mod_matrix\Moodle;
 
 final class EventSubscriber
 {
+    /**
+     * @see https://github.com/moodle/moodle/blob/02a2e649e92d570c7fa735bf05f69b588036f761/lib/classes/event/manager.php#L222-L230
+     */
     public static function observers(): array
     {
         $map = [
