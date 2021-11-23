@@ -131,7 +131,7 @@ final class Service
             ],
         ];
 
-        if (null !== $groupId) {
+        if ($groupId instanceof Moodle\Domain\GroupId) {
             $group = groups_get_group($groupId->toInt());
 
             $roomForModuleAndGroup = $this->roomRepository->findOneBy([
