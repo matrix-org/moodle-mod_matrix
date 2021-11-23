@@ -199,7 +199,7 @@ final class Service
         }
     }
 
-    public function synchronizeRoomsMembersForAllRoomsOfAllModulesInCourseAndGroup(
+    public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {

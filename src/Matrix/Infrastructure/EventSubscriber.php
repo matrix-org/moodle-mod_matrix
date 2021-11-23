@@ -38,7 +38,7 @@ final class EventSubscriber
 
         $service = Container::instance()->service();
 
-        $service->synchronizeRoomsMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -51,7 +51,7 @@ final class EventSubscriber
 
         $service = Container::instance()->service();
 
-        $service->synchronizeRoomsMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
