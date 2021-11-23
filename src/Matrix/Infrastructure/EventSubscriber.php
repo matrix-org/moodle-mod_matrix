@@ -21,6 +21,7 @@ final class EventSubscriber
     public static function onGroupCreated(event\group_created $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
         $container = Container::instance();
 
@@ -35,7 +36,7 @@ final class EventSubscriber
         foreach ($modules as $module) {
             $service->prepareRoomForModuleAndGroup(
                 $module,
-                Moodle\Domain\GroupId::fromString($event->objectid),
+                $groupId,
             );
         }
     }
