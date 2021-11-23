@@ -172,7 +172,7 @@ final class Service
             'group_id' => null,
         ]);
 
-        if (null === $roomForModule) {
+        if (!$roomForModule instanceof Moodle\Domain\Room) {
             $roomId = $this->api->createRoom($roomOptions);
 
             $roomForModule = Moodle\Domain\Room::create(
