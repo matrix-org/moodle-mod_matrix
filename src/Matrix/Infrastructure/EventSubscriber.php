@@ -82,21 +82,27 @@ final class EventSubscriber
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $service = Container::instance()->service();
+
+        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     private static function onGroupMemberChange($event): void
@@ -120,12 +126,5 @@ final class EventSubscriber
                 $groupId,
             );
         }
-    }
-
-    private static function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
-    {
-        $service = Container::instance()->service();
-
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 }
