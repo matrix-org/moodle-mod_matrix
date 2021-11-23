@@ -42,12 +42,24 @@ final class EventSubscriber
 
     public static function onGroupMemberAdded(event\group_member_added $event): void
     {
-        self::onGroupMemberChange($event);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
+
+        self::onGroupMemberChange(
+            $courseId,
+            $groupId,
+        );
     }
 
     public static function onGroupMemberRemoved(event\group_member_removed $event): void
     {
-        self::onGroupMemberChange($event);
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
+
+        self::onGroupMemberChange(
+            $courseId,
+            $groupId,
+        );
     }
 
     public static function onRoleAssigned(event\role_assigned $event): void
@@ -105,11 +117,10 @@ final class EventSubscriber
         $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
-    private static function onGroupMemberChange($event): void
-    {
-        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
-        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
-
+    private static function onGroupMemberChange(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
         $container = Container::instance();
 
         $moduleRepository = $container->moduleRepository();
