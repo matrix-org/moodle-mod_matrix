@@ -18,6 +18,60 @@ use mod_matrix\Moodle;
 
 final class EventSubscriber
 {
+    public static function observers(): array
+    {
+        $map = [
+            event\group_created::class => [
+                self::class,
+                'onGroupCreated',
+            ],
+            event\group_member_added::class => [
+                self::class,
+                'onGroupMemberAdded',
+            ],
+            event\group_member_removed::class => [
+                self::class,
+                'onGroupMemberRemoved',
+            ],
+            event\role_assigned::class => [
+                self::class,
+                'onRoleAssigned',
+            ],
+            event\role_capabilities_updated::class => [
+                self::class,
+                'onRoleCapabilitiesUpdated',
+            ],
+            event\role_deleted::class => [
+                self::class,
+                'onRoleDeleted',
+            ],
+            event\role_unassigned::class => [
+                self::class,
+                'onRoleUnassigned',
+            ],
+            event\user_enrolment_created::class => [
+                self::class,
+                'onUserEnrolmentCreated',
+            ],
+            event\user_enrolment_deleted::class => [
+                self::class,
+                'onUserEnrolmentDeleted',
+            ],
+            event\user_enrolment_updated::class => [
+                self::class,
+                'onUserEnrolmentUpdated',
+            ],
+        ];
+
+        return \array_map(static function (string $event, array $callback): array {
+            return [
+                'callback' => $callback,
+                'eventname' => $event,
+                'internal' => false,
+            ];
+        }, \array_keys($map), \array_values($map));
+    }
+
     public static function onGroupCreated(event\group_created $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
