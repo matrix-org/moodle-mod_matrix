@@ -139,7 +139,7 @@ final class Service
                 'group_id' => $groupId->toInt(),
             ]);
 
-            if (null === $roomForModuleAndGroup) {
+            if (!$roomForModuleAndGroup instanceof Moodle\Domain\Room) {
                 $roomOptions['name'] = \sprintf(
                     '%s: %s (%s)',
                     $group->name,
