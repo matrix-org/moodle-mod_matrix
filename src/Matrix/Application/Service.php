@@ -199,6 +199,23 @@ final class Service
         }
     }
 
+    public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
+    {
+        $modules = $this->moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        foreach ($modules as $module) {
+            $rooms = $this->roomRepository->findAllBy([
+                'module_id' => $module->id()->toInt(),
+            ]);
+
+            foreach ($rooms as $room) {
+                $this->synchronizeRoomMembersForRoom($room);
+            }
+        }
+    }
+
     public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
@@ -210,23 +227,6 @@ final class Service
         foreach ($modules as $module) {
             $rooms = $this->roomRepository->findAllBy([
                 'group_id' => $groupId->toInt(),
-                'module_id' => $module->id()->toInt(),
-            ]);
-
-            foreach ($rooms as $room) {
-                $this->synchronizeRoomMembersForRoom($room);
-            }
-        }
-    }
-
-    public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
-    {
-        $modules = $this->moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        foreach ($modules as $module) {
-            $rooms = $this->roomRepository->findAllBy([
                 'module_id' => $module->id()->toInt(),
             ]);
 
