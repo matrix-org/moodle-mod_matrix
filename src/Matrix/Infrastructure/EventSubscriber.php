@@ -23,22 +23,12 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $container = Container::instance();
+        $service = Container::instance()->service();
 
-        $moduleRepository = $container->moduleRepository();
-
-        $modules = $moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        $service = $container->service();
-
-        foreach ($modules as $module) {
-            $service->prepareRoomForModuleAndGroup(
-                $module,
-                $groupId,
-            );
-        }
+        $service->prepareRoomsForAllModulesOfCourseAndGroup(
+            $courseId,
+            $groupId,
+        );
     }
 
     public static function onGroupMemberAdded(event\group_member_added $event): void

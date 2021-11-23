@@ -46,6 +46,22 @@ final class Service
         return 'https://matrix.to/#/' . $roomId->toString();
     }
 
+    public function prepareRoomsForAllModulesOfCourseAndGroup(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $modules = $this->moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        foreach ($modules as $module) {
+            $this->prepareRoomForModuleAndGroup(
+                $module,
+                $groupId,
+            );
+        }
+    }
+
     public function prepareRoomForModuleAndGroup(
         Moodle\Domain\Module $module,
         ?Moodle\Domain\GroupId $groupId
