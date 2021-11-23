@@ -208,10 +208,14 @@ final class Service
         ]);
 
         foreach ($modules as $module) {
-            $this->synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
-                $module->id(),
-                $groupId,
-            );
+            $rooms = $this->roomRepository->findAllBy([
+                'group_id' => $groupId->toInt(),
+                'module_id' => $module->id()->toInt(),
+            ]);
+
+            foreach ($rooms as $room) {
+                $this->synchronizeRoomMembersForRoom($room);
+            }
         }
     }
 
@@ -367,20 +371,6 @@ final class Service
             $matrixUserIdOfBot,
             $room->matrixRoomId(),
         );
-    }
-
-    private function synchronizeRoomMembersForAllRoomsOfModuleAndGroup(
-        Moodle\Domain\ModuleId $moduleId,
-        Moodle\Domain\GroupId $groupId
-    ): void {
-        $rooms = $this->roomRepository->findAllBy([
-            'group_id' => $groupId->toInt(),
-            'module_id' => $moduleId->toInt(),
-        ]);
-
-        foreach ($rooms as $room) {
-            $this->synchronizeRoomMembersForRoom($room);
-        }
     }
 
     private function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
