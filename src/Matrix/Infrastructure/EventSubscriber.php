@@ -80,9 +80,9 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $service = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $service->prepareRoomsForAllModulesOfCourseAndGroup(
+        $matrixService->prepareRoomsForAllModulesOfCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -93,9 +93,9 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -106,9 +106,9 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -116,56 +116,56 @@ final class EventSubscriber
 
     public static function onRoleAssigned(event\role_assigned $event): void
     {
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRooms();
+        $matrixService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
     {
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRooms();
+        $matrixService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleDeleted(event\role_deleted $event): void
     {
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRooms();
+        $matrixService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
     {
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRooms();
+        $matrixService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $roomService = Container::instance()->roomService();
+        $matrixService = Container::instance()->matrixService();
 
-        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 }

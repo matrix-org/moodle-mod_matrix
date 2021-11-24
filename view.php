@@ -79,12 +79,12 @@ if ([] === $possibleRooms) {
     exit;
 }
 
-$roomService = $container->roomService();
+$matrixService = $container->matrixService();
 
 if (\count($possibleRooms) === 1) {
     $firstPossibleRoom = \reset($possibleRooms);
 
-    $roomUrl = \json_encode($roomService->urlForRoom($firstPossibleRoom->matrixRoomId()));
+    $roomUrl = \json_encode($matrixService->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -145,7 +145,7 @@ if (\count($visibleGroups) === 1) {
         exit;
     }
 
-    $roomUrl = \json_encode($roomService->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($matrixService->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
@@ -174,7 +174,7 @@ foreach ($visibleGroups as $id => $group) {
 
     $name = groups_get_group_name($group->id);
 
-    $roomUrl = \json_encode($roomService->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($matrixService->urlForRoom($room->matrixRoomId()));
 
     echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }

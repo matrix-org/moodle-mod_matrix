@@ -52,6 +52,16 @@ final class Container
             return Matrix\Application\Configuration::fromObject($object);
         });
 
+        $this->define(Matrix\Application\MatrixService::class, static function (self $container): Matrix\Application\MatrixService {
+            return new Matrix\Application\MatrixService(
+                $container->api(),
+                $container->configuration(),
+                $container->moduleRepository(),
+                $container->roomRepository(),
+                $container->clock(),
+            );
+        });
+
         $this->define(Moodle\Application\ModuleRepository::class, static function (self $container): Moodle\Application\ModuleRepository {
             return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
@@ -63,16 +73,6 @@ final class Container
             return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
                 $container->database(),
                 new Moodle\Infrastructure\RoomNormalizer(),
-            );
-        });
-
-        $this->define(Matrix\Application\RoomService::class, static function (self $container): Matrix\Application\RoomService {
-            return new Matrix\Application\RoomService(
-                $container->api(),
-                $container->configuration(),
-                $container->moduleRepository(),
-                $container->roomRepository(),
-                $container->clock(),
             );
         });
 
@@ -120,6 +120,11 @@ final class Container
         return $this->resolve(\moodle_database::class);
     }
 
+    public function matrixService(): Matrix\Application\MatrixService
+    {
+        return $this->resolve(Matrix\Application\MatrixService::class);
+    }
+
     public function moduleRepository(): Moodle\Application\ModuleRepository
     {
         return $this->resolve(Moodle\Application\ModuleRepository::class);
@@ -128,11 +133,6 @@ final class Container
     public function roomRepository(): Moodle\Application\RoomRepository
     {
         return $this->resolve(Moodle\Application\RoomRepository::class);
-    }
-
-    public function roomService(): Matrix\Application\RoomService
-    {
-        return $this->resolve(Matrix\Application\RoomService::class);
     }
 
     /**
