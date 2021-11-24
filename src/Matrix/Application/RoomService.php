@@ -15,7 +15,7 @@ use Ergebnis\Clock;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
-final class Service
+final class RoomService
 {
     private $api;
     private $configuration;

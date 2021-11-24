@@ -66,8 +66,8 @@ final class Container
             );
         });
 
-        $this->define(Matrix\Application\Service::class, static function (self $container): Matrix\Application\Service {
-            return new Matrix\Application\Service(
+        $this->define(Matrix\Application\RoomService::class, static function (self $container): Matrix\Application\RoomService {
+            return new Matrix\Application\RoomService(
                 $container->api(),
                 $container->configuration(),
                 $container->moduleRepository(),
@@ -130,9 +130,9 @@ final class Container
         return $this->resolve(Moodle\Application\RoomRepository::class);
     }
 
-    public function service(): Matrix\Application\Service
+    public function roomService(): Matrix\Application\RoomService
     {
-        return $this->resolve(Matrix\Application\Service::class);
+        return $this->resolve(Matrix\Application\RoomService::class);
     }
 
     /**

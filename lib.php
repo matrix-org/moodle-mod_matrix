@@ -86,17 +86,17 @@ function matrix_add_instance($data)
         true,
     );
 
-    $service = $container->service();
+    $roomService = $container->roomService();
 
     if (\count($groups) > 0) {
         foreach ($groups as $group) {
-            $service->prepareRoomForModuleAndGroup(
+            $roomService->prepareRoomForModuleAndGroup(
                 $module,
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
     } else {
-        $service->prepareRoomForModuleAndGroup(
+        $roomService->prepareRoomForModuleAndGroup(
             $module,
             null,
         );
@@ -132,10 +132,10 @@ function matrix_delete_instance($id): bool
         'module_id' => $module->id()->toInt(),
     ]);
 
-    $service = $container->service();
+    $roomService = $container->roomService();
 
     foreach ($rooms as $room) {
-        $service->removeRoom($room);
+        $roomService->removeRoom($room);
 
         $roomRepository->remove($room);
     }

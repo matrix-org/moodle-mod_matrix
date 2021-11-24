@@ -80,7 +80,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $service = Container::instance()->service();
+        $service = Container::instance()->roomService();
 
         $service->prepareRoomsForAllModulesOfCourseAndGroup(
             $courseId,
@@ -93,9 +93,9 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -106,9 +106,9 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -116,56 +116,56 @@ final class EventSubscriber
 
     public static function onRoleAssigned(event\role_assigned $event): void
     {
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRooms();
+        $roomService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
     {
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRooms();
+        $roomService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleDeleted(event\role_deleted $event): void
     {
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRooms();
+        $roomService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
     {
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRooms();
+        $roomService->synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $service = Container::instance()->service();
+        $roomService = Container::instance()->roomService();
 
-        $service->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $roomService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 }
