@@ -134,7 +134,7 @@ if (\count($visibleGroups) === 1) {
         'module_id' => $module->id()->toInt(),
     ]);
 
-    if (null === $room) {
+    if (!$room instanceof Moodle\Domain\Room) {
         echo Twitter\Bootstrap::alert(
             'danger',
             get_string('vw_error_no_room_in_group', 'matrix'),
@@ -168,7 +168,7 @@ foreach ($visibleGroups as $id => $group) {
         'module_id' => $module->id()->toInt(),
     ]);
 
-    if (null === $room) {
+    if (!$room instanceof Moodle\Domain\Room) {
         continue;
     }
 
