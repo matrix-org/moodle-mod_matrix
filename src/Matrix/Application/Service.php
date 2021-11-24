@@ -148,13 +148,13 @@ final class Service
                 );
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
-                $roomId = $this->api->createRoom($roomOptions);
+                $matrixRoomId = $this->api->createRoom($roomOptions);
 
                 $roomForModuleAndGroup = Moodle\Domain\Room::create(
                     Moodle\Domain\RoomId::unknown(),
                     $module->id(),
                     $groupId,
-                    $roomId,
+                    $matrixRoomId,
                     Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
                     Moodle\Domain\Timestamp::fromInt(0),
                 );
@@ -173,13 +173,13 @@ final class Service
         ]);
 
         if (!$roomForModule instanceof Moodle\Domain\Room) {
-            $roomId = $this->api->createRoom($roomOptions);
+            $matrixRoomId = $this->api->createRoom($roomOptions);
 
             $roomForModule = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
                 $module->id(),
                 null,
-                $roomId,
+                $matrixRoomId,
                 Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
                 Moodle\Domain\Timestamp::fromInt(0),
             );
