@@ -92,9 +92,9 @@ final class Configuration
         }
 
         return new self(
-            $accessToken,
-            $elementUrl,
-            $hsUrl,
+            \trim($accessToken),
+            \trim($elementUrl),
+            \trim($hsUrl),
         );
     }
 

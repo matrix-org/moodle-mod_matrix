@@ -39,7 +39,7 @@ final class MatrixService
 
     public function urlForRoom(Matrix\Domain\RoomId $roomId): string
     {
-        if ('' !== \trim($this->configuration->elementUrl())) {
+        if ('' !== $this->configuration->elementUrl()) {
             return \sprintf(
                 '%s/#/room/%s',
                 $this->configuration->elementUrl(),

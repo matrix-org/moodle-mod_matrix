@@ -189,4 +189,59 @@ final class ConfigurationTest extends Framework\TestCase
         self::assertSame($object->element_url, $configuration->elementUrl());
         self::assertSame($object->hs_url, $configuration->hsUrl());
     }
+
+    /**
+     * @dataProvider provideWhitespace
+     */
+    public function testFromObjectReturnsConfigurationWhenFieldsAreUntrimmed(string $whitespace): void
+    {
+        $faker = self::faker();
+
+        $object = new \stdClass();
+
+        $object->access_token = \sprintf(
+            '%s%s%s',
+            $whitespace,
+            $faker->sha1(),
+            $whitespace,
+        );
+
+        $object->element_url = \sprintf(
+            '%s%s%s',
+            $whitespace,
+            $faker->url(),
+            $whitespace,
+        );
+        $object->hs_url = \sprintf(
+            '%s%s%s',
+            $whitespace,
+            $faker->url(),
+            $whitespace,
+        );
+
+        $configuration = Matrix\Application\Configuration::fromObject($object);
+
+        self::assertSame(\trim($object->access_token), $configuration->accessToken());
+        self::assertSame(\trim($object->element_url), $configuration->elementUrl());
+        self::assertSame(\trim($object->hs_url), $configuration->hsUrl());
+    }
+
+    /**
+     * @return \Generator<string, array{0: string}>
+     */
+    public function provideWhitespace(): \Generator
+    {
+        $values = [
+            'carriage-return' => "\r",
+            'line-feed' => "\n",
+            'space' => ' ',
+            'tab' => "\t",
+        ];
+
+        foreach ($values as $key => $value) {
+            yield $key => [
+                $value,
+            ];
+        }
+    }
 }
