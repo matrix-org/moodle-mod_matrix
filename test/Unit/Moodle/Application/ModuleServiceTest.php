@@ -36,7 +36,7 @@ final class ModuleServiceTest extends Framework\TestCase
 
         $expectedModule = null;
 
-        $moduleRepository = $this->createMock(Moodle\Application\ModuleRepository::class);
+        $moduleRepository = $this->createMock(Moodle\Domain\ModuleRepository::class);
 
         $moduleRepository
             ->expects(self::once())

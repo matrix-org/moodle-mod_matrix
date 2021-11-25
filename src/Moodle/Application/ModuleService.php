@@ -19,7 +19,7 @@ final class ModuleService
     private $clock;
 
     public function __construct(
-        ModuleRepository $moduleRepository,
+        Moodle\Domain\ModuleRepository $moduleRepository,
         Clock\Clock $clock
     ) {
         $this->moduleRepository = $moduleRepository;

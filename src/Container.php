@@ -62,13 +62,6 @@ final class Container
             );
         });
 
-        $this->define(Moodle\Application\ModuleRepository::class, static function (self $container): Moodle\Application\ModuleRepository {
-            return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
-                $container->database(),
-                new Moodle\Infrastructure\ModuleNormalizer(),
-            );
-        });
-
         $this->define(Moodle\Application\ModuleService::class, static function (self $container): Moodle\Application\ModuleService {
             return new Moodle\Application\ModuleService(
                 $container->moduleRepository(),
@@ -76,7 +69,14 @@ final class Container
             );
         });
 
-        $this->define(Moodle\Application\RoomRepository::class, static function (self $container): Moodle\Application\RoomRepository {
+        $this->define(Moodle\Domain\ModuleRepository::class, static function (self $container): Moodle\Domain\ModuleRepository {
+            return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
+                $container->database(),
+                new Moodle\Infrastructure\ModuleNormalizer(),
+            );
+        });
+
+        $this->define(Moodle\Domain\RoomRepository::class, static function (self $container): Moodle\Domain\RoomRepository {
             return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
                 $container->database(),
                 new Moodle\Infrastructure\RoomNormalizer(),
@@ -132,9 +132,9 @@ final class Container
         return $this->resolve(Matrix\Application\MatrixService::class);
     }
 
-    public function moduleRepository(): Moodle\Application\ModuleRepository
+    public function moduleRepository(): Moodle\Domain\ModuleRepository
     {
-        return $this->resolve(Moodle\Application\ModuleRepository::class);
+        return $this->resolve(Moodle\Domain\ModuleRepository::class);
     }
 
     public function moduleService(): Moodle\Application\ModuleService
@@ -142,9 +142,9 @@ final class Container
         return $this->resolve(Moodle\Application\ModuleService::class);
     }
 
-    public function roomRepository(): Moodle\Application\RoomRepository
+    public function roomRepository(): Moodle\Domain\RoomRepository
     {
-        return $this->resolve(Moodle\Application\RoomRepository::class);
+        return $this->resolve(Moodle\Domain\RoomRepository::class);
     }
 
     /**

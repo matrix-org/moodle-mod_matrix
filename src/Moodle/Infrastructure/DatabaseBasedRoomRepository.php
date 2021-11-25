@@ -12,7 +12,7 @@ namespace mod_matrix\Moodle\Infrastructure;
 
 use mod_matrix\Moodle;
 
-final class DatabaseBasedRoomRepository implements Moodle\Application\RoomRepository
+final class DatabaseBasedRoomRepository implements Moodle\Domain\RoomRepository
 {
     private const TABLE = 'matrix_rooms';
     private $database;

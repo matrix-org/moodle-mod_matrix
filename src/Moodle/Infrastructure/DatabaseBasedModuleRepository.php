@@ -12,7 +12,7 @@ namespace mod_matrix\Moodle\Infrastructure;
 
 use mod_matrix\Moodle;
 
-final class DatabaseBasedModuleRepository implements Moodle\Application\ModuleRepository
+final class DatabaseBasedModuleRepository implements Moodle\Domain\ModuleRepository
 {
     private const TABLE = 'matrix';
     private $database;

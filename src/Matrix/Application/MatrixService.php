@@ -26,8 +26,8 @@ final class MatrixService
     public function __construct(
         Matrix\Application\Api $api,
         Matrix\Application\Configuration $configuration,
-        Moodle\Application\ModuleRepository $moduleRepository,
-        Moodle\Application\RoomRepository $roomRepository,
+        Moodle\Domain\ModuleRepository $moduleRepository,
+        Moodle\Domain\RoomRepository $roomRepository,
         Clock\Clock $clock
     ) {
         $this->api = $api;
