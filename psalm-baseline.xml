@@ -34,10 +34,10 @@
       <code>matrix_update_instance</code>
     </MissingReturnType>
     <MixedArgument occurrences="5">
-      <code>$data-&gt;course</code>
-      <code>$data-&gt;section</code>
       <code>$group-&gt;id</code>
       <code>$groups</code>
+      <code>$moduleinfo-&gt;course</code>
+      <code>$moduleinfo-&gt;section</code>
       <code>get_string('activity_default_name', 'matrix')</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">

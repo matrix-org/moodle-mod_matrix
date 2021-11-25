@@ -54,7 +54,7 @@ function matrix_supports($feature)
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
  */
-function matrix_add_instance(object $data)
+function matrix_add_instance(object $moduleinfo)
 {
     $container = Container::instance();
 
@@ -64,8 +64,8 @@ function matrix_add_instance(object $data)
         Moodle\Domain\ModuleId::unknown(),
         Moodle\Domain\Type::fromInt(0),
         Moodle\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
-        Moodle\Domain\CourseId::fromString($data->course),
-        Moodle\Domain\SectionId::fromInt($data->section),
+        Moodle\Domain\CourseId::fromString($moduleinfo->course),
+        Moodle\Domain\SectionId::fromInt($moduleinfo->section),
         Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
         Moodle\Domain\Timestamp::fromInt(0),
     );
