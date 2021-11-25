@@ -19,6 +19,14 @@ use PHPUnit\Framework;
  * @internal
  *
  * @covers \mod_matrix\Moodle\Application\ModuleService
+ *
+ * @uses \mod_matrix\Moodle\Domain\CourseId
+ * @uses \mod_matrix\Moodle\Domain\Module
+ * @uses \mod_matrix\Moodle\Domain\ModuleId
+ * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\SectionId
+ * @uses \mod_matrix\Moodle\Domain\Timestamp
+ * @uses \mod_matrix\Moodle\Domain\Type
  */
 final class ModuleServiceTest extends Framework\TestCase
 {
