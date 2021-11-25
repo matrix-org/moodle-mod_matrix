@@ -119,12 +119,13 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="8">
+    <MixedInferredReturnType occurrences="9">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\Configuration</code>
       <code>Matrix\Application\MatrixService</code>
       <code>Moodle\Application\ModuleRepository</code>
+      <code>Moodle\Application\ModuleService</code>
       <code>Moodle\Application\RoomRepository</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
@@ -132,12 +133,13 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="7">
+    <MixedReturnStatement occurrences="8">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\MatrixService::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\ModuleRepository::class)</code>
+      <code>$this-&gt;resolve(Moodle\Application\ModuleService::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\RoomRepository::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>

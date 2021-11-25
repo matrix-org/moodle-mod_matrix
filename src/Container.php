@@ -69,6 +69,13 @@ final class Container
             );
         });
 
+        $this->define(Moodle\Application\ModuleService::class, static function (self $container): Moodle\Application\ModuleService {
+            return new Moodle\Application\ModuleService(
+                $container->moduleRepository(),
+                $container->clock(),
+            );
+        });
+
         $this->define(Moodle\Application\RoomRepository::class, static function (self $container): Moodle\Application\RoomRepository {
             return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
                 $container->database(),
@@ -128,6 +135,11 @@ final class Container
     public function moduleRepository(): Moodle\Application\ModuleRepository
     {
         return $this->resolve(Moodle\Application\ModuleRepository::class);
+    }
+
+    public function moduleService(): Moodle\Application\ModuleService
+    {
+        return $this->resolve(Moodle\Application\ModuleService::class);
     }
 
     public function roomRepository(): Moodle\Application\RoomRepository

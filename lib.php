@@ -58,21 +58,13 @@ function matrix_add_instance(object $moduleinfo)
 {
     $container = Container::instance();
 
-    $clock = $container->clock();
+    $moduleService = $container->moduleService();
 
-    $module = Moodle\Domain\Module::create(
-        Moodle\Domain\ModuleId::unknown(),
-        Moodle\Domain\Type::fromInt(0),
+    $module = $moduleService->create(
         Moodle\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
         Moodle\Domain\CourseId::fromString($moduleinfo->course),
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
-        Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-        Moodle\Domain\Timestamp::fromInt(0),
     );
-
-    $moduleRepository = $container->moduleRepository();
-
-    $moduleRepository->save($module);
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
