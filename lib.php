@@ -53,10 +53,8 @@ function matrix_supports($feature)
 /**
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
- *
- * @param object $data
  */
-function matrix_add_instance($data)
+function matrix_add_instance(object $data)
 {
     $container = Container::instance();
 
