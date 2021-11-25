@@ -40,10 +40,17 @@ final class MatrixService
     public function urlForRoom(Matrix\Domain\RoomId $roomId): string
     {
         if ('' !== \trim($this->configuration->elementUrl())) {
-            return $this->configuration->elementUrl() . '/#/room/' . $roomId->toString();
+            return \sprintf(
+                '%s/#/room/%s',
+                $this->configuration->elementUrl(),
+                $roomId->toString(),
+            );
         }
 
-        return 'https://matrix.to/#/' . $roomId->toString();
+        return \sprintf(
+            'https://matrix.to/#/%s',
+            $roomId->toString(),
+        );
     }
 
     public function prepareRoomsForAllModulesOfCourseAndGroup(
