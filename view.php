@@ -71,7 +71,7 @@ $possibleRooms = $roomRepository->findAllBy([
 if ([] === $possibleRooms) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_rooms', 'matrix'),
+        get_string('view_error_no_rooms', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -87,7 +87,7 @@ if (\count($possibleRooms) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', 'matrix') . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -105,7 +105,7 @@ $groups = groups_get_all_groups(
 if (\count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_groups', 'matrix'),
+        get_string('view_error_no_groups', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -118,7 +118,7 @@ $visibleGroups = groups_get_activity_allowed_groups($cm);
 if (\count($visibleGroups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('vw_error_no_visible_groups', 'matrix'),
+        get_string('view_error_no_visible_groups', 'matrix'),
     );
 
     echo $OUTPUT->footer();
@@ -137,7 +137,7 @@ if (\count($visibleGroups) === 1) {
     if (!$room instanceof Moodle\Domain\Room) {
         echo Twitter\Bootstrap::alert(
             'danger',
-            get_string('vw_error_no_room_in_group', 'matrix'),
+            get_string('view_error_no_room_in_group', 'matrix'),
         );
 
         echo $OUTPUT->footer();
@@ -148,7 +148,7 @@ if (\count($visibleGroups) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('vw_join_btn', 'matrix') . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', 'matrix') . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -159,7 +159,7 @@ if (\count($visibleGroups) === 1) {
 
 echo Twitter\Bootstrap::alert(
     'warning',
-    get_string('vw_alert_many_rooms', 'matrix'),
+    get_string('view_alert_many_rooms', 'matrix'),
 );
 
 foreach ($visibleGroups as $id => $group) {

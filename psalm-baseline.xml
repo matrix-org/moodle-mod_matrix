@@ -94,13 +94,13 @@
       <code>$settings</code>
     </UndefinedDocblockClass>
     <UndefinedFunction occurrences="7">
-      <code>get_string('adm_eleurl_desc', 'matrix')</code>
-      <code>get_string('adm_eleurl_name', 'matrix')</code>
-      <code>get_string('adm_homeserver', 'matrix')</code>
-      <code>get_string('adm_hstoken_desc', 'matrix')</code>
-      <code>get_string('adm_hstoken_name', 'matrix')</code>
-      <code>get_string('adm_hsurl_desc', 'matrix')</code>
-      <code>get_string('adm_hsurl_name', 'matrix')</code>
+      <code>get_string('settings_access_token_description', 'matrix')</code>
+      <code>get_string('settings_access_token_name', 'matrix')</code>
+      <code>get_string('settings_element_url_description', 'matrix')</code>
+      <code>get_string('settings_element_url_name', 'matrix')</code>
+      <code>get_string('settings_homeserver_heading', 'matrix')</code>
+      <code>get_string('settings_homeserver_url_description', 'matrix')</code>
+      <code>get_string('settings_homeserver_url_name', 'matrix')</code>
     </UndefinedFunction>
   </file>
   <file src="src/Container.php">
@@ -449,11 +449,11 @@
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>get_string('liketologin')</code>
-      <code>get_string('vw_alert_many_rooms', 'matrix')</code>
-      <code>get_string('vw_error_no_groups', 'matrix')</code>
-      <code>get_string('vw_error_no_room_in_group', 'matrix')</code>
-      <code>get_string('vw_error_no_rooms', 'matrix')</code>
-      <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
+      <code>get_string('view_alert_many_rooms', 'matrix')</code>
+      <code>get_string('view_error_no_groups', 'matrix')</code>
+      <code>get_string('view_error_no_room_in_group', 'matrix')</code>
+      <code>get_string('view_error_no_rooms', 'matrix')</code>
+      <code>get_string('view_error_no_visible_groups', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
     </MixedArgument>
     <MixedAssignment occurrences="7">
@@ -482,13 +482,13 @@
     <UndefinedFunction occurrences="15">
       <code>get_login_url()</code>
       <code>get_string('liketologin')</code>
-      <code>get_string('vw_alert_many_rooms', 'matrix')</code>
-      <code>get_string('vw_error_no_groups', 'matrix')</code>
-      <code>get_string('vw_error_no_room_in_group', 'matrix')</code>
-      <code>get_string('vw_error_no_rooms', 'matrix')</code>
-      <code>get_string('vw_error_no_visible_groups', 'matrix')</code>
-      <code>get_string('vw_join_btn', 'matrix')</code>
-      <code>get_string('vw_join_btn', 'matrix')</code>
+      <code>get_string('view_alert_many_rooms', 'matrix')</code>
+      <code>get_string('view_button_join_room', 'matrix')</code>
+      <code>get_string('view_button_join_room', 'matrix')</code>
+      <code>get_string('view_error_no_groups', 'matrix')</code>
+      <code>get_string('view_error_no_room_in_group', 'matrix')</code>
+      <code>get_string('view_error_no_rooms', 'matrix')</code>
+      <code>get_string('view_error_no_visible_groups', 'matrix')</code>
       <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
       <code>groups_get_activity_allowed_groups($cm)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
