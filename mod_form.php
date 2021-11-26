@@ -17,7 +17,7 @@ require_once $CFG->dirroot . '/course/moodleform_mod.php';
  * @see https://docs.moodle.org/dev/Form_API
  * @see https://github.com/moodle/moodle/blob/02a2e649e92d570c7fa735bf05f69b588036f761/course/modedit.php#L142-L147
  */
-class mod_matrix_mod_form extends moodleform_mod
+final class mod_matrix_mod_form extends moodleform_mod
 {
     protected function definition(): void
     {
