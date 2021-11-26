@@ -51,11 +51,11 @@ final class ConfigurationTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\BoolProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\FloatProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\NullProvider::null()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\ObjectProvider::object()
+     * @dataProvider \Ergebnis\DataProvider\BoolProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\FloatProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\NullProvider::null()
+     * @dataProvider \Ergebnis\DataProvider\ObjectProvider::object()
      *
      * @param mixed $accessToken
      */
@@ -98,11 +98,11 @@ final class ConfigurationTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\BoolProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\FloatProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\NullProvider::null()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\ObjectProvider::object()
+     * @dataProvider \Ergebnis\DataProvider\BoolProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\FloatProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\NullProvider::null()
+     * @dataProvider \Ergebnis\DataProvider\ObjectProvider::object()
      *
      * @param mixed $elementUrl
      */
@@ -145,11 +145,11 @@ final class ConfigurationTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\BoolProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\FloatProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\NullProvider::null()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\ObjectProvider::object()
+     * @dataProvider \Ergebnis\DataProvider\BoolProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\FloatProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\NullProvider::null()
+     * @dataProvider \Ergebnis\DataProvider\ObjectProvider::object()
      *
      * @param mixed $hsUrl
      */

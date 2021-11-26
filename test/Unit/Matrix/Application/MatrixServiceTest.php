@@ -30,8 +30,8 @@ final class MatrixServiceTest extends Framework\TestCase
     use Util\Helper;
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::blank()
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::empty()
+     * @dataProvider \Ergebnis\DataProvider\StringProvider::blank()
+     * @dataProvider \Ergebnis\DataProvider\StringProvider::empty()
      */
     public function testUrlForRoomReturnsUrlForOpeningRoomInBrowserWhenElementUrlIsBlankOrEmpty(string $elementUrl): void
     {

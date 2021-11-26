@@ -24,7 +24,7 @@ final class UserIdTest extends Framework\TestCase
     use Util\Helper;
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
     public function testFromStringReturnsMatrixUserId(string $value): void
     {

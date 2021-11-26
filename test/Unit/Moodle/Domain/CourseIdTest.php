@@ -21,7 +21,7 @@ use PHPUnit\Framework;
 final class CourseIdTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsCourseId(int $value): void
     {
@@ -31,7 +31,7 @@ final class CourseIdTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromStringReturnsCourseId(int $value): void
     {

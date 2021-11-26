@@ -21,7 +21,7 @@ use PHPUnit\Framework;
 final class StateKeyTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\StringProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
     public function testFromStringReturnsMatrixStateKey(string $value): void
     {

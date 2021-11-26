@@ -24,7 +24,7 @@ final class GroupIdTest extends Framework\TestCase
     use Util\Helper;
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsGroupId(int $value): void
     {
@@ -34,7 +34,7 @@ final class GroupIdTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromStringReturnsGroupId(int $value): void
     {

@@ -21,7 +21,7 @@ use PHPUnit\Framework;
 final class SectionIdTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsSectionId(int $value): void
     {
@@ -31,7 +31,7 @@ final class SectionIdTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromStringReturnsSectionId(int $value): void
     {

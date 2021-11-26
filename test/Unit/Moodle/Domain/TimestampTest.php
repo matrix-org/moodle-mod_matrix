@@ -21,7 +21,7 @@ use PHPUnit\Framework;
 final class TimestampTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsTimestamp(int $value): void
     {
@@ -31,7 +31,7 @@ final class TimestampTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromStringReturnsTimestamp(int $value): void
     {

@@ -24,7 +24,7 @@ final class ModuleIdTest extends Framework\TestCase
     use Util\Helper;
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsModuleId(int $value): void
     {
@@ -34,7 +34,7 @@ final class ModuleIdTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider \Ergebnis\Test\Util\DataProvider\IntProvider::arbitrary()
+     * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromStringReturnsModuleId(int $value): void
     {
