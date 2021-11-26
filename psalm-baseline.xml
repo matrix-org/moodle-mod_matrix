@@ -333,6 +333,11 @@
     <MixedAssignment occurrences="1">
       <code>$actual</code>
     </MixedAssignment>
+    <PossiblyInvalidArgument occurrences="3">
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+      <code>$faker-&gt;words()</code>
+    </PossiblyInvalidArgument>
   </file>
   <file src="test/Unit/Moodle/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
     <InvalidArgument occurrences="7">
