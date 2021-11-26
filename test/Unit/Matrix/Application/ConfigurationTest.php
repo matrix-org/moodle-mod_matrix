@@ -191,7 +191,7 @@ final class ConfigurationTest extends Framework\TestCase
     }
 
     /**
-     * @dataProvider provideWhitespace
+     * @dataProvider \Ergebnis\DataProvider\StringProvider::blank()
      */
     public function testFromObjectReturnsConfigurationWhenFieldsAreUntrimmed(string $whitespace): void
     {
@@ -224,24 +224,5 @@ final class ConfigurationTest extends Framework\TestCase
         self::assertSame(\trim($object->access_token), $configuration->accessToken());
         self::assertSame(\trim($object->element_url), $configuration->elementUrl());
         self::assertSame(\trim($object->hs_url), $configuration->hsUrl());
-    }
-
-    /**
-     * @return \Generator<string, array{0: string}>
-     */
-    public function provideWhitespace(): \Generator
-    {
-        $values = [
-            'carriage-return' => "\r",
-            'line-feed' => "\n",
-            'space' => ' ',
-            'tab' => "\t",
-        ];
-
-        foreach ($values as $key => $value) {
-            yield $key => [
-                $value,
-            ];
-        }
     }
 }
