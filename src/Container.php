@@ -41,7 +41,7 @@ final class Container
             $configuration = $container->configuration();
 
             return new Matrix\Infrastructure\HttpClientBasedApi(new Matrix\Infrastructure\CurlBasedHttpClient(
-                $configuration->hsUrl(),
+                $configuration->homeserverUrl(),
                 $configuration->accessToken(),
             ));
         });

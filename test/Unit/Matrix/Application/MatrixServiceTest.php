@@ -42,7 +42,7 @@ final class MatrixServiceTest extends Framework\TestCase
         $configuration = Matrix\Application\Configuration::fromObject((object) [
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
-            'hs_url' => \sprintf(
+            'homeserver_url' => \sprintf(
                 'https://%s',
                 $faker->domainName(),
             ),
@@ -80,7 +80,7 @@ final class MatrixServiceTest extends Framework\TestCase
         $configuration = Matrix\Application\Configuration::fromObject((object) [
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
-            'hs_url' => \sprintf(
+            'homeserver_url' => \sprintf(
                 'https://%s',
                 $faker->domainName(),
             ),

@@ -29,7 +29,7 @@ final class ConfigurationTest extends Framework\TestCase
 
         self::assertSame('', $configuration->accessToken());
         self::assertSame('https://matrix-client.matrix.org', $configuration->elementUrl());
-        self::assertSame('', $configuration->hsUrl());
+        self::assertSame('', $configuration->homeserverUrl());
     }
 
     public function testFromObjectRejectsObjectWhenAccessTokenPropertyIsMissing(): void
@@ -39,7 +39,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object = new \stdClass();
 
         $object->element_url = $faker->url();
-        $object->hs_url = $faker->url();
+        $object->homeserver_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
@@ -67,7 +67,7 @@ final class ConfigurationTest extends Framework\TestCase
 
         $object->access_token = $accessToken;
         $object->element_url = $faker->url();
-        $object->hs_url = $faker->url();
+        $object->homeserver_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
@@ -86,7 +86,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object = new \stdClass();
 
         $object->access_token = $faker->sha1();
-        $object->hs_url = $faker->url();
+        $object->homeserver_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
@@ -114,7 +114,7 @@ final class ConfigurationTest extends Framework\TestCase
 
         $object->access_token = $faker->sha1();
         $object->element_url = $elementUrl;
-        $object->hs_url = $faker->url();
+        $object->homeserver_url = $faker->url();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
@@ -126,7 +126,7 @@ final class ConfigurationTest extends Framework\TestCase
         Matrix\Application\Configuration::fromObject($object);
     }
 
-    public function testFromObjectRejectsObjectWhenHsUrlPropertyIsMissing(): void
+    public function testFromObjectRejectsObjectWhenHomeserverUrlPropertyIsMissing(): void
     {
         $faker = self::faker();
 
@@ -138,7 +138,7 @@ final class ConfigurationTest extends Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
             'Configuration should have an "%s" property, but it does not.',
-            'hs_url',
+            'homeserver_url',
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -151,9 +151,9 @@ final class ConfigurationTest extends Framework\TestCase
      * @dataProvider \Ergebnis\DataProvider\NullProvider::null()
      * @dataProvider \Ergebnis\DataProvider\ObjectProvider::object()
      *
-     * @param mixed $hsUrl
+     * @param mixed $homeserverUrl
      */
-    public function testFromObjectRejectsObjectWhenHsUrlPropertyIsNotAString($hsUrl): void
+    public function testFromObjectRejectsObjectWhenHomeserverUrlPropertyIsNotAString($homeserverUrl): void
     {
         $faker = self::faker();
 
@@ -161,13 +161,13 @@ final class ConfigurationTest extends Framework\TestCase
 
         $object->access_token = $faker->sha1();
         $object->element_url = $faker->url();
-        $object->hs_url = $hsUrl;
+        $object->homeserver_url = $homeserverUrl;
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
             'Configuration "%s" should be a string, got "%s" instead.',
-            'hs_url',
-            \is_object($hsUrl) ? \get_class($hsUrl) : \gettype($hsUrl),
+            'homeserver_url',
+            \is_object($homeserverUrl) ? \get_class($homeserverUrl) : \gettype($homeserverUrl),
         ));
 
         Matrix\Application\Configuration::fromObject($object);
@@ -181,13 +181,13 @@ final class ConfigurationTest extends Framework\TestCase
 
         $object->access_token = $faker->sha1();
         $object->element_url = $faker->url();
-        $object->hs_url = $faker->url();
+        $object->homeserver_url = $faker->url();
 
         $configuration = Matrix\Application\Configuration::fromObject($object);
 
         self::assertSame($object->access_token, $configuration->accessToken());
         self::assertSame($object->element_url, $configuration->elementUrl());
-        self::assertSame($object->hs_url, $configuration->hsUrl());
+        self::assertSame($object->homeserver_url, $configuration->homeserverUrl());
     }
 
     /**
@@ -212,7 +212,7 @@ final class ConfigurationTest extends Framework\TestCase
             $faker->url(),
             $whitespace,
         );
-        $object->hs_url = \sprintf(
+        $object->homeserver_url = \sprintf(
             '%s%s%s',
             $whitespace,
             $faker->url(),
@@ -223,6 +223,6 @@ final class ConfigurationTest extends Framework\TestCase
 
         self::assertSame(\trim($object->access_token), $configuration->accessToken());
         self::assertSame(\trim($object->element_url), $configuration->elementUrl());
-        self::assertSame(\trim($object->hs_url), $configuration->hsUrl());
+        self::assertSame(\trim($object->homeserver_url), $configuration->homeserverUrl());
     }
 }

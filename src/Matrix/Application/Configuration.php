@@ -14,16 +14,16 @@ final class Configuration
 {
     private $accessToken;
     private $elementUrl;
-    private $hsUrl;
+    private $homeserverUrl;
 
     private function __construct(
         string $accessToken,
         string $elementUrl,
-        string $hsUrl
+        string $homeserverUrl
     ) {
         $this->accessToken = $accessToken;
         $this->elementUrl = $elementUrl;
-        $this->hsUrl = $hsUrl;
+        $this->homeserverUrl = $homeserverUrl;
     }
 
     public static function default(): self
@@ -74,27 +74,27 @@ final class Configuration
             ));
         }
 
-        if (!\property_exists($object, 'hs_url')) {
+        if (!\property_exists($object, 'homeserver_url')) {
             throw new \InvalidArgumentException(\sprintf(
                 'Configuration should have an "%s" property, but it does not.',
-                'hs_url',
+                'homeserver_url',
             ));
         }
 
-        $hsUrl = $object->hs_url;
+        $homeserverUrl = $object->homeserver_url;
 
-        if (!\is_string($hsUrl)) {
+        if (!\is_string($homeserverUrl)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Configuration "%s" should be a string, got "%s" instead..',
-                'hs_url',
-                \is_object($hsUrl) ? \get_class($hsUrl) : \gettype($hsUrl),
+                'homeserver_url',
+                \is_object($homeserverUrl) ? \get_class($homeserverUrl) : \gettype($homeserverUrl),
             ));
         }
 
         return new self(
             \trim($accessToken),
             \trim($elementUrl),
-            \trim($hsUrl),
+            \trim($homeserverUrl),
         );
     }
 
@@ -108,8 +108,8 @@ final class Configuration
         return $this->elementUrl;
     }
 
-    public function hsUrl(): string
+    public function homeserverUrl(): string
     {
-        return $this->hsUrl;
+        return $this->homeserverUrl;
     }
 }

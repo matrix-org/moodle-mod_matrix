@@ -26,10 +26,10 @@ if ($ADMIN->fulltree) {
     $defaultConfiguration = Matrix\Application\Configuration::default();
 
     $settings->add(new admin_setting_configtext(
-        'mod_matrix/hs_url',
+        'mod_matrix/homeserver_url',
         get_string('settings_homeserver_url_name', 'matrix'),
         get_string('settings_homeserver_url_description', 'matrix'),
-        $defaultConfiguration->hsUrl(),
+        $defaultConfiguration->homeserverUrl(),
         PARAM_TEXT,
     ));
 
