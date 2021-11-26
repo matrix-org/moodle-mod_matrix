@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Matrix\Infrastructure;
 
-use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
+use mod_matrix\Test;
 use PHPUnit\Framework;
 
 /**
@@ -27,7 +27,7 @@ use PHPUnit\Framework;
  */
 final class HttpClientBasedApiTest extends Framework\TestCase
 {
-    use Util\Helper;
+    use Test\Util\Helper;
 
     public function testWhoAmIReturnsUserId(): void
     {

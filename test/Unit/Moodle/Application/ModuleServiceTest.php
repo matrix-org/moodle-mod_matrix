@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace mod_matrix\Test\Unit\Moodle\Application;
 
 use Ergebnis\Clock;
-use Ergebnis\Test\Util;
 use mod_matrix\Moodle;
+use mod_matrix\Test;
 use PHPUnit\Framework;
 
 /**
@@ -30,7 +30,7 @@ use PHPUnit\Framework;
  */
 final class ModuleServiceTest extends Framework\TestCase
 {
-    use Util\Helper;
+    use Test\Util\Helper;
 
     public function testCreateCreatesAndReturnsModule(): void
     {

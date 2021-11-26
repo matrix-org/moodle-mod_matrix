@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Twitter;
 
-use Ergebnis\Test\Util;
+use mod_matrix\Test;
 use mod_matrix\Twitter\Bootstrap;
 use PHPUnit\Framework;
 
@@ -21,7 +21,7 @@ use PHPUnit\Framework;
  */
 final class BootstrapTest extends Framework\TestCase
 {
-    use Util\Helper;
+    use Test\Util\Helper;
 
     public function testAlertRejectsUnknownType(): void
     {

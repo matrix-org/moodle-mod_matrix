@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Moodle\Domain;
 
-use Ergebnis\Test\Util;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
+use mod_matrix\Test;
 use PHPUnit\Framework;
 
 /**
@@ -31,7 +31,7 @@ use PHPUnit\Framework;
  */
 final class RoomTest extends Framework\TestCase
 {
-    use Util\Helper;
+    use Test\Util\Helper;
 
     public function testCreateReturnsRoomWhenGroupIdIsNull(): void
     {
