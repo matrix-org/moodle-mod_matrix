@@ -65,12 +65,19 @@ final class MatrixService
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
+        global $CFG;
+
         $modules = $this->moduleRepository->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
         foreach ($modules as $module) {
             $this->prepareRoomForModuleAndGroup(
+                Matrix\Domain\RoomTopic::fromString(\sprintf(
+                    '%s/course/view.php?id=%d',
+                    $CFG->wwwroot,
+                    $module->courseId()->toInt(),
+                )),
                 $module,
                 $groupId,
             );
@@ -78,11 +85,10 @@ final class MatrixService
     }
 
     public function prepareRoomForModuleAndGroup(
+        Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
         ?Moodle\Domain\GroupId $groupId
     ): void {
-        global $CFG;
-
         $course = $this->courseRepository->find($module->courseId());
 
         if (!$course instanceof Moodle\Domain\Course) {
@@ -140,11 +146,7 @@ final class MatrixService
                 ],
             ],
             'preset' => 'private_chat',
-            'topic' => \sprintf(
-                '%s/course/view.php?id=%d',
-                $CFG->wwwroot,
-                $module->courseId()->toInt(),
-            ),
+            'topic' => $topic,
         ];
 
         if ($groupId instanceof Moodle\Domain\GroupId) {
