@@ -146,7 +146,7 @@ final class MatrixService
                 ],
             ],
             'preset' => 'private_chat',
-            'topic' => $topic,
+            'topic' => $topic->toString(),
         ];
 
         if ($groupId instanceof Moodle\Domain\GroupId) {
