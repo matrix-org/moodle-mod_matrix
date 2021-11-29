@@ -213,6 +213,7 @@ final class MatrixService
             $this->synchronizeRoomMembersForRoom(
                 $roomForModuleAndGroup,
                 $module->courseId(),
+                $groupId,
             );
 
             return;
@@ -241,6 +242,7 @@ final class MatrixService
         $this->synchronizeRoomMembersForRoom(
             $roomForModule,
             $module->courseId(),
+            Moodle\Domain\GroupId::fromInt(0),
         );
     }
 
@@ -263,9 +265,16 @@ final class MatrixService
                 ));
             }
 
+            $groupId = $room->groupId();
+
+            if (!$groupId instanceof Moodle\Domain\GroupId) {
+                $groupId = Moodle\Domain\GroupId::fromInt(0);
+            } // Moodle wants zero instead of null
+
             $this->synchronizeRoomMembersForRoom(
                 $room,
                 $module->courseId(),
+                $groupId,
             );
         }
     }
@@ -282,9 +291,16 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
+                $groupId = $room->groupId();
+
+                if (!$groupId instanceof Moodle\Domain\GroupId) {
+                    $groupId = Moodle\Domain\GroupId::fromInt(0);
+                } // Moodle wants zero instead of null
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
+                    $groupId,
                 );
             }
         }
@@ -308,6 +324,7 @@ final class MatrixService
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
+                    $groupId,
                 );
             }
         }
@@ -315,14 +332,9 @@ final class MatrixService
 
     public function synchronizeRoomMembersForRoom(
         Moodle\Domain\Room $room,
-        Moodle\Domain\CourseId $courseId
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
     ): void {
-        $groupId = $room->groupId();
-
-        if (!$groupId instanceof Moodle\Domain\GroupId) {
-            $groupId = Moodle\Domain\GroupId::fromInt(0);
-        } // Moodle wants zero instead of null
-
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
             $groupId,
