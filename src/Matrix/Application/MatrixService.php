@@ -406,11 +406,11 @@ final class MatrixService
 
     public function removeRoom(Moodle\Domain\Room $room): void
     {
-        $matrixUserIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
+        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
-        foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
+        foreach ($userIdsOfUsersInRoom as $matrixUserId) {
             if ($matrixUserId->equals($matrixUserIdOfBot)) {
                 continue;
             }
