@@ -210,10 +210,15 @@ final class MatrixService
                 $this->roomRepository->save($roomForModuleAndGroup);
             }
 
+            $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $module->courseId(),
+                $groupId,
+            );
+
             $this->synchronizeRoomMembersForRoom(
                 $roomForModuleAndGroup,
                 $module->courseId(),
-                $groupId,
+                $users,
             );
 
             return;
@@ -239,10 +244,15 @@ final class MatrixService
             $this->roomRepository->save($roomForModule);
         }
 
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $module->courseId(),
+            Moodle\Domain\GroupId::fromInt(0),
+        );
+
         $this->synchronizeRoomMembersForRoom(
             $roomForModule,
             $module->courseId(),
-            Moodle\Domain\GroupId::fromInt(0),
+            $users,
         );
     }
 
@@ -271,10 +281,15 @@ final class MatrixService
                 $groupId = Moodle\Domain\GroupId::fromInt(0);
             } // Moodle wants zero instead of null
 
+            $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $module->courseId(),
+                $groupId,
+            );
+
             $this->synchronizeRoomMembersForRoom(
                 $room,
                 $module->courseId(),
-                $groupId,
+                $users,
             );
         }
     }
@@ -297,10 +312,15 @@ final class MatrixService
                     $groupId = Moodle\Domain\GroupId::fromInt(0);
                 } // Moodle wants zero instead of null
 
+                $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                    $module->courseId(),
+                    $groupId,
+                );
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
-                    $groupId,
+                    $users,
                 );
             }
         }
@@ -321,25 +341,28 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
+                $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                    $module->courseId(),
+                    $groupId,
+                );
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
-                    $groupId,
+                    $users,
                 );
             }
         }
     }
 
+    /**
+     * @param array<int, Moodle\Domain\User> $users
+     */
     public function synchronizeRoomMembersForRoom(
         Moodle\Domain\Room $room,
         Moodle\Domain\CourseId $courseId,
-        Moodle\Domain\GroupId $groupId
+        array $users
     ): void {
-        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $courseId,
-            $groupId,
-        );
-
         $userIdsOfUsers = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users);
