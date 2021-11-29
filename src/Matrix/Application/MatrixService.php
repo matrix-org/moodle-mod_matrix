@@ -305,7 +305,7 @@ final class MatrixService
             $groupId,
         );
 
-        $matrixUserIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
+        $userIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
@@ -329,7 +329,7 @@ final class MatrixService
                 continue;
             }
 
-            if (!\in_array($user->matrixUserId(), $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $user->matrixUserId(),
                     $room->matrixRoomId(),
@@ -348,7 +348,7 @@ final class MatrixService
                 continue;
             }
 
-            if (!\in_array($user->matrixUserId(), $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $user->matrixUserId(),
                     $room->matrixRoomId(),
@@ -369,7 +369,7 @@ final class MatrixService
 
         $api = $this->api;
 
-        $userIdsOfUsersNotAllowedInTheRoom = \array_filter($matrixUserIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($matrixUserIdsOfUsersAllowedInTheRoom): bool {
+        $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($matrixUserIdsOfUsersAllowedInTheRoom): bool {
             return !\in_array(
                 $userId,
                 $matrixUserIdsOfUsersAllowedInTheRoom,
