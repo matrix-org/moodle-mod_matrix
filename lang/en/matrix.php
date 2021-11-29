@@ -10,28 +10,43 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
-$string['modulename'] = 'Matrix';
-$string['modulenameplural'] = 'Matrix';
-$string['pluginadministration'] = 'Matrix administration';
-$string['pluginname'] = 'Matrix';
+if (!isset($string)) {
+    throw new \RuntimeException('Expected variable $string to be set at this point.');
+}
 
-$string['activity_default_name'] = 'Matrix Chat';
+if (!\is_array($string)) {
+    throw new \RuntimeException(\sprintf(
+        'Expected variable $string to be an array, got %s instead.',
+        \is_object($string) ? \get_class($string) : \gettype($string),
+    ));
+}
 
-$string['settings_access_token_description'] = 'The access token the Matrix bot should use to authenticate with your Homeserver';
-$string['settings_access_token_name'] = 'Access Token';
-$string['settings_element_url_description'] = 'The URL to your Element Web instance. If not supplied/empty, matrix.to URLs will be generated instead';
-$string['settings_element_url_name'] = 'Element Web URL';
-$string['settings_homeserver_heading'] = 'Homeserver Settings';
-$string['settings_homeserver_url_description'] = 'The URL where the Matrix bot should connect to your Homeserver';
-$string['settings_homeserver_url_name'] = 'Homeserver URL';
-
-$string['view_alert_many_rooms'] = 'You can see multiple rooms for this course - please pick the one you would like to visit';
-$string['view_button_join_room'] = 'Join room';
-$string['view_error_no_groups'] = 'There are no groups.';
-$string['view_error_no_room_in_group'] = 'There is no room in this group.';
-$string['view_error_no_rooms'] = 'There are no rooms to show.';
-$string['view_error_no_visible_groups'] = 'There are no visible groups.';
-
-$string['matrix:addinstance'] = 'Add/edit Matrix room links';
-$string['matrix:staff'] = 'Treat the user as a staff user in Matrix rooms';
-$string['matrix:view'] = 'View Matrix room links';
+/** @var array<string, string> $string */
+$string = \array_merge($string, [
+    // ?
+    'modulename' => 'Matrix',
+    'modulenameplural' => 'Matrix',
+    'pluginadministration' => 'Matrix administration',
+    'pluginname' => 'Matrix',
+    // lib.php
+    'activity_default_name' => 'Matrix Chat',
+    // settings.php
+    'settings_access_token_description' => 'The access token the Matrix bot should use to authenticate with your Homeserver',
+    'settings_access_token_name' => 'Access Token',
+    'settings_element_url_description' => 'The URL to your Element Web instance. If not supplied/empty, matrix.to URLs will be generated instead',
+    'settings_element_url_name' => 'Element Web URL',
+    'settings_homeserver_heading' => 'Homeserver Settings',
+    'settings_homeserver_url_description' => 'The URL where the Matrix bot should connect to your Homeserver',
+    'settings_homeserver_url_name' => 'Homeserver URL',
+    // view.php
+    'view_alert_many_rooms' => 'You can see multiple rooms for this course - please pick the one you would like to visit',
+    'view_button_join_room' => 'Join room',
+    'view_error_no_groups' => 'There are no groups.',
+    'view_error_no_room_in_group' => 'There is no room in this group.',
+    'view_error_no_rooms' => 'There are no rooms to show.',
+    'view_error_no_visible_groups' => 'There are no visible groups.',
+    // ?
+    'matrix:addinstance' => 'Add/edit Matrix room links',
+    'matrix:staff' => 'Treat the user as a staff user in Matrix rooms',
+    'matrix:view' => 'View Matrix room links',
+]);
