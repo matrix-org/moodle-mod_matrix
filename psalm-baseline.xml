@@ -184,32 +184,6 @@
       <code>$httpStatusCode</code>
     </MixedAssignment>
   </file>
-  <file src="src/Matrix/Infrastructure/EventSubscriber.php">
-    <MixedArgumentTypeCoercion occurrences="1"/>
-    <MixedArrayOffset occurrences="1"/>
-    <UndefinedClass occurrences="20">
-      <code>event\group_created</code>
-      <code>event\group_created</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_removed</code>
-      <code>event\group_member_removed</code>
-      <code>event\role_assigned</code>
-      <code>event\role_assigned</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_deleted</code>
-      <code>event\role_deleted</code>
-      <code>event\role_unassigned</code>
-      <code>event\role_unassigned</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_updated</code>
-      <code>event\user_enrolment_updated</code>
-    </UndefinedClass>
-  </file>
   <file src="src/Matrix/Infrastructure/HttpClient.php">
     <MissingReturnType occurrences="3">
       <code>get</code>
@@ -280,6 +254,32 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
+  <file src="src/Moodle/Infrastructure/EventSubscriber.php">
+    <MixedArgumentTypeCoercion occurrences="1"/>
+    <MixedArrayOffset occurrences="1"/>
+    <UndefinedClass occurrences="20">
+      <code>event\group_created</code>
+      <code>event\group_created</code>
+      <code>event\group_member_added</code>
+      <code>event\group_member_added</code>
+      <code>event\group_member_removed</code>
+      <code>event\group_member_removed</code>
+      <code>event\role_assigned</code>
+      <code>event\role_assigned</code>
+      <code>event\role_capabilities_updated</code>
+      <code>event\role_capabilities_updated</code>
+      <code>event\role_deleted</code>
+      <code>event\role_deleted</code>
+      <code>event\role_unassigned</code>
+      <code>event\role_unassigned</code>
+      <code>event\user_enrolment_created</code>
+      <code>event\user_enrolment_created</code>
+      <code>event\user_enrolment_deleted</code>
+      <code>event\user_enrolment_deleted</code>
+      <code>event\user_enrolment_updated</code>
+      <code>event\user_enrolment_updated</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Moodle/Infrastructure/RoomNormalizer.php">
     <MixedArgument occurrences="1">
       <code>$normalized-&gt;room_id</code>
@@ -291,20 +291,6 @@
       <code>\Generator&lt;string, array{0: string}&gt;</code>
       <code>\Generator&lt;string, array{0: string}&gt;</code>
     </MoreSpecificReturnType>
-  </file>
-  <file src="test/Unit/Matrix/Infrastructure/EventSubscriberTest.php">
-    <UndefinedClass occurrences="10">
-      <code>event\group_created</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_removed</code>
-      <code>event\role_assigned</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_deleted</code>
-      <code>event\role_unassigned</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_updated</code>
-    </UndefinedClass>
   </file>
   <file src="test/Unit/Matrix/Infrastructure/HttpClientBasedApiTest.php">
     <MixedArgumentTypeCoercion occurrences="3">
@@ -394,6 +380,20 @@
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
+  </file>
+  <file src="test/Unit/Moodle/Infrastructure/EventSubscriberTest.php">
+    <UndefinedClass occurrences="10">
+      <code>event\group_created</code>
+      <code>event\group_member_added</code>
+      <code>event\group_member_removed</code>
+      <code>event\role_assigned</code>
+      <code>event\role_capabilities_updated</code>
+      <code>event\role_deleted</code>
+      <code>event\role_unassigned</code>
+      <code>event\user_enrolment_created</code>
+      <code>event\user_enrolment_deleted</code>
+      <code>event\user_enrolment_updated</code>
+    </UndefinedClass>
   </file>
   <file src="test/Unit/Twitter/BootstrapTest.php">
     <MixedInferredReturnType occurrences="1">

@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Matrix\Infrastructure;
+namespace mod_matrix\Moodle\Infrastructure;
 
 use core\event;
 use mod_matrix\Container;

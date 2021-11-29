@@ -8,16 +8,16 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Matrix\Infrastructure;
+namespace mod_matrix\Test\Unit\Moodle\Infrastructure;
 
 use core\event;
-use mod_matrix\Matrix;
+use mod_matrix\Moodle;
 use PHPUnit\Framework;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Infrastructure\EventSubscriber
+ * @covers \mod_matrix\Moodle\Infrastructure\EventSubscriber
  */
 final class EventSubscriberTest extends Framework\TestCase
 {
@@ -26,7 +26,7 @@ final class EventSubscriberTest extends Framework\TestCase
         $expected = [
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onGroupCreated',
                 ],
                 'eventname' => event\group_created::class,
@@ -34,7 +34,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onGroupMemberAdded',
                 ],
                 'eventname' => event\group_member_added::class,
@@ -42,7 +42,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onGroupMemberRemoved',
                 ],
                 'eventname' => event\group_member_removed::class,
@@ -50,7 +50,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onRoleAssigned',
                 ],
                 'eventname' => event\role_assigned::class,
@@ -58,7 +58,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onRoleCapabilitiesUpdated',
                 ],
                 'eventname' => event\role_capabilities_updated::class,
@@ -66,7 +66,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onRoleDeleted',
                 ],
                 'eventname' => event\role_deleted::class,
@@ -74,7 +74,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onRoleUnassigned',
                 ],
                 'eventname' => event\role_unassigned::class,
@@ -82,7 +82,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onUserEnrolmentCreated',
                 ],
                 'eventname' => event\user_enrolment_created::class,
@@ -90,7 +90,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onUserEnrolmentDeleted',
                 ],
                 'eventname' => event\user_enrolment_deleted::class,
@@ -98,7 +98,7 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
             [
                 'callback' => [
-                    Matrix\Infrastructure\EventSubscriber::class,
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onUserEnrolmentUpdated',
                 ],
                 'eventname' => event\user_enrolment_updated::class,
@@ -106,6 +106,6 @@ final class EventSubscriberTest extends Framework\TestCase
             ],
         ];
 
-        self::assertEquals($expected, Matrix\Infrastructure\EventSubscriber::observers());
+        self::assertEquals($expected, Moodle\Infrastructure\EventSubscriber::observers());
     }
 }

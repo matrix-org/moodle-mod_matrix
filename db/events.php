@@ -12,4 +12,4 @@ use mod_matrix\Matrix;
 
 \defined('MOODLE_INTERNAL') || exit();
 
-$observers = Matrix\Infrastructure\EventSubscriber::observers();
+$observers = \mod_matrix\Moodle\Infrastructure\EventSubscriber::observers();
