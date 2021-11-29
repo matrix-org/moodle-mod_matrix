@@ -54,17 +54,18 @@ function matrix_supports($feature)
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
  */
-function matrix_add_instance(object $moduleinfo)
-{
+function matrix_add_instance(
+    object $moduleinfo,
+    mod_matrix_mod_form $form
+) {
+    $data = $form->get_data();
+
     $container = Container::instance();
 
     $moduleService = $container->moduleService();
 
     $module = $moduleService->create(
-        Moodle\Domain\Name::fromString(get_string(
-            'activity_default_name',
-            Moodle\Application\Plugin::NAME,
-        )),
+        Moodle\Domain\Name::fromString($data->name),
         Moodle\Domain\CourseId::fromString($moduleinfo->course),
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );
