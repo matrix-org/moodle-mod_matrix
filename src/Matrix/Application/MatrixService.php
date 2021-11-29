@@ -241,7 +241,7 @@ final class MatrixService
     {
         $groupId = $room->groupId();
 
-        if (null === $groupId) {
+        if (!$groupId instanceof Moodle\Domain\GroupId) {
             $groupId = Moodle\Domain\GroupId::fromInt(0);
         } // Moodle wants zero instead of null
 
