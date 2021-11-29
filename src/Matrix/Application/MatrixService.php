@@ -300,8 +300,6 @@ final class MatrixService
             ));
         }
 
-        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
-
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $module->courseId(),
             $groupId,
@@ -310,6 +308,8 @@ final class MatrixService
         $userIdsOfUsers = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users);
+
+        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
