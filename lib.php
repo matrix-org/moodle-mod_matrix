@@ -61,7 +61,10 @@ function matrix_add_instance(object $moduleinfo)
     $moduleService = $container->moduleService();
 
     $module = $moduleService->create(
-        Moodle\Domain\Name::fromString(get_string('activity_default_name', 'matrix')),
+        Moodle\Domain\Name::fromString(get_string(
+            'activity_default_name',
+            Moodle\Application\Plugin::NAME,
+        )),
         Moodle\Domain\CourseId::fromString($moduleinfo->course),
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );

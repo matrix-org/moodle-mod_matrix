@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 
 use mod_matrix\Matrix;
+use mod_matrix\Moodle;
 
 \defined('MOODLE_INTERNAL') || exit();
 
@@ -20,31 +21,52 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
         'mod_matrix/homeserver',
         '',
-        get_string('settings_homeserver_heading', 'matrix'),
+        get_string(
+            'settings_homeserver_heading',
+            Moodle\Application\Plugin::NAME,
+        ),
     ));
 
     $defaultConfiguration = Matrix\Application\Configuration::default();
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/homeserver_url',
-        get_string('settings_homeserver_url_name', 'matrix'),
-        get_string('settings_homeserver_url_description', 'matrix'),
+        get_string(
+            'settings_homeserver_url_name',
+            Moodle\Application\Plugin::NAME,
+        ),
+        get_string(
+            'settings_homeserver_url_description',
+            Moodle\Application\Plugin::NAME,
+        ),
         $defaultConfiguration->homeserverUrl(),
         PARAM_TEXT,
     ));
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/access_token',
-        get_string('settings_access_token_name', 'matrix'),
-        get_string('settings_access_token_description', 'matrix'),
+        get_string(
+            'settings_access_token_name',
+            Moodle\Application\Plugin::NAME,
+        ),
+        get_string(
+            'settings_access_token_description',
+            Moodle\Application\Plugin::NAME,
+        ),
         $defaultConfiguration->accessToken(),
         PARAM_TEXT,
     ));
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/element_url',
-        get_string('settings_element_url_name', 'matrix'),
-        get_string('settings_element_url_description', 'matrix'),
+        get_string(
+            'settings_element_url_name',
+            Moodle\Application\Plugin::NAME,
+        ),
+        get_string(
+            'settings_element_url_description',
+            Moodle\Application\Plugin::NAME,
+        ),
         $defaultConfiguration->elementUrl(),
         PARAM_TEXT,
     ));

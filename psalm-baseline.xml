@@ -38,7 +38,6 @@
       <code>$groups</code>
       <code>$moduleinfo-&gt;course</code>
       <code>$moduleinfo-&gt;section</code>
-      <code>get_string('activity_default_name', 'matrix')</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$group</code>
@@ -59,9 +58,7 @@
       <code>FEATURE_MOD_INTRO</code>
       <code>FEATURE_SHOW_DESCRIPTION</code>
     </UndefinedConstant>
-    <UndefinedFunction occurrences="2">
-      <code>get_string('activity_default_name', 'matrix')</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="2"/>
   </file>
   <file src="mod_form.php">
     <MixedOperand occurrences="1">
@@ -93,15 +90,7 @@
       <code>$settings</code>
       <code>$settings</code>
     </UndefinedDocblockClass>
-    <UndefinedFunction occurrences="7">
-      <code>get_string('settings_access_token_description', 'matrix')</code>
-      <code>get_string('settings_access_token_name', 'matrix')</code>
-      <code>get_string('settings_element_url_description', 'matrix')</code>
-      <code>get_string('settings_element_url_name', 'matrix')</code>
-      <code>get_string('settings_homeserver_heading', 'matrix')</code>
-      <code>get_string('settings_homeserver_url_description', 'matrix')</code>
-      <code>get_string('settings_homeserver_url_name', 'matrix')</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="7"/>
   </file>
   <file src="src/Container.php">
     <MissingClosureReturnType occurrences="1">
@@ -449,12 +438,6 @@
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>get_string('liketologin')</code>
-      <code>get_string('view_alert_many_rooms', 'matrix')</code>
-      <code>get_string('view_error_no_groups', 'matrix')</code>
-      <code>get_string('view_error_no_room_in_group', 'matrix')</code>
-      <code>get_string('view_error_no_rooms', 'matrix')</code>
-      <code>get_string('view_error_no_visible_groups', 'matrix')</code>
-      <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
     </MixedArgument>
     <MixedAssignment occurrences="7">
       <code>$group</code>
@@ -482,14 +465,8 @@
     <UndefinedFunction occurrences="15">
       <code>get_login_url()</code>
       <code>get_string('liketologin')</code>
-      <code>get_string('view_alert_many_rooms', 'matrix')</code>
-      <code>get_string('view_button_join_room', 'matrix')</code>
-      <code>get_string('view_button_join_room', 'matrix')</code>
-      <code>get_string('view_error_no_groups', 'matrix')</code>
-      <code>get_string('view_error_no_room_in_group', 'matrix')</code>
-      <code>get_string('view_error_no_rooms', 'matrix')</code>
-      <code>get_string('view_error_no_visible_groups', 'matrix')</code>
-      <code>get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix')</code>
+      <code>get_string('view_button_join_room', Moodle\Application\Plugin::NAME)</code>
+      <code>get_string('view_button_join_room', Moodle\Application\Plugin::NAME)</code>
       <code>groups_get_activity_allowed_groups($cm)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
       <code>require_login($course, true, $cm)</code>

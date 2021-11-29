@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+use mod_matrix\Moodle;
+
 function xmldb_matrix_upgrade($oldversion = 0)
 {
     global $DB;
@@ -26,7 +28,11 @@ function xmldb_matrix_upgrade($oldversion = 0)
         $field->set_attributes(XMLDB_TYPE_INTEGER, 2, false, true, false, 0);
         $dbman->add_field($table, $field);
 
-        upgrade_mod_savepoint(true, 2020110901, 'matrix');
+        upgrade_mod_savepoint(
+            true,
+            2020110901,
+            Moodle\Application\Plugin::NAME,
+        );
     }
 
     if (2020110948 > $oldversion) {
@@ -40,7 +46,11 @@ function xmldb_matrix_upgrade($oldversion = 0)
         $field->set_attributes(XMLDB_TYPE_INTEGER, 10, true, false, false, null);
         $dbman->rename_field($table, $field, 'group_id');
 
-        upgrade_mod_savepoint(true, 2020110948, 'matrix');
+        upgrade_mod_savepoint(
+            true,
+            2020110948,
+            Moodle\Application\Plugin::NAME,
+        );
     }
 
     if (2021091300 > $oldversion) {
@@ -63,7 +73,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
         upgrade_mod_savepoint(
             true,
             2021091300,
-            'matrix',
+            Moodle\Application\Plugin::NAME,
         );
     }
 
@@ -102,7 +112,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
         upgrade_mod_savepoint(
             true,
             2021091400,
-            'matrix',
+            Moodle\Application\Plugin::NAME,
         );
     }
 

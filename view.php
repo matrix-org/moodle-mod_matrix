@@ -18,7 +18,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $id = required_param('id', PARAM_INT);
 
-[$course, $cm] = get_course_and_cm_from_cmid($id, 'matrix');
+[$course, $cm] = get_course_and_cm_from_cmid(
+    $id,
+    Moodle\Application\Plugin::NAME,
+);
 
 $container = Container::instance();
 
@@ -50,7 +53,10 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     echo $OUTPUT->confirm(
         \sprintf(
             '<p>%s</p>%s',
-            get_string(isguestuser() ? 'view_noguests' : 'view_nojoin', 'matrix'),
+            get_string(
+                isguestuser() ? 'view_noguests' : 'view_nojoin',
+                Moodle\Application\Plugin::NAME,
+            ),
             get_string('liketologin'),
         ),
         get_login_url(),
@@ -71,7 +77,10 @@ $possibleRooms = $roomRepository->findAllBy([
 if ([] === $possibleRooms) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('view_error_no_rooms', 'matrix'),
+        get_string(
+            'view_error_no_rooms',
+            Moodle\Application\Plugin::NAME,
+        ),
     );
 
     echo $OUTPUT->footer();
@@ -87,7 +96,7 @@ if (\count($possibleRooms) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', 'matrix') . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', Moodle\Application\Plugin::NAME) . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -105,7 +114,10 @@ $groups = groups_get_all_groups(
 if (\count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('view_error_no_groups', 'matrix'),
+        get_string(
+            'view_error_no_groups',
+            Moodle\Application\Plugin::NAME,
+        ),
     );
 
     echo $OUTPUT->footer();
@@ -118,7 +130,10 @@ $visibleGroups = groups_get_activity_allowed_groups($cm);
 if (\count($visibleGroups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
-        get_string('view_error_no_visible_groups', 'matrix'),
+        get_string(
+            'view_error_no_visible_groups',
+            Moodle\Application\Plugin::NAME,
+        ),
     );
 
     echo $OUTPUT->footer();
@@ -137,7 +152,10 @@ if (\count($visibleGroups) === 1) {
     if (!$room instanceof Moodle\Domain\Room) {
         echo Twitter\Bootstrap::alert(
             'danger',
-            get_string('view_error_no_room_in_group', 'matrix'),
+            get_string(
+                'view_error_no_room_in_group',
+                Moodle\Application\Plugin::NAME,
+            ),
         );
 
         echo $OUTPUT->footer();
@@ -148,7 +166,7 @@ if (\count($visibleGroups) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', 'matrix') . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', Moodle\Application\Plugin::NAME) . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -159,7 +177,10 @@ if (\count($visibleGroups) === 1) {
 
 echo Twitter\Bootstrap::alert(
     'warning',
-    get_string('view_alert_many_rooms', 'matrix'),
+    get_string(
+        'view_alert_many_rooms',
+        Moodle\Application\Plugin::NAME,
+    ),
 );
 
 foreach ($visibleGroups as $id => $group) {
