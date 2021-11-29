@@ -97,12 +97,13 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="11">
+    <MixedInferredReturnType occurrences="12">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\Configuration</code>
       <code>Matrix\Application\MatrixService</code>
       <code>Moodle\Application\ModuleService</code>
+      <code>Moodle\Domain\CourseRepository</code>
       <code>Moodle\Domain\GroupRepository</code>
       <code>Moodle\Domain\ModuleRepository</code>
       <code>Moodle\Domain\RoomRepository</code>
@@ -113,12 +114,13 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="10">
+    <MixedReturnStatement occurrences="11">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\MatrixService::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\ModuleService::class)</code>
+      <code>$this-&gt;resolve(Moodle\Domain\CourseRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\GroupRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\RoomRepository::class)</code>
@@ -153,17 +155,19 @@
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="2">
-      <code>$course</code>
+    <MixedAssignment occurrences="1">
       <code>$powerLevels</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="2">
+    <MixedPropertyFetch occurrences="1">
       <code>$CFG-&gt;wwwroot</code>
-      <code>$course-&gt;fullname</code>
     </MixedPropertyFetch>
-    <UndefinedFunction occurrences="1">
-      <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
-    </UndefinedFunction>
+    <PossiblyNullArgument occurrences="2">
+      <code>$course-&gt;fullname</code>
+      <code>$course-&gt;fullname</code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyFetch occurrences="1">
+      <code>$course-&gt;fullname</code>
+    </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
     <MissingReturnType occurrences="3">
@@ -273,6 +277,17 @@
       <code>event\user_enrolment_updated</code>
       <code>event\user_enrolment_updated</code>
     </UndefinedClass>
+  </file>
+  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>?object</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>get_course($courseId-&gt;toInt())</code>
+    </MixedReturnStatement>
+    <UndefinedFunction occurrences="1">
+      <code>get_course($courseId-&gt;toInt())</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedGroupRepository.php">
     <UndefinedFunction occurrences="1">
