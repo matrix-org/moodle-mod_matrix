@@ -215,12 +215,16 @@ final class MatrixService
                 $groupId,
             );
 
+            $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
             $this->synchronizeRoomMembersForRoom(
                 $roomForModuleAndGroup,
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId()),
+                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $staff),
             );
 
             return;
@@ -251,12 +255,16 @@ final class MatrixService
             Moodle\Domain\GroupId::fromInt(0),
         );
 
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
         $this->synchronizeRoomMembersForRoom(
             $roomForModule,
             Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
             }, $users)),
-            $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId()),
+            \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $staff),
         );
     }
 
@@ -290,12 +298,16 @@ final class MatrixService
                 $groupId,
             );
 
+            $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
             $this->synchronizeRoomMembersForRoom(
                 $room,
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId()),
+                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $staff),
             );
         }
     }
@@ -323,12 +335,16 @@ final class MatrixService
                     $groupId,
                 );
 
+                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
                     }, $users)),
-                    $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId()),
+                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                        return $user->matrixUserId();
+                    }, $staff),
                 );
             }
         }
@@ -354,30 +370,30 @@ final class MatrixService
                     $groupId,
                 );
 
+                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
                     }, $users)),
-                    $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId()),
+                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                        return $user->matrixUserId();
+                    }, $staff),
                 );
             }
         }
     }
 
     /**
-     * @param array<int, Moodle\Domain\User> $staff
+     * @param array<int, Matrix\Domain\UserId> $userIdsOfStaff
      */
     public function synchronizeRoomMembersForRoom(
         Moodle\Domain\Room $room,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
-        array $staff
+        array $userIdsOfStaff
     ): void {
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
-
-        $userIdsOfStaff = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-            return $user->matrixUserId();
-        }, $staff);
 
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
