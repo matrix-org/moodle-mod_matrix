@@ -210,7 +210,10 @@ final class MatrixService
                 $this->roomRepository->save($roomForModuleAndGroup);
             }
 
-            $this->synchronizeRoomMembersForRoom($roomForModuleAndGroup);
+            $this->synchronizeRoomMembersForRoom(
+                $roomForModuleAndGroup,
+                $module->courseId(),
+            );
 
             return;
         }
@@ -235,15 +238,35 @@ final class MatrixService
             $this->roomRepository->save($roomForModule);
         }
 
-        $this->synchronizeRoomMembersForRoom($roomForModule);
+        $this->synchronizeRoomMembersForRoom(
+            $roomForModule,
+            $module->courseId(),
+        );
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function synchronizeRoomMembersForAllRooms(): void
     {
         $rooms = $this->roomRepository->findAll();
 
         foreach ($rooms as $room) {
-            $this->synchronizeRoomMembersForRoom($room);
+            $module = $this->moduleRepository->findOneBy([
+                'id' => $room->moduleId()->toInt(),
+            ]);
+
+            if (!$module instanceof Moodle\Domain\Module) {
+                throw new \RuntimeException(\sprintf(
+                    'Module with id "%d" was not found.',
+                    $room->moduleId()->toInt(),
+                ));
+            }
+
+            $this->synchronizeRoomMembersForRoom(
+                $room,
+                $module->courseId(),
+            );
         }
     }
 
@@ -259,7 +282,10 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
-                $this->synchronizeRoomMembersForRoom($room);
+                $this->synchronizeRoomMembersForRoom(
+                    $room,
+                    $courseId,
+                );
             }
         }
     }
@@ -279,28 +305,18 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
-                $this->synchronizeRoomMembersForRoom($room);
+                $this->synchronizeRoomMembersForRoom(
+                    $room,
+                    $courseId,
+                );
             }
         }
     }
 
-    /**
-     * @throws \RuntimeException
-     */
-    public function synchronizeRoomMembersForRoom(Moodle\Domain\Room $room): void
-    {
-        $module = $this->moduleRepository->findOneBy([
-            'id' => $room->moduleId()->toInt(),
-        ]);
-
-        if (!$module instanceof Moodle\Domain\Module) {
-            throw new \RuntimeException(\sprintf(
-                'Module with id "%d" was not found.',
-                $room->moduleId()->toInt(),
-            ));
-        }
-
-        $courseId = $module->courseId();
+    public function synchronizeRoomMembersForRoom(
+        Moodle\Domain\Room $room,
+        Moodle\Domain\CourseId $courseId
+    ): void {
         $groupId = $room->groupId();
 
         if (!$groupId instanceof Moodle\Domain\GroupId) {
