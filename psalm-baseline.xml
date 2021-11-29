@@ -138,14 +138,12 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <MixedArgument occurrences="9">
+    <MixedArgument occurrences="7">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
       <code>$powerLevels</code>
-      <code>$sectionName</code>
-      <code>$sectionName</code>
       <code>$user</code>
       <code>$user</code>
     </MixedArgument>
@@ -154,11 +152,10 @@
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="6">
       <code>$course</code>
       <code>$group</code>
       <code>$powerLevels</code>
-      <code>$sectionName</code>
       <code>$user</code>
       <code>$user</code>
       <code>$users</code>
@@ -168,7 +165,7 @@
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
     </MixedPropertyFetch>
-    <UndefinedFunction occurrences="5">
+    <UndefinedFunction occurrences="4">
       <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
       <code>groups_get_group($groupId-&gt;toInt())</code>
       <code>profile_load_custom_fields($user)</code>
