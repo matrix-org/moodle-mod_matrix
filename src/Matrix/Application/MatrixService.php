@@ -89,21 +89,24 @@ final class MatrixService
         );
 
         $roomOptions = [
+            'creation_content' => [
+                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
+                //'org.matrix.moodle.group_id' => 'undefined'
+            ],
+            'initial_state' => [
+                [
+                    'content' => [
+                        'guest_access' => 'forbidden',
+                    ],
+                    'state_key' => '',
+                    'type' => 'm.room.guest_access',
+                ],
+            ],
             'name' => \sprintf(
                 '%s (%s)',
                 $course->fullname,
                 $sectionName,
             ),
-            'topic' => \sprintf(
-                '%s/course/view.php?id=%d',
-                $CFG->wwwroot,
-                $module->courseId()->toInt(),
-            ),
-            'preset' => 'private_chat',
-            'creation_content' => [
-                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
-                //'org.matrix.moodle.group_id' => 'undefined'
-            ],
             'power_level_content_override' => [
                 'ban' => $botPowerLevel->toInt(),
                 'invite' => $botPowerLevel->toInt(),
@@ -127,15 +130,12 @@ final class MatrixService
                     $whoami->toString() => $botPowerLevel->toInt(),
                 ],
             ],
-            'initial_state' => [
-                [
-                    'type' => 'm.room.guest_access',
-                    'state_key' => '',
-                    'content' => [
-                        'guest_access' => 'forbidden',
-                    ],
-                ],
-            ],
+            'preset' => 'private_chat',
+            'topic' => \sprintf(
+                '%s/course/view.php?id=%d',
+                $CFG->wwwroot,
+                $module->courseId()->toInt(),
+            ),
         ];
 
         if ($groupId instanceof Moodle\Domain\GroupId) {
