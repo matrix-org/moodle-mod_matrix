@@ -77,7 +77,7 @@ final class mod_matrix_mod_form extends moodleform_mod
 
         $this->_form->addHelpButton(
             $elementName,
-            'mod_form_basic_settings_help',
+            'mod_form_basic_settings_name',
             Moodle\Application\Plugin::NAME,
         );
 
