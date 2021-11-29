@@ -283,12 +283,6 @@ final class MatrixService
 
     public function synchronizeRoomMembersForRoom(Moodle\Domain\Room $room): void
     {
-        $groupId = $room->groupId();
-
-        if (!$groupId instanceof Moodle\Domain\GroupId) {
-            $groupId = Moodle\Domain\GroupId::fromInt(0);
-        } // Moodle wants zero instead of null
-
         $module = $this->moduleRepository->findOneBy([
             'id' => $room->moduleId()->toInt(),
         ]);
@@ -299,6 +293,12 @@ final class MatrixService
                 $room->moduleId()->toInt(),
             ));
         }
+
+        $groupId = $room->groupId();
+
+        if (!$groupId instanceof Moodle\Domain\GroupId) {
+            $groupId = Moodle\Domain\GroupId::fromInt(0);
+        } // Moodle wants zero instead of null
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $module->courseId(),
