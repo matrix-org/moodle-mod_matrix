@@ -304,11 +304,6 @@ final class MatrixService
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
-        /** @var array<int, Matrix\Domain\UserId> $userIdsOfUsersAllowedInRoom */
-        $userIdsOfUsersAllowedInRoom = [
-            $matrixUserIdOfBot,
-        ];
-
         $powerLevels = $this->api->getState(
             $room->matrixRoomId(),
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
@@ -382,7 +377,9 @@ final class MatrixService
         );
 
         $userIdsOfUsersAllowedInRoom = \array_merge(
-            $userIdsOfUsersAllowedInRoom,
+            [
+                $matrixUserIdOfBot,
+            ],
             $userIdsOfUsers,
             $userIdsOfStaff,
         );
