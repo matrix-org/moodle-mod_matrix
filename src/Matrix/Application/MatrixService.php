@@ -346,8 +346,6 @@ final class MatrixService
         });
 
         foreach ($userIdsOfUsers as $userIdOfUser) {
-            $userIdsOfUsersAllowedInRoom[] = $userIdOfUser;
-
             $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
@@ -385,6 +383,7 @@ final class MatrixService
 
         $userIdsOfUsersAllowedInRoom = \array_merge(
             $userIdsOfUsersAllowedInRoom,
+            $userIdsOfUsers,
             $userIdsOfStaff,
         );
 
