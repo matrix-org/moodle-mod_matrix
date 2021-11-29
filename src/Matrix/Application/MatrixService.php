@@ -140,6 +140,13 @@ final class MatrixService
         if ($groupId instanceof Moodle\Domain\GroupId) {
             $group = $this->groupRepository->find($groupId);
 
+            if (!$group instanceof Moodle\Domain\Group) {
+                throw new \RuntimeException(\sprintf(
+                    'Could not find group with id %d.',
+                    $groupId->toInt(),
+                ));
+            }
+
             $roomForModuleAndGroup = $this->roomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $groupId->toInt(),
@@ -148,7 +155,7 @@ final class MatrixService
             if (!$roomForModuleAndGroup instanceof Moodle\Domain\Room) {
                 $roomOptions['name'] = \sprintf(
                     '%s: %s (%s)',
-                    $group->name,
+                    $group->name()->toString(),
                     $course->fullname,
                     $module->name()->toString(),
                 );
