@@ -302,14 +302,6 @@ final class MatrixService
 
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
-        $matrixUserIdOfBot = $this->api->whoAmI();
-
-        $powerLevels = $this->api->getState(
-            $room->matrixRoomId(),
-            Matrix\Domain\EventType::fromString('m.room.power_levels'),
-            Matrix\Domain\StateKey::fromString(''),
-        );
-
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $module->courseId(),
             $groupId,
@@ -356,6 +348,14 @@ final class MatrixService
                 $room->matrixRoomId(),
             );
         });
+
+        $matrixUserIdOfBot = $this->api->whoAmI();
+
+        $powerLevels = $this->api->getState(
+            $room->matrixRoomId(),
+            Matrix\Domain\EventType::fromString('m.room.power_levels'),
+            Matrix\Domain\StateKey::fromString(''),
+        );
 
         $powerLevels['users'] = [
             $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
