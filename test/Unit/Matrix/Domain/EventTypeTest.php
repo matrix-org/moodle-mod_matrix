@@ -23,7 +23,7 @@ final class EventTypeTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
-    public function testFromStringReturnsMatrixEventType(string $value): void
+    public function testFromStringReturnsEventType(string $value): void
     {
         $eventType = Matrix\Domain\EventType::fromString($value);
 

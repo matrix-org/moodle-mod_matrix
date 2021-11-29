@@ -23,7 +23,7 @@ final class RoomTopicTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
-    public function testFromStringReturnsMatrixTopic(string $value): void
+    public function testFromStringReturnsTopic(string $value): void
     {
         $topic = Matrix\Domain\RoomTopic::fromString($value);
 

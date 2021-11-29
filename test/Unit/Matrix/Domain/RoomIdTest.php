@@ -23,7 +23,7 @@ final class RoomIdTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
-    public function testFromStringReturnsMatrixRoomId(string $value): void
+    public function testFromStringReturnsRoomId(string $value): void
     {
         $roomId = Matrix\Domain\RoomId::fromString($value);
 

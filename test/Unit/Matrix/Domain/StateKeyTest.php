@@ -23,7 +23,7 @@ final class StateKeyTest extends Framework\TestCase
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
-    public function testFromStringReturnsMatrixStateKey(string $value): void
+    public function testFromStringReturnsStateKey(string $value): void
     {
         $stateKey = Matrix\Domain\StateKey::fromString($value);
 
