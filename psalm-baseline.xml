@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.13.0@cd489407a0219b93cadd04d5aff9845a942f7e5d">
+<files psalm-version="4.13.1@5cf660f63b548ccd4a56f62d916ee4d6028e01a3">
   <file src="index.php">
     <MissingFile occurrences="1">
       <code>require_once '../../config.php'</code>
