@@ -70,6 +70,11 @@ final class mod_matrix_mod_form extends moodleform_mod
             ),
         );
 
+        $this->_form->setType(
+            $elementName,
+            PARAM_TEXT,
+        );
+
         $this->_form->addHelpButton(
             $elementName,
             'mod_form_basic_settings_help',
