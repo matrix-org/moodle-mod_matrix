@@ -86,7 +86,6 @@ final class MatrixService
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
-                //'org.matrix.moodle.group_id' => 'undefined'
             ],
             'initial_state' => [
                 [
