@@ -367,8 +367,6 @@ final class MatrixService
             $powerLevels,
         );
 
-        $api = $this->api;
-
         $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($matrixUserIdsOfUsersAllowedInTheRoom): bool {
             return !\in_array(
                 $userId,
@@ -376,6 +374,8 @@ final class MatrixService
                 false,
             );
         });
+
+        $api = $this->api;
 
         \array_walk($userIdsOfUsersNotAllowedInTheRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
             $api->kickUser(
