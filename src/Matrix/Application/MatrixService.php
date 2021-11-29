@@ -367,17 +367,18 @@ final class MatrixService
             $powerLevels,
         );
 
-        // Kick anyone who isn't supposed to be there
-        foreach ($matrixUserIdsOfUsersInTheRoom as $matrixUserId) {
+        $api = $this->api;
+
+        \array_walk($matrixUserIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $matrixUserId) use ($matrixUserIdsOfUsersAllowedInTheRoom, $api, $room): void {
             if (\in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
-                continue;
+                return;
             }
 
-            $this->api->kickUser(
+            $api->kickUser(
                 $matrixUserId,
                 $room->matrixRoomId(),
             );
-        }
+        });
     }
 
     public function removeRoom(Moodle\Domain\Room $room): void
