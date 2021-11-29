@@ -311,6 +311,12 @@ final class MatrixService
 
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
+        $userIdsOfStaff = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff);
+
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
@@ -327,12 +333,6 @@ final class MatrixService
                 $room->matrixRoomId(),
             );
         });
-
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
-
-        $userIdsOfStaff = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-            return $user->matrixUserId();
-        }, $staff);
 
         $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom) {
             return !\in_array(
