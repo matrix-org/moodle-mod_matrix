@@ -340,10 +340,6 @@ final class MatrixService
             );
         });
 
-        foreach ($userIdsOfUsers as $userIdOfUser) {
-            $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
-        }
-
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
         $userIdsOfStaff = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
@@ -364,6 +360,10 @@ final class MatrixService
                 $room->matrixRoomId(),
             );
         });
+
+        foreach ($userIdsOfUsers as $userIdOfUser) {
+            $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
+        }
 
         foreach ($userIdsOfStaff as $userIdOfStaff) {
             $powerLevels['users'][$userIdOfStaff->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
