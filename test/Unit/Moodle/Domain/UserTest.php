@@ -26,14 +26,7 @@ final class UserTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testCreateReturnsUserWhenMatrixUserIdIsNull(): void
-    {
-        $user = Moodle\Domain\User::create(null);
-
-        self::assertNull($user->matrixUserId());
-    }
-
-    public function testCreateReturnsUserWhenMatrixUserIdIsNotNull(): void
+    public function testCreateReturnsUser(): void
     {
         $matrixUserId = Matrix\Domain\UserId::fromString(self::faker()->sha1());
 

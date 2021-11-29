@@ -300,7 +300,7 @@ final class MatrixService
             ));
         }
 
-        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroup(
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $module->courseId(),
             $groupId,
         );
@@ -325,10 +325,6 @@ final class MatrixService
         ];
 
         foreach ($users as $user) {
-            if (!$user->matrixUserId() instanceof Matrix\Domain\UserId) {
-                continue;
-            }
-
             if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $user->matrixUserId(),
@@ -341,13 +337,9 @@ final class MatrixService
             $powerLevels['users'][$user->matrixUserId()->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
-        $staff = $this->userRepository->findAllStaffInCourse($module->courseId());
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
         foreach ($staff as $user) {
-            if (!$user->matrixUserId() instanceof Matrix\Domain\UserId) {
-                continue;
-            }
-
             if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
                     $user->matrixUserId(),

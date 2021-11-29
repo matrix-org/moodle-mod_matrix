@@ -15,12 +15,12 @@ interface UserRepository
     /**
      * @return array<int, User>
      */
-    public function findAllStaffInCourse(CourseId $courseId): array;
+    public function findAllStaffInCourseWithMatrixUserId(CourseId $courseId): array;
 
     /**
      * @return array<int, User>
      */
-    public function findAllUsersEnrolledInCourseAndGroup(
+    public function findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
         CourseId $courseId,
         GroupId $groupId
     ): array;
