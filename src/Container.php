@@ -56,6 +56,7 @@ final class Container
             return new Matrix\Application\MatrixService(
                 $container->api(),
                 $container->configuration(),
+                $container->courseRepository(),
                 $container->groupRepository(),
                 $container->moduleRepository(),
                 $container->roomRepository(),
@@ -69,6 +70,10 @@ final class Container
                 $container->moduleRepository(),
                 $container->clock(),
             );
+        });
+
+        $this->define(Moodle\Domain\CourseRepository::class, static function (): Moodle\Domain\CourseRepository {
+            return new Moodle\Infrastructure\MoodleFunctionBasedCourseRepository();
         });
 
         $this->define(Moodle\Domain\GroupRepository::class, static function (): Moodle\Domain\GroupRepository {
@@ -130,6 +135,11 @@ final class Container
     public function clock(): Clock\Clock
     {
         return $this->resolve(Clock\Clock::class);
+    }
+
+    public function courseRepository(): Moodle\Domain\CourseRepository
+    {
+        return $this->resolve(Moodle\Domain\CourseRepository::class);
     }
 
     public function database(): \moodle_database
