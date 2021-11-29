@@ -304,8 +304,8 @@ final class MatrixService
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
-        /** @var array<int, Matrix\Domain\UserId> $userIdsOfUsersAllowedInTheRoom */
-        $userIdsOfUsersAllowedInTheRoom = [
+        /** @var array<int, Matrix\Domain\UserId> $userIdsOfUsersAllowedInRoom */
+        $userIdsOfUsersAllowedInRoom = [
             $this->api->whoAmI(),
         ];
 
@@ -346,7 +346,7 @@ final class MatrixService
         });
 
         foreach ($userIdsOfUsers as $userIdOfUser) {
-            $userIdsOfUsersAllowedInTheRoom[] = $userIdOfUser;
+            $userIdsOfUsersAllowedInRoom[] = $userIdOfUser;
 
             $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
@@ -383,15 +383,15 @@ final class MatrixService
             $powerLevels,
         );
 
-        $userIdsOfUsersAllowedInTheRoom = \array_merge(
-            $userIdsOfUsersAllowedInTheRoom,
+        $userIdsOfUsersAllowedInRoom = \array_merge(
+            $userIdsOfUsersAllowedInRoom,
             $userIdsOfStaff,
         );
 
-        $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
+        $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
             return !\in_array(
                 $userId,
-                $userIdsOfUsersAllowedInTheRoom,
+                $userIdsOfUsersAllowedInRoom,
                 false,
             );
         });
