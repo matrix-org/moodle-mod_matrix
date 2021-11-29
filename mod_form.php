@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+use mod_matrix\Moodle;
+
 require_once $CFG->dirroot . '/course/moodleform_mod.php';
 
 /**
@@ -21,10 +23,76 @@ final class mod_matrix_mod_form extends moodleform_mod
 {
     protected function definition(): void
     {
+        $this->addElementsForBasicSettings();
+
         // We don't have any config options
         $this->apply_admin_defaults();
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
+    }
+
+    private function addElementsForBasicSettings(): void
+    {
+        $this->_form->addElement(
+            'header',
+            'mod_form_basic_settings_header',
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER,
+                Moodle\Application\Plugin::NAME,
+            ),
+        );
+
+        $this->addNameElement();
+    }
+
+    private function addNameElement(): void
+    {
+        $elementName = 'name';
+
+        $this->_form->addElement(
+            'text',
+            $elementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_NAME,
+                Moodle\Application\Plugin::NAME,
+            ),
+            [
+                'maxlength' => Moodle\Domain\Name::LENGTH_MAX,
+            ],
+        );
+
+        $this->_form->setDefault(
+            $elementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT,
+                Moodle\Application\Plugin::NAME,
+            ),
+        );
+
+        $this->_form->addHelpButton(
+            $elementName,
+            'mod_form_basic_settings_help',
+            Moodle\Application\Plugin::NAME,
+        );
+
+        $this->_form->addRule(
+            $elementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED,
+                Moodle\Application\Plugin::NAME,
+            ),
+            'required',
+        );
+
+        $this->_form->addRule(
+            $elementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH,
+                Moodle\Application\Plugin::NAME,
+            ),
+            'maxlength',
+            Moodle\Domain\Name::LENGTH_MAX,
+        );
     }
 }

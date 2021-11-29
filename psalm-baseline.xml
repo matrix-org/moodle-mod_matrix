@@ -29,23 +29,13 @@
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
     </InvalidGlobal>
+    <MissingDependency occurrences="1">
+      <code>mod_matrix_mod_form</code>
+    </MissingDependency>
     <MissingReturnType occurrences="2">
       <code>matrix_add_instance</code>
       <code>matrix_update_instance</code>
     </MissingReturnType>
-    <MixedArgument occurrences="5">
-      <code>$group-&gt;id</code>
-      <code>$groups</code>
-      <code>$moduleinfo-&gt;course</code>
-      <code>$moduleinfo-&gt;section</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$group</code>
-      <code>$groups</code>
-    </MixedAssignment>
-    <MixedPropertyFetch occurrences="1">
-      <code>$group-&gt;id</code>
-    </MixedPropertyFetch>
     <UndefinedConstant occurrences="10">
       <code>FEATURE_BACKUP_MOODLE2</code>
       <code>FEATURE_COMPLETION_HAS_RULES</code>
@@ -58,7 +48,6 @@
       <code>FEATURE_MOD_INTRO</code>
       <code>FEATURE_SHOW_DESCRIPTION</code>
     </UndefinedConstant>
-    <UndefinedFunction occurrences="2"/>
   </file>
   <file src="mod_form.php">
     <MixedOperand occurrences="1">
@@ -298,6 +287,13 @@
     <MixedArgument occurrences="1">
       <code>$normalized-&gt;room_id</code>
     </MixedArgument>
+  </file>
+  <file src="test/DataProvider/Moodle/Domain/NameProvider.php">
+    <LessSpecificReturnStatement occurrences="2"/>
+    <MoreSpecificReturnType occurrences="2">
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="test/Unit/Matrix/Infrastructure/EventSubscriberTest.php">
     <UndefinedClass occurrences="10">

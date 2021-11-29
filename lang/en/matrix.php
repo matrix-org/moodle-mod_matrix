@@ -25,8 +25,16 @@ $string = \array_merge($string, [
     'modulenameplural' => 'Matrix',
     'pluginadministration' => 'Matrix administration',
     'pluginname' => 'Matrix',
-    // lib.php
-    'activity_default_name' => 'Matrix Chat',
+    // mod_form.php
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER => 'Basic module settings',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT => 'Matrix Chat',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH => \sprintf(
+        'A name can not be longer than %d characters. Fewer characters than that will probably be better.',
+        Moodle\Domain\Name::LENGTH_MAX,
+    ),
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED => 'A name is required.',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_HELP => 'A good name will make it easier for users to tell Matrix rooms apart.',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_NAME => 'Name',
     // settings.php
     Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION => 'The access token the Matrix bot should use to authenticate with your Homeserver',
     Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_NAME => 'Access Token',

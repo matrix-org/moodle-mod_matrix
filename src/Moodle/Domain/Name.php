@@ -15,6 +15,7 @@ namespace mod_matrix\Moodle\Domain;
  */
 final class Name
 {
+    public const LENGTH_MAX = 255;
     private $value;
 
     private function __construct(string $value)
@@ -22,8 +23,19 @@ final class Name
         $this->value = $value;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function fromString(string $value): self
     {
+        if (self::LENGTH_MAX < \mb_strlen($value)) {
+            throw new \InvalidArgumentException(\sprintf(
+                'Value "%s" is longer than %d characters.',
+                $value,
+                self::LENGTH_MAX,
+            ));
+        }
+
         return new self($value);
     }
 

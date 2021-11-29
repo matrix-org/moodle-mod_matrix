@@ -21,9 +21,24 @@ use PHPUnit\Framework;
 final class NameTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
+     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\NameProvider::tooLong()
      */
-    public function testFromStringReturnsName(string $value): void
+    public function testFromStringRejectsNameWhenItIsTooLong(string $value): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(\sprintf(
+            'Value "%s" is longer than %d characters.',
+            $value,
+            Moodle\Domain\Name::LENGTH_MAX,
+        ));
+
+        Moodle\Domain\Name::fromString($value);
+    }
+
+    /**
+     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\NameProvider::notTooLong()
+     */
+    public function testFromStringReturnsNameWhenItIsNotTooLong(string $value): void
     {
         $name = Moodle\Domain\Name::fromString($value);
 
