@@ -294,6 +294,7 @@ final class MatrixService
             ));
         }
 
+        $courseId = $module->courseId();
         $groupId = $room->groupId();
 
         if (!$groupId instanceof Moodle\Domain\GroupId) {
@@ -301,7 +302,7 @@ final class MatrixService
         } // Moodle wants zero instead of null
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $module->courseId(),
+            $courseId,
             $groupId,
         );
 
@@ -311,7 +312,7 @@ final class MatrixService
 
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
         $userIdsOfStaff = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
