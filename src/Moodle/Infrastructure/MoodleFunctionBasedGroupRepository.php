@@ -36,7 +36,7 @@ final class MoodleFunctionBasedGroupRepository implements Moodle\Domain\GroupRep
 
         return Moodle\Domain\Group::create(
             $groupId,
-            Moodle\Domain\Name::fromString($group->name),
+            Moodle\Domain\GroupName::fromString($group->name),
         );
     }
 }
