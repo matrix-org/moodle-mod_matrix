@@ -12,5 +12,5 @@ namespace mod_matrix\Moodle\Domain;
 
 interface CourseRepository
 {
-    public function find(CourseId $courseId): ?object;
+    public function find(CourseId $courseId): ?Course;
 }

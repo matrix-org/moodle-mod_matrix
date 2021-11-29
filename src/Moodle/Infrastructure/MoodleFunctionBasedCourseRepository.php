@@ -14,8 +14,28 @@ use mod_matrix\Moodle;
 
 final class MoodleFunctionBasedCourseRepository implements Moodle\Domain\CourseRepository
 {
-    public function find(Moodle\Domain\CourseId $courseId): ?object
+    public function find(Moodle\Domain\CourseId $courseId): ?Moodle\Domain\Course
     {
-        return get_course($courseId->toInt());
+        $course = get_course($courseId->toInt());
+
+        if (!\is_object($course)) {
+            return null;
+        }
+
+        if (!isset($course->fullname)) {
+            throw new \RuntimeException('Expected object to have a fullname property, but it does not.');
+        }
+
+        if (!\is_string($course->fullname)) {
+            throw new \RuntimeException(\sprintf(
+                'Expected fullname property to be a string, got %s instead.',
+                \is_object($course->fullname) ? \get_class($course->fullname) : \gettype($course->fullname),
+            ));
+        }
+
+        return Moodle\Domain\Course::create(
+            $courseId,
+            Moodle\Domain\Name::fromString($course->fullname),
+        );
     }
 }
