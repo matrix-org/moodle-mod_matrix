@@ -85,6 +85,13 @@ final class MatrixService
 
         $course = $this->courseRepository->find($module->courseId());
 
+        if (!$course instanceof Moodle\Domain\Course) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find course with id %d.',
+                $module->courseId()->toInt(),
+            ));
+        }
+
         $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
@@ -106,7 +113,7 @@ final class MatrixService
             ],
             'name' => \sprintf(
                 '%s (%s)',
-                $course->fullname,
+                $course->name()->toString(),
                 $module->name()->toString(),
             ),
             'power_level_content_override' => [
@@ -159,7 +166,7 @@ final class MatrixService
                 $roomOptions['name'] = \sprintf(
                     '%s: %s (%s)',
                     $group->name()->toString(),
-                    $course->fullname,
+                    $course->name()->toString(),
                     $module->name()->toString(),
                 );
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();

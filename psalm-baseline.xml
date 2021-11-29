@@ -144,10 +144,8 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="2">
       <code>$CFG-&gt;wwwroot</code>
-      <code>$course-&gt;fullname</code>
-      <code>$course-&gt;fullname</code>
       <code>$powerLevels</code>
     </MixedArgument>
     <MixedArrayAssignment occurrences="3">
@@ -161,13 +159,6 @@
     <MixedPropertyFetch occurrences="1">
       <code>$CFG-&gt;wwwroot</code>
     </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="2">
-      <code>$course-&gt;fullname</code>
-      <code>$course-&gt;fullname</code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyFetch occurrences="1">
-      <code>$course-&gt;fullname</code>
-    </PossiblyNullPropertyFetch>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
     <MissingReturnType occurrences="3">
@@ -279,12 +270,6 @@
     </UndefinedClass>
   </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>?object</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>get_course($courseId-&gt;toInt())</code>
-    </MixedReturnStatement>
     <UndefinedFunction occurrences="1">
       <code>get_course($courseId-&gt;toInt())</code>
     </UndefinedFunction>
