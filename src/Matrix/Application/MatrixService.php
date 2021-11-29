@@ -328,14 +328,24 @@ final class MatrixService
             return $user->matrixUserId();
         }, $users);
 
-        foreach ($userIdsOfUsers as $userIdOfUser) {
-            if (!\in_array($userIdOfUser, $userIdsOfUsersInTheRoom, false)) {
-                $this->api->inviteUser(
-                    $userIdOfUser,
-                    $room->matrixRoomId(),
-                );
-            }
+        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInTheRoom): bool {
+            return !\in_array(
+                $userId,
+                $userIdsOfUsersInTheRoom,
+                false,
+            );
+        });
 
+        $api = $this->api;
+
+        \array_walk($userIdsOfUsersNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($room): void {
+            $this->api->inviteUser(
+                $userId,
+                $room->matrixRoomId(),
+            );
+        });
+
+        foreach ($userIdsOfUsers as $userIdOfUser) {
             $userIdsOfUsersAllowedInTheRoom[] = $userIdOfUser;
 
             $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
@@ -354,8 +364,6 @@ final class MatrixService
                 false,
             );
         });
-
-        $api = $this->api;
 
         \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($room): void {
             $this->api->inviteUser(
