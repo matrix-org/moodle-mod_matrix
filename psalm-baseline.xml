@@ -97,12 +97,13 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="10">
+    <MixedInferredReturnType occurrences="11">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\Configuration</code>
       <code>Matrix\Application\MatrixService</code>
       <code>Moodle\Application\ModuleService</code>
+      <code>Moodle\Domain\GroupRepository</code>
       <code>Moodle\Domain\ModuleRepository</code>
       <code>Moodle\Domain\RoomRepository</code>
       <code>Moodle\Domain\UserRepository</code>
@@ -112,12 +113,13 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="9">
+    <MixedReturnStatement occurrences="10">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\MatrixService::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\ModuleService::class)</code>
+      <code>$this-&gt;resolve(Moodle\Domain\GroupRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\UserRepository::class)</code>
@@ -154,21 +156,24 @@
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="4">
       <code>$course</code>
-      <code>$group</code>
       <code>$powerLevels</code>
       <code>$user</code>
       <code>$user</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="3">
+    <MixedPropertyFetch occurrences="2">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
-      <code>$group-&gt;name</code>
     </MixedPropertyFetch>
-    <UndefinedFunction occurrences="3">
+    <PossiblyNullArgument occurrences="1">
+      <code>$group-&gt;name</code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyFetch occurrences="1">
+      <code>$group-&gt;name</code>
+    </PossiblyNullPropertyFetch>
+    <UndefinedFunction occurrences="2">
       <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
-      <code>groups_get_group($groupId-&gt;toInt())</code>
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
@@ -280,6 +285,11 @@
       <code>event\user_enrolment_updated</code>
       <code>event\user_enrolment_updated</code>
     </UndefinedClass>
+  </file>
+  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedGroupRepository.php">
+    <UndefinedFunction occurrences="1">
+      <code>groups_get_group($groupId-&gt;toInt())</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedUserRepository.php">
     <DocblockTypeContradiction occurrences="1">

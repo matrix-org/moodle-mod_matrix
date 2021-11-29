@@ -18,6 +18,7 @@ final class MatrixService
 {
     private $api;
     private $configuration;
+    private $groupRepository;
     private $moduleRepository;
     private $roomRepository;
     private $userRepository;
@@ -26,6 +27,7 @@ final class MatrixService
     public function __construct(
         Matrix\Application\Api $api,
         Matrix\Application\Configuration $configuration,
+        Moodle\Domain\GroupRepository $groupRepository,
         Moodle\Domain\ModuleRepository $moduleRepository,
         Moodle\Domain\RoomRepository $roomRepository,
         Moodle\Domain\UserRepository $userRepository,
@@ -33,6 +35,7 @@ final class MatrixService
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
+        $this->groupRepository = $groupRepository;
         $this->moduleRepository = $moduleRepository;
         $this->roomRepository = $roomRepository;
         $this->userRepository = $userRepository;
@@ -135,7 +138,7 @@ final class MatrixService
         ];
 
         if ($groupId instanceof Moodle\Domain\GroupId) {
-            $group = groups_get_group($groupId->toInt());
+            $group = $this->groupRepository->find($groupId);
 
             $roomForModuleAndGroup = $this->roomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
