@@ -300,11 +300,6 @@ final class MatrixService
             ));
         }
 
-        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $module->courseId(),
-            $groupId,
-        );
-
         $userIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
@@ -323,6 +318,11 @@ final class MatrixService
         $powerLevels['users'] = [
             $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
         ];
+
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $module->courseId(),
+            $groupId,
+        );
 
         foreach ($users as $user) {
             if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
