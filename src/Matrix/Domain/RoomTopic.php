@@ -13,7 +13,7 @@ namespace mod_matrix\Matrix\Domain;
 /**
  * @psalm-immutable
  */
-final class Topic
+final class RoomTopic
 {
     private $value;
 

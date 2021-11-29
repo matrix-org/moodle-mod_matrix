@@ -16,16 +16,16 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Domain\Topic
+ * @covers \mod_matrix\Matrix\Domain\RoomTopic
  */
-final class TopicTest extends Framework\TestCase
+final class RoomTopicTest extends Framework\TestCase
 {
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
     public function testFromStringReturnsMatrixTopic(string $value): void
     {
-        $topic = Matrix\Domain\Topic::fromString($value);
+        $topic = Matrix\Domain\RoomTopic::fromString($value);
 
         self::assertSame($value, $topic->toString());
     }
