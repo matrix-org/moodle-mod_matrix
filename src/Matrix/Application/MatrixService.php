@@ -309,7 +309,7 @@ final class MatrixService
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
-        /** @var array<int, \mod_matrix\Matrix\Domain\UserId> $userIdsOfUsersAllowedInTheRoom */
+        /** @var array<int, Matrix\Domain\UserId> $userIdsOfUsersAllowedInTheRoom */
         $userIdsOfUsersAllowedInTheRoom = [
             $this->api->whoAmI(),
         ];
