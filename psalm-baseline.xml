@@ -465,8 +465,8 @@
     <UndefinedFunction occurrences="15">
       <code>get_login_url()</code>
       <code>get_string('liketologin')</code>
-      <code>get_string('view_button_join_room', Moodle\Application\Plugin::NAME)</code>
-      <code>get_string('view_button_join_room', Moodle\Application\Plugin::NAME)</code>
+      <code>get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME)</code>
+      <code>get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME)</code>
       <code>groups_get_activity_allowed_groups($cm)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
       <code>require_login($course, true, $cm)</code>

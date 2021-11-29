@@ -22,7 +22,7 @@ if ($ADMIN->fulltree) {
         'mod_matrix/homeserver',
         '',
         get_string(
-            'settings_homeserver_heading',
+            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_HEADING,
             Moodle\Application\Plugin::NAME,
         ),
     ));
@@ -32,11 +32,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_matrix/homeserver_url',
         get_string(
-            'settings_homeserver_url_name',
+            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_NAME,
             Moodle\Application\Plugin::NAME,
         ),
         get_string(
-            'settings_homeserver_url_description',
+            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
         $defaultConfiguration->homeserverUrl(),
@@ -46,11 +46,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_matrix/access_token',
         get_string(
-            'settings_access_token_name',
+            Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_NAME,
             Moodle\Application\Plugin::NAME,
         ),
         get_string(
-            'settings_access_token_description',
+            Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
         $defaultConfiguration->accessToken(),
@@ -60,11 +60,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_matrix/element_url',
         get_string(
-            'settings_element_url_name',
+            Moodle\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_NAME,
             Moodle\Application\Plugin::NAME,
         ),
         get_string(
-            'settings_element_url_description',
+            Moodle\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
         $defaultConfiguration->elementUrl(),

@@ -78,7 +78,7 @@ if ([] === $possibleRooms) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string(
-            'view_error_no_rooms',
+            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
             Moodle\Application\Plugin::NAME,
         ),
     );
@@ -96,7 +96,7 @@ if (\count($possibleRooms) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($firstPossibleRoom->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', Moodle\Application\Plugin::NAME) . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -115,7 +115,7 @@ if (\count($groups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string(
-            'view_error_no_groups',
+            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS,
             Moodle\Application\Plugin::NAME,
         ),
     );
@@ -131,7 +131,7 @@ if (\count($visibleGroups) === 0) {
     echo Twitter\Bootstrap::alert(
         'danger',
         get_string(
-            'view_error_no_visible_groups',
+            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS,
             Moodle\Application\Plugin::NAME,
         ),
     );
@@ -153,7 +153,7 @@ if (\count($visibleGroups) === 1) {
         echo Twitter\Bootstrap::alert(
             'danger',
             get_string(
-                'view_error_no_room_in_group',
+                Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP,
                 Moodle\Application\Plugin::NAME,
             ),
         );
@@ -166,7 +166,7 @@ if (\count($visibleGroups) === 1) {
     $roomUrl = \json_encode($matrixService->urlForRoom($room->matrixRoomId()));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string('view_button_join_room', Moodle\Application\Plugin::NAME) . '</a>';
+    echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
 
     echo $OUTPUT->footer();
 
@@ -178,7 +178,7 @@ if (\count($visibleGroups) === 1) {
 echo Twitter\Bootstrap::alert(
     'warning',
     get_string(
-        'view_alert_many_rooms',
+        Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS,
         Moodle\Application\Plugin::NAME,
     ),
 );
