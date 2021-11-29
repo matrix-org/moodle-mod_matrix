@@ -104,6 +104,9 @@ final class MatrixService
         }
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function prepareRoomForModuleAndGroup(
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
@@ -281,6 +284,9 @@ final class MatrixService
         }
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function synchronizeRoomMembersForRoom(Moodle\Domain\Room $room): void
     {
         $module = $this->moduleRepository->findOneBy([
