@@ -300,7 +300,7 @@ final class MatrixService
             ));
         }
 
-        $userIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
+        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
@@ -328,10 +328,10 @@ final class MatrixService
             return $user->matrixUserId();
         }, $users);
 
-        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInTheRoom): bool {
+        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
-                $userIdsOfUsersInTheRoom,
+                $userIdsOfUsersInRoom,
                 false,
             );
         });
@@ -357,10 +357,10 @@ final class MatrixService
             return $user->matrixUserId();
         }, $staff);
 
-        $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInTheRoom) {
+        $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom) {
             return !\in_array(
                 $userId,
-                $userIdsOfUsersInTheRoom,
+                $userIdsOfUsersInRoom,
                 false,
             );
         });
@@ -388,7 +388,7 @@ final class MatrixService
             $userIdsOfStaff,
         );
 
-        $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
+        $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersAllowedInTheRoom,
