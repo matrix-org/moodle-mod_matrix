@@ -218,9 +218,9 @@ final class MatrixService
             $this->synchronizeRoomMembersForRoom(
                 $roomForModuleAndGroup,
                 $module->courseId(),
-                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
-                }, $users),
+                }, $users)),
             );
 
             return;
@@ -254,9 +254,9 @@ final class MatrixService
         $this->synchronizeRoomMembersForRoom(
             $roomForModule,
             $module->courseId(),
-            \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
-            }, $users),
+            }, $users)),
         );
     }
 
@@ -293,9 +293,9 @@ final class MatrixService
             $this->synchronizeRoomMembersForRoom(
                 $room,
                 $module->courseId(),
-                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
-                }, $users),
+                }, $users)),
             );
         }
     }
@@ -326,9 +326,9 @@ final class MatrixService
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
-                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
-                    }, $users),
+                    }, $users)),
                 );
             }
         }
@@ -357,21 +357,18 @@ final class MatrixService
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $courseId,
-                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
-                    }, $users),
+                    }, $users)),
                 );
             }
         }
     }
 
-    /**
-     * @param array<int, Matrix\Domain\UserId> $userIdsOfUsers
-     */
     public function synchronizeRoomMembersForRoom(
         Moodle\Domain\Room $room,
         Moodle\Domain\CourseId $courseId,
-        array $userIdsOfUsers
+        Matrix\Domain\UserIdCollection $userIdsOfUsers
     ): void {
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
@@ -381,7 +378,7 @@ final class MatrixService
             return $user->matrixUserId();
         }, $staff);
 
-        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
+        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersInRoom,
@@ -428,10 +425,10 @@ final class MatrixService
             \array_combine(
                 \array_map(static function (Matrix\Domain\UserId $userId): string {
                     return $userId->toString();
-                }, $userIdsOfUsers),
+                }, $userIdsOfUsers->toArray()),
                 \array_fill(
                     0,
-                    \count($userIdsOfUsers),
+                    \count($userIdsOfUsers->toArray()),
                     Matrix\Domain\PowerLevel::default()->toInt(),
                 ),
             ),
@@ -458,7 +455,7 @@ final class MatrixService
             [
                 $matrixUserIdOfBot,
             ],
-            $userIdsOfUsers,
+            $userIdsOfUsers->toArray(),
             $userIdsOfStaff,
         );
 
