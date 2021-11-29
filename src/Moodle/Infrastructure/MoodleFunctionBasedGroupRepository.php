@@ -15,7 +15,7 @@ use mod_matrix\Moodle\Domain\GroupId;
 
 final class MoodleFunctionBasedGroupRepository implements Moodle\Domain\GroupRepository
 {
-    public function find(GroupId $groupId): ?object
+    public function find(GroupId $groupId): ?Moodle\Domain\Group
     {
         $group = groups_get_group($groupId->toInt());
 
@@ -23,6 +23,20 @@ final class MoodleFunctionBasedGroupRepository implements Moodle\Domain\GroupRep
             return null;
         }
 
-        return $group;
+        if (!isset($group->name)) {
+            throw new \RuntimeException('Expected object to have a name property, but it does not.');
+        }
+
+        if (!\is_string($group->name)) {
+            throw new \RuntimeException(\sprintf(
+                'Expected name property to be a string, got %s instead.',
+                \is_object($group->name) ? \get_class($group->name) : \gettype($group->name),
+            ));
+        }
+
+        return Moodle\Domain\Group::create(
+            $groupId,
+            Moodle\Domain\Name::fromString($group->name),
+        );
     }
 }

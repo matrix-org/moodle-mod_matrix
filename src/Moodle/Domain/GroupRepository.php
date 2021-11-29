@@ -12,5 +12,5 @@ namespace mod_matrix\Moodle\Domain;
 
 interface GroupRepository
 {
-    public function find(GroupId $groupId): ?object;
+    public function find(GroupId $groupId): ?Group;
 }

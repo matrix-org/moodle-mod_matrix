@@ -142,11 +142,10 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="4">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$course-&gt;fullname</code>
-      <code>$group-&gt;name</code>
       <code>$powerLevels</code>
     </MixedArgument>
     <MixedArrayAssignment occurrences="3">
@@ -162,12 +161,6 @@
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
     </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="1">
-      <code>$group-&gt;name</code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyFetch occurrences="1">
-      <code>$group-&gt;name</code>
-    </PossiblyNullPropertyFetch>
     <UndefinedFunction occurrences="1">
       <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
     </UndefinedFunction>
