@@ -58,6 +58,7 @@ final class Container
                 $container->configuration(),
                 $container->moduleRepository(),
                 $container->roomRepository(),
+                $container->userRepository(),
                 $container->clock(),
             );
         });
@@ -81,6 +82,10 @@ final class Container
                 $container->database(),
                 new Moodle\Infrastructure\RoomNormalizer(),
             );
+        });
+
+        $this->define(Moodle\Domain\UserRepository::class, static function (): Moodle\Domain\UserRepository {
+            return new Moodle\Infrastructure\MoodleFunctionBasedUserRepository();
         });
 
         $this->define(\moodle_database::class, static function (): \moodle_database {
@@ -145,6 +150,11 @@ final class Container
     public function roomRepository(): Moodle\Domain\RoomRepository
     {
         return $this->resolve(Moodle\Domain\RoomRepository::class);
+    }
+
+    public function userRepository(): Moodle\Domain\UserRepository
+    {
+        return $this->resolve(Moodle\Domain\UserRepository::class);
     }
 
     /**

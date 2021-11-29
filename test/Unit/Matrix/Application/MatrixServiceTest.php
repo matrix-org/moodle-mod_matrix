@@ -53,6 +53,7 @@ final class MatrixServiceTest extends Framework\TestCase
             $configuration,
             $this->createStub(Moodle\Domain\ModuleRepository::class),
             $this->createStub(Moodle\Domain\RoomRepository::class),
+            $this->createStub(Moodle\Domain\UserRepository::class),
             $this->createStub(Clock\Clock::class),
         );
 
@@ -91,6 +92,7 @@ final class MatrixServiceTest extends Framework\TestCase
             $configuration,
             $this->createStub(Moodle\Domain\ModuleRepository::class),
             $this->createStub(Moodle\Domain\RoomRepository::class),
+            $this->createStub(Moodle\Domain\UserRepository::class),
             $this->createStub(Clock\Clock::class),
         );
 

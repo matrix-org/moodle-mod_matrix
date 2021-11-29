@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace mod_matrix\Matrix\Application;
 
-use context_course;
 use Ergebnis\Clock;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
@@ -21,6 +20,7 @@ final class MatrixService
     private $configuration;
     private $moduleRepository;
     private $roomRepository;
+    private $userRepository;
     private $clock;
 
     public function __construct(
@@ -28,12 +28,14 @@ final class MatrixService
         Matrix\Application\Configuration $configuration,
         Moodle\Domain\ModuleRepository $moduleRepository,
         Moodle\Domain\RoomRepository $roomRepository,
+        Moodle\Domain\UserRepository $userRepository,
         Clock\Clock $clock
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
         $this->moduleRepository = $moduleRepository;
         $this->roomRepository = $roomRepository;
+        $this->userRepository = $userRepository;
         $this->clock = $clock;
     }
 
@@ -256,17 +258,10 @@ final class MatrixService
             ));
         }
 
-        $context = context_course::instance($module->courseId()->toInt());
-
-        $users = get_enrolled_users(
-            $context,
-            'mod/matrix:view',
-            $groupId->toInt(),
-        ); // assoc of uid => user
-
-        if (!$users) {
-            $users = [];
-        } // use an empty array
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroup(
+            $module->courseId(),
+            $groupId,
+        );
 
         $matrixUserIdsOfUsersInTheRoom = $this->api->listUsers($room->matrixRoomId());
 
@@ -306,11 +301,7 @@ final class MatrixService
             $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
-        // Get all the staff users
-        $staff = get_users_by_capability(
-            $context,
-            'mod/matrix:staff',
-        );
+        $staff = $this->userRepository->findAllStaffInCourse($module->courseId());
 
         foreach ($staff as $user) {
             $matrixUserId = $this->matrixUserIdOf($user);
