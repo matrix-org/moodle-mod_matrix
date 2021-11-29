@@ -83,11 +83,6 @@ final class MatrixService
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
-        $sectionName = get_section_name(
-            $module->courseId()->toInt(),
-            $module->sectionId()->toInt(),
-        );
-
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
@@ -105,7 +100,7 @@ final class MatrixService
             'name' => \sprintf(
                 '%s (%s)',
                 $course->fullname,
-                $sectionName,
+                $module->name()->toString(),
             ),
             'power_level_content_override' => [
                 'ban' => $botPowerLevel->toInt(),
@@ -151,7 +146,7 @@ final class MatrixService
                     '%s: %s (%s)',
                     $group->name,
                     $course->fullname,
-                    $sectionName,
+                    $module->name()->toString(),
                 );
                 $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
 
