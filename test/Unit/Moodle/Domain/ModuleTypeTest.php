@@ -16,16 +16,16 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Moodle\Domain\Type
+ * @covers \mod_matrix\Moodle\Domain\ModuleType
  */
-final class TypeTest extends Framework\TestCase
+final class ModuleTypeTest extends Framework\TestCase
 {
     /**
      * @dataProvider \Ergebnis\DataProvider\IntProvider::arbitrary()
      */
     public function testFromIntReturnsType(int $value): void
     {
-        $type = Moodle\Domain\Type::fromInt($value);
+        $type = Moodle\Domain\ModuleType::fromInt($value);
 
         self::assertSame($value, $type->toInt());
     }
@@ -35,7 +35,7 @@ final class TypeTest extends Framework\TestCase
      */
     public function testFromStringReturnsType(int $value): void
     {
-        $type = Moodle\Domain\Type::fromString((string) $value);
+        $type = Moodle\Domain\ModuleType::fromString((string) $value);
 
         self::assertSame($value, $type->toInt());
     }

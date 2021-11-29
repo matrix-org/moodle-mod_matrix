@@ -13,7 +13,7 @@ namespace mod_matrix\Moodle\Domain;
 /**
  * @psalm-immutable
  */
-final class Type
+final class ModuleType
 {
     private $value;
 

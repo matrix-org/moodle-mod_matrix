@@ -24,9 +24,9 @@ use const IGNORE_MISSING;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
- * @uses \mod_matrix\Moodle\Domain\Type
  * @uses \mod_matrix\Moodle\Infrastructure\ModuleNormalizer
  */
 final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
@@ -107,7 +107,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $expected = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromString((string) $normalized->id),
-            Moodle\Domain\Type::fromString((string) $normalized->type),
+            Moodle\Domain\ModuleType::fromString((string) $normalized->type),
             Moodle\Domain\ModuleName::fromString((string) $normalized->name),
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
             Moodle\Domain\SectionId::fromString((string) $normalized->section),
@@ -170,7 +170,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $expected = [
             Moodle\Domain\Module::create(
                 Moodle\Domain\ModuleId::fromString((string) $one->id),
-                Moodle\Domain\Type::fromString((string) $one->type),
+                Moodle\Domain\ModuleType::fromString((string) $one->type),
                 Moodle\Domain\ModuleName::fromString((string) $one->name),
                 Moodle\Domain\CourseId::fromString((string) $one->course),
                 Moodle\Domain\SectionId::fromString((string) $one->section),
@@ -179,7 +179,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ),
             Moodle\Domain\Module::create(
                 Moodle\Domain\ModuleId::fromString((string) $two->id),
-                Moodle\Domain\Type::fromString((string) $two->type),
+                Moodle\Domain\ModuleType::fromString((string) $two->type),
                 Moodle\Domain\ModuleName::fromString((string) $two->name),
                 Moodle\Domain\CourseId::fromString((string) $two->course),
                 Moodle\Domain\SectionId::fromString((string) $two->section),
@@ -199,7 +199,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::unknown(),
-            Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
@@ -244,7 +244,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $module = Moodle\Domain\Module::create(
             $id,
-            Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
@@ -286,7 +286,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::unknown(),
-            Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
@@ -313,7 +313,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
