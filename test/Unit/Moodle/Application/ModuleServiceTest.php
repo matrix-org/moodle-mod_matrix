@@ -24,9 +24,9 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
- * @uses \mod_matrix\Moodle\Domain\Type
  */
 final class ModuleServiceTest extends Framework\TestCase
 {
@@ -51,7 +51,7 @@ final class ModuleServiceTest extends Framework\TestCase
             ->method('save')
             ->with(self::callback(static function (Moodle\Domain\Module $module) use ($name, $courseId, $sectionId, $now, &$expectedModule): bool {
                 self::assertEquals(Moodle\Domain\ModuleId::unknown(), $module->id());
-                self::assertEquals(Moodle\Domain\Type::fromInt(0), $module->type());
+                self::assertEquals(Moodle\Domain\ModuleType::fromInt(0), $module->type());
                 self::assertSame($name, $module->name());
                 self::assertSame($courseId, $module->courseId());
                 self::assertSame($sectionId, $module->sectionId());

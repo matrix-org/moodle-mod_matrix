@@ -25,9 +25,9 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\GroupId
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\RoomId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
- * @uses \mod_matrix\Moodle\Domain\Type
  */
 final class RoomTest extends Framework\TestCase
 {

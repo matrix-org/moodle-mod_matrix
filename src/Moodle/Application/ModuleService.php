@@ -33,7 +33,7 @@ final class ModuleService
     ): Moodle\Domain\Module {
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::unknown(),
-            Moodle\Domain\Type::fromInt(0),
+            Moodle\Domain\ModuleType::fromInt(0),
             $name,
             $courseId,
             $sectionId,

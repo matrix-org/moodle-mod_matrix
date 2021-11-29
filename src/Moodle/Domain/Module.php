@@ -22,7 +22,7 @@ final class Module
 
     private function __construct(
         ModuleId $id,
-        Type $type,
+        ModuleType $type,
         ModuleName $name,
         CourseId $courseId,
         SectionId $sectionId,
@@ -40,7 +40,7 @@ final class Module
 
     public static function create(
         ModuleId $id,
-        Type $type,
+        ModuleType $type,
         ModuleName $name,
         CourseId $courseId,
         SectionId $sectionId,
@@ -63,7 +63,7 @@ final class Module
         return $this->id;
     }
 
-    public function type(): Type
+    public function type(): ModuleType
     {
         return $this->type;
     }
