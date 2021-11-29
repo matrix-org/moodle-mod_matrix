@@ -369,13 +369,13 @@ final class MatrixService
 
         $api = $this->api;
 
-        \array_walk($matrixUserIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $matrixUserId) use ($matrixUserIdsOfUsersAllowedInTheRoom, $api, $room): void {
-            if (\in_array($matrixUserId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
+        \array_walk($matrixUserIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($matrixUserIdsOfUsersAllowedInTheRoom, $api, $room): void {
+            if (\in_array($userId, $matrixUserIdsOfUsersAllowedInTheRoom, false)) {
                 return;
             }
 
             $api->kickUser(
-                $matrixUserId,
+                $userId,
                 $room->matrixRoomId(),
             );
         });
