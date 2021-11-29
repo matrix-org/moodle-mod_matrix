@@ -34,6 +34,11 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
+    public function testConstants(): void
+    {
+        self::assertSame('matrix_rooms', Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
+    }
+
     public function testFindOneByReturnsNullWhenRoomCouldNotBeFound(): void
     {
         $faker = self::faker()->unique();
@@ -49,7 +54,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_record')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
                 self::identicalTo(IGNORE_MISSING),
@@ -91,7 +96,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_record')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
                 self::identicalTo(IGNORE_MISSING),
@@ -149,7 +154,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_records')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::identicalTo($conditions),
             )
             ->willReturn([
@@ -211,7 +216,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
         $database
             ->expects(self::once())
             ->method('get_records')
-            ->with(self::identicalTo('matrix_rooms'))
+            ->with(self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE))
             ->willReturn([
                 $one,
                 $two,
@@ -267,7 +272,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('insert_record')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::equalTo((object) [
                     'group_id' => $groupId->toInt(),
                     'id' => $room->id()->toInt(),
@@ -311,7 +316,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('update_record')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::equalTo((object) [
                     'group_id' => $groupId->toInt(),
                     'id' => $room->id()->toInt(),
@@ -377,7 +382,7 @@ final class DatabaseBasedRoomRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('delete_records')
             ->with(
-                self::identicalTo('matrix_rooms'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE),
                 self::identicalTo([
                     'id' => $room->id()->toInt(),
                 ]),

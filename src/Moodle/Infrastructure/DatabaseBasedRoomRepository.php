@@ -14,7 +14,7 @@ use mod_matrix\Moodle;
 
 final class DatabaseBasedRoomRepository implements Moodle\Domain\RoomRepository
 {
-    private const TABLE = 'matrix_rooms';
+    public const TABLE = 'matrix_rooms';
     private $database;
     private $roomNormalizer;
 

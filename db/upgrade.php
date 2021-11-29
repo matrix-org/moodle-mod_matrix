@@ -36,7 +36,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
     }
 
     if (2020110948 > $oldversion) {
-        $table = new xmldb_table('matrix_rooms');
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
         $field = new xmldb_field('course');
         $field->set_attributes(XMLDB_TYPE_INTEGER, 10, true, false, false, null);
@@ -78,9 +78,9 @@ function xmldb_matrix_upgrade($oldversion = 0)
     }
 
     if (2021091400 > $oldversion) {
-        $DB->delete_records('matrix_rooms');
+        $DB->delete_records(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
-        $table = new xmldb_table('matrix_rooms');
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
         $dbman->add_field(
             $table,
