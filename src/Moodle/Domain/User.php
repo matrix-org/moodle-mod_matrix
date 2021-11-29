@@ -19,17 +19,17 @@ final class User
 {
     private $matrixUserId;
 
-    private function __construct(?Matrix\Domain\UserId $matrixUserId)
+    private function __construct(Matrix\Domain\UserId $matrixUserId)
     {
         $this->matrixUserId = $matrixUserId;
     }
 
-    public static function create(?Matrix\Domain\UserId $matrixUserId): self
+    public static function create(Matrix\Domain\UserId $matrixUserId): self
     {
         return new self($matrixUserId);
     }
 
-    public function matrixUserId(): ?Matrix\Domain\UserId
+    public function matrixUserId(): Matrix\Domain\UserId
     {
         return $this->matrixUserId;
     }

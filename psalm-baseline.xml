@@ -305,6 +305,10 @@
     <DocblockTypeContradiction occurrences="1">
       <code>\is_array($users)</code>
     </DocblockTypeContradiction>
+    <MixedReturnTypeCoercion occurrences="4">
+      <code>array</code>
+      <code>array</code>
+    </MixedReturnTypeCoercion>
     <UndefinedFunction occurrences="2">
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>

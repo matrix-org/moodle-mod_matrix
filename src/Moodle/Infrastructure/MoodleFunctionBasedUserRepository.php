@@ -16,7 +16,7 @@ use mod_matrix\Moodle;
 
 final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepository
 {
-    public function findAllStaffInCourse(Moodle\Domain\CourseId $courseId): array
+    public function findAllStaffInCourseWithMatrixUserId(Moodle\Domain\CourseId $courseId): array
     {
         $context = context_course::instance($courseId->toInt());
 
@@ -29,14 +29,24 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
-        return \array_map(static function (object $user): Moodle\Domain\User {
-            $matrixUserId = self::matrixUserIdOf($user);
+        return \array_values(\array_reduce(
+            $users,
+            static function (array $usersWithMatrixUserId, object $user): array {
+                $matrixUserId = self::matrixUserIdOf($user);
 
-            return Moodle\Domain\User::create($matrixUserId);
-        }, \array_values($users));
+                if (!$matrixUserId instanceof Matrix\Domain\UserId) {
+                    return $usersWithMatrixUserId;
+                }
+
+                $usersWithMatrixUserId[] = Moodle\Domain\User::create($matrixUserId);
+
+                return $usersWithMatrixUserId;
+            },
+            [],
+        ));
     }
 
-    public function findAllUsersEnrolledInCourseAndGroup(
+    public function findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): array {
@@ -52,11 +62,21 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
-        return \array_map(static function (object $user): Moodle\Domain\User {
-            $matrixUserId = self::matrixUserIdOf($user);
+        return \array_values(\array_reduce(
+            $users,
+            static function (array $usersWithMatrixUserId, object $user): array {
+                $matrixUserId = self::matrixUserIdOf($user);
 
-            return Moodle\Domain\User::create($matrixUserId);
-        }, \array_values($users));
+                if (!$matrixUserId instanceof Matrix\Domain\UserId) {
+                    return $usersWithMatrixUserId;
+                }
+
+                $usersWithMatrixUserId[] = Moodle\Domain\User::create($matrixUserId);
+
+                return $usersWithMatrixUserId;
+            },
+            [],
+        ));
     }
 
     private static function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
