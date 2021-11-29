@@ -12,8 +12,14 @@ namespace mod_matrix\Moodle\Domain;
 
 interface UserRepository
 {
+    /**
+     * @return array<int, User>
+     */
     public function findAllStaffInCourse(CourseId $courseId): array;
 
+    /**
+     * @return array<int, User>
+     */
     public function findAllUsersEnrolledInCourseAndGroup(
         CourseId $courseId,
         GroupId $groupId

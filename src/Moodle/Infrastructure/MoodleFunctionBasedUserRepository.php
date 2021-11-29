@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace mod_matrix\Moodle\Infrastructure;
 
 use context_course;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepository
@@ -28,7 +29,11 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
-        return $users;
+        return \array_map(static function (object $user): Moodle\Domain\User {
+            $matrixUserId = self::matrixUserIdOf($user);
+
+            return Moodle\Domain\User::create($matrixUserId);
+        }, \array_values($users));
     }
 
     public function findAllUsersEnrolledInCourseAndGroup(
@@ -47,6 +52,39 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
-        return $users;
+        return \array_map(static function (object $user): Moodle\Domain\User {
+            $matrixUserId = self::matrixUserIdOf($user);
+
+            return Moodle\Domain\User::create($matrixUserId);
+        }, \array_values($users));
+    }
+
+    private static function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
+    {
+        profile_load_custom_fields($user);
+
+        if (!\property_exists($user, 'profile')) {
+            return null;
+        }
+
+        if (!\is_array($user->profile)) {
+            return null;
+        }
+
+        if (!\array_key_exists('matrix_user_id', $user->profile)) {
+            return null;
+        }
+
+        $matrixUserId = $user->profile['matrix_user_id'];
+
+        if (!\is_string($matrixUserId)) {
+            return null;
+        }
+
+        if ('' === \trim($matrixUserId)) {
+            return null;
+        }
+
+        return Matrix\Domain\UserId::fromString($matrixUserId);
     }
 }

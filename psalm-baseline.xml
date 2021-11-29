@@ -142,25 +142,21 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <MixedArgument occurrences="7">
+    <MixedArgument occurrences="5">
       <code>$CFG-&gt;wwwroot</code>
       <code>$course-&gt;fullname</code>
       <code>$course-&gt;fullname</code>
       <code>$group-&gt;name</code>
       <code>$powerLevels</code>
-      <code>$user</code>
-      <code>$user</code>
     </MixedArgument>
     <MixedArrayAssignment occurrences="3">
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="2">
       <code>$course</code>
       <code>$powerLevels</code>
-      <code>$user</code>
-      <code>$user</code>
     </MixedAssignment>
     <MixedPropertyFetch occurrences="2">
       <code>$CFG-&gt;wwwroot</code>
@@ -172,9 +168,8 @@
     <PossiblyNullPropertyFetch occurrences="1">
       <code>$group-&gt;name</code>
     </PossiblyNullPropertyFetch>
-    <UndefinedFunction occurrences="2">
+    <UndefinedFunction occurrences="1">
       <code>get_course($module-&gt;courseId()-&gt;toInt())</code>
-      <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
@@ -295,7 +290,9 @@
     <DocblockTypeContradiction occurrences="1">
       <code>\is_array($users)</code>
     </DocblockTypeContradiction>
-    <UndefinedFunction occurrences="1"/>
+    <UndefinedFunction occurrences="2">
+      <code>profile_load_custom_fields($user)</code>
+    </UndefinedFunction>
   </file>
   <file src="src/Moodle/Infrastructure/RoomNormalizer.php">
     <MixedArgument occurrences="1">

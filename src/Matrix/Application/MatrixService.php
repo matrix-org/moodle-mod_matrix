@@ -286,43 +286,39 @@ final class MatrixService
         ];
 
         foreach ($users as $user) {
-            $matrixUserId = $this->matrixUserIdOf($user);
-
-            if (!$matrixUserId instanceof Matrix\Domain\UserId) {
+            if (!$user->matrixUserId() instanceof Matrix\Domain\UserId) {
                 continue;
             }
 
-            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($user->matrixUserId(), $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
-                    $matrixUserId,
+                    $user->matrixUserId(),
                     $room->matrixRoomId(),
                 );
             }
 
-            $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
+            $matrixUserIdsOfUsersAllowedInTheRoom[] = $user->matrixUserId();
 
-            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
+            $powerLevels['users'][$user->matrixUserId()->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
         $staff = $this->userRepository->findAllStaffInCourse($module->courseId());
 
         foreach ($staff as $user) {
-            $matrixUserId = $this->matrixUserIdOf($user);
-
-            if (!$matrixUserId instanceof Matrix\Domain\UserId) {
+            if (!$user->matrixUserId() instanceof Matrix\Domain\UserId) {
                 continue;
             }
 
-            if (!\in_array($matrixUserId, $matrixUserIdsOfUsersInTheRoom, false)) {
+            if (!\in_array($user->matrixUserId(), $matrixUserIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
-                    $matrixUserId,
+                    $user->matrixUserId(),
                     $room->matrixRoomId(),
                 );
             }
 
-            $matrixUserIdsOfUsersAllowedInTheRoom[] = $matrixUserId;
+            $matrixUserIdsOfUsersAllowedInTheRoom[] = $user->matrixUserId();
 
-            $powerLevels['users'][$matrixUserId->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
+            $powerLevels['users'][$user->matrixUserId()->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
         }
 
         $this->api->setState(
@@ -366,34 +362,5 @@ final class MatrixService
             $matrixUserIdOfBot,
             $room->matrixRoomId(),
         );
-    }
-
-    private function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
-    {
-        profile_load_custom_fields($user);
-
-        if (!\property_exists($user, 'profile')) {
-            return null;
-        }
-
-        if (!\is_array($user->profile)) {
-            return null;
-        }
-
-        if (!\array_key_exists('matrix_user_id', $user->profile)) {
-            return null;
-        }
-
-        $matrixUserId = $user->profile['matrix_user_id'];
-
-        if (!\is_string($matrixUserId)) {
-            return null;
-        }
-
-        if ('' === \trim($matrixUserId)) {
-            return null;
-        }
-
-        return Matrix\Domain\UserId::fromString($matrixUserId);
     }
 }
