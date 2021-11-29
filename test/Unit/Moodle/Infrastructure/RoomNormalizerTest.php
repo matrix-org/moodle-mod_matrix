@@ -25,7 +25,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\GroupId
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\ModuleName
  * @uses \mod_matrix\Moodle\Domain\Room
  * @uses \mod_matrix\Moodle\Domain\RoomId
  * @uses \mod_matrix\Moodle\Domain\Timestamp

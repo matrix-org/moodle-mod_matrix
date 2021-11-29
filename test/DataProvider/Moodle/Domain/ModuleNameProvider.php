@@ -13,7 +13,7 @@ namespace mod_matrix\Test\DataProvider\Moodle\Domain;
 use Ergebnis\DataProvider;
 use mod_matrix\Moodle;
 
-final class NameProvider extends DataProvider\AbstractProvider
+final class ModuleNameProvider extends DataProvider\AbstractProvider
 {
     /**
      * @return \Generator<string, array{0: string}>
@@ -25,12 +25,12 @@ final class NameProvider extends DataProvider\AbstractProvider
         return self::provideDataForValues([
             'max-length-plus-1' => \str_pad(
                 $faker->word(),
-                Moodle\Domain\Name::LENGTH_MAX + 1,
+                Moodle\Domain\ModuleName::LENGTH_MAX + 1,
                 $faker->randomLetter(),
             ),
             'max-length-plus-2' => \str_pad(
                 $faker->word(),
-                Moodle\Domain\Name::LENGTH_MAX + 2,
+                Moodle\Domain\ModuleName::LENGTH_MAX + 2,
                 $faker->randomLetter(),
             ),
         ]);
@@ -46,12 +46,12 @@ final class NameProvider extends DataProvider\AbstractProvider
         return self::provideDataForValues([
             'max-length' => \str_pad(
                 $faker->word(),
-                Moodle\Domain\Name::LENGTH_MAX,
+                Moodle\Domain\ModuleName::LENGTH_MAX,
                 $faker->randomLetter(),
             ),
             'max-length-minus-1' => \str_pad(
                 $faker->word(),
-                Moodle\Domain\Name::LENGTH_MAX - 1,
+                Moodle\Domain\ModuleName::LENGTH_MAX - 1,
                 $faker->randomLetter(),
             ),
         ]);

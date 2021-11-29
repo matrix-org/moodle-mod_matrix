@@ -23,7 +23,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\ModuleName
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
  * @uses \mod_matrix\Moodle\Domain\Type
@@ -36,7 +36,7 @@ final class ModuleServiceTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $name = Moodle\Domain\Name::fromString($faker->sentence());
+        $name = Moodle\Domain\ModuleName::fromString($faker->sentence());
         $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
         $sectionId = Moodle\Domain\SectionId::fromInt($faker->numberBetween(1));
 

@@ -19,7 +19,7 @@ final class ModuleNormalizer
         return Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromString((string) $normalized->id),
             Moodle\Domain\Type::fromString((string) $normalized->type),
-            Moodle\Domain\Name::fromString((string) $normalized->name),
+            Moodle\Domain\ModuleName::fromString((string) $normalized->name),
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
             Moodle\Domain\SectionId::fromString((string) $normalized->section),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),

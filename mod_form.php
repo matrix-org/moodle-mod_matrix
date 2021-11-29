@@ -58,7 +58,7 @@ final class mod_matrix_mod_form extends moodleform_mod
                 Moodle\Application\Plugin::NAME,
             ),
             [
-                'maxlength' => Moodle\Domain\Name::LENGTH_MAX,
+                'maxlength' => Moodle\Domain\ModuleName::LENGTH_MAX,
             ],
         );
 
@@ -97,7 +97,7 @@ final class mod_matrix_mod_form extends moodleform_mod
                 Moodle\Application\Plugin::NAME,
             ),
             'maxlength',
-            Moodle\Domain\Name::LENGTH_MAX,
+            Moodle\Domain\ModuleName::LENGTH_MAX,
         );
     }
 }

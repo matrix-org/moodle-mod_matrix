@@ -22,7 +22,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\ModuleName
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
  * @uses \mod_matrix\Moodle\Domain\Type
@@ -60,7 +60,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $expected = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromInt($id),
             Moodle\Domain\Type::fromInt($type),
-            Moodle\Domain\Name::fromString($name),
+            Moodle\Domain\ModuleName::fromString($name),
             Moodle\Domain\CourseId::fromInt($courseId),
             Moodle\Domain\SectionId::fromInt($sectionId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -99,7 +99,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $expected = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromString($id),
             Moodle\Domain\Type::fromString($type),
-            Moodle\Domain\Name::fromString($name),
+            Moodle\Domain\ModuleName::fromString($name),
             Moodle\Domain\CourseId::fromString($courseId),
             Moodle\Domain\SectionId::fromString($sectionId),
             Moodle\Domain\Timestamp::fromString($timecreated),
@@ -116,7 +116,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $denormalized = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Name::fromString($faker->sentence()),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
