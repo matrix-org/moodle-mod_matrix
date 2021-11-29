@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Moodle\Domain;
+namespace mod_matrix\Test\Unit\Matrix\Domain;
 
 use mod_matrix\Matrix;
 use mod_matrix\Test;
