@@ -33,6 +33,11 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
+    public function testConstants(): void
+    {
+        self::assertSame('matrix', Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+    }
+
     public function testFindOneByReturnsNullWhenModuleCouldNotBeFound(): void
     {
         $faker = self::faker()->unique();
@@ -47,7 +52,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_record')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
                 self::identicalTo(IGNORE_MISSING),
@@ -88,7 +93,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_record')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::identicalTo($conditions),
                 self::identicalTo('*'),
                 self::identicalTo(IGNORE_MISSING),
@@ -149,7 +154,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('get_records')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::identicalTo($conditions),
             )
             ->willReturn([
@@ -208,7 +213,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('insert_record')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::equalTo((object) [
                     'course' => $module->courseId()->toInt(),
                     'id' => $module->id()->toInt(),
@@ -253,7 +258,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('update_record')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::equalTo((object) [
                     'course' => $module->courseId()->toInt(),
                     'id' => $module->id()->toInt(),
@@ -322,7 +327,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             ->expects(self::once())
             ->method('delete_records')
             ->with(
-                self::identicalTo('matrix'),
+                self::identicalTo(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE),
                 self::identicalTo([
                     'id' => $module->id()->toInt(),
                 ]),

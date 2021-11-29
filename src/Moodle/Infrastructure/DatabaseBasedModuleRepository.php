@@ -14,7 +14,7 @@ use mod_matrix\Moodle;
 
 final class DatabaseBasedModuleRepository implements Moodle\Domain\ModuleRepository
 {
-    private const TABLE = 'matrix';
+    public const TABLE = 'matrix';
     private $database;
     private $moduleNormalizer;
 

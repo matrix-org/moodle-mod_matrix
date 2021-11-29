@@ -18,7 +18,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
     $dbman = $DB->get_manager();
 
     if (2020110901 > $oldversion) {
-        $table = new xmldb_table('matrix');
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $field = new xmldb_field('name');
         $field->set_attributes(XMLDB_TYPE_CHAR, 255, false, true, false, 'Matrix Chat');
@@ -54,7 +54,7 @@ function xmldb_matrix_upgrade($oldversion = 0)
     }
 
     if (2021091300 > $oldversion) {
-        $table = new xmldb_table('matrix');
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $dbman->add_field(
             $table,
