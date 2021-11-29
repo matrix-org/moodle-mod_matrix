@@ -361,8 +361,6 @@ final class MatrixService
         });
 
         foreach ($userIdsOfStaff as $userIdOfStaff) {
-            $userIdsOfUsersAllowedInTheRoom[] = $userIdOfStaff;
-
             $powerLevels['users'][$userIdOfStaff->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
         }
 
@@ -371,6 +369,11 @@ final class MatrixService
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
             Matrix\Domain\StateKey::fromString(''),
             $powerLevels,
+        );
+
+        $userIdsOfUsersAllowedInTheRoom = \array_merge(
+            $userIdsOfUsersAllowedInTheRoom,
+            $userIdsOfStaff,
         );
 
         $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInTheRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
