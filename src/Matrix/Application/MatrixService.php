@@ -306,7 +306,7 @@ final class MatrixService
 
         /** @var array<int, Matrix\Domain\UserId> $userIdsOfUsersAllowedInRoom */
         $userIdsOfUsersAllowedInRoom = [
-            $this->api->whoAmI(),
+            $matrixUserIdOfBot,
         ];
 
         $powerLevels = $this->api->getState(
