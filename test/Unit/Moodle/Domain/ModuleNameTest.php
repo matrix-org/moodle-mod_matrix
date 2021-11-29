@@ -16,12 +16,12 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Moodle\Domain\Name
+ * @covers \mod_matrix\Moodle\Domain\ModuleName
  */
-final class NameTest extends Framework\TestCase
+final class ModuleNameTest extends Framework\TestCase
 {
     /**
-     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\NameProvider::tooLong()
+     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\ModuleNameProvider::tooLong()
      */
     public function testFromStringRejectsNameWhenItIsTooLong(string $value): void
     {
@@ -29,18 +29,18 @@ final class NameTest extends Framework\TestCase
         $this->expectExceptionMessage(\sprintf(
             'Value "%s" is longer than %d characters.',
             $value,
-            Moodle\Domain\Name::LENGTH_MAX,
+            Moodle\Domain\ModuleName::LENGTH_MAX,
         ));
 
-        Moodle\Domain\Name::fromString($value);
+        Moodle\Domain\ModuleName::fromString($value);
     }
 
     /**
-     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\NameProvider::notTooLong()
+     * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\ModuleNameProvider::notTooLong()
      */
     public function testFromStringReturnsNameWhenItIsNotTooLong(string $value): void
     {
-        $name = Moodle\Domain\Name::fromString($value);
+        $name = Moodle\Domain\ModuleName::fromString($value);
 
         self::assertSame($value, $name->toString());
     }

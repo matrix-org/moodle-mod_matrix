@@ -27,7 +27,7 @@ final class ModuleService
     }
 
     public function create(
-        Moodle\Domain\Name $name,
+        Moodle\Domain\ModuleName $name,
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\SectionId $sectionId
     ): Moodle\Domain\Module {

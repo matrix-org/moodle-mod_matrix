@@ -23,7 +23,7 @@ use const IGNORE_MISSING;
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\ModuleName
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
  * @uses \mod_matrix\Moodle\Domain\Type
@@ -108,7 +108,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $expected = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromString((string) $normalized->id),
             Moodle\Domain\Type::fromString((string) $normalized->type),
-            Moodle\Domain\Name::fromString((string) $normalized->name),
+            Moodle\Domain\ModuleName::fromString((string) $normalized->name),
             Moodle\Domain\CourseId::fromString((string) $normalized->course),
             Moodle\Domain\SectionId::fromString((string) $normalized->section),
             Moodle\Domain\Timestamp::fromString((string) $normalized->timecreated),
@@ -171,7 +171,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\Module::create(
                 Moodle\Domain\ModuleId::fromString((string) $one->id),
                 Moodle\Domain\Type::fromString((string) $one->type),
-                Moodle\Domain\Name::fromString((string) $one->name),
+                Moodle\Domain\ModuleName::fromString((string) $one->name),
                 Moodle\Domain\CourseId::fromString((string) $one->course),
                 Moodle\Domain\SectionId::fromString((string) $one->section),
                 Moodle\Domain\Timestamp::fromString((string) $one->timecreated),
@@ -180,7 +180,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
             Moodle\Domain\Module::create(
                 Moodle\Domain\ModuleId::fromString((string) $two->id),
                 Moodle\Domain\Type::fromString((string) $two->type),
-                Moodle\Domain\Name::fromString((string) $two->name),
+                Moodle\Domain\ModuleName::fromString((string) $two->name),
                 Moodle\Domain\CourseId::fromString((string) $two->course),
                 Moodle\Domain\SectionId::fromString((string) $two->section),
                 Moodle\Domain\Timestamp::fromString((string) $two->timecreated),
@@ -200,7 +200,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::unknown(),
             Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Name::fromString($faker->sentence()),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -245,7 +245,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $module = Moodle\Domain\Module::create(
             $id,
             Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Name::fromString($faker->sentence()),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -287,7 +287,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::unknown(),
             Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Name::fromString($faker->sentence()),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -314,7 +314,7 @@ final class DatabaseBasedModuleRepositoryTest extends Framework\TestCase
         $module = Moodle\Domain\Module::create(
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Type::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Name::fromString($faker->sentence()),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),

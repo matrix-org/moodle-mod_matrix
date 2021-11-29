@@ -13,7 +13,7 @@ namespace mod_matrix\Moodle\Domain;
 /**
  * @psalm-immutable
  */
-final class Name
+final class ModuleName
 {
     public const LENGTH_MAX = 255;
     private $value;

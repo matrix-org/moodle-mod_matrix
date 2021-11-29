@@ -292,7 +292,7 @@
       <code>$normalized-&gt;room_id</code>
     </MixedArgument>
   </file>
-  <file src="test/DataProvider/Moodle/Domain/NameProvider.php">
+  <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
     <MoreSpecificReturnType occurrences="2">
       <code>\Generator&lt;string, array{0: string}&gt;</code>
