@@ -170,9 +170,7 @@
       <code>$CFG-&gt;wwwroot</code>
       <code>$powerLevels</code>
     </MixedArgument>
-    <MixedArrayAssignment occurrences="3">
-      <code>$powerLevels['users']</code>
-      <code>$powerLevels['users']</code>
+    <MixedArrayAssignment occurrences="1">
       <code>$powerLevels['users']</code>
     </MixedArrayAssignment>
     <MixedAssignment occurrences="1">

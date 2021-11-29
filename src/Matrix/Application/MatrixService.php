@@ -357,17 +357,31 @@ final class MatrixService
             Matrix\Domain\StateKey::fromString(''),
         );
 
-        $powerLevels['users'] = [
-            $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
-        ];
-
-        foreach ($userIdsOfUsers as $userIdOfUser) {
-            $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
-        }
-
-        foreach ($userIdsOfStaff as $userIdOfStaff) {
-            $powerLevels['users'][$userIdOfStaff->toString()] = Matrix\Domain\PowerLevel::staff()->toInt();
-        }
+        $powerLevels['users'] = \array_merge(
+            [
+                $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
+            ],
+            \array_combine(
+                \array_map(static function (Matrix\Domain\UserId $userId): string {
+                    return $userId->toString();
+                }, $userIdsOfUsers),
+                \array_fill(
+                    0,
+                    \count($userIdsOfUsers),
+                    Matrix\Domain\PowerLevel::default()->toInt(),
+                ),
+            ),
+            \array_combine(
+                \array_map(static function (Matrix\Domain\UserId $userId): string {
+                    return $userId->toString();
+                }, $userIdsOfStaff),
+                \array_fill(
+                    0,
+                    \count($userIdsOfStaff),
+                    Matrix\Domain\PowerLevel::staff()->toInt(),
+                ),
+            ),
+        );
 
         $this->api->setState(
             $room->matrixRoomId(),
