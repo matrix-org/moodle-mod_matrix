@@ -20,7 +20,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Moodle\Domain\Group
  *
  * @uses \mod_matrix\Moodle\Domain\GroupId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\GroupName
  */
 final class GroupTest extends Framework\TestCase
 {
@@ -31,7 +31,7 @@ final class GroupTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\GroupId::fromInt($faker->numberBetween(1));
-        $name = Moodle\Domain\Name::fromString($faker->sentence());
+        $name = Moodle\Domain\GroupName::fromString($faker->sentence());
 
         $group = Moodle\Domain\Group::create(
             $id,

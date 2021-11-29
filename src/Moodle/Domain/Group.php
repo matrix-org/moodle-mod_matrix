@@ -20,7 +20,7 @@ final class Group
 
     private function __construct(
         GroupId $id,
-        Name $name
+        GroupName $name
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -28,7 +28,7 @@ final class Group
 
     public static function create(
         GroupId $id,
-        Name $name
+        GroupName $name
     ): self {
         return new self(
             $id,
@@ -41,7 +41,7 @@ final class Group
         return $this->id;
     }
 
-    public function name(): Name
+    public function name(): GroupName
     {
         return $this->name;
     }
