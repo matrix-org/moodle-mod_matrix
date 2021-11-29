@@ -18,10 +18,30 @@ final class MatrixService
 {
     private $api;
     private $configuration;
+
+    /**
+     * @deprecated
+     */
     private $courseRepository;
+
+    /**
+     * @deprecated
+     */
     private $groupRepository;
+
+    /**
+     * @deprecated
+     */
     private $moduleRepository;
+
+    /**
+     * @deprecated
+     */
     private $roomRepository;
+
+    /**
+     * @deprecated
+     */
     private $userRepository;
     private $clock;
 
