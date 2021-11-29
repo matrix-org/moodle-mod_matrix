@@ -388,7 +388,7 @@ final class MatrixService
             $userIdsOfStaff,
         );
 
-        $userIdsOfUsersNotAllowedInTheRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
+        $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInTheRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersAllowedInTheRoom,
@@ -396,7 +396,7 @@ final class MatrixService
             );
         });
 
-        \array_walk($userIdsOfUsersNotAllowedInTheRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
+        \array_walk($userIdsOfUsersNotAllowedInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
             $api->kickUser(
                 $userId,
                 $room->matrixRoomId(),
