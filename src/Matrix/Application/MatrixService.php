@@ -365,8 +365,8 @@ final class MatrixService
             );
         });
 
-        \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($room): void {
-            $this->api->inviteUser(
+        \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
+            $api->inviteUser(
                 $userId,
                 $room->matrixRoomId(),
             );
