@@ -35,7 +35,7 @@ final class MoodleFunctionBasedCourseRepository implements Moodle\Domain\CourseR
 
         return Moodle\Domain\Course::create(
             $courseId,
-            Moodle\Domain\Name::fromString($course->fullname),
+            Moodle\Domain\CourseName::fromString($course->fullname),
         );
     }
 }

@@ -20,7 +20,7 @@ final class Course
 
     private function __construct(
         CourseId $id,
-        Name $name
+        CourseName $name
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -28,7 +28,7 @@ final class Course
 
     public static function create(
         CourseId $id,
-        Name $name
+        CourseName $name
     ): self {
         return new self(
             $id,
@@ -41,7 +41,7 @@ final class Course
         return $this->id;
     }
 
-    public function name(): Name
+    public function name(): CourseName
     {
         return $this->name;
     }

@@ -21,7 +21,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Moodle\Domain\Course
  *
  * @uses \mod_matrix\Moodle\Domain\CourseId
- * @uses \mod_matrix\Moodle\Domain\Name
+ * @uses \mod_matrix\Moodle\Domain\CourseName
  */
 final class CourseTest extends Framework\TestCase
 {
@@ -32,7 +32,7 @@ final class CourseTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
-        $name = Moodle\Domain\Name::fromString($faker->sentence());
+        $name = Moodle\Domain\CourseName::fromString($faker->sentence());
 
         $course = Moodle\Domain\Course::create(
             $id,
