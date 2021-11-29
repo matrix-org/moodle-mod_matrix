@@ -408,10 +408,10 @@ final class MatrixService
     {
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
-        $matrixUserIdOfBot = $this->api->whoAmI();
+        $userIdOfBot = $this->api->whoAmI();
 
         foreach ($userIdsOfUsersInRoom as $matrixUserId) {
-            if ($matrixUserId->equals($matrixUserIdOfBot)) {
+            if ($matrixUserId->equals($userIdOfBot)) {
                 continue;
             }
 
@@ -422,7 +422,7 @@ final class MatrixService
         }
 
         $this->api->kickUser(
-            $matrixUserIdOfBot,
+            $userIdOfBot,
             $room->matrixRoomId(),
         );
     }
