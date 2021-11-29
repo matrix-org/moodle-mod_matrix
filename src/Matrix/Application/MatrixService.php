@@ -324,17 +324,21 @@ final class MatrixService
             $groupId,
         );
 
-        foreach ($users as $user) {
-            if (!\in_array($user->matrixUserId(), $userIdsOfUsersInTheRoom, false)) {
+        $userIdsOfUsers = \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $users);
+
+        foreach ($userIdsOfUsers as $userIdOfUser) {
+            if (!\in_array($userIdOfUser, $userIdsOfUsersInTheRoom, false)) {
                 $this->api->inviteUser(
-                    $user->matrixUserId(),
+                    $userIdOfUser,
                     $room->matrixRoomId(),
                 );
             }
 
-            $userIdsOfUsersAllowedInTheRoom[] = $user->matrixUserId();
+            $userIdsOfUsersAllowedInTheRoom[] = $userIdOfUser;
 
-            $powerLevels['users'][$user->matrixUserId()->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
+            $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
         }
 
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
