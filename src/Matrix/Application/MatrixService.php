@@ -310,10 +310,6 @@ final class MatrixService
             Matrix\Domain\StateKey::fromString(''),
         );
 
-        $powerLevels['users'] = [
-            $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
-        ];
-
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $module->courseId(),
             $groupId,
@@ -360,6 +356,10 @@ final class MatrixService
                 $room->matrixRoomId(),
             );
         });
+
+        $powerLevels['users'] = [
+            $matrixUserIdOfBot->toString() => Matrix\Domain\PowerLevel::bot()->toInt(),
+        ];
 
         foreach ($userIdsOfUsers as $userIdOfUser) {
             $powerLevels['users'][$userIdOfUser->toString()] = Matrix\Domain\PowerLevel::default()->toInt();
