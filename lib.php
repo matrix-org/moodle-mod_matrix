@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 
 use mod_matrix\Container;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 \defined('MOODLE_INTERNAL') || exit;
@@ -58,6 +59,8 @@ function matrix_add_instance(
     object $moduleinfo,
     mod_matrix_mod_form $form
 ) {
+    global $CFG;
+
     $data = $form->get_data();
 
     $container = Container::instance();
@@ -82,15 +85,23 @@ function matrix_add_instance(
 
     $matrixService = $container->matrixService();
 
+    $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
+        '%s/course/view.php?id=%d',
+        $CFG->wwwroot,
+        $module->courseId()->toInt(),
+    ));
+
     if (\count($groups) > 0) {
         foreach ($groups as $group) {
             $matrixService->prepareRoomForModuleAndGroup(
+                $topic,
                 $module,
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
     } else {
         $matrixService->prepareRoomForModuleAndGroup(
+            $topic,
             $module,
             null,
         );
