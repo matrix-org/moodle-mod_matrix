@@ -222,9 +222,9 @@ final class MatrixService
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
-                }, $staff),
+                }, $staff)),
             );
 
             return;
@@ -262,9 +262,9 @@ final class MatrixService
             Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
             }, $users)),
-            \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
-            }, $staff),
+            }, $staff)),
         );
     }
 
@@ -305,9 +305,9 @@ final class MatrixService
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
-                }, $staff),
+                }, $staff)),
             );
         }
     }
@@ -342,9 +342,9 @@ final class MatrixService
                     Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
                     }, $users)),
-                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
-                    }, $staff),
+                    }, $staff)),
                 );
             }
         }
@@ -377,21 +377,18 @@ final class MatrixService
                     Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
                     }, $users)),
-                    \array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
-                    }, $staff),
+                    }, $staff)),
                 );
             }
         }
     }
 
-    /**
-     * @param array<int, Matrix\Domain\UserId> $userIdsOfStaff
-     */
     public function synchronizeRoomMembersForRoom(
         Moodle\Domain\Room $room,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
-        array $userIdsOfStaff
+        Matrix\Domain\UserIdCollection $userIdsOfStaff
     ): void {
         $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
 
@@ -412,7 +409,7 @@ final class MatrixService
             );
         });
 
-        $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom) {
+        $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom) {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersInRoom,
@@ -452,10 +449,10 @@ final class MatrixService
             \array_combine(
                 \array_map(static function (Matrix\Domain\UserId $userId): string {
                     return $userId->toString();
-                }, $userIdsOfStaff),
+                }, $userIdsOfStaff->toArray()),
                 \array_fill(
                     0,
-                    \count($userIdsOfStaff),
+                    \count($userIdsOfStaff->toArray()),
                     Matrix\Domain\PowerLevel::staff()->toInt(),
                 ),
             ),
@@ -473,7 +470,7 @@ final class MatrixService
                 $matrixUserIdOfBot,
             ],
             $userIdsOfUsers->toArray(),
-            $userIdsOfStaff,
+            $userIdsOfStaff->toArray(),
         );
 
         $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
