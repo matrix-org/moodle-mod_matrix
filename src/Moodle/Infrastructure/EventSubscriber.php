@@ -116,30 +116,22 @@ final class EventSubscriber
 
     public static function onRoleAssigned(event\role_assigned $event): void
     {
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRooms();
+        self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
     {
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRooms();
+        self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleDeleted(event\role_deleted $event): void
     {
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRooms();
+        self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
     {
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRooms();
+        self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
@@ -167,5 +159,12 @@ final class EventSubscriber
         $matrixService = Container::instance()->matrixService();
 
         $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+    }
+
+    private static function synchronizeRoomMembersForAllRooms(): void
+    {
+        $matrixService = Container::instance()->matrixService();
+
+        $matrixService->synchronizeRoomMembersForAllRooms();
     }
 }
