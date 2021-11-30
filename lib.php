@@ -80,7 +80,6 @@ function matrix_add_instance(
         ));
     }
 
-    $moodleRoomRepository = $container->moodleRoomRepository();
     $moodleUserRepository = $container->moodleUserRepository();
     $clock = $container->clock();
 
@@ -117,6 +116,7 @@ function matrix_add_instance(
     }, $staff));
 
     $moodleGroupRepository = $container->moodleGroupRepository();
+    $moodleRoomRepository = $container->moodleRoomRepository();
 
     if (\count($groups) > 0) {
         foreach ($groups as $g) {
