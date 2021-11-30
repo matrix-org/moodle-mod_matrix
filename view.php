@@ -25,9 +25,9 @@ $id = required_param('id', PARAM_INT);
 
 $container = Container::instance();
 
-$moduleRepository = $container->moduleRepository();
+$moodleModuleRepository = $container->moodleModuleRepository();
 
-$module = $moduleRepository->findOneBy([
+$module = $moodleModuleRepository->findOneBy([
     'id' => $cm->instance,
 ]);
 

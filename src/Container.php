@@ -61,7 +61,7 @@ final class Container
 
         $this->define(Moodle\Application\ModuleService::class, static function (self $container): Moodle\Application\ModuleService {
             return new Moodle\Application\ModuleService(
-                $container->moduleRepository(),
+                $container->moodleModuleRepository(),
                 $container->clock(),
             );
         });
@@ -151,14 +151,14 @@ final class Container
         return $this->resolve(Matrix\Application\RoomService::class);
     }
 
-    public function moduleRepository(): Moodle\Domain\ModuleRepository
-    {
-        return $this->resolve(Moodle\Domain\ModuleRepository::class);
-    }
-
     public function moduleService(): Moodle\Application\ModuleService
     {
         return $this->resolve(Moodle\Application\ModuleService::class);
+    }
+
+    public function moodleModuleRepository(): Moodle\Domain\ModuleRepository
+    {
+        return $this->resolve(Moodle\Domain\ModuleRepository::class);
     }
 
     public function roomRepository(): Moodle\Domain\RoomRepository

@@ -160,7 +160,7 @@ final class EventSubscriber
 
         $courseRepository = $container->courseRepository();
         $groupRepository = $container->groupRepository();
-        $moduleRepository = $container->moduleRepository();
+        $moodleModuleRepository = $container->moodleModuleRepository();
         $roomRepository = $container->roomRepository();
         $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
@@ -190,7 +190,7 @@ final class EventSubscriber
             $courseId->toInt(),
         ));
 
-        $modules = $moduleRepository->findAllBy([
+        $modules = $moodleModuleRepository->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
@@ -256,14 +256,14 @@ final class EventSubscriber
         $container = Container::instance();
 
         $roomRepository = $container->roomRepository();
-        $moduleRepository = $container->moduleRepository();
+        $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         $rooms = $roomRepository->findAll();
 
         foreach ($rooms as $room) {
-            $module = $moduleRepository->findOneBy([
+            $module = $moodleModuleRepository->findOneBy([
                 'id' => $room->moduleId()->toInt(),
             ]);
 
@@ -307,12 +307,12 @@ final class EventSubscriber
     {
         $container = Container::instance();
 
-        $moduleRepository = $container->moduleRepository();
+        $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
         $roomRepository = $container->roomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
-        $modules = $moduleRepository->findAllBy([
+        $modules = $moodleModuleRepository->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
@@ -358,12 +358,12 @@ final class EventSubscriber
     ): void {
         $container = Container::instance();
 
-        $moduleRepository = $container->moduleRepository();
+        $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
         $roomRepository = $container->roomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
-        $modules = $moduleRepository->findAllBy([
+        $modules = $moodleModuleRepository->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 

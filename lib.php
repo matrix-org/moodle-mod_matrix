@@ -241,9 +241,9 @@ function matrix_delete_instance($id): bool
 {
     $container = Container::instance();
 
-    $moduleRepository = $container->moduleRepository();
+    $moodleModuleRepository = $container->moodleModuleRepository();
 
-    $module = $moduleRepository->findOneBy([
+    $module = $moodleModuleRepository->findOneBy([
         'id' => $id,
     ]);
 
@@ -265,7 +265,7 @@ function matrix_delete_instance($id): bool
         $roomRepository->remove($room);
     }
 
-    $moduleRepository->remove($module);
+    $moodleModuleRepository->remove($module);
 
     return true;
 }
