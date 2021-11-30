@@ -318,6 +318,8 @@ final class MatrixService
             'course' => $courseId->toInt(),
         ]);
 
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+
         foreach ($modules as $module) {
             $rooms = $this->roomRepository->findAllBy([
                 'module_id' => $module->id()->toInt(),
@@ -334,8 +336,6 @@ final class MatrixService
                     $courseId,
                     $groupId,
                 );
-
-                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
                 $this->synchronizeRoomMembersForRoom(
                     $room,
