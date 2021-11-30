@@ -170,7 +170,7 @@ final class EventSubscriber
                 Matrix\Domain\RoomTopic::fromString(\sprintf(
                     '%s/course/view.php?id=%d',
                     $CFG->wwwroot,
-                    $module->courseId()->toInt(),
+                    $courseId->toInt(),
                 )),
                 $module,
                 $groupId,
