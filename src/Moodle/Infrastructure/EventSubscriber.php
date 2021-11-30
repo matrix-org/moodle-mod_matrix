@@ -181,6 +181,11 @@ final class EventSubscriber
         }
 
         $moodleModuleRepository = $container->moodleModuleRepository();
+
+        $modules = $moodleModuleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
@@ -191,10 +196,6 @@ final class EventSubscriber
             $CFG->wwwroot,
             $courseId->toInt(),
         ));
-
-        $modules = $moodleModuleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
 
         foreach ($modules as $module) {
             $name = Matrix\Domain\RoomName::fromString(\sprintf(
