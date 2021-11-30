@@ -287,6 +287,72 @@ function matrix_update_instance(
         $moduleinfo,
     );
 
+    $container = Container::instance();
+
+    $moduleId = Moodle\Domain\ModuleId::fromString($moduleinfo->instance);
+
+    $module = $container->moodleModuleRepository()->findOneBy([
+        'id' => $moduleId->toInt(),
+    ]);
+
+    if (!$module instanceof Moodle\Domain\Module) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find module with id %d.',
+            $moduleId->toInt(),
+        ));
+    }
+
+    $course = $container->moodleCourseRepository()->find($module->courseId());
+
+    if (!$course instanceof Moodle\Domain\Course) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find course with id %d.',
+            $module->courseId()->toInt(),
+        ));
+    }
+
+    $room = $container->moodleRoomRepository()->findOneBy([
+        'module_id' => $module->id()->toInt(),
+    ]);
+
+    if (!$room instanceof Moodle\Domain\Room) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find room for module with id %d.',
+            $module->id()->toInt(),
+        ));
+    }
+
+    $moodleNameService = $container->moodleNameService();
+
+    $name = $moodleNameService->createForCourseAndModule(
+        $course,
+        $module,
+    );
+
+    $groupId = $room->groupId();
+
+    if ($groupId instanceof Moodle\Domain\GroupId) {
+        $group = $container->moodleGroupRepository()->find($groupId);
+
+        if (!$group instanceof Moodle\Domain\Group) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find group with id %d.',
+                $groupId->toInt(),
+            ));
+        }
+
+        $name = $moodleNameService->createForGroupCourseAndModule(
+            $group,
+            $course,
+            $module,
+        );
+    }
+
+    $container->matrixRoomService()->renameRoom(
+        $room->matrixRoomId(),
+        Matrix\Domain\RoomName::fromString($name),
+    );
+
     return true;
 }
 

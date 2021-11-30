@@ -20,10 +20,12 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Matrix\Application\RoomService
  *
  * @uses \mod_matrix\Matrix\Application\Configuration
+ * @uses \mod_matrix\Matrix\Domain\EventType
  * @uses \mod_matrix\Matrix\Domain\PowerLevel
  * @uses \mod_matrix\Matrix\Domain\RoomId
  * @uses \mod_matrix\Matrix\Domain\RoomName
  * @uses \mod_matrix\Matrix\Domain\RoomTopic
+ * @uses \mod_matrix\Matrix\Domain\StateKey
  * @uses \mod_matrix\Matrix\Domain\UserId
  * @uses \mod_matrix\Matrix\Domain\UserIdCollection
  */
@@ -281,5 +283,37 @@ final class RoomServiceTest extends Framework\TestCase
         );
 
         $roomService->removeRoom($roomId);
+    }
+
+    public function testRenameRoomRenamesRoom(): void
+    {
+        $faker = self::faker();
+
+        $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
+        $roomName = Matrix\Domain\RoomName::fromString($faker->sentence());
+
+        $api = $this->createMock(Matrix\Application\Api::class);
+
+        $api
+            ->expects(self::once())
+            ->method('setState')
+            ->with(
+                self::identicalTo($roomId),
+                self::equalTo(Matrix\Domain\EventType::fromString('m.room.name')),
+                self::equalTo(Matrix\Domain\StateKey::fromString('')),
+                self::identicalTo([
+                    'name' => $roomName->toString(),
+                ]),
+            );
+
+        $roomService = new Matrix\Application\RoomService(
+            $api,
+            Matrix\Application\Configuration::default(),
+        );
+
+        $roomService->renameRoom(
+            $roomId,
+            $roomName,
+        );
     }
 }
