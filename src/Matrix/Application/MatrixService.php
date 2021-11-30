@@ -358,6 +358,13 @@ final class MatrixService
             'course' => $courseId->toInt(),
         ]);
 
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $courseId,
+            $groupId,
+        );
+
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+
         foreach ($modules as $module) {
             $rooms = $this->roomRepository->findAllBy([
                 'group_id' => $groupId->toInt(),
@@ -365,13 +372,6 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
-                $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                    $courseId,
-                    $groupId,
-                );
-
-                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
-
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
