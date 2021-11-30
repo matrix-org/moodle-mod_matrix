@@ -260,11 +260,45 @@ final class EventSubscriber
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
-        $matrixService = Container::instance()->matrixService();
+        $container = Container::instance();
 
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        $moduleRepository = $container->moduleRepository();
+        $userRepository = $container->userRepository();
+        $roomRepository = $container->roomRepository();
+        $matrixService = $container->matrixService();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
             $groupId,
         );
+
+        $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $users));
+
+        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff));
+
+        foreach ($modules as $module) {
+            $rooms = $roomRepository->findAllBy([
+                'group_id' => $groupId->toInt(),
+                'module_id' => $module->id()->toInt(),
+            ]);
+
+            foreach ($rooms as $room) {
+                $matrixService->synchronizeRoomMembersForRoom(
+                    $room->matrixRoomId(),
+                    $userIdsOfUsers,
+                    $userIdsOfStaff,
+                );
+            }
+        }
     }
 }

@@ -268,45 +268,6 @@ final class MatrixService
         );
     }
 
-    public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
-        Moodle\Domain\CourseId $courseId,
-        Moodle\Domain\GroupId $groupId
-    ): void {
-        $modules = $this->moduleRepository->findAllBy([
-            'course' => $courseId->toInt(),
-        ]);
-
-        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $courseId,
-            $groupId,
-        );
-
-        $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-            return $user->matrixUserId();
-        }, $users));
-
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
-
-        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-            return $user->matrixUserId();
-        }, $staff));
-
-        foreach ($modules as $module) {
-            $rooms = $this->roomRepository->findAllBy([
-                'group_id' => $groupId->toInt(),
-                'module_id' => $module->id()->toInt(),
-            ]);
-
-            foreach ($rooms as $room) {
-                $this->synchronizeRoomMembersForRoom(
-                    $room->matrixRoomId(),
-                    $userIdsOfUsers,
-                    $userIdsOfStaff,
-                );
-            }
-        }
-    }
-
     public function synchronizeRoomMembersForRoom(
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
