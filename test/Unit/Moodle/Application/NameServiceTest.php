@@ -20,8 +20,8 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Moodle\Application\NameService
  *
  * @uses \mod_matrix\Moodle\Domain\Course
+ * @uses \mod_matrix\Moodle\Domain\CourseFullName
  * @uses \mod_matrix\Moodle\Domain\CourseId
- * @uses \mod_matrix\Moodle\Domain\CourseName
  * @uses \mod_matrix\Moodle\Domain\Group
  * @uses \mod_matrix\Moodle\Domain\GroupId
  * @uses \mod_matrix\Moodle\Domain\GroupName
@@ -47,7 +47,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $course = Moodle\Domain\Course::create(
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseName::fromString($faker->word()),
+            Moodle\Domain\CourseFullName::fromString($faker->word()),
         );
 
         $module = Moodle\Domain\Module::create(
@@ -71,7 +71,7 @@ final class NameServiceTest extends Framework\TestCase
         $expected = \sprintf(
             '%s: %s (%s)',
             $group->name()->toString(),
-            $course->name()->toString(),
+            $course->fullName()->toString(),
             $module->name()->toString(),
         );
 
@@ -84,7 +84,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $course = Moodle\Domain\Course::create(
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseName::fromString($faker->word()),
+            Moodle\Domain\CourseFullName::fromString($faker->word()),
         );
 
         $module = Moodle\Domain\Module::create(
@@ -106,7 +106,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $expected = \sprintf(
             '%s (%s)',
-            $course->name()->toString(),
+            $course->fullName()->toString(),
             $module->name()->toString(),
         );
 

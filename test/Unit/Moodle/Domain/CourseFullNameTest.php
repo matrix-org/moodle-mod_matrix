@@ -16,17 +16,17 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Moodle\Domain\CourseName
+ * @covers \mod_matrix\Moodle\Domain\CourseFullName
  */
-final class CourseNameTest extends Framework\TestCase
+final class CourseFullNameTest extends Framework\TestCase
 {
     /**
      * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
      */
-    public function testFromStringReturnsCourseName(string $value): void
+    public function testFromStringReturnsCourseFullName(string $value): void
     {
-        $name = Moodle\Domain\CourseName::fromString($value);
+        $fullName = Moodle\Domain\CourseFullName::fromString($value);
 
-        self::assertSame($value, $name->toString());
+        self::assertSame($value, $fullName->toString());
     }
 }

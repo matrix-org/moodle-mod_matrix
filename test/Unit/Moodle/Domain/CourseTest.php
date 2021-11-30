@@ -20,8 +20,8 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Moodle\Domain\Course
  *
+ * @uses \mod_matrix\Moodle\Domain\CourseFullName
  * @uses \mod_matrix\Moodle\Domain\CourseId
- * @uses \mod_matrix\Moodle\Domain\CourseName
  */
 final class CourseTest extends Framework\TestCase
 {
@@ -32,14 +32,14 @@ final class CourseTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
-        $name = Moodle\Domain\CourseName::fromString($faker->sentence());
+        $fullName = Moodle\Domain\CourseFullName::fromString($faker->sentence());
 
         $course = Moodle\Domain\Course::create(
             $id,
-            $name,
+            $fullName,
         );
 
         self::assertSame($id, $course->id());
-        self::assertSame($name, $course->name());
+        self::assertSame($fullName, $course->fullName());
     }
 }

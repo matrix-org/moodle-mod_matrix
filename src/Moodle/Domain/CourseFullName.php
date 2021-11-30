@@ -13,7 +13,7 @@ namespace mod_matrix\Moodle\Domain;
 /**
  * @psalm-immutable
  */
-final class CourseName
+final class CourseFullName
 {
     private $value;
 
