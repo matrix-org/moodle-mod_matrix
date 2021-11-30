@@ -376,12 +376,14 @@ final class MatrixService
             ]);
 
             foreach ($rooms as $room) {
+                $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $staff));
+
                 $this->synchronizeRoomMembersForRoom(
                     $room,
                     $userIdsOfUsers,
-                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                        return $user->matrixUserId();
-                    }, $staff)),
+                    $userIdsOfStaff,
                 );
             }
         }
