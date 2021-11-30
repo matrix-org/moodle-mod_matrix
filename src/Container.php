@@ -66,6 +66,10 @@ final class Container
             );
         });
 
+        $this->define(Moodle\Application\NameService::class, static function (): Moodle\Application\NameService {
+            return new Moodle\Application\NameService();
+        });
+
         $this->define(Moodle\Domain\CourseRepository::class, static function (): Moodle\Domain\CourseRepository {
             return new Moodle\Infrastructure\MoodleFunctionBasedCourseRepository();
         });
@@ -159,6 +163,11 @@ final class Container
     public function moodleModuleService(): Moodle\Application\ModuleService
     {
         return $this->resolve(Moodle\Application\ModuleService::class);
+    }
+
+    public function moodleNameService(): Moodle\Application\NameService
+    {
+        return $this->resolve(Moodle\Application\NameService::class);
     }
 
     public function moodleRoomRepository(): Moodle\Domain\RoomRepository

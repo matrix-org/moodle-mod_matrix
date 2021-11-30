@@ -104,6 +104,8 @@ function matrix_add_instance(
 
     $moodleRoomRepository = $container->moodleRoomRepository();
 
+    $moodleNameService = $container->moodleNameService();
+
     $clock = $container->clock();
 
     // Now try to iterate over all the courses and groups and see if any of
@@ -137,11 +139,10 @@ function matrix_add_instance(
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = Matrix\Domain\RoomName::fromString(\sprintf(
-                    '%s: %s (%s)',
-                    $group->name()->toString(),
-                    $course->name()->toString(),
-                    $module->name()->toString(),
+                $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForGroupCourseAndModule(
+                    $group,
+                    $course,
+                    $module,
                 ));
 
                 $matrixRoomId = $matrixRoomService->createRoom(
@@ -188,10 +189,9 @@ function matrix_add_instance(
     ]);
 
     if (!$room instanceof Moodle\Domain\Room) {
-        $name = Matrix\Domain\RoomName::fromString(\sprintf(
-            '%s (%s)',
-            $course->name()->toString(),
-            $module->name()->toString(),
+        $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForCourseAndModule(
+            $course,
+            $module,
         ));
 
         $matrixRoomId = $matrixRoomService->createRoom(

@@ -184,6 +184,8 @@ final class EventSubscriber
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
 
+        $moodleNameService = $container->moodleNameService();
+
         $clock = $container->clock();
 
         $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
@@ -199,11 +201,10 @@ final class EventSubscriber
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = Matrix\Domain\RoomName::fromString(\sprintf(
-                    '%s: %s (%s)',
-                    $group->name()->toString(),
-                    $course->name()->toString(),
-                    $module->name()->toString(),
+                $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForGroupCourseAndModule(
+                    $group,
+                    $course,
+                    $module,
                 ));
 
                 $matrixRoomId = $matrixRoomService->createRoom(
