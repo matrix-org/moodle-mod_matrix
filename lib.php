@@ -111,6 +111,10 @@ function matrix_add_instance(
 
     $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
+    $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        return $user->matrixUserId();
+    }, $staff));
+
     if (\count($groups) > 0) {
         foreach ($groups as $g) {
             $groupId = Moodle\Domain\GroupId::fromString($g->id);
@@ -143,10 +147,6 @@ function matrix_add_instance(
                 $course->id(),
                 $group->id(),
             );
-
-            $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $staff));
 
             $matrixService->synchronizeRoomMembersForRoom(
                 $matrixRoomId,
@@ -198,10 +198,6 @@ function matrix_add_instance(
         $course->id(),
         Moodle\Domain\GroupId::fromInt(0),
     );
-
-    $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-        return $user->matrixUserId();
-    }, $staff));
 
     $matrixService->synchronizeRoomMembersForRoom(
         $room->matrixRoomId(),
