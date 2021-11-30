@@ -94,9 +94,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -107,9 +105,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -258,5 +254,17 @@ final class EventSubscriber
                 );
             }
         }
+    }
+
+    private static function synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $matrixService = Container::instance()->matrixService();
+
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
+            $courseId,
+            $groupId,
+        );
     }
 }
