@@ -171,7 +171,7 @@ function matrix_add_instance(
                 $group->id(),
             );
 
-            $matrixRoomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
@@ -222,7 +222,7 @@ function matrix_add_instance(
         Moodle\Domain\GroupId::fromInt(0),
     );
 
-    $matrixRoomService->synchronizeRoomMembersForRoom(
+    $matrixRoomService->synchronizeRoomMembers(
         $room->matrixRoomId(),
         Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();

@@ -115,7 +115,7 @@ final class RoomService
         );
     }
 
-    public function synchronizeRoomMembersForRoom(
+    public function synchronizeRoomMembers(
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
         Matrix\Domain\UserIdCollection $userIdsOfStaff

@@ -236,7 +236,7 @@ final class EventSubscriber
 
             $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
-            $matrixRoomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
@@ -295,7 +295,7 @@ final class EventSubscriber
                 return $user->matrixUserId();
             }, $staff));
 
-            $matrixRoomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
                 $userIdsOfUsers,
                 $userIdsOfStaff,
@@ -343,7 +343,7 @@ final class EventSubscriber
                     return $user->matrixUserId();
                 }, $users));
 
-                $matrixRoomService->synchronizeRoomMembersForRoom(
+                $matrixRoomService->synchronizeRoomMembers(
                     $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
@@ -389,7 +389,7 @@ final class EventSubscriber
             ]);
 
             foreach ($rooms as $room) {
-                $matrixRoomService->synchronizeRoomMembersForRoom(
+                $matrixRoomService->synchronizeRoomMembers(
                     $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
