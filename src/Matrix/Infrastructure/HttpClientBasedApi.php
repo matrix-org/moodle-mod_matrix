@@ -111,7 +111,7 @@ final class HttpClientBasedApi implements Matrix\Application\Api
         );
     }
 
-    public function listUsers(Matrix\Domain\RoomId $roomId): array
+    public function listUsers(Matrix\Domain\RoomId $roomId): Matrix\Domain\UserIdCollection
     {
         $members = $this->httpClient->get(\sprintf(
             '/_matrix/client/r0/rooms/%s/members',
@@ -153,6 +153,6 @@ final class HttpClientBasedApi implements Matrix\Application\Api
             $userIds[] = Matrix\Domain\UserId::fromString($event['state_key']);
         }
 
-        return $userIds;
+        return Matrix\Domain\UserIdCollection::fromUserIds(...$userIds);
     }
 }

@@ -64,8 +64,6 @@ interface Api
 
     /**
      * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/r0/rooms/-roomId-/members
-     *
-     * @return array<int, Matrix\Domain\UserId>
      */
-    public function listUsers(Matrix\Domain\RoomId $roomId): array;
+    public function listUsers(Matrix\Domain\RoomId $roomId): Matrix\Domain\UserIdCollection;
 }

@@ -98,7 +98,7 @@ final class MatrixService
 
         $userIdOfBot = $this->api->whoAmI();
 
-        foreach ($userIdsOfUsersInRoom as $userId) {
+        foreach ($userIdsOfUsersInRoom->toArray() as $userId) {
             if ($userId->equals($userIdOfBot)) {
                 continue;
             }
@@ -127,7 +127,7 @@ final class MatrixService
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsersAndStaff->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
-                $userIdsOfUsersInRoom,
+                $userIdsOfUsersInRoom->toArray(),
                 false,
             );
         });
@@ -188,7 +188,7 @@ final class MatrixService
             $userIdsOfStaff->toArray(),
         );
 
-        $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
+        $userIdsOfUsersNotAllowedInRoom = \array_filter($userIdsOfUsersInRoom->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersAllowedInRoom,
