@@ -402,7 +402,9 @@ final class MatrixService
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
         Matrix\Domain\UserIdCollection $userIdsOfStaff
     ): void {
-        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
+        $roomId = $room->matrixRoomId();
+
+        $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
 
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
@@ -414,9 +416,9 @@ final class MatrixService
 
         $api = $this->api;
 
-        \array_walk($userIdsOfUsersNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($room): void {
+        \array_walk($userIdsOfUsersNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($roomId): void {
             $this->api->inviteUser(
-                $room->matrixRoomId(),
+                $roomId,
                 $userId,
             );
         });
@@ -429,9 +431,9 @@ final class MatrixService
             );
         });
 
-        \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
+        \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
             $api->inviteUser(
-                $room->matrixRoomId(),
+                $roomId,
                 $userId,
             );
         });
@@ -439,7 +441,7 @@ final class MatrixService
         $matrixUserIdOfBot = $this->api->whoAmI();
 
         $powerLevels = $this->api->getState(
-            $room->matrixRoomId(),
+            $roomId,
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
             Matrix\Domain\StateKey::fromString(''),
         );
@@ -471,7 +473,7 @@ final class MatrixService
         );
 
         $this->api->setState(
-            $room->matrixRoomId(),
+            $roomId,
             Matrix\Domain\EventType::fromString('m.room.power_levels'),
             Matrix\Domain\StateKey::fromString(''),
             $powerLevels,
@@ -493,9 +495,9 @@ final class MatrixService
             );
         });
 
-        \array_walk($userIdsOfUsersNotAllowedInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
+        \array_walk($userIdsOfUsersNotAllowedInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
             $api->kickUser(
-                $room->matrixRoomId(),
+                $roomId,
                 $userId,
             );
         });
