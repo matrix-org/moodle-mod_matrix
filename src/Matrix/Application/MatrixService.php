@@ -52,7 +52,7 @@ final class MatrixService
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
-        $roomOptions = [
+        return $this->api->createRoom([
             'creation_content' => $creationContent,
             'initial_state' => [
                 [
@@ -89,9 +89,7 @@ final class MatrixService
             ],
             'preset' => 'private_chat',
             'topic' => $topic->toString(),
-        ];
-
-        return $this->api->createRoom($roomOptions);
+        ]);
     }
 
     public function synchronizeRoomMembersForRoom(
