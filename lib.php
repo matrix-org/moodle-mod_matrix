@@ -88,16 +88,6 @@ function matrix_add_instance(
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );
 
-    // Now try to iterate over all the courses and groups and see if any of
-    // the rooms need to be created
-    $groups = groups_get_all_groups(
-        $courseId->toInt(),
-        0,
-        0,
-        'g.*',
-        true,
-    );
-
     $matrixRoomService = $container->matrixRoomService();
 
     $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
@@ -118,6 +108,16 @@ function matrix_add_instance(
     $moodleRoomRepository = $container->moodleRoomRepository();
 
     $clock = $container->clock();
+
+    // Now try to iterate over all the courses and groups and see if any of
+    // the rooms need to be created
+    $groups = groups_get_all_groups(
+        $courseId->toInt(),
+        0,
+        0,
+        'g.*',
+        true,
+    );
 
     if (\count($groups) > 0) {
         foreach ($groups as $g) {
