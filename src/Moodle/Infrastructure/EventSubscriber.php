@@ -166,12 +166,14 @@ final class EventSubscriber
         ]);
 
         foreach ($modules as $module) {
+            $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
+                '%s/course/view.php?id=%d',
+                $CFG->wwwroot,
+                $courseId->toInt(),
+            ));
+
             $matrixService->prepareRoomForModuleAndGroup(
-                Matrix\Domain\RoomTopic::fromString(\sprintf(
-                    '%s/course/view.php?id=%d',
-                    $CFG->wwwroot,
-                    $courseId->toInt(),
-                )),
+                $topic,
                 $module,
                 $groupId,
             );
