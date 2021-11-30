@@ -10,9 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Matrix\Application;
 
-use Ergebnis\Clock;
 use mod_matrix\Matrix;
-use mod_matrix\Moodle;
 use mod_matrix\Test;
 use PHPUnit\Framework;
 
@@ -51,8 +49,6 @@ final class MatrixServiceTest extends Framework\TestCase
         $matrixService = new Matrix\Application\MatrixService(
             $this->createStub(Matrix\Application\Api::class),
             $configuration,
-            $this->createStub(Moodle\Domain\RoomRepository::class),
-            $this->createStub(Clock\Clock::class),
         );
 
         $url = $matrixService->urlForRoom($roomId);
@@ -88,8 +84,6 @@ final class MatrixServiceTest extends Framework\TestCase
         $matrixService = new Matrix\Application\MatrixService(
             $this->createStub(Matrix\Application\Api::class),
             $configuration,
-            $this->createStub(Moodle\Domain\RoomRepository::class),
-            $this->createStub(Clock\Clock::class),
         );
 
         $url = $matrixService->urlForRoom($roomId);

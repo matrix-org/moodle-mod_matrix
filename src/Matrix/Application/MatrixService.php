@@ -10,31 +10,19 @@ declare(strict_types=1);
 
 namespace mod_matrix\Matrix\Application;
 
-use Ergebnis\Clock;
 use mod_matrix\Matrix;
-use mod_matrix\Moodle;
 
 final class MatrixService
 {
     private $api;
     private $configuration;
 
-    /**
-     * @deprecated
-     */
-    private $roomRepository;
-    private $clock;
-
     public function __construct(
         Matrix\Application\Api $api,
-        Matrix\Application\Configuration $configuration,
-        Moodle\Domain\RoomRepository $roomRepository,
-        Clock\Clock $clock
+        Matrix\Application\Configuration $configuration
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
-        $this->roomRepository = $roomRepository;
-        $this->clock = $clock;
     }
 
     public function urlForRoom(Matrix\Domain\RoomId $roomId): string
