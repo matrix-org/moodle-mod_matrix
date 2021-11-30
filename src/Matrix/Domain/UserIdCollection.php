@@ -30,6 +30,14 @@ final class UserIdCollection
         return new self(...$userIds);
     }
 
+    public function merge(self $other): self
+    {
+        return new self(...\array_merge(
+            $this->userIds,
+            $other->userIds,
+        ));
+    }
+
     /**
      * @return array<int, UserId>
      */

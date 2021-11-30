@@ -122,12 +122,9 @@ final class MatrixService
     ): void {
         $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
 
-        $userIdsOfUsersAndStaff = \array_merge(
-            $userIdsOfUsers->toArray(),
-            $userIdsOfStaff->toArray(),
-        );
+        $userIdsOfUsersAndStaff = $userIdsOfUsers->merge($userIdsOfStaff);
 
-        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsersAndStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
+        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsersAndStaff->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersInRoom,
