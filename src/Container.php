@@ -141,11 +141,6 @@ final class Container
         return $this->resolve(Matrix\Application\RoomService::class);
     }
 
-    public function moduleService(): Moodle\Application\ModuleService
-    {
-        return $this->resolve(Moodle\Application\ModuleService::class);
-    }
-
     public function moodleCourseRepository(): Moodle\Domain\CourseRepository
     {
         return $this->resolve(Moodle\Domain\CourseRepository::class);
@@ -159,6 +154,11 @@ final class Container
     public function moodleModuleRepository(): Moodle\Domain\ModuleRepository
     {
         return $this->resolve(Moodle\Domain\ModuleRepository::class);
+    }
+
+    public function moodleModuleService(): Moodle\Application\ModuleService
+    {
+        return $this->resolve(Moodle\Application\ModuleService::class);
     }
 
     public function moodleRoomRepository(): Moodle\Domain\RoomRepository
