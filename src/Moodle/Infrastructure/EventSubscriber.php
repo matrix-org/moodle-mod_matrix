@@ -162,7 +162,7 @@ final class EventSubscriber
         $groupRepository = $container->groupRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
         $moodleRoomRepository = $container->moodleRoomRepository();
-        $userRepository = $container->userRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
         $clock = $container->clock();
 
@@ -229,12 +229,12 @@ final class EventSubscriber
                 $moodleRoomRepository->save($room);
             }
 
-            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $course->id(),
                 $group->id(),
             );
 
-            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+            $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
             $matrixRoomService->synchronizeRoomMembersForRoom(
                 $room->matrixRoomId(),
@@ -257,7 +257,7 @@ final class EventSubscriber
 
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
-        $userRepository = $container->userRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         $rooms = $moodleRoomRepository->findAll();
@@ -280,7 +280,7 @@ final class EventSubscriber
                 $groupId = Moodle\Domain\GroupId::fromInt(0);
             } // Moodle wants zero instead of null
 
-            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $module->courseId(),
                 $groupId,
             );
@@ -289,7 +289,7 @@ final class EventSubscriber
                 return $user->matrixUserId();
             }, $users));
 
-            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+            $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
             $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
@@ -308,7 +308,7 @@ final class EventSubscriber
         $container = Container::instance();
 
         $moodleModuleRepository = $container->moodleModuleRepository();
-        $userRepository = $container->userRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
         $moodleRoomRepository = $container->moodleRoomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
@@ -316,7 +316,7 @@ final class EventSubscriber
             'course' => $courseId->toInt(),
         ]);
 
-        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+        $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
         $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
@@ -334,7 +334,7 @@ final class EventSubscriber
                     $groupId = Moodle\Domain\GroupId::fromInt(0);
                 } // Moodle wants zero instead of null
 
-                $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                     $courseId,
                     $groupId,
                 );
@@ -359,7 +359,7 @@ final class EventSubscriber
         $container = Container::instance();
 
         $moodleModuleRepository = $container->moodleModuleRepository();
-        $userRepository = $container->userRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
         $moodleRoomRepository = $container->moodleRoomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
@@ -367,7 +367,7 @@ final class EventSubscriber
             'course' => $courseId->toInt(),
         ]);
 
-        $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+        $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
             $groupId,
         );
@@ -376,7 +376,7 @@ final class EventSubscriber
             return $user->matrixUserId();
         }, $users));
 
-        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+        $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
         $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();

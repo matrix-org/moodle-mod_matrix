@@ -70,7 +70,7 @@ function matrix_add_instance(
     $courseRepository = $container->courseRepository();
     $groupRepository = $container->groupRepository();
     $moodleRoomRepository = $container->moodleRoomRepository();
-    $userRepository = $container->userRepository();
+    $moodleUserRepository = $container->moodleUserRepository();
     $clock = $container->clock();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
@@ -110,7 +110,7 @@ function matrix_add_instance(
         $courseId->toInt(),
     ));
 
-    $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+    $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
     $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
         return $user->matrixUserId();
@@ -163,7 +163,7 @@ function matrix_add_instance(
                 $moodleRoomRepository->save($room);
             }
 
-            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $course->id(),
                 $group->id(),
             );
@@ -214,7 +214,7 @@ function matrix_add_instance(
         $moodleRoomRepository->save($room);
     }
 
-    $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+    $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
         $course->id(),
         Moodle\Domain\GroupId::fromInt(0),
     );

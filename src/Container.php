@@ -166,7 +166,7 @@ final class Container
         return $this->resolve(Moodle\Domain\RoomRepository::class);
     }
 
-    public function userRepository(): Moodle\Domain\UserRepository
+    public function moodleUserRepository(): Moodle\Domain\UserRepository
     {
         return $this->resolve(Moodle\Domain\UserRepository::class);
     }
