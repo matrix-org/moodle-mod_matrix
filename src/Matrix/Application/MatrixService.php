@@ -96,7 +96,7 @@ final class MatrixService
 
         $roomOptions = [
             'creation_content' => [
-                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
+                'org.matrix.moodle.course_id' => $course->id()->toInt(),
             ],
             'initial_state' => [
                 [
@@ -156,11 +156,11 @@ final class MatrixService
         }
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $module->courseId(),
+            $course->id(),
             Moodle\Domain\GroupId::fromInt(0),
         );
 
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
         $this->synchronizeRoomMembersForRoom(
             $room->matrixRoomId(),
