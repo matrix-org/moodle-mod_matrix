@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Matrix\Domain\RoomId
  * @uses \mod_matrix\Matrix\Domain\StateKey
  * @uses \mod_matrix\Matrix\Domain\UserId
+ * @uses \mod_matrix\Matrix\Domain\UserIdCollection
  */
 final class HttpClientBasedApiTest extends Framework\TestCase
 {
