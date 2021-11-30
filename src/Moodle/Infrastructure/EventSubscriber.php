@@ -167,9 +167,7 @@ final class EventSubscriber
             ));
         }
 
-        $moodleGroupRepository = $container->moodleGroupRepository();
-
-        $group = $moodleGroupRepository->find($groupId);
+        $group = $container->moodleGroupRepository()->find($groupId);
 
         if (!$group instanceof Moodle\Domain\Group) {
             throw new \RuntimeException(\sprintf(
