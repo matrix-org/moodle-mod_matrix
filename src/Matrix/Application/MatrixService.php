@@ -96,6 +96,12 @@ final class MatrixService
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
+        $name = Matrix\Domain\RoomName::fromString(\sprintf(
+            '%s (%s)',
+            $course->name()->toString(),
+            $module->name()->toString(),
+        ));
+
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
@@ -109,11 +115,7 @@ final class MatrixService
                     'type' => 'm.room.guest_access',
                 ],
             ],
-            'name' => \sprintf(
-                '%s (%s)',
-                $course->name()->toString(),
-                $module->name()->toString(),
-            ),
+            'name' => $name->toString(),
             'power_level_content_override' => [
                 'ban' => $botPowerLevel->toInt(),
                 'invite' => $botPowerLevel->toInt(),
@@ -211,6 +213,13 @@ final class MatrixService
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
+        $name = Matrix\Domain\RoomName::fromString(\sprintf(
+            '%s: %s (%s)',
+            $group->name()->toString(),
+            $course->name()->toString(),
+            $module->name()->toString(),
+        ));
+
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
@@ -225,12 +234,7 @@ final class MatrixService
                     'type' => 'm.room.guest_access',
                 ],
             ],
-            'name' => \sprintf(
-                '%s: %s (%s)',
-                $group->name()->toString(),
-                $course->name()->toString(),
-                $module->name()->toString(),
-            ),
+            'name' => $name->toString(),
             'power_level_content_override' => [
                 'ban' => $botPowerLevel->toInt(),
                 'invite' => $botPowerLevel->toInt(),
