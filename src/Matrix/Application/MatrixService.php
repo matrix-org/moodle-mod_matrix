@@ -310,9 +310,9 @@ final class MatrixService
         });
     }
 
-    public function removeRoom(Moodle\Domain\Room $room): void
+    public function removeRoom(Matrix\Domain\RoomId $roomId): void
     {
-        $userIdsOfUsersInRoom = $this->api->listUsers($room->matrixRoomId());
+        $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
 
         $userIdOfBot = $this->api->whoAmI();
 
@@ -322,13 +322,13 @@ final class MatrixService
             }
 
             $this->api->kickUser(
-                $room->matrixRoomId(),
+                $roomId,
                 $userId,
             );
         }
 
         $this->api->kickUser(
-            $room->matrixRoomId(),
+            $roomId,
             $userIdOfBot,
         );
     }

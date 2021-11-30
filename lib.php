@@ -225,7 +225,7 @@ function matrix_delete_instance($id): bool
     $matrixService = $container->matrixService();
 
     foreach ($rooms as $room) {
-        $matrixService->removeRoom($room);
+        $matrixService->removeRoom($room->matrixRoomId());
 
         $roomRepository->remove($room);
     }
