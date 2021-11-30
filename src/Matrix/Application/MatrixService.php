@@ -23,24 +23,17 @@ final class MatrixService
      * @deprecated
      */
     private $roomRepository;
-
-    /**
-     * @deprecated
-     */
-    private $userRepository;
     private $clock;
 
     public function __construct(
         Matrix\Application\Api $api,
         Matrix\Application\Configuration $configuration,
         Moodle\Domain\RoomRepository $roomRepository,
-        Moodle\Domain\UserRepository $userRepository,
         Clock\Clock $clock
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
         $this->roomRepository = $roomRepository;
-        $this->userRepository = $userRepository;
         $this->clock = $clock;
     }
 

@@ -57,7 +57,6 @@ final class Container
                 $container->api(),
                 $container->configuration(),
                 $container->roomRepository(),
-                $container->userRepository(),
                 $container->clock(),
             );
         });
