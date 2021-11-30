@@ -268,54 +268,6 @@ final class MatrixService
         );
     }
 
-    /**
-     * @throws \RuntimeException
-     */
-    public function synchronizeRoomMembersForAllRooms(): void
-    {
-        $rooms = $this->roomRepository->findAll();
-
-        foreach ($rooms as $room) {
-            $module = $this->moduleRepository->findOneBy([
-                'id' => $room->moduleId()->toInt(),
-            ]);
-
-            if (!$module instanceof Moodle\Domain\Module) {
-                throw new \RuntimeException(\sprintf(
-                    'Module with id "%d" was not found.',
-                    $room->moduleId()->toInt(),
-                ));
-            }
-
-            $groupId = $room->groupId();
-
-            if (!$groupId instanceof Moodle\Domain\GroupId) {
-                $groupId = Moodle\Domain\GroupId::fromInt(0);
-            } // Moodle wants zero instead of null
-
-            $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                $module->courseId(),
-                $groupId,
-            );
-
-            $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $users));
-
-            $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
-
-            $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $staff));
-
-            $this->synchronizeRoomMembersForRoom(
-                $room->matrixRoomId(),
-                $userIdsOfUsers,
-                $userIdsOfStaff,
-            );
-        }
-    }
-
     public function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
     {
         $modules = $this->moduleRepository->findAllBy([

@@ -12,6 +12,7 @@ namespace mod_matrix\Moodle\Infrastructure;
 
 use core\event;
 use mod_matrix\Container;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 \defined('MOODLE_INTERNAL') || exit;
@@ -161,10 +162,58 @@ final class EventSubscriber
         $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     private static function synchronizeRoomMembersForAllRooms(): void
     {
-        $matrixService = Container::instance()->matrixService();
+        $container = Container::instance();
 
-        $matrixService->synchronizeRoomMembersForAllRooms();
+        $roomRepository = $container->roomRepository();
+        $moduleRepository = $container->moduleRepository();
+        $userRepository = $container->userRepository();
+        $matrixService = $container->matrixService();
+
+        $rooms = $roomRepository->findAll();
+
+        foreach ($rooms as $room) {
+            $module = $moduleRepository->findOneBy([
+                'id' => $room->moduleId()->toInt(),
+            ]);
+
+            if (!$module instanceof Moodle\Domain\Module) {
+                throw new \RuntimeException(\sprintf(
+                    'Module with id "%d" was not found.',
+                    $room->moduleId()->toInt(),
+                ));
+            }
+
+            $groupId = $room->groupId();
+
+            if (!$groupId instanceof Moodle\Domain\GroupId) {
+                $groupId = Moodle\Domain\GroupId::fromInt(0);
+            } // Moodle wants zero instead of null
+
+            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $module->courseId(),
+                $groupId,
+            );
+
+            $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $users));
+
+            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
+            $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $staff));
+
+            $matrixService->synchronizeRoomMembersForRoom(
+                $room->matrixRoomId(),
+                $userIdsOfUsers,
+                $userIdsOfStaff,
+            );
+        }
     }
 }
