@@ -179,10 +179,9 @@ final class MatrixService
     public function prepareRoomForModuleAndGroup(
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
+        Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
-        $courseId = $module->courseId();
-
         $course = $this->courseRepository->find($courseId);
 
         if (!$course instanceof Moodle\Domain\Course) {

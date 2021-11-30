@@ -175,6 +175,7 @@ final class EventSubscriber
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
+                $courseId,
                 $groupId,
             );
         }

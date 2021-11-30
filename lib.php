@@ -96,6 +96,7 @@ function matrix_add_instance(
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
+                $module->courseId(),
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
