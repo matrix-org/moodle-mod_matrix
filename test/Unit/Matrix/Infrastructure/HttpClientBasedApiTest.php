@@ -144,13 +144,13 @@ final class HttpClientBasedApiTest extends Framework\TestCase
     {
         $faker = self::faker();
 
+        $roomId = Matrix\Domain\RoomId::fromString($value);
+
         $userId = Matrix\Domain\UserId::fromString(\sprintf(
             '@%s:%s',
             $faker->userName(),
             $faker->domainName(),
         ));
-
-        $roomId = Matrix\Domain\RoomId::fromString($value);
 
         $httpClient = $this->createMock(Matrix\Infrastructure\HttpClient::class);
 
