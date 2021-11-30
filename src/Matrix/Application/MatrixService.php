@@ -22,11 +22,6 @@ final class MatrixService
     /**
      * @deprecated
      */
-    private $courseRepository;
-
-    /**
-     * @deprecated
-     */
     private $groupRepository;
 
     /**
@@ -43,7 +38,6 @@ final class MatrixService
     public function __construct(
         Matrix\Application\Api $api,
         Matrix\Application\Configuration $configuration,
-        Moodle\Domain\CourseRepository $courseRepository,
         Moodle\Domain\GroupRepository $groupRepository,
         Moodle\Domain\RoomRepository $roomRepository,
         Moodle\Domain\UserRepository $userRepository,
@@ -51,7 +45,6 @@ final class MatrixService
     ) {
         $this->api = $api;
         $this->configuration = $configuration;
-        $this->courseRepository = $courseRepository;
         $this->groupRepository = $groupRepository;
         $this->roomRepository = $roomRepository;
         $this->userRepository = $userRepository;
