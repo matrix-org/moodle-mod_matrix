@@ -103,9 +103,21 @@ function matrix_add_instance(
         return $module->id()->toInt();
     }
 
+    $courseRepository = $container->courseRepository();
+
+    $course = $courseRepository->find($module->courseId());
+
+    if (!$course instanceof Moodle\Domain\Course) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find course with id %d.',
+            $module->courseId()->toInt(),
+        ));
+    }
+
     $matrixService->prepareRoomForModule(
         $topic,
         $module,
+        $course,
     );
 
     return $module->id()->toInt();

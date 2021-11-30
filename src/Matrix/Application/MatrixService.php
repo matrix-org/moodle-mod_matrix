@@ -79,17 +79,9 @@ final class MatrixService
      */
     public function prepareRoomForModule(
         Matrix\Domain\RoomTopic $topic,
-        Moodle\Domain\Module $module
+        Moodle\Domain\Module $module,
+        Moodle\Domain\Course $course
     ): void {
-        $course = $this->courseRepository->find($module->courseId());
-
-        if (!$course instanceof Moodle\Domain\Course) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find course with id %d.',
-                $module->courseId()->toInt(),
-            ));
-        }
-
         $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
