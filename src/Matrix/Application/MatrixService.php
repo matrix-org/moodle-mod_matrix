@@ -66,7 +66,6 @@ final class MatrixService
     public function prepareRoomForModule(
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
-        Moodle\Domain\Module $module,
         Moodle\Domain\Course $course
     ): Matrix\Domain\RoomId {
         $whoami = $this->api->whoAmI();
@@ -116,27 +115,7 @@ final class MatrixService
             'topic' => $topic->toString(),
         ];
 
-        $room = $this->roomRepository->findOneBy([
-            'module_id' => $module->id()->toInt(),
-            'group_id' => null,
-        ]);
-
-        if (!$room instanceof Moodle\Domain\Room) {
-            $matrixRoomId = $this->api->createRoom($roomOptions);
-
-            $room = Moodle\Domain\Room::create(
-                Moodle\Domain\RoomId::unknown(),
-                $module->id(),
-                null,
-                $matrixRoomId,
-                Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
-                Moodle\Domain\Timestamp::fromInt(0),
-            );
-
-            $this->roomRepository->save($room);
-        }
-
-        return $room->matrixRoomId();
+        return $this->api->createRoom($roomOptions);
     }
 
     public function prepareRoomForModuleAndGroup(

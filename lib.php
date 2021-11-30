@@ -69,6 +69,7 @@ function matrix_add_instance(
 
     $courseRepository = $container->courseRepository();
     $groupRepository = $container->groupRepository();
+    $roomRepository = $container->roomRepository();
     $userRepository = $container->userRepository();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
@@ -146,12 +147,31 @@ function matrix_add_instance(
         $module->name()->toString(),
     ));
 
-    $roomId = $matrixService->prepareRoomForModule(
-        $name,
-        $topic,
-        $module,
-        $course,
-    );
+    $room = $roomRepository->findOneBy([
+        'module_id' => $module->id()->toInt(),
+        'group_id' => null,
+    ]);
+
+    if (!$room instanceof Moodle\Domain\Room) {
+        $matrixRoomId = $matrixService->prepareRoomForModule(
+            $name,
+            $topic,
+            $course,
+        );
+
+        $clock = $container->clock();
+
+        $room = Moodle\Domain\Room::create(
+            Moodle\Domain\RoomId::unknown(),
+            $module->id(),
+            null,
+            $matrixRoomId,
+            Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
+            Moodle\Domain\Timestamp::fromInt(0),
+        );
+
+        $roomRepository->save($room);
+    }
 
     $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
         $course->id(),
@@ -161,7 +181,7 @@ function matrix_add_instance(
     $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
     $matrixService->synchronizeRoomMembersForRoom(
-        $roomId,
+        $room->matrixRoomId(),
         Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users)),
