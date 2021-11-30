@@ -80,7 +80,6 @@ function matrix_add_instance(
         ));
     }
 
-    $moodleUserRepository = $container->moodleUserRepository();
     $clock = $container->clock();
 
     $moodleModuleService = $container->moodleModuleService();
@@ -108,6 +107,8 @@ function matrix_add_instance(
         $CFG->wwwroot,
         $courseId->toInt(),
     ));
+
+    $moodleUserRepository = $container->moodleUserRepository();
 
     $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
