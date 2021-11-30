@@ -81,9 +81,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->prepareRoomsForAllModulesOfCourseAndGroup(
+        self::prepareRoomsForAllModulesOfCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -150,6 +148,18 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+    }
+
+    private static function prepareRoomsForAllModulesOfCourseAndGroup(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $matrixService = Container::instance()->matrixService();
+
+        $matrixService->prepareRoomsForAllModulesOfCourseAndGroup(
+            $courseId,
+            $groupId,
+        );
     }
 
     /**
