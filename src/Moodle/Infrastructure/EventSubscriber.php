@@ -170,11 +170,6 @@ final class EventSubscriber
         }
 
         $moodleGroupRepository = $container->moodleGroupRepository();
-        $moodleModuleRepository = $container->moodleModuleRepository();
-        $moodleRoomRepository = $container->moodleRoomRepository();
-        $moodleUserRepository = $container->moodleUserRepository();
-        $matrixRoomService = $container->matrixRoomService();
-        $clock = $container->clock();
 
         $group = $moodleGroupRepository->find($groupId);
 
@@ -184,6 +179,12 @@ final class EventSubscriber
                 $groupId->toInt(),
             ));
         }
+
+        $moodleModuleRepository = $container->moodleModuleRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
+        $matrixRoomService = $container->matrixRoomService();
+        $clock = $container->clock();
 
         $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
             '%s/course/view.php?id=%d',
