@@ -68,7 +68,7 @@ function matrix_add_instance(
     $container = Container::instance();
 
     $courseRepository = $container->courseRepository();
-    $groupRepository = $container->groupRepository();
+    $moodleGroupRepository = $container->moodleGroupRepository();
     $moodleRoomRepository = $container->moodleRoomRepository();
     $moodleUserRepository = $container->moodleUserRepository();
     $clock = $container->clock();
@@ -120,7 +120,7 @@ function matrix_add_instance(
         foreach ($groups as $g) {
             $groupId = Moodle\Domain\GroupId::fromString($g->id);
 
-            $group = $groupRepository->find($groupId);
+            $group = $moodleGroupRepository->find($groupId);
 
             if (!$group instanceof Moodle\Domain\Group) {
                 throw new \RuntimeException(\sprintf(

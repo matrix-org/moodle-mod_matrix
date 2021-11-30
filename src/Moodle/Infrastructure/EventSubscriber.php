@@ -159,7 +159,7 @@ final class EventSubscriber
         $container = Container::instance();
 
         $courseRepository = $container->courseRepository();
-        $groupRepository = $container->groupRepository();
+        $moodleGroupRepository = $container->moodleGroupRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleUserRepository = $container->moodleUserRepository();
@@ -175,7 +175,7 @@ final class EventSubscriber
             ));
         }
 
-        $group = $groupRepository->find($groupId);
+        $group = $moodleGroupRepository->find($groupId);
 
         if (!$group instanceof Moodle\Domain\Group) {
             throw new \RuntimeException(\sprintf(
