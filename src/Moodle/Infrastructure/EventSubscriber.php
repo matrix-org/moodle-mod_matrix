@@ -158,9 +158,7 @@ final class EventSubscriber
 
         $container = Container::instance();
 
-        $moodleCourseRepository = $container->moodleCourseRepository();
-
-        $course = $moodleCourseRepository->find($courseId);
+        $course = $container->moodleCourseRepository()->find($courseId);
 
         if (!$course instanceof Moodle\Domain\Course) {
             throw new \RuntimeException(\sprintf(
