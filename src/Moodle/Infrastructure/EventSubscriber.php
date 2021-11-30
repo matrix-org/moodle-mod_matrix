@@ -154,12 +154,28 @@ final class EventSubscriber
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
-        $matrixService = Container::instance()->matrixService();
+        global $CFG;
 
-        $matrixService->prepareRoomsForAllModulesOfCourseAndGroup(
-            $courseId,
-            $groupId,
-        );
+        $container = Container::instance();
+
+        $moduleRepository = $container->moduleRepository();
+        $matrixService = $container->matrixService();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        foreach ($modules as $module) {
+            $matrixService->prepareRoomForModuleAndGroup(
+                Matrix\Domain\RoomTopic::fromString(\sprintf(
+                    '%s/course/view.php?id=%d',
+                    $CFG->wwwroot,
+                    $module->courseId()->toInt(),
+                )),
+                $module,
+                $groupId,
+            );
+        }
     }
 
     /**

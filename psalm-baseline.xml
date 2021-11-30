@@ -144,12 +144,11 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <DeprecatedProperty occurrences="16">
+    <DeprecatedProperty occurrences="15">
       <code>$this-&gt;courseRepository</code>
       <code>$this-&gt;courseRepository</code>
       <code>$this-&gt;groupRepository</code>
       <code>$this-&gt;groupRepository</code>
-      <code>$this-&gt;moduleRepository</code>
       <code>$this-&gt;moduleRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
@@ -162,8 +161,7 @@
       <code>$this-&gt;userRepository</code>
       <code>$this-&gt;userRepository</code>
     </DeprecatedProperty>
-    <MixedArgument occurrences="2">
-      <code>$CFG-&gt;wwwroot</code>
+    <MixedArgument occurrences="1">
       <code>$powerLevels</code>
     </MixedArgument>
     <MixedArrayAssignment occurrences="1">
@@ -172,9 +170,6 @@
     <MixedAssignment occurrences="1">
       <code>$powerLevels</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="1">
-      <code>$CFG-&gt;wwwroot</code>
-    </MixedPropertyFetch>
   </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
     <MissingReturnType occurrences="3">
@@ -260,8 +255,14 @@
     </UndefinedConstant>
   </file>
   <file src="src/Moodle/Infrastructure/EventSubscriber.php">
+    <MixedArgument occurrences="1">
+      <code>$CFG-&gt;wwwroot</code>
+    </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1"/>
     <MixedArrayOffset occurrences="1"/>
+    <MixedPropertyFetch occurrences="1">
+      <code>$CFG-&gt;wwwroot</code>
+    </MixedPropertyFetch>
     <UndefinedClass occurrences="20">
       <code>event\group_created</code>
       <code>event\group_created</code>
