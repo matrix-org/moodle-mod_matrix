@@ -196,6 +196,15 @@ final class MatrixService
             ));
         }
 
+        $group = $this->groupRepository->find($groupId);
+
+        if (!$group instanceof Moodle\Domain\Group) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find group with id %d.',
+                $groupId->toInt(),
+            ));
+        }
+
         $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
@@ -205,6 +214,7 @@ final class MatrixService
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
+                'org.matrix.moodle.group_id' => $groupId->toInt(),
             ],
             'initial_state' => [
                 [
@@ -216,7 +226,8 @@ final class MatrixService
                 ],
             ],
             'name' => \sprintf(
-                '%s (%s)',
+                '%s: %s (%s)',
+                $group->name()->toString(),
                 $course->name()->toString(),
                 $module->name()->toString(),
             ),
@@ -247,29 +258,12 @@ final class MatrixService
             'topic' => $topic->toString(),
         ];
 
-        $group = $this->groupRepository->find($groupId);
-
-        if (!$group instanceof Moodle\Domain\Group) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find group with id %d.',
-                $groupId->toInt(),
-            ));
-        }
-
         $roomForModuleAndGroup = $this->roomRepository->findOneBy([
             'module_id' => $module->id()->toInt(),
             'group_id' => $groupId->toInt(),
         ]);
 
         if (!$roomForModuleAndGroup instanceof Moodle\Domain\Room) {
-            $roomOptions['name'] = \sprintf(
-                '%s: %s (%s)',
-                $group->name()->toString(),
-                $course->name()->toString(),
-                $module->name()->toString(),
-            );
-            $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
-
             $matrixRoomId = $this->api->createRoom($roomOptions);
 
             $roomForModuleAndGroup = Moodle\Domain\Room::create(
