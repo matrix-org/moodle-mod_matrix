@@ -77,10 +77,9 @@ final class MatrixService
     /**
      * @throws \RuntimeException
      */
-    public function prepareRoomForModuleAndGroup(
+    public function prepareRoomForModule(
         Matrix\Domain\RoomTopic $topic,
-        Moodle\Domain\Module $module,
-        ?Moodle\Domain\GroupId $groupId
+        Moodle\Domain\Module $module
     ): void {
         $course = $this->courseRepository->find($module->courseId());
 
@@ -142,64 +141,6 @@ final class MatrixService
             'topic' => $topic->toString(),
         ];
 
-        if ($groupId instanceof Moodle\Domain\GroupId) {
-            $group = $this->groupRepository->find($groupId);
-
-            if (!$group instanceof Moodle\Domain\Group) {
-                throw new \RuntimeException(\sprintf(
-                    'Could not find group with id %d.',
-                    $groupId->toInt(),
-                ));
-            }
-
-            $roomForModuleAndGroup = $this->roomRepository->findOneBy([
-                'module_id' => $module->id()->toInt(),
-                'group_id' => $groupId->toInt(),
-            ]);
-
-            if (!$roomForModuleAndGroup instanceof Moodle\Domain\Room) {
-                $roomOptions['name'] = \sprintf(
-                    '%s: %s (%s)',
-                    $group->name()->toString(),
-                    $course->name()->toString(),
-                    $module->name()->toString(),
-                );
-                $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
-
-                $matrixRoomId = $this->api->createRoom($roomOptions);
-
-                $roomForModuleAndGroup = Moodle\Domain\Room::create(
-                    Moodle\Domain\RoomId::unknown(),
-                    $module->id(),
-                    $groupId,
-                    $matrixRoomId,
-                    Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
-                    Moodle\Domain\Timestamp::fromInt(0),
-                );
-
-                $this->roomRepository->save($roomForModuleAndGroup);
-            }
-
-            $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                $module->courseId(),
-                $groupId,
-            );
-
-            $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
-
-            $this->synchronizeRoomMembersForRoom(
-                $roomForModuleAndGroup->matrixRoomId(),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $users)),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $staff)),
-            );
-
-            return;
-        }
-
         $roomForModule = $this->roomRepository->findOneBy([
             'module_id' => $module->id()->toInt(),
             'group_id' => null,
@@ -229,6 +170,129 @@ final class MatrixService
 
         $this->synchronizeRoomMembersForRoom(
             $roomForModule->matrixRoomId(),
+            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $users)),
+            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $staff)),
+        );
+    }
+
+    /**
+     * @throws \RuntimeException
+     */
+    public function prepareRoomForModuleAndGroup(
+        Matrix\Domain\RoomTopic $topic,
+        Moodle\Domain\Module $module,
+        Moodle\Domain\GroupId $groupId
+    ): void {
+        $course = $this->courseRepository->find($module->courseId());
+
+        if (!$course instanceof Moodle\Domain\Course) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find course with id %d.',
+                $module->courseId()->toInt(),
+            ));
+        }
+
+        $whoami = $this->api->whoAmI();
+
+        $botPowerLevel = Matrix\Domain\PowerLevel::bot();
+        $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
+        $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
+
+        $roomOptions = [
+            'creation_content' => [
+                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
+            ],
+            'initial_state' => [
+                [
+                    'content' => [
+                        'guest_access' => 'forbidden',
+                    ],
+                    'state_key' => '',
+                    'type' => 'm.room.guest_access',
+                ],
+            ],
+            'name' => \sprintf(
+                '%s (%s)',
+                $course->name()->toString(),
+                $module->name()->toString(),
+            ),
+            'power_level_content_override' => [
+                'ban' => $botPowerLevel->toInt(),
+                'invite' => $botPowerLevel->toInt(),
+                'kick' => $botPowerLevel->toInt(),
+                'events' => [
+                    'm.room.name' => $botPowerLevel->toInt(),
+                    'm.room.power_levels' => $botPowerLevel->toInt(),
+                    'm.room.history_visibility' => $staffPowerLevel->toInt(),
+                    'm.room.canonical_alias' => $staffPowerLevel->toInt(),
+                    'm.room.avatar' => $staffPowerLevel->toInt(),
+                    'm.room.tombstone' => $botPowerLevel->toInt(),
+                    'm.room.server_acl' => $botPowerLevel->toInt(),
+                    'm.room.encryption' => $botPowerLevel->toInt(),
+                    'm.room.join_rules' => $botPowerLevel->toInt(),
+                    'm.room.guest_access' => $botPowerLevel->toInt(),
+                ],
+                'events_default' => 0,
+                'state_default' => $staffPowerLevel->toInt(),
+                'redact' => $redactorPowerLevel->toInt(),
+                'users' => [
+                    $whoami->toString() => $botPowerLevel->toInt(),
+                ],
+            ],
+            'preset' => 'private_chat',
+            'topic' => $topic->toString(),
+        ];
+
+        $group = $this->groupRepository->find($groupId);
+
+        if (!$group instanceof Moodle\Domain\Group) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find group with id %d.',
+                $groupId->toInt(),
+            ));
+        }
+
+        $roomForModuleAndGroup = $this->roomRepository->findOneBy([
+            'module_id' => $module->id()->toInt(),
+            'group_id' => $groupId->toInt(),
+        ]);
+
+        if (!$roomForModuleAndGroup instanceof Moodle\Domain\Room) {
+            $roomOptions['name'] = \sprintf(
+                '%s: %s (%s)',
+                $group->name()->toString(),
+                $course->name()->toString(),
+                $module->name()->toString(),
+            );
+            $roomOptions['creation_content']['org.matrix.moodle.group_id'] = $groupId->toInt();
+
+            $matrixRoomId = $this->api->createRoom($roomOptions);
+
+            $roomForModuleAndGroup = Moodle\Domain\Room::create(
+                Moodle\Domain\RoomId::unknown(),
+                $module->id(),
+                $groupId,
+                $matrixRoomId,
+                Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
+                Moodle\Domain\Timestamp::fromInt(0),
+            );
+
+            $this->roomRepository->save($roomForModuleAndGroup);
+        }
+
+        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $module->courseId(),
+            $groupId,
+        );
+
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+
+        $this->synchronizeRoomMembersForRoom(
+            $roomForModuleAndGroup->matrixRoomId(),
             Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
             }, $users)),

@@ -100,10 +100,9 @@ function matrix_add_instance(
             );
         }
     } else {
-        $matrixService->prepareRoomForModuleAndGroup(
+        $matrixService->prepareRoomForModule(
             $topic,
             $module,
-            null,
         );
     }
 
