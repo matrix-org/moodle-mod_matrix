@@ -180,18 +180,14 @@ final class MatrixService
             $powerLevels,
         );
 
-        $userIdsOfUsersAllowedInRoom = \array_merge(
-            [
-                $matrixUserIdOfBot,
-            ],
-            $userIdsOfUsers->toArray(),
-            $userIdsOfStaff->toArray(),
-        );
+        $userIdsOfUsersAllowedInRoom = Matrix\Domain\UserIdCollection::fromUserIds($matrixUserIdOfBot)
+            ->merge($userIdsOfUsers)
+            ->merge($userIdsOfStaff);
 
         $userIdsOfUsersNotAllowedInRoom = $userIdsOfUsersInRoom->filter(static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
             return !\in_array(
                 $userId,
-                $userIdsOfUsersAllowedInRoom,
+                $userIdsOfUsersAllowedInRoom->toArray(),
                 false,
             );
         });
