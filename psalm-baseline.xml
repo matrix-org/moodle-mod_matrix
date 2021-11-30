@@ -32,10 +32,12 @@
     <MissingDependency occurrences="1">
       <code>mod_matrix_mod_form</code>
     </MissingDependency>
-    <MissingReturnType occurrences="2">
-      <code>matrix_add_instance</code>
+    <MissingReturnType occurrences="1">
       <code>matrix_update_instance</code>
     </MissingReturnType>
+    <MixedInferredReturnType occurrences="1">
+      <code>int</code>
+    </MixedInferredReturnType>
     <UndefinedConstant occurrences="10">
       <code>FEATURE_BACKUP_MOODLE2</code>
       <code>FEATURE_COMPLETION_HAS_RULES</code>

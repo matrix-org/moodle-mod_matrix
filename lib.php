@@ -58,7 +58,7 @@ function matrix_supports($feature)
 function matrix_add_instance(
     object $moduleinfo,
     mod_matrix_mod_form $form
-) {
+): int {
     global $CFG;
 
     $data = $form->get_data();
