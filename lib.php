@@ -139,8 +139,11 @@ function matrix_add_instance(
                 $name,
                 $topic,
                 $module,
-                $course,
                 $group,
+                [
+                    'org.matrix.moodle.course_id' => $course->id()->toInt(),
+                    'org.matrix.moodle.group_id' => $group->id()->toInt(),
+                ],
             );
 
             $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(

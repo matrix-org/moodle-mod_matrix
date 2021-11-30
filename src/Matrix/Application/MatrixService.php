@@ -110,8 +110,8 @@ final class MatrixService
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
-        Moodle\Domain\Course $course,
-        Moodle\Domain\Group $group
+        Moodle\Domain\Group $group,
+        array $creationContent
     ): Matrix\Domain\RoomId {
         $whoami = $this->api->whoAmI();
 
@@ -120,10 +120,7 @@ final class MatrixService
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
         $roomOptions = [
-            'creation_content' => [
-                'org.matrix.moodle.course_id' => $course->id()->toInt(),
-                'org.matrix.moodle.group_id' => $group->id()->toInt(),
-            ],
+            'creation_content' => $creationContent,
             'initial_state' => [
                 [
                     'content' => [
