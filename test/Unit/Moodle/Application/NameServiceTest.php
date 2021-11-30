@@ -18,6 +18,19 @@ use PHPUnit\Framework;
  * @internal
  *
  * @covers \mod_matrix\Moodle\Application\NameService
+ *
+ * @uses \mod_matrix\Moodle\Domain\Course
+ * @uses \mod_matrix\Moodle\Domain\CourseId
+ * @uses \mod_matrix\Moodle\Domain\CourseName
+ * @uses \mod_matrix\Moodle\Domain\Group
+ * @uses \mod_matrix\Moodle\Domain\GroupId
+ * @uses \mod_matrix\Moodle\Domain\GroupName
+ * @uses \mod_matrix\Moodle\Domain\Module
+ * @uses \mod_matrix\Moodle\Domain\ModuleId
+ * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleType
+ * @uses \mod_matrix\Moodle\Domain\SectionId
+ * @uses \mod_matrix\Moodle\Domain\Timestamp
  */
 final class NameServiceTest extends Framework\TestCase
 {
