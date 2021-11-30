@@ -331,11 +331,11 @@ final class MatrixService
                 } // Moodle wants zero instead of null
 
                 $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                    $module->courseId(),
+                    $courseId,
                     $groupId,
                 );
 
-                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
                 $this->synchronizeRoomMembersForRoom(
                     $room,
