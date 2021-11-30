@@ -3,6 +3,6 @@ This merge request
 * [x]
 * [ ]
 
-Follows !.
-Related to !.
-Fixes !.
+Follows #.
+Related to #.
+Fixes #.
