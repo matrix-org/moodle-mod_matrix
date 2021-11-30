@@ -40,6 +40,38 @@ final class UserIdCollectionTest extends Framework\TestCase
         self::assertSame($userIds, $collection->toArray());
     }
 
+    public function testFilterReturnsUserIdCollection(): void
+    {
+        $faker = self::faker();
+
+        $userIdOne = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdTwo = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdThree = Matrix\Domain\UserId::fromString($faker->sha1());
+
+        $userIds = [
+            $userIdOne,
+            $userIdTwo,
+            $userIdThree,
+        ];
+
+        $collection = Matrix\Domain\UserIdCollection::fromUserIds(...$userIds);
+
+        $filtered = $collection->filter(static function (Matrix\Domain\UserId $userId) use ($userIdTwo): bool {
+            return !$userId->equals($userIdTwo);
+        });
+
+        $expected = [
+            $userIdOne,
+            $userIdThree,
+        ];
+
+        self::assertSame($expected, $filtered->toArray());
+
+        self::assertNotSame($collection, $filtered);
+
+        self::assertSame($userIds, $collection->toArray());
+    }
+
     public function testMergeReturnsUserIdCollection(): void
     {
         $faker = self::faker();
