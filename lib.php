@@ -132,19 +132,19 @@ function matrix_add_instance(
                 ));
             }
 
-            $name = Matrix\Domain\RoomName::fromString(\sprintf(
-                '%s: %s (%s)',
-                $group->name()->toString(),
-                $course->name()->toString(),
-                $module->name()->toString(),
-            ));
-
             $room = $moodleRoomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $group->id()->toInt(),
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
+                $name = Matrix\Domain\RoomName::fromString(\sprintf(
+                    '%s: %s (%s)',
+                    $group->name()->toString(),
+                    $course->name()->toString(),
+                    $module->name()->toString(),
+                ));
+
                 $matrixRoomId = $matrixRoomService->createRoom(
                     $name,
                     $topic,
