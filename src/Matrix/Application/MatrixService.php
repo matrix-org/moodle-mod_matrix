@@ -320,6 +320,10 @@ final class MatrixService
 
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff));
+
         foreach ($modules as $module) {
             $rooms = $this->roomRepository->findAllBy([
                 'module_id' => $module->id()->toInt(),
@@ -336,10 +340,6 @@ final class MatrixService
                     $courseId,
                     $groupId,
                 );
-
-                $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $staff));
 
                 $this->synchronizeRoomMembersForRoom(
                     $room,
