@@ -22,6 +22,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Course
  * @uses \mod_matrix\Moodle\Domain\CourseFullName
  * @uses \mod_matrix\Moodle\Domain\CourseId
+ * @uses \mod_matrix\Moodle\Domain\CourseShortName
  * @uses \mod_matrix\Moodle\Domain\Group
  * @uses \mod_matrix\Moodle\Domain\GroupId
  * @uses \mod_matrix\Moodle\Domain\GroupName
@@ -47,7 +48,8 @@ final class NameServiceTest extends Framework\TestCase
 
         $course = Moodle\Domain\Course::create(
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseFullName::fromString($faker->word()),
+            Moodle\Domain\CourseFullName::fromString($faker->sentence()),
+            Moodle\Domain\CourseShortName::fromString($faker->word()),
         );
 
         $module = Moodle\Domain\Module::create(
@@ -84,7 +86,8 @@ final class NameServiceTest extends Framework\TestCase
 
         $course = Moodle\Domain\Course::create(
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseFullName::fromString($faker->word()),
+            Moodle\Domain\CourseFullName::fromString($faker->sentence()),
+            Moodle\Domain\CourseShortName::fromString($faker->word()),
         );
 
         $module = Moodle\Domain\Module::create(
