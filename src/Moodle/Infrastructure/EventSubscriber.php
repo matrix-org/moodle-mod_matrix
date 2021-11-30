@@ -158,8 +158,18 @@ final class EventSubscriber
 
         $container = Container::instance();
 
+        $courseRepository = $container->courseRepository();
         $moduleRepository = $container->moduleRepository();
         $matrixService = $container->matrixService();
+
+        $course = $courseRepository->find($courseId);
+
+        if (!$course instanceof Moodle\Domain\Course) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find course with id %d.',
+                $courseId->toInt(),
+            ));
+        }
 
         $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
             '%s/course/view.php?id=%d',
@@ -175,7 +185,7 @@ final class EventSubscriber
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
-                $courseId,
+                $course,
                 $groupId,
             );
         }

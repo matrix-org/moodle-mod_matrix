@@ -65,9 +65,20 @@ function matrix_add_instance(
 
     $container = Container::instance();
 
-    $moduleService = $container->moduleService();
+    $courseRepository = $container->courseRepository();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
+
+    $course = $courseRepository->find($courseId);
+
+    if (!$course instanceof Moodle\Domain\Course) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find course with id %d.',
+            $courseId->toInt(),
+        ));
+    }
+
+    $moduleService = $container->moduleService();
 
     $module = $moduleService->create(
         Moodle\Domain\ModuleName::fromString($data->name),
@@ -78,7 +89,7 @@ function matrix_add_instance(
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
     $groups = groups_get_all_groups(
-        $module->courseId()->toInt(),
+        $courseId->toInt(),
         0,
         0,
         'g.*',
@@ -98,23 +109,12 @@ function matrix_add_instance(
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
-                $courseId,
+                $course,
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
 
         return $module->id()->toInt();
-    }
-
-    $courseRepository = $container->courseRepository();
-
-    $course = $courseRepository->find($module->courseId());
-
-    if (!$course instanceof Moodle\Domain\Course) {
-        throw new \RuntimeException(\sprintf(
-            'Could not find course with id %d.',
-            $module->courseId()->toInt(),
-        ));
     }
 
     $matrixService->prepareRoomForModule(
