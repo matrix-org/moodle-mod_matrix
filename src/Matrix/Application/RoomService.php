@@ -115,6 +115,20 @@ final class RoomService
         );
     }
 
+    public function renameRoom(
+        Matrix\Domain\RoomId $roomId,
+        Matrix\Domain\RoomName $roomName
+    ): void {
+        $this->api->setState(
+            $roomId,
+            Matrix\Domain\EventType::fromString('m.room.name'),
+            Matrix\Domain\StateKey::fromString(''),
+            [
+                'name' => $roomName->toString(),
+            ],
+        );
+    }
+
     public function synchronizeRoomMembers(
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
