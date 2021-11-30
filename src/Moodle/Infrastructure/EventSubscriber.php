@@ -159,12 +159,6 @@ final class EventSubscriber
         $container = Container::instance();
 
         $moodleCourseRepository = $container->moodleCourseRepository();
-        $moodleGroupRepository = $container->moodleGroupRepository();
-        $moodleModuleRepository = $container->moodleModuleRepository();
-        $moodleRoomRepository = $container->moodleRoomRepository();
-        $moodleUserRepository = $container->moodleUserRepository();
-        $matrixRoomService = $container->matrixRoomService();
-        $clock = $container->clock();
 
         $course = $moodleCourseRepository->find($courseId);
 
@@ -174,6 +168,13 @@ final class EventSubscriber
                 $courseId->toInt(),
             ));
         }
+
+        $moodleGroupRepository = $container->moodleGroupRepository();
+        $moodleModuleRepository = $container->moodleModuleRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
+        $moodleUserRepository = $container->moodleUserRepository();
+        $matrixRoomService = $container->matrixRoomService();
+        $clock = $container->clock();
 
         $group = $moodleGroupRepository->find($groupId);
 
