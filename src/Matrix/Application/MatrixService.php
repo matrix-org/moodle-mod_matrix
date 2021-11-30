@@ -167,6 +167,7 @@ final class MatrixService
     }
 
     public function prepareRoomForModuleAndGroup(
+        Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
         Moodle\Domain\Course $course,
@@ -177,13 +178,6 @@ final class MatrixService
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
-
-        $name = Matrix\Domain\RoomName::fromString(\sprintf(
-            '%s: %s (%s)',
-            $group->name()->toString(),
-            $course->name()->toString(),
-            $module->name()->toString(),
-        ));
 
         $roomOptions = [
             'creation_content' => [

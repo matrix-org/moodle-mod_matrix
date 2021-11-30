@@ -192,7 +192,15 @@ final class EventSubscriber
         ]);
 
         foreach ($modules as $module) {
+            $name = Matrix\Domain\RoomName::fromString(\sprintf(
+                '%s: %s (%s)',
+                $group->name()->toString(),
+                $course->name()->toString(),
+                $module->name()->toString(),
+            ));
+
             $matrixService->prepareRoomForModuleAndGroup(
+                $name,
                 $topic,
                 $module,
                 $course,
