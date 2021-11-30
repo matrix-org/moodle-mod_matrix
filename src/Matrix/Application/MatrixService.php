@@ -60,9 +60,6 @@ final class MatrixService
         );
     }
 
-    /**
-     * @throws \RuntimeException
-     */
     public function prepareRoomForModule(
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
