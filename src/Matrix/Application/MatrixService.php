@@ -135,14 +135,12 @@ final class MatrixService
             );
         });
 
-        $api = $this->api;
-
-        \array_walk($userIdsOfUsersNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
-            $api->inviteUser(
+        foreach ($userIdsOfUsersNotYetInRoom as $userIdOfUserNotYetInRoom) {
+            $this->api->inviteUser(
                 $roomId,
-                $userId,
+                $userIdOfUserNotYetInRoom,
             );
-        });
+        }
 
         $matrixUserIdOfBot = $this->api->whoAmI();
 
@@ -201,11 +199,11 @@ final class MatrixService
             );
         });
 
-        \array_walk($userIdsOfUsersNotAllowedInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
-            $api->kickUser(
+        foreach ($userIdsOfUsersNotAllowedInRoom as $userIdOfUserNotAllowedInRoom) {
+            $this->api->kickUser(
                 $roomId,
-                $userId,
+                $userIdOfUserNotAllowedInRoom,
             );
-        });
+        }
     }
 }
