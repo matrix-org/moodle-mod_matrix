@@ -92,6 +92,29 @@ final class MatrixService
         ]);
     }
 
+    public function removeRoom(Matrix\Domain\RoomId $roomId): void
+    {
+        $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
+
+        $userIdOfBot = $this->api->whoAmI();
+
+        foreach ($userIdsOfUsersInRoom as $userId) {
+            if ($userId->equals($userIdOfBot)) {
+                continue;
+            }
+
+            $this->api->kickUser(
+                $roomId,
+                $userId,
+            );
+        }
+
+        $this->api->kickUser(
+            $roomId,
+            $userIdOfBot,
+        );
+    }
+
     public function synchronizeRoomMembersForRoom(
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
@@ -194,28 +217,5 @@ final class MatrixService
                 $userId,
             );
         });
-    }
-
-    public function removeRoom(Matrix\Domain\RoomId $roomId): void
-    {
-        $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
-
-        $userIdOfBot = $this->api->whoAmI();
-
-        foreach ($userIdsOfUsersInRoom as $userId) {
-            if ($userId->equals($userIdOfBot)) {
-                continue;
-            }
-
-            $this->api->kickUser(
-                $roomId,
-                $userId,
-            );
-        }
-
-        $this->api->kickUser(
-            $roomId,
-            $userIdOfBot,
-        );
     }
 }
