@@ -67,9 +67,11 @@ function matrix_add_instance(
 
     $moduleService = $container->moduleService();
 
+    $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
+
     $module = $moduleService->create(
         Moodle\Domain\ModuleName::fromString($data->name),
-        Moodle\Domain\CourseId::fromString($moduleinfo->course),
+        $courseId,
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );
 
@@ -88,7 +90,7 @@ function matrix_add_instance(
     $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
         '%s/course/view.php?id=%d',
         $CFG->wwwroot,
-        $module->courseId()->toInt(),
+        $courseId->toInt(),
     ));
 
     if (\count($groups) > 0) {
@@ -96,7 +98,7 @@ function matrix_add_instance(
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
-                $module->courseId(),
+                $courseId,
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
