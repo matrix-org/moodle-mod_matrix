@@ -146,9 +146,7 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <DeprecatedProperty occurrences="3">
-      <code>$this-&gt;roomRepository</code>
-      <code>$this-&gt;roomRepository</code>
+    <DeprecatedProperty occurrences="1">
       <code>$this-&gt;roomRepository</code>
     </DeprecatedProperty>
     <MixedArgument occurrences="1">

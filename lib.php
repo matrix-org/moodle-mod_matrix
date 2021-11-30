@@ -71,6 +71,7 @@ function matrix_add_instance(
     $groupRepository = $container->groupRepository();
     $roomRepository = $container->roomRepository();
     $userRepository = $container->userRepository();
+    $clock = $container->clock();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
 
@@ -135,16 +136,32 @@ function matrix_add_instance(
                 $module->name()->toString(),
             ));
 
-            $matrixRoomId = $matrixService->prepareRoomForModuleAndGroup(
-                $name,
-                $topic,
-                $module,
-                $group,
-                [
-                    'org.matrix.moodle.course_id' => $course->id()->toInt(),
-                    'org.matrix.moodle.group_id' => $group->id()->toInt(),
-                ],
-            );
+            $room = $roomRepository->findOneBy([
+                'module_id' => $module->id()->toInt(),
+                'group_id' => $group->id()->toInt(),
+            ]);
+
+            if (!$room instanceof Moodle\Domain\Room) {
+                $matrixRoomId = $matrixService->prepareRoomForModuleAndGroup(
+                    $name,
+                    $topic,
+                    [
+                        'org.matrix.moodle.course_id' => $course->id()->toInt(),
+                        'org.matrix.moodle.group_id' => $group->id()->toInt(),
+                    ],
+                );
+
+                $room = Moodle\Domain\Room::create(
+                    Moodle\Domain\RoomId::unknown(),
+                    $module->id(),
+                    $group->id(),
+                    $matrixRoomId,
+                    Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
+                    Moodle\Domain\Timestamp::fromInt(0),
+                );
+
+                $roomRepository->save($room);
+            }
 
             $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $course->id(),
@@ -152,7 +169,7 @@ function matrix_add_instance(
             );
 
             $matrixService->synchronizeRoomMembersForRoom(
-                $matrixRoomId,
+                $room->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),

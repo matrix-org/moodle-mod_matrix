@@ -109,8 +109,6 @@ final class MatrixService
     public function prepareRoomForModuleAndGroup(
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
-        Moodle\Domain\Module $module,
-        Moodle\Domain\Group $group,
         array $creationContent
     ): Matrix\Domain\RoomId {
         $whoami = $this->api->whoAmI();
@@ -158,27 +156,7 @@ final class MatrixService
             'topic' => $topic->toString(),
         ];
 
-        $room = $this->roomRepository->findOneBy([
-            'module_id' => $module->id()->toInt(),
-            'group_id' => $group->id()->toInt(),
-        ]);
-
-        if (!$room instanceof Moodle\Domain\Room) {
-            $matrixRoomId = $this->api->createRoom($roomOptions);
-
-            $room = Moodle\Domain\Room::create(
-                Moodle\Domain\RoomId::unknown(),
-                $module->id(),
-                $group->id(),
-                $matrixRoomId,
-                Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
-                Moodle\Domain\Timestamp::fromInt(0),
-            );
-
-            $this->roomRepository->save($room);
-        }
-
-        return $room->matrixRoomId();
+        return $this->api->createRoom($roomOptions);
     }
 
     public function synchronizeRoomMembersForRoom(
