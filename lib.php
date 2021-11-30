@@ -67,7 +67,7 @@ function matrix_add_instance(
 
     $container = Container::instance();
 
-    $courseRepository = $container->courseRepository();
+    $moodleCourseRepository = $container->moodleCourseRepository();
     $moodleGroupRepository = $container->moodleGroupRepository();
     $moodleRoomRepository = $container->moodleRoomRepository();
     $moodleUserRepository = $container->moodleUserRepository();
@@ -75,7 +75,7 @@ function matrix_add_instance(
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
 
-    $course = $courseRepository->find($courseId);
+    $course = $moodleCourseRepository->find($courseId);
 
     if (!$course instanceof Moodle\Domain\Course) {
         throw new \RuntimeException(\sprintf(

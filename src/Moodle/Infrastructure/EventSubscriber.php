@@ -158,7 +158,7 @@ final class EventSubscriber
 
         $container = Container::instance();
 
-        $courseRepository = $container->courseRepository();
+        $moodleCourseRepository = $container->moodleCourseRepository();
         $moodleGroupRepository = $container->moodleGroupRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
         $moodleRoomRepository = $container->moodleRoomRepository();
@@ -166,7 +166,7 @@ final class EventSubscriber
         $matrixRoomService = $container->matrixRoomService();
         $clock = $container->clock();
 
-        $course = $courseRepository->find($courseId);
+        $course = $moodleCourseRepository->find($courseId);
 
         if (!$course instanceof Moodle\Domain\Course) {
             throw new \RuntimeException(\sprintf(

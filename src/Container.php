@@ -131,11 +131,6 @@ final class Container
         return $this->resolve(Clock\Clock::class);
     }
 
-    public function courseRepository(): Moodle\Domain\CourseRepository
-    {
-        return $this->resolve(Moodle\Domain\CourseRepository::class);
-    }
-
     public function database(): \moodle_database
     {
         return $this->resolve(\moodle_database::class);
@@ -149,6 +144,11 @@ final class Container
     public function moduleService(): Moodle\Application\ModuleService
     {
         return $this->resolve(Moodle\Application\ModuleService::class);
+    }
+
+    public function moodleCourseRepository(): Moodle\Domain\CourseRepository
+    {
+        return $this->resolve(Moodle\Domain\CourseRepository::class);
     }
 
     public function moodleGroupRepository(): Moodle\Domain\GroupRepository
