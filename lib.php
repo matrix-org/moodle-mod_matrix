@@ -153,7 +153,7 @@ function matrix_add_instance(
     ]);
 
     if (!$room instanceof Moodle\Domain\Room) {
-        $matrixRoomId = $matrixService->prepareRoomForModule(
+        $matrixRoomId = $matrixService->createRoom(
             $name,
             $topic,
             [

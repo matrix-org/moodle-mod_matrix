@@ -60,7 +60,7 @@ final class MatrixService
         );
     }
 
-    public function prepareRoomForModule(
+    public function createRoom(
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
         array $creationContent
