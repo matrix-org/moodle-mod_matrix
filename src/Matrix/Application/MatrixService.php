@@ -122,7 +122,12 @@ final class MatrixService
     ): void {
         $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
 
-        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
+        $userIdsOfUsersAndStaff = \array_merge(
+            $userIdsOfUsers->toArray(),
+            $userIdsOfStaff->toArray(),
+        );
+
+        $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsersAndStaff, static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
             return !\in_array(
                 $userId,
                 $userIdsOfUsersInRoom,
@@ -133,21 +138,6 @@ final class MatrixService
         $api = $this->api;
 
         \array_walk($userIdsOfUsersNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
-            $api->inviteUser(
-                $roomId,
-                $userId,
-            );
-        });
-
-        $userIdsOfStaffNotYetInRoom = \array_filter($userIdsOfStaff->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom) {
-            return !\in_array(
-                $userId,
-                $userIdsOfUsersInRoom,
-                false,
-            );
-        });
-
-        \array_walk($userIdsOfStaffNotYetInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $roomId): void {
             $api->inviteUser(
                 $roomId,
                 $userId,
