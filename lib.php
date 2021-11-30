@@ -80,9 +80,7 @@ function matrix_add_instance(
         ));
     }
 
-    $moodleModuleService = $container->moodleModuleService();
-
-    $module = $moodleModuleService->create(
+    $module = $container->moodleModuleService()->create(
         Moodle\Domain\ModuleName::fromString($data->name),
         $courseId,
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
