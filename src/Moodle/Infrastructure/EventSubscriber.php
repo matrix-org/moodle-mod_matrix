@@ -161,17 +161,17 @@ final class EventSubscriber
         $moduleRepository = $container->moduleRepository();
         $matrixService = $container->matrixService();
 
+        $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
+            '%s/course/view.php?id=%d',
+            $CFG->wwwroot,
+            $courseId->toInt(),
+        ));
+
         $modules = $moduleRepository->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
         foreach ($modules as $module) {
-            $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
-                '%s/course/view.php?id=%d',
-                $CFG->wwwroot,
-                $courseId->toInt(),
-            ));
-
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
