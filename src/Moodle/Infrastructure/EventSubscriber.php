@@ -213,8 +213,50 @@ final class EventSubscriber
 
     private static function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
     {
-        $matrixService = Container::instance()->matrixService();
+        $container = Container::instance();
 
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        $moduleRepository = $container->moduleRepository();
+        $userRepository = $container->userRepository();
+        $roomRepository = $container->roomRepository();
+        $matrixService = $container->matrixService();
+
+        $modules = $moduleRepository->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff));
+
+        foreach ($modules as $module) {
+            $rooms = $roomRepository->findAllBy([
+                'module_id' => $module->id()->toInt(),
+            ]);
+
+            foreach ($rooms as $room) {
+                $groupId = $room->groupId();
+
+                if (!$groupId instanceof Moodle\Domain\GroupId) {
+                    $groupId = Moodle\Domain\GroupId::fromInt(0);
+                } // Moodle wants zero instead of null
+
+                $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                    $courseId,
+                    $groupId,
+                );
+
+                $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $users));
+
+                $matrixService->synchronizeRoomMembersForRoom(
+                    $room->matrixRoomId(),
+                    $userIdsOfUsers,
+                    $userIdsOfStaff,
+                );
+            }
+        }
     }
 }

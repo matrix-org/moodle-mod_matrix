@@ -144,7 +144,7 @@
     </MissingReturnType>
   </file>
   <file src="src/Matrix/Application/MatrixService.php">
-    <DeprecatedProperty occurrences="24">
+    <DeprecatedProperty occurrences="20">
       <code>$this-&gt;courseRepository</code>
       <code>$this-&gt;courseRepository</code>
       <code>$this-&gt;groupRepository</code>
@@ -152,16 +152,12 @@
       <code>$this-&gt;moduleRepository</code>
       <code>$this-&gt;moduleRepository</code>
       <code>$this-&gt;moduleRepository</code>
-      <code>$this-&gt;moduleRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
       <code>$this-&gt;roomRepository</code>
-      <code>$this-&gt;roomRepository</code>
-      <code>$this-&gt;userRepository</code>
-      <code>$this-&gt;userRepository</code>
       <code>$this-&gt;userRepository</code>
       <code>$this-&gt;userRepository</code>
       <code>$this-&gt;userRepository</code>
