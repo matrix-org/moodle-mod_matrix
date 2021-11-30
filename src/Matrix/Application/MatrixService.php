@@ -218,7 +218,7 @@ final class MatrixService
             $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
             $this->synchronizeRoomMembersForRoom(
-                $roomForModuleAndGroup,
+                $roomForModuleAndGroup->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
@@ -258,7 +258,7 @@ final class MatrixService
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
         $this->synchronizeRoomMembersForRoom(
-            $roomForModule,
+            $roomForModule->matrixRoomId(),
             Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
             }, $users)),
@@ -309,7 +309,7 @@ final class MatrixService
             }, $staff));
 
             $this->synchronizeRoomMembersForRoom(
-                $room,
+                $room->matrixRoomId(),
                 $userIdsOfUsers,
                 $userIdsOfStaff,
             );
@@ -350,7 +350,7 @@ final class MatrixService
                 }, $users));
 
                 $this->synchronizeRoomMembersForRoom(
-                    $room,
+                    $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
                 );
@@ -389,7 +389,7 @@ final class MatrixService
 
             foreach ($rooms as $room) {
                 $this->synchronizeRoomMembersForRoom(
-                    $room,
+                    $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
                 );
@@ -398,12 +398,10 @@ final class MatrixService
     }
 
     public function synchronizeRoomMembersForRoom(
-        Moodle\Domain\Room $room,
+        Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
         Matrix\Domain\UserIdCollection $userIdsOfStaff
     ): void {
-        $roomId = $room->matrixRoomId();
-
         $userIdsOfUsersInRoom = $this->api->listUsers($roomId);
 
         $userIdsOfUsersNotYetInRoom = \array_filter($userIdsOfUsers->toArray(), static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
