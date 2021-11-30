@@ -208,7 +208,7 @@ final class EventSubscriber
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $matrixRoomId = $matrixService->prepareRoomForModuleAndGroup(
+                $matrixRoomId = $matrixService->createRoom(
                     $name,
                     $topic,
                     [
