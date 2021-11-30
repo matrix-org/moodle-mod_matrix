@@ -102,7 +102,7 @@ function matrix_add_instance(
         true,
     );
 
-    $roomService = $container->roomService();
+    $matrixRoomService = $container->matrixRoomService();
 
     $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
         '%s/course/view.php?id=%d',
@@ -142,7 +142,7 @@ function matrix_add_instance(
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $matrixRoomId = $roomService->createRoom(
+                $matrixRoomId = $matrixRoomService->createRoom(
                     $name,
                     $topic,
                     [
@@ -168,7 +168,7 @@ function matrix_add_instance(
                 $group->id(),
             );
 
-            $roomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembersForRoom(
                 $room->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
@@ -192,7 +192,7 @@ function matrix_add_instance(
     ]);
 
     if (!$room instanceof Moodle\Domain\Room) {
-        $matrixRoomId = $roomService->createRoom(
+        $matrixRoomId = $matrixRoomService->createRoom(
             $name,
             $topic,
             [
@@ -219,7 +219,7 @@ function matrix_add_instance(
         Moodle\Domain\GroupId::fromInt(0),
     );
 
-    $roomService->synchronizeRoomMembersForRoom(
+    $matrixRoomService->synchronizeRoomMembersForRoom(
         $room->matrixRoomId(),
         Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
@@ -257,10 +257,10 @@ function matrix_delete_instance($id): bool
         'module_id' => $module->id()->toInt(),
     ]);
 
-    $roomService = $container->roomService();
+    $matrixRoomService = $container->matrixRoomService();
 
     foreach ($rooms as $room) {
-        $roomService->removeRoom($room->matrixRoomId());
+        $matrixRoomService->removeRoom($room->matrixRoomId());
 
         $roomRepository->remove($room);
     }

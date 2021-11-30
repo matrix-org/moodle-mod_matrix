@@ -163,7 +163,7 @@ final class EventSubscriber
         $moduleRepository = $container->moduleRepository();
         $roomRepository = $container->roomRepository();
         $userRepository = $container->userRepository();
-        $roomService = $container->roomService();
+        $matrixRoomService = $container->matrixRoomService();
         $clock = $container->clock();
 
         $course = $courseRepository->find($courseId);
@@ -208,7 +208,7 @@ final class EventSubscriber
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $matrixRoomId = $roomService->createRoom(
+                $matrixRoomId = $matrixRoomService->createRoom(
                     $name,
                     $topic,
                     [
@@ -236,7 +236,7 @@ final class EventSubscriber
 
             $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
-            $roomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembersForRoom(
                 $room->matrixRoomId(),
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
@@ -258,7 +258,7 @@ final class EventSubscriber
         $roomRepository = $container->roomRepository();
         $moduleRepository = $container->moduleRepository();
         $userRepository = $container->userRepository();
-        $roomService = $container->roomService();
+        $matrixRoomService = $container->matrixRoomService();
 
         $rooms = $roomRepository->findAll();
 
@@ -295,7 +295,7 @@ final class EventSubscriber
                 return $user->matrixUserId();
             }, $staff));
 
-            $roomService->synchronizeRoomMembersForRoom(
+            $matrixRoomService->synchronizeRoomMembersForRoom(
                 $room->matrixRoomId(),
                 $userIdsOfUsers,
                 $userIdsOfStaff,
@@ -310,7 +310,7 @@ final class EventSubscriber
         $moduleRepository = $container->moduleRepository();
         $userRepository = $container->userRepository();
         $roomRepository = $container->roomRepository();
-        $roomService = $container->roomService();
+        $matrixRoomService = $container->matrixRoomService();
 
         $modules = $moduleRepository->findAllBy([
             'course' => $courseId->toInt(),
@@ -343,7 +343,7 @@ final class EventSubscriber
                     return $user->matrixUserId();
                 }, $users));
 
-                $roomService->synchronizeRoomMembersForRoom(
+                $matrixRoomService->synchronizeRoomMembersForRoom(
                     $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
@@ -361,7 +361,7 @@ final class EventSubscriber
         $moduleRepository = $container->moduleRepository();
         $userRepository = $container->userRepository();
         $roomRepository = $container->roomRepository();
-        $roomService = $container->roomService();
+        $matrixRoomService = $container->matrixRoomService();
 
         $modules = $moduleRepository->findAllBy([
             'course' => $courseId->toInt(),
@@ -389,7 +389,7 @@ final class EventSubscriber
             ]);
 
             foreach ($rooms as $room) {
-                $roomService->synchronizeRoomMembersForRoom(
+                $matrixRoomService->synchronizeRoomMembersForRoom(
                     $room->matrixRoomId(),
                     $userIdsOfUsers,
                     $userIdsOfStaff,
