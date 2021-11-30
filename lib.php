@@ -203,8 +203,6 @@ function matrix_add_instance(
             ],
         );
 
-        $clock = $container->clock();
-
         $room = Moodle\Domain\Room::create(
             Moodle\Domain\RoomId::unknown(),
             $module->id(),
