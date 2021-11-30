@@ -68,10 +68,6 @@ function matrix_add_instance(
     $container = Container::instance();
 
     $moodleCourseRepository = $container->moodleCourseRepository();
-    $moodleGroupRepository = $container->moodleGroupRepository();
-    $moodleRoomRepository = $container->moodleRoomRepository();
-    $moodleUserRepository = $container->moodleUserRepository();
-    $clock = $container->clock();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
 
@@ -83,6 +79,11 @@ function matrix_add_instance(
             $courseId->toInt(),
         ));
     }
+
+    $moodleGroupRepository = $container->moodleGroupRepository();
+    $moodleRoomRepository = $container->moodleRoomRepository();
+    $moodleUserRepository = $container->moodleUserRepository();
+    $clock = $container->clock();
 
     $moodleModuleService = $container->moodleModuleService();
 
