@@ -94,59 +94,6 @@ final class MatrixService
         return $this->api->createRoom($roomOptions);
     }
 
-    public function prepareRoomForModuleAndGroup(
-        Matrix\Domain\RoomName $name,
-        Matrix\Domain\RoomTopic $topic,
-        array $creationContent
-    ): Matrix\Domain\RoomId {
-        $whoami = $this->api->whoAmI();
-
-        $botPowerLevel = Matrix\Domain\PowerLevel::bot();
-        $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
-        $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
-
-        $roomOptions = [
-            'creation_content' => $creationContent,
-            'initial_state' => [
-                [
-                    'content' => [
-                        'guest_access' => 'forbidden',
-                    ],
-                    'state_key' => '',
-                    'type' => 'm.room.guest_access',
-                ],
-            ],
-            'name' => $name->toString(),
-            'power_level_content_override' => [
-                'ban' => $botPowerLevel->toInt(),
-                'invite' => $botPowerLevel->toInt(),
-                'kick' => $botPowerLevel->toInt(),
-                'events' => [
-                    'm.room.name' => $botPowerLevel->toInt(),
-                    'm.room.power_levels' => $botPowerLevel->toInt(),
-                    'm.room.history_visibility' => $staffPowerLevel->toInt(),
-                    'm.room.canonical_alias' => $staffPowerLevel->toInt(),
-                    'm.room.avatar' => $staffPowerLevel->toInt(),
-                    'm.room.tombstone' => $botPowerLevel->toInt(),
-                    'm.room.server_acl' => $botPowerLevel->toInt(),
-                    'm.room.encryption' => $botPowerLevel->toInt(),
-                    'm.room.join_rules' => $botPowerLevel->toInt(),
-                    'm.room.guest_access' => $botPowerLevel->toInt(),
-                ],
-                'events_default' => 0,
-                'state_default' => $staffPowerLevel->toInt(),
-                'redact' => $redactorPowerLevel->toInt(),
-                'users' => [
-                    $whoami->toString() => $botPowerLevel->toInt(),
-                ],
-            ],
-            'preset' => 'private_chat',
-            'topic' => $topic->toString(),
-        ];
-
-        return $this->api->createRoom($roomOptions);
-    }
-
     public function synchronizeRoomMembersForRoom(
         Matrix\Domain\RoomId $roomId,
         Matrix\Domain\UserIdCollection $userIdsOfUsers,
