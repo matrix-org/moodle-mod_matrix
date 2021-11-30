@@ -359,8 +359,6 @@ final class EventSubscriber
         ]);
 
         $moodleUserRepository = $container->moodleUserRepository();
-        $moodleRoomRepository = $container->moodleRoomRepository();
-        $matrixRoomService = $container->matrixRoomService();
 
         $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
@@ -376,6 +374,9 @@ final class EventSubscriber
         $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $staff));
+
+        $moodleRoomRepository = $container->moodleRoomRepository();
+        $matrixRoomService = $container->matrixRoomService();
 
         foreach ($modules as $module) {
             $rooms = $moodleRoomRepository->findAllBy([
