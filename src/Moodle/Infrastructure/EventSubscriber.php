@@ -161,6 +161,7 @@ final class EventSubscriber
         $courseRepository = $container->courseRepository();
         $groupRepository = $container->groupRepository();
         $moduleRepository = $container->moduleRepository();
+        $userRepository = $container->userRepository();
         $matrixService = $container->matrixService();
 
         $course = $courseRepository->find($courseId);
@@ -199,12 +200,29 @@ final class EventSubscriber
                 $module->name()->toString(),
             ));
 
-            $matrixService->prepareRoomForModuleAndGroup(
+            $matrixRoomId = $matrixService->prepareRoomForModuleAndGroup(
                 $name,
                 $topic,
                 $module,
                 $course,
                 $group,
+            );
+
+            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $course->id(),
+                $group->id(),
+            );
+
+            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+
+            $matrixService->synchronizeRoomMembersForRoom(
+                $matrixRoomId,
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $users)),
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $staff)),
             );
         }
     }

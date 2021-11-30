@@ -119,7 +119,7 @@ final class MatrixService
         Moodle\Domain\Module $module,
         Moodle\Domain\Course $course,
         Moodle\Domain\Group $group
-    ): void {
+    ): Matrix\Domain\RoomId {
         $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
@@ -188,22 +188,7 @@ final class MatrixService
             $this->roomRepository->save($room);
         }
 
-        $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $course->id(),
-            $group->id(),
-        );
-
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
-
-        $this->synchronizeRoomMembersForRoom(
-            $room->matrixRoomId(),
-            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $users)),
-            Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $staff)),
-        );
+        return $room->matrixRoomId();
     }
 
     public function synchronizeRoomMembersForRoom(
