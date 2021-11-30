@@ -176,9 +176,7 @@ final class EventSubscriber
             ));
         }
 
-        $moodleModuleRepository = $container->moodleModuleRepository();
-
-        $modules = $moodleModuleRepository->findAllBy([
+        $modules = $container->moodleModuleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
