@@ -366,11 +366,11 @@ final class MatrixService
 
             foreach ($rooms as $room) {
                 $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                    $module->courseId(),
+                    $courseId,
                     $groupId,
                 );
 
-                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+                $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
                 $this->synchronizeRoomMembersForRoom(
                     $room,
