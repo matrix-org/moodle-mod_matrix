@@ -69,6 +69,7 @@ function matrix_add_instance(
 
     $courseRepository = $container->courseRepository();
     $groupRepository = $container->groupRepository();
+    $userRepository = $container->userRepository();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
 
@@ -145,11 +146,28 @@ function matrix_add_instance(
         $module->name()->toString(),
     ));
 
-    $matrixService->prepareRoomForModule(
+    $roomId = $matrixService->prepareRoomForModule(
         $name,
         $topic,
         $module,
         $course,
+    );
+
+    $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+        $course->id(),
+        Moodle\Domain\GroupId::fromInt(0),
+    );
+
+    $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+
+    $matrixService->synchronizeRoomMembersForRoom(
+        $roomId,
+        Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $users)),
+        Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff)),
     );
 
     return $module->id()->toInt();
