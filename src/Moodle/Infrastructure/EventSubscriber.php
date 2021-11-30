@@ -159,6 +159,7 @@ final class EventSubscriber
         $container = Container::instance();
 
         $courseRepository = $container->courseRepository();
+        $groupRepository = $container->groupRepository();
         $moduleRepository = $container->moduleRepository();
         $matrixService = $container->matrixService();
 
@@ -168,6 +169,15 @@ final class EventSubscriber
             throw new \RuntimeException(\sprintf(
                 'Could not find course with id %d.',
                 $courseId->toInt(),
+            ));
+        }
+
+        $group = $groupRepository->find($groupId);
+
+        if (!$group instanceof Moodle\Domain\Group) {
+            throw new \RuntimeException(\sprintf(
+                'Could not find group with id %d.',
+                $groupId->toInt(),
             ));
         }
 
@@ -186,7 +196,7 @@ final class EventSubscriber
                 $topic,
                 $module,
                 $course,
-                $groupId,
+                $group,
             );
         }
     }

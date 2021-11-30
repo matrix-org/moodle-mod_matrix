@@ -54,6 +54,8 @@ function matrix_supports($feature)
 /**
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L126-L131
+ *
+ * @throws \RuntimeException
  */
 function matrix_add_instance(
     object $moduleinfo,
@@ -66,6 +68,7 @@ function matrix_add_instance(
     $container = Container::instance();
 
     $courseRepository = $container->courseRepository();
+    $groupRepository = $container->groupRepository();
 
     $courseId = Moodle\Domain\CourseId::fromString($moduleinfo->course);
 
@@ -105,12 +108,23 @@ function matrix_add_instance(
     ));
 
     if (\count($groups) > 0) {
-        foreach ($groups as $group) {
+        foreach ($groups as $g) {
+            $groupId = Moodle\Domain\GroupId::fromString($g->id);
+
+            $group = $groupRepository->find($groupId);
+
+            if (!$group instanceof Moodle\Domain\Group) {
+                throw new \RuntimeException(\sprintf(
+                    'Could not find group with id %d.',
+                    $groupId->toInt(),
+                ));
+            }
+
             $matrixService->prepareRoomForModuleAndGroup(
                 $topic,
                 $module,
                 $course,
-                Moodle\Domain\GroupId::fromString($group->id),
+                $group,
             );
         }
 

@@ -166,24 +166,12 @@ final class MatrixService
         );
     }
 
-    /**
-     * @throws \RuntimeException
-     */
     public function prepareRoomForModuleAndGroup(
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
         Moodle\Domain\Course $course,
-        Moodle\Domain\GroupId $groupId
+        Moodle\Domain\Group $group
     ): void {
-        $group = $this->groupRepository->find($groupId);
-
-        if (!$group instanceof Moodle\Domain\Group) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find group with id %d.',
-                $groupId->toInt(),
-            ));
-        }
-
         $whoami = $this->api->whoAmI();
 
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
@@ -200,7 +188,7 @@ final class MatrixService
         $roomOptions = [
             'creation_content' => [
                 'org.matrix.moodle.course_id' => $course->id()->toInt(),
-                'org.matrix.moodle.group_id' => $groupId->toInt(),
+                'org.matrix.moodle.group_id' => $group->id()->toInt(),
             ],
             'initial_state' => [
                 [
@@ -241,7 +229,7 @@ final class MatrixService
 
         $room = $this->roomRepository->findOneBy([
             'module_id' => $module->id()->toInt(),
-            'group_id' => $groupId->toInt(),
+            'group_id' => $group->id()->toInt(),
         ]);
 
         if (!$room instanceof Moodle\Domain\Room) {
@@ -250,7 +238,7 @@ final class MatrixService
             $room = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
                 $module->id(),
-                $groupId,
+                $group->id(),
                 $matrixRoomId,
                 Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
                 Moodle\Domain\Timestamp::fromInt(0),
@@ -261,7 +249,7 @@ final class MatrixService
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $course->id(),
-            $groupId,
+            $group->id(),
         );
 
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
