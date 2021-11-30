@@ -143,15 +143,15 @@ final class MatrixService
             'topic' => $topic->toString(),
         ];
 
-        $roomForModule = $this->roomRepository->findOneBy([
+        $room = $this->roomRepository->findOneBy([
             'module_id' => $module->id()->toInt(),
             'group_id' => null,
         ]);
 
-        if (!$roomForModule instanceof Moodle\Domain\Room) {
+        if (!$room instanceof Moodle\Domain\Room) {
             $matrixRoomId = $this->api->createRoom($roomOptions);
 
-            $roomForModule = Moodle\Domain\Room::create(
+            $room = Moodle\Domain\Room::create(
                 Moodle\Domain\RoomId::unknown(),
                 $module->id(),
                 null,
@@ -160,7 +160,7 @@ final class MatrixService
                 Moodle\Domain\Timestamp::fromInt(0),
             );
 
-            $this->roomRepository->save($roomForModule);
+            $this->roomRepository->save($room);
         }
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
@@ -171,7 +171,7 @@ final class MatrixService
         $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
         $this->synchronizeRoomMembersForRoom(
-            $roomForModule->matrixRoomId(),
+            $room->matrixRoomId(),
             Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                 return $user->matrixUserId();
             }, $users)),
