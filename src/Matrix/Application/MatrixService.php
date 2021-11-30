@@ -124,13 +124,7 @@ final class MatrixService
 
         $userIdsOfUsersAndStaff = $userIdsOfUsers->merge($userIdsOfStaff);
 
-        $userIdsOfUsersNotYetInRoom = $userIdsOfUsersAndStaff->filter(static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersInRoom): bool {
-            return !\in_array(
-                $userId,
-                $userIdsOfUsersInRoom->toArray(),
-                false,
-            );
-        });
+        $userIdsOfUsersNotYetInRoom = $userIdsOfUsersAndStaff->diff($userIdsOfUsersInRoom);
 
         foreach ($userIdsOfUsersNotYetInRoom->toArray() as $userIdOfUserNotYetInRoom) {
             $this->api->inviteUser(
@@ -184,13 +178,7 @@ final class MatrixService
             ->merge($userIdsOfUsers)
             ->merge($userIdsOfStaff);
 
-        $userIdsOfUsersNotAllowedInRoom = $userIdsOfUsersInRoom->filter(static function (Matrix\Domain\UserId $userId) use ($userIdsOfUsersAllowedInRoom): bool {
-            return !\in_array(
-                $userId,
-                $userIdsOfUsersAllowedInRoom->toArray(),
-                false,
-            );
-        });
+        $userIdsOfUsersNotAllowedInRoom = $userIdsOfUsersInRoom->diff($userIdsOfUsersAllowedInRoom);
 
         foreach ($userIdsOfUsersNotAllowedInRoom->toArray() as $userIdOfUserNotAllowedInRoom) {
             $this->api->kickUser(

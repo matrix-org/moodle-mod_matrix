@@ -30,6 +30,17 @@ final class UserIdCollection
         return new self(...$userIds);
     }
 
+    public function diff(self $other): self
+    {
+        return new self(...\array_filter($this->userIds, static function (UserId $userId) use ($other): bool {
+            return !\in_array(
+                $userId,
+                $other->toArray(),
+                false,
+            );
+        }));
+    }
+
     public function filter(\Closure $closure): self
     {
         return new self(...\array_filter($this->userIds, static function (UserId $userId) use ($closure): bool {

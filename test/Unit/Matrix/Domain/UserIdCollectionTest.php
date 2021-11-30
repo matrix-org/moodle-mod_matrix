@@ -40,6 +40,50 @@ final class UserIdCollectionTest extends Framework\TestCase
         self::assertSame($userIds, $collection->toArray());
     }
 
+    public function testDiffReturnsUserIdCollection(): void
+    {
+        $faker = self::faker();
+
+        $userIdOne = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdTwo = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdThree = Matrix\Domain\UserId::fromString($faker->sha1());
+
+        $userIdsOne = [
+            $userIdOne,
+            $userIdTwo,
+            $userIdThree,
+        ];
+
+        $userIdFour = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdFive = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdSix = Matrix\Domain\UserId::fromString($faker->sha1());
+
+        $userIdsTwo = [
+            $userIdTwo,
+            $userIdFour,
+            $userIdFive,
+            $userIdSix,
+        ];
+
+        $one = Matrix\Domain\UserIdCollection::fromUserIds(...$userIdsOne);
+        $two = Matrix\Domain\UserIdCollection::fromUserIds(...$userIdsTwo);
+
+        $diff = $one->diff($two);
+
+        $expected = [
+            $userIdOne,
+            $userIdThree,
+        ];
+
+        self::assertSame($expected, $diff->toArray());
+
+        self::assertNotSame($one, $diff);
+        self::assertNotSame($two, $diff);
+
+        self::assertSame($userIdsOne, $one->toArray());
+        self::assertSame($userIdsTwo, $two->toArray());
+    }
+
     public function testFilterReturnsUserIdCollection(): void
     {
         $faker = self::faker();
