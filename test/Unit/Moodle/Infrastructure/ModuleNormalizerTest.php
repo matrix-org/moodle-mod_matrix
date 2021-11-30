@@ -23,6 +23,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
@@ -38,6 +39,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $courseId = $faker->numberBetween(1);
         $id = $faker->numberBetween(1);
         $name = $faker->sentence();
+        $topic = $faker->sentence();
         $sectionId = $faker->numberBetween(1);
         $timecreated = $faker->dateTime()->getTimestamp();
         $timemodified = $faker->dateTime()->getTimestamp();
@@ -47,6 +49,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'course' => $courseId,
             'id' => $id,
             'name' => $name,
+            'topic' => $topic,
             'section' => $sectionId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -61,6 +64,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleId::fromInt($id),
             Moodle\Domain\ModuleType::fromInt($type),
             Moodle\Domain\ModuleName::fromString($name),
+            Moodle\Domain\ModuleTopic::fromString($topic),
             Moodle\Domain\CourseId::fromInt($courseId),
             Moodle\Domain\SectionId::fromInt($sectionId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -78,6 +82,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $sectionId = (string) $faker->numberBetween(1);
         $id = (string) $faker->numberBetween(1);
         $name = $faker->sentence();
+        $topic = $faker->sentence();
         $timecreated = (string) $faker->dateTime()->getTimestamp();
         $timemodified = (string) $faker->dateTime()->getTimestamp();
         $type = (string) $faker->numberBetween(1);
@@ -86,6 +91,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'course' => $courseId,
             'id' => $id,
             'name' => $name,
+            'topic' => $topic,
             'section' => $sectionId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -100,6 +106,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleId::fromString($id),
             Moodle\Domain\ModuleType::fromString($type),
             Moodle\Domain\ModuleName::fromString($name),
+            Moodle\Domain\ModuleTopic::fromString($topic),
             Moodle\Domain\CourseId::fromString($courseId),
             Moodle\Domain\SectionId::fromString($sectionId),
             Moodle\Domain\Timestamp::fromString($timecreated),
@@ -109,7 +116,49 @@ final class ModuleNormalizerTest extends Framework\TestCase
         self::assertEquals($expected, $denormalized);
     }
 
-    public function testNormalizeReturnsModuleFromDenormalizedModule(): void
+    public function testDenormalizeReturnsModuleFromNormalizedModuleWhenTopicIsNull(): void
+    {
+        $faker = self::faker();
+
+        $courseId = $faker->numberBetween(1);
+        $id = $faker->numberBetween(1);
+        $name = $faker->sentence();
+        $topic = null;
+        $sectionId = $faker->numberBetween(1);
+        $timecreated = $faker->dateTime()->getTimestamp();
+        $timemodified = $faker->dateTime()->getTimestamp();
+        $type = $faker->numberBetween(1);
+
+        $normalized = (object) [
+            'course' => $courseId,
+            'id' => $id,
+            'name' => $name,
+            'topic' => $topic,
+            'section' => $sectionId,
+            'timecreated' => $timecreated,
+            'timemodified' => $timemodified,
+            'type' => $type,
+        ];
+
+        $moduleNormalizer = new Moodle\Infrastructure\ModuleNormalizer();
+
+        $denormalized = $moduleNormalizer->denormalize($normalized);
+
+        $expected = Moodle\Domain\Module::create(
+            Moodle\Domain\ModuleId::fromInt($id),
+            Moodle\Domain\ModuleType::fromInt($type),
+            Moodle\Domain\ModuleName::fromString($name),
+            Moodle\Domain\ModuleTopic::fromString(''),
+            Moodle\Domain\CourseId::fromInt($courseId),
+            Moodle\Domain\SectionId::fromInt($sectionId),
+            Moodle\Domain\Timestamp::fromInt($timecreated),
+            Moodle\Domain\Timestamp::fromInt($timemodified),
+        );
+
+        self::assertEquals($expected, $denormalized);
+    }
+
+    public function testNormalizeReturnsModuleFromDenormalizedModuleWhenTopicIsEmptyString(): void
     {
         $faker = self::faker();
 
@@ -117,6 +166,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
+            Moodle\Domain\ModuleTopic::fromString(''),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -131,6 +181,40 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'course' => $denormalized->courseId()->toInt(),
             'id' => $denormalized->id()->toInt(),
             'name' => $denormalized->name()->toString(),
+            'topic' => null,
+            'section' => $denormalized->sectionId()->toInt(),
+            'timecreated' => $denormalized->timecreated()->toInt(),
+            'timemodified' => $denormalized->timemodified()->toInt(),
+            'type' => $denormalized->type()->toInt(),
+        ];
+
+        self::assertEquals($expected, $normalized);
+    }
+
+    public function testNormalizeReturnsModuleFromDenormalizedModuleWhenTopicIsNotAnEmptyString(): void
+    {
+        $faker = self::faker();
+
+        $denormalized = Moodle\Domain\Module::create(
+            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\ModuleName::fromString($faker->sentence()),
+            Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
+            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+            Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
+        );
+
+        $moduleNormalizer = new Moodle\Infrastructure\ModuleNormalizer();
+
+        $normalized = $moduleNormalizer->normalize($denormalized);
+
+        $expected = (object) [
+            'course' => $denormalized->courseId()->toInt(),
+            'id' => $denormalized->id()->toInt(),
+            'name' => $denormalized->name()->toString(),
+            'topic' => $denormalized->topic()->toString(),
             'section' => $denormalized->sectionId()->toInt(),
             'timecreated' => $denormalized->timecreated()->toInt(),
             'timemodified' => $denormalized->timemodified()->toInt(),

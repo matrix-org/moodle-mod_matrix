@@ -28,6 +28,7 @@ final class ModuleService
 
     public function create(
         Moodle\Domain\ModuleName $name,
+        Moodle\Domain\ModuleTopic $topic,
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\SectionId $sectionId
     ): Moodle\Domain\Module {
@@ -35,6 +36,7 @@ final class ModuleService
             Moodle\Domain\ModuleId::unknown(),
             Moodle\Domain\ModuleType::fromInt(0),
             $name,
+            $topic,
             $courseId,
             $sectionId,
             Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),

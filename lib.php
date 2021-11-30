@@ -82,17 +82,12 @@ function matrix_add_instance(
 
     $module = $container->moodleModuleService()->create(
         Moodle\Domain\ModuleName::fromString($data->name),
+        Moodle\Domain\ModuleTopic::fromString($data->topic),
         $courseId,
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );
 
     $matrixRoomService = $container->matrixRoomService();
-
-    $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
-        '%s/course/view.php?id=%d',
-        $CFG->wwwroot,
-        $courseId->toInt(),
-    ));
 
     $moodleUserRepository = $container->moodleUserRepository();
 
@@ -145,6 +140,8 @@ function matrix_add_instance(
                     $module,
                 ));
 
+                $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
+
                 $matrixRoomId = $matrixRoomService->createRoom(
                     $name,
                     $topic,
@@ -193,6 +190,8 @@ function matrix_add_instance(
             $course,
             $module,
         ));
+
+        $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
 
         $matrixRoomId = $matrixRoomService->createRoom(
             $name,
@@ -348,9 +347,10 @@ function matrix_update_instance(
         );
     }
 
-    $container->matrixRoomService()->renameRoom(
+    $container->matrixRoomService()->updateRoom(
         $room->matrixRoomId(),
         Matrix\Domain\RoomName::fromString($name),
+        Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
     );
 
     return true;

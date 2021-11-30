@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
@@ -37,6 +38,7 @@ final class ModuleServiceTest extends Framework\TestCase
         $faker = self::faker();
 
         $name = Moodle\Domain\ModuleName::fromString($faker->sentence());
+        $topic = Moodle\Domain\ModuleTopic::fromString($faker->sentence());
         $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
         $sectionId = Moodle\Domain\SectionId::fromInt($faker->numberBetween(1));
 
@@ -70,6 +72,7 @@ final class ModuleServiceTest extends Framework\TestCase
 
         $module = $moduleService->create(
             $name,
+            $topic,
             $courseId,
             $sectionId,
         );

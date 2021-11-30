@@ -18,6 +18,8 @@ final class Internationalization
     public const MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED = 'mod_form_basic_settings_name_error_required';
     public const MOD_FORM_BASIC_SETTINGS_NAME_HELP = 'mod_form_basic_settings_name_help';
     public const MOD_FORM_BASIC_SETTINGS_NAME_NAME = 'mod_form_basic_settings_name_name';
+    public const MOD_FORM_BASIC_SETTINGS_TOPIC_HELP = 'mod_form_basic_settings_topic_help';
+    public const MOD_FORM_BASIC_SETTINGS_TOPIC_NAME = 'mod_form_basic_settings_topic_name';
     public const SETTINGS_ACCESS_TOKEN_DESCRIPTION = 'settings_access_token_description';
     public const SETTINGS_ACCESS_TOKEN_NAME = 'settings_access_token_name';
     public const SETTINGS_ELEMENT_URL_DESCRIPTION = 'settings_element_url_description';

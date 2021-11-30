@@ -29,6 +29,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
  * @uses \mod_matrix\Moodle\Domain\Timestamp
@@ -56,6 +57,7 @@ final class NameServiceTest extends Framework\TestCase
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
+            Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
@@ -94,6 +96,7 @@ final class NameServiceTest extends Framework\TestCase
             Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
+            Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
