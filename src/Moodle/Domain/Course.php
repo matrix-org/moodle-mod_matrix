@@ -16,23 +16,23 @@ namespace mod_matrix\Moodle\Domain;
 final class Course
 {
     private $id;
-    private $name;
+    private $fullName;
 
     private function __construct(
         CourseId $id,
-        CourseName $name
+        CourseFullName $fullName
     ) {
         $this->id = $id;
-        $this->name = $name;
+        $this->fullName = $fullName;
     }
 
     public static function create(
         CourseId $id,
-        CourseName $name
+        CourseFullName $fullName
     ): self {
         return new self(
             $id,
-            $name,
+            $fullName,
         );
     }
 
@@ -41,8 +41,8 @@ final class Course
         return $this->id;
     }
 
-    public function name(): CourseName
+    public function fullName(): CourseFullName
     {
-        return $this->name;
+        return $this->fullName;
     }
 }
