@@ -139,27 +139,21 @@ final class EventSubscriber
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
-        $matrixService = Container::instance()->matrixService();
-
-        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+        self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
     /**
@@ -215,5 +209,12 @@ final class EventSubscriber
                 $userIdsOfStaff,
             );
         }
+    }
+
+    private static function synchronizeRoomMembersForAllRoomsOfAllModulesInCourse(Moodle\Domain\CourseId $courseId): void
+    {
+        $matrixService = Container::instance()->matrixService();
+
+        $matrixService->synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 }
