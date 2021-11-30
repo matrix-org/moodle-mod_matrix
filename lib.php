@@ -102,7 +102,6 @@ function matrix_add_instance(
         return $user->matrixUserId();
     }, $staff));
 
-    $moodleGroupRepository = $container->moodleGroupRepository();
     $moodleRoomRepository = $container->moodleRoomRepository();
 
     $clock = $container->clock();
@@ -118,6 +117,8 @@ function matrix_add_instance(
     );
 
     if (\count($groups) > 0) {
+        $moodleGroupRepository = $container->moodleGroupRepository();
+
         foreach ($groups as $g) {
             $groupId = Moodle\Domain\GroupId::fromString($g->id);
 
