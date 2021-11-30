@@ -58,7 +58,6 @@ final class Container
                 $container->configuration(),
                 $container->courseRepository(),
                 $container->groupRepository(),
-                $container->moduleRepository(),
                 $container->roomRepository(),
                 $container->userRepository(),
                 $container->clock(),

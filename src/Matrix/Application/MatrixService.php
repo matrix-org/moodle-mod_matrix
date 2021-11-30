@@ -32,11 +32,6 @@ final class MatrixService
     /**
      * @deprecated
      */
-    private $moduleRepository;
-
-    /**
-     * @deprecated
-     */
     private $roomRepository;
 
     /**
@@ -50,7 +45,6 @@ final class MatrixService
         Matrix\Application\Configuration $configuration,
         Moodle\Domain\CourseRepository $courseRepository,
         Moodle\Domain\GroupRepository $groupRepository,
-        Moodle\Domain\ModuleRepository $moduleRepository,
         Moodle\Domain\RoomRepository $roomRepository,
         Moodle\Domain\UserRepository $userRepository,
         Clock\Clock $clock
@@ -59,7 +53,6 @@ final class MatrixService
         $this->configuration = $configuration;
         $this->courseRepository = $courseRepository;
         $this->groupRepository = $groupRepository;
-        $this->moduleRepository = $moduleRepository;
         $this->roomRepository = $roomRepository;
         $this->userRepository = $userRepository;
         $this->clock = $clock;
