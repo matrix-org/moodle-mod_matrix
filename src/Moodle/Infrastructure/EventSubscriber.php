@@ -183,6 +183,7 @@ final class EventSubscriber
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
+
         $clock = $container->clock();
 
         $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
