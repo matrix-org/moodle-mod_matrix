@@ -161,7 +161,7 @@ final class EventSubscriber
         $courseRepository = $container->courseRepository();
         $groupRepository = $container->groupRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
-        $roomRepository = $container->roomRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
         $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
         $clock = $container->clock();
@@ -202,7 +202,7 @@ final class EventSubscriber
                 $module->name()->toString(),
             ));
 
-            $room = $roomRepository->findOneBy([
+            $room = $moodleRoomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $group->id()->toInt(),
             ]);
@@ -226,7 +226,7 @@ final class EventSubscriber
                     Moodle\Domain\Timestamp::fromInt(0),
                 );
 
-                $roomRepository->save($room);
+                $moodleRoomRepository->save($room);
             }
 
             $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
@@ -255,12 +255,12 @@ final class EventSubscriber
     {
         $container = Container::instance();
 
-        $roomRepository = $container->roomRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
 
-        $rooms = $roomRepository->findAll();
+        $rooms = $moodleRoomRepository->findAll();
 
         foreach ($rooms as $room) {
             $module = $moodleModuleRepository->findOneBy([
@@ -309,7 +309,7 @@ final class EventSubscriber
 
         $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
-        $roomRepository = $container->roomRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         $modules = $moodleModuleRepository->findAllBy([
@@ -323,7 +323,7 @@ final class EventSubscriber
         }, $staff));
 
         foreach ($modules as $module) {
-            $rooms = $roomRepository->findAllBy([
+            $rooms = $moodleRoomRepository->findAllBy([
                 'module_id' => $module->id()->toInt(),
             ]);
 
@@ -360,7 +360,7 @@ final class EventSubscriber
 
         $moodleModuleRepository = $container->moodleModuleRepository();
         $userRepository = $container->userRepository();
-        $roomRepository = $container->roomRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         $modules = $moodleModuleRepository->findAllBy([
@@ -383,7 +383,7 @@ final class EventSubscriber
         }, $staff));
 
         foreach ($modules as $module) {
-            $rooms = $roomRepository->findAllBy([
+            $rooms = $moodleRoomRepository->findAllBy([
                 'group_id' => $groupId->toInt(),
                 'module_id' => $module->id()->toInt(),
             ]);

@@ -69,7 +69,7 @@ function matrix_add_instance(
 
     $courseRepository = $container->courseRepository();
     $groupRepository = $container->groupRepository();
-    $roomRepository = $container->roomRepository();
+    $moodleRoomRepository = $container->moodleRoomRepository();
     $userRepository = $container->userRepository();
     $clock = $container->clock();
 
@@ -136,7 +136,7 @@ function matrix_add_instance(
                 $module->name()->toString(),
             ));
 
-            $room = $roomRepository->findOneBy([
+            $room = $moodleRoomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $group->id()->toInt(),
             ]);
@@ -160,7 +160,7 @@ function matrix_add_instance(
                     Moodle\Domain\Timestamp::fromInt(0),
                 );
 
-                $roomRepository->save($room);
+                $moodleRoomRepository->save($room);
             }
 
             $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
@@ -186,7 +186,7 @@ function matrix_add_instance(
         $module->name()->toString(),
     ));
 
-    $room = $roomRepository->findOneBy([
+    $room = $moodleRoomRepository->findOneBy([
         'module_id' => $module->id()->toInt(),
         'group_id' => null,
     ]);
@@ -211,7 +211,7 @@ function matrix_add_instance(
             Moodle\Domain\Timestamp::fromInt(0),
         );
 
-        $roomRepository->save($room);
+        $moodleRoomRepository->save($room);
     }
 
     $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
@@ -251,9 +251,9 @@ function matrix_delete_instance($id): bool
         return false;
     }
 
-    $roomRepository = $container->roomRepository();
+    $moodleRoomRepository = $container->moodleRoomRepository();
 
-    $rooms = $roomRepository->findAllBy([
+    $rooms = $moodleRoomRepository->findAllBy([
         'module_id' => $module->id()->toInt(),
     ]);
 
@@ -262,7 +262,7 @@ function matrix_delete_instance($id): bool
     foreach ($rooms as $room) {
         $matrixRoomService->removeRoom($room->matrixRoomId());
 
-        $roomRepository->remove($room);
+        $moodleRoomRepository->remove($room);
     }
 
     $moodleModuleRepository->remove($module);

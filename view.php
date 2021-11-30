@@ -68,9 +68,9 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$roomRepository = $container->roomRepository();
+$moodleRoomRepository = $container->moodleRoomRepository();
 
-$possibleRooms = $roomRepository->findAllBy([
+$possibleRooms = $moodleRoomRepository->findAllBy([
     'module_id' => $module->id()->toInt(),
 ]);
 
@@ -144,7 +144,7 @@ if (\count($visibleGroups) === 0) {
 if (\count($visibleGroups) === 1) {
     $group = \reset($visibleGroups);
 
-    $room = $roomRepository->findOneBy([
+    $room = $moodleRoomRepository->findOneBy([
         'group_id' => $group->id,
         'module_id' => $module->id()->toInt(),
     ]);
@@ -184,7 +184,7 @@ echo Twitter\Bootstrap::alert(
 );
 
 foreach ($visibleGroups as $id => $group) {
-    $room = $roomRepository->findOneBy([
+    $room = $moodleRoomRepository->findOneBy([
         'group_id' => $group->id,
         'module_id' => $module->id()->toInt(),
     ]);
