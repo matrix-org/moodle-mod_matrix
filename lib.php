@@ -139,7 +139,14 @@ function matrix_add_instance(
         return $module->id()->toInt();
     }
 
+    $name = Matrix\Domain\RoomName::fromString(\sprintf(
+        '%s (%s)',
+        $course->name()->toString(),
+        $module->name()->toString(),
+    ));
+
     $matrixService->prepareRoomForModule(
+        $name,
         $topic,
         $module,
         $course,

@@ -71,6 +71,7 @@ final class MatrixService
      * @throws \RuntimeException
      */
     public function prepareRoomForModule(
+        Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
         Moodle\Domain\Module $module,
         Moodle\Domain\Course $course
@@ -80,12 +81,6 @@ final class MatrixService
         $botPowerLevel = Matrix\Domain\PowerLevel::bot();
         $staffPowerLevel = Matrix\Domain\PowerLevel::staff();
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
-
-        $name = Matrix\Domain\RoomName::fromString(\sprintf(
-            '%s (%s)',
-            $course->name()->toString(),
-            $module->name()->toString(),
-        ));
 
         $roomOptions = [
             'creation_content' => [
