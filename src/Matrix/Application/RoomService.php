@@ -12,7 +12,7 @@ namespace mod_matrix\Matrix\Application;
 
 use mod_matrix\Matrix;
 
-final class MatrixService
+final class RoomService
 {
     private $api;
     private $configuration;

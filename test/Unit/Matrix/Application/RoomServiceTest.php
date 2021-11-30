@@ -17,13 +17,13 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Application\MatrixService
+ * @covers \mod_matrix\Matrix\Application\RoomService
  *
  * @uses \mod_matrix\Matrix\Application\Configuration
  * @uses \mod_matrix\Matrix\Domain\RoomId
  * @uses \mod_matrix\Moodle\Domain\CourseId
  */
-final class MatrixServiceTest extends Framework\TestCase
+final class RoomServiceTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
@@ -46,12 +46,12 @@ final class MatrixServiceTest extends Framework\TestCase
             ),
         ]);
 
-        $matrixService = new Matrix\Application\MatrixService(
+        $roomService = new Matrix\Application\RoomService(
             $this->createStub(Matrix\Application\Api::class),
             $configuration,
         );
 
-        $url = $matrixService->urlForRoom($roomId);
+        $url = $roomService->urlForRoom($roomId);
 
         $expected = \sprintf(
             'https://matrix.to/#/%s',
@@ -81,12 +81,12 @@ final class MatrixServiceTest extends Framework\TestCase
             ),
         ]);
 
-        $matrixService = new Matrix\Application\MatrixService(
+        $roomService = new Matrix\Application\RoomService(
             $this->createStub(Matrix\Application\Api::class),
             $configuration,
         );
 
-        $url = $matrixService->urlForRoom($roomId);
+        $url = $roomService->urlForRoom($roomId);
 
         $expected = \sprintf(
             '%s/#/room/%s',

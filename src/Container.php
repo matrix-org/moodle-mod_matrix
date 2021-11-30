@@ -52,8 +52,8 @@ final class Container
             return Matrix\Application\Configuration::fromObject($object);
         });
 
-        $this->define(Matrix\Application\MatrixService::class, static function (self $container): Matrix\Application\MatrixService {
-            return new Matrix\Application\MatrixService(
+        $this->define(Matrix\Application\RoomService::class, static function (self $container): Matrix\Application\RoomService {
+            return new Matrix\Application\RoomService(
                 $container->api(),
                 $container->configuration(),
             );
@@ -146,11 +146,6 @@ final class Container
         return $this->resolve(Moodle\Domain\GroupRepository::class);
     }
 
-    public function matrixService(): Matrix\Application\MatrixService
-    {
-        return $this->resolve(Matrix\Application\MatrixService::class);
-    }
-
     public function moduleRepository(): Moodle\Domain\ModuleRepository
     {
         return $this->resolve(Moodle\Domain\ModuleRepository::class);
@@ -164,6 +159,11 @@ final class Container
     public function roomRepository(): Moodle\Domain\RoomRepository
     {
         return $this->resolve(Moodle\Domain\RoomRepository::class);
+    }
+
+    public function roomService(): Matrix\Application\RoomService
+    {
+        return $this->resolve(Matrix\Application\RoomService::class);
     }
 
     public function userRepository(): Moodle\Domain\UserRepository
