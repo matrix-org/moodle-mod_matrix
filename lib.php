@@ -99,12 +99,14 @@ function matrix_add_instance(
                 Moodle\Domain\GroupId::fromString($group->id),
             );
         }
-    } else {
-        $matrixService->prepareRoomForModule(
-            $topic,
-            $module,
-        );
+
+        return $module->id()->toInt();
     }
+
+    $matrixService->prepareRoomForModule(
+        $topic,
+        $module,
+    );
 
     return $module->id()->toInt();
 }
