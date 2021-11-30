@@ -144,14 +144,16 @@ function matrix_add_instance(
                 $group->id(),
             );
 
+            $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                return $user->matrixUserId();
+            }, $staff));
+
             $matrixService->synchronizeRoomMembersForRoom(
                 $matrixRoomId,
                 Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $staff)),
+                $userIdsOfStaff,
             );
         }
 
@@ -197,14 +199,16 @@ function matrix_add_instance(
         Moodle\Domain\GroupId::fromInt(0),
     );
 
+    $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        return $user->matrixUserId();
+    }, $staff));
+
     $matrixService->synchronizeRoomMembersForRoom(
         $room->matrixRoomId(),
         Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users)),
-        Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-            return $user->matrixUserId();
-        }, $staff)),
+        $userIdsOfStaff,
     );
 
     return $module->id()->toInt();
