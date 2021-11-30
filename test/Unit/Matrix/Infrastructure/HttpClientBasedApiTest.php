@@ -173,8 +173,8 @@ final class HttpClientBasedApiTest extends Framework\TestCase
         $api = new Matrix\Infrastructure\HttpClientBasedApi($httpClient);
 
         $api->kickUser(
-            $userId,
             $roomId,
+            $userId,
         );
     }
 

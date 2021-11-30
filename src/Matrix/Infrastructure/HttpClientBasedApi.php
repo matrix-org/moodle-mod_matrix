@@ -54,8 +54,8 @@ final class HttpClientBasedApi implements Matrix\Application\Api
     }
 
     public function kickUser(
-        Matrix\Domain\UserId $userId,
-        Matrix\Domain\RoomId $roomId
+        Matrix\Domain\RoomId $roomId,
+        Matrix\Domain\UserId $userId
     ): void {
         $this->httpClient->post(
             \sprintf(

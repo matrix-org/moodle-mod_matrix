@@ -483,8 +483,8 @@ final class MatrixService
 
         \array_walk($userIdsOfUsersNotAllowedInRoom, static function (Matrix\Domain\UserId $userId) use ($api, $room): void {
             $api->kickUser(
-                $userId,
                 $room->matrixRoomId(),
+                $userId,
             );
         });
     }
@@ -501,14 +501,14 @@ final class MatrixService
             }
 
             $this->api->kickUser(
-                $userId,
                 $room->matrixRoomId(),
+                $userId,
             );
         }
 
         $this->api->kickUser(
-            $userIdOfBot,
             $room->matrixRoomId(),
+            $userIdOfBot,
         );
     }
 }
