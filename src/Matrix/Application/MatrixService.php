@@ -181,12 +181,14 @@ final class MatrixService
         Moodle\Domain\Module $module,
         Moodle\Domain\GroupId $groupId
     ): void {
-        $course = $this->courseRepository->find($module->courseId());
+        $courseId = $module->courseId();
+
+        $course = $this->courseRepository->find($courseId);
 
         if (!$course instanceof Moodle\Domain\Course) {
             throw new \RuntimeException(\sprintf(
                 'Could not find course with id %d.',
-                $module->courseId()->toInt(),
+                $courseId->toInt(),
             ));
         }
 
@@ -214,7 +216,7 @@ final class MatrixService
 
         $roomOptions = [
             'creation_content' => [
-                'org.matrix.moodle.course_id' => $module->courseId()->toInt(),
+                'org.matrix.moodle.course_id' => $courseId->toInt(),
                 'org.matrix.moodle.group_id' => $groupId->toInt(),
             ],
             'initial_state' => [
@@ -275,11 +277,11 @@ final class MatrixService
         }
 
         $users = $this->userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-            $module->courseId(),
+            $courseId,
             $groupId,
         );
 
-        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+        $staff = $this->userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
         $this->synchronizeRoomMembersForRoom(
             $room->matrixRoomId(),
