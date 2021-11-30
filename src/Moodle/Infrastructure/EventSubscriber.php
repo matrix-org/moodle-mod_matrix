@@ -253,12 +253,11 @@ final class EventSubscriber
     {
         $container = Container::instance();
 
-        $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleModuleRepository = $container->moodleModuleRepository();
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
 
-        $rooms = $moodleRoomRepository->findAll();
+        $rooms = $container->moodleRoomRepository()->findAll();
 
         foreach ($rooms as $room) {
             $module = $moodleModuleRepository->findOneBy([
