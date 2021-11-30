@@ -354,13 +354,13 @@ final class EventSubscriber
     ): void {
         $container = Container::instance();
 
-        $moodleUserRepository = $container->moodleUserRepository();
-        $moodleRoomRepository = $container->moodleRoomRepository();
-        $matrixRoomService = $container->matrixRoomService();
-
         $modules = $container->moodleModuleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
+
+        $moodleUserRepository = $container->moodleUserRepository();
+        $moodleRoomRepository = $container->moodleRoomRepository();
+        $matrixRoomService = $container->matrixRoomService();
 
         $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
