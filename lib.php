@@ -274,9 +274,20 @@ function matrix_delete_instance($id): bool
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L611-L614
  */
-function matrix_update_instance(): bool
-{
-    return true; // nothing to do
+function matrix_update_instance(
+    object $moduleinfo,
+    mod_matrix_mod_form $form
+): bool {
+    global $DB;
+
+    $moduleinfo->id = $moduleinfo->instance;
+
+    $DB->update_record(
+        Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE,
+        $moduleinfo,
+    );
+
+    return true;
 }
 
 // TODO: Events API

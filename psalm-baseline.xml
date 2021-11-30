@@ -29,7 +29,8 @@
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
     </InvalidGlobal>
-    <MissingDependency occurrences="1">
+    <MissingDependency occurrences="2">
+      <code>mod_matrix_mod_form</code>
       <code>mod_matrix_mod_form</code>
     </MissingDependency>
     <MixedInferredReturnType occurrences="1">
