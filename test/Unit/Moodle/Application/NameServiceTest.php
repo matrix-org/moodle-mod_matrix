@@ -73,7 +73,7 @@ final class NameServiceTest extends Framework\TestCase
         $expected = \sprintf(
             '%s: %s (%s)',
             $group->name()->toString(),
-            $course->fullName()->toString(),
+            $course->shortName()->toString(),
             $module->name()->toString(),
         );
 
@@ -109,7 +109,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $expected = \sprintf(
             '%s (%s)',
-            $course->fullName()->toString(),
+            $course->shortName()->toString(),
             $module->name()->toString(),
         );
 

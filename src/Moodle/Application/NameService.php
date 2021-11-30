@@ -22,7 +22,7 @@ final class NameService
         return \sprintf(
             '%s: %s (%s)',
             $group->name()->toString(),
-            $course->fullName()->toString(),
+            $course->shortName()->toString(),
             $module->name()->toString(),
         );
     }
@@ -33,7 +33,7 @@ final class NameService
     ): string {
         return \sprintf(
             '%s (%s)',
-            $course->fullName()->toString(),
+            $course->shortName()->toString(),
             $module->name()->toString(),
         );
     }
