@@ -156,7 +156,9 @@ function matrix_add_instance(
         $matrixRoomId = $matrixService->prepareRoomForModule(
             $name,
             $topic,
-            $course,
+            [
+                'org.matrix.moodle.course_id' => $course->id()->toInt(),
+            ],
         );
 
         $clock = $container->clock();

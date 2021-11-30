@@ -66,7 +66,7 @@ final class MatrixService
     public function prepareRoomForModule(
         Matrix\Domain\RoomName $name,
         Matrix\Domain\RoomTopic $topic,
-        Moodle\Domain\Course $course
+        array $creationContent
     ): Matrix\Domain\RoomId {
         $whoami = $this->api->whoAmI();
 
@@ -75,9 +75,7 @@ final class MatrixService
         $redactorPowerLevel = Matrix\Domain\PowerLevel::redactor();
 
         $roomOptions = [
-            'creation_content' => [
-                'org.matrix.moodle.course_id' => $course->id()->toInt(),
-            ],
+            'creation_content' => $creationContent,
             'initial_state' => [
                 [
                     'content' => [
