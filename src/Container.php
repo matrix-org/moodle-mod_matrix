@@ -56,7 +56,6 @@ final class Container
             return new Matrix\Application\MatrixService(
                 $container->api(),
                 $container->configuration(),
-                $container->groupRepository(),
                 $container->roomRepository(),
                 $container->userRepository(),
                 $container->clock(),
