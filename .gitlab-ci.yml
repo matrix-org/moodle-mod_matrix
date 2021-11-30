@@ -34,7 +34,7 @@ static-code-analysis:
     - "mkdir -p .build/psalm"
 
   script:
-    - "vendor/bin/psalm --config=psalm.xml --show-info=false --stats --threads=4"
+    - "vendor/bin/psalm --config=psalm.xml --show-info=false --stats"
 
 tests:
   stage: "build"
