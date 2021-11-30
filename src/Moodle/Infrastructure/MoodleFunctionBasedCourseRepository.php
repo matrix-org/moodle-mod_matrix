@@ -33,9 +33,21 @@ final class MoodleFunctionBasedCourseRepository implements Moodle\Domain\CourseR
             ));
         }
 
+        if (!isset($course->shortname)) {
+            throw new \RuntimeException('Expected object to have a shortname property, but it does not.');
+        }
+
+        if (!\is_string($course->shortname)) {
+            throw new \RuntimeException(\sprintf(
+                'Expected shortname property to be a string, got %s instead.',
+                \is_object($course->shortname) ? \get_class($course->shortname) : \gettype($course->shortname),
+            ));
+        }
+
         return Moodle\Domain\Course::create(
             $courseId,
             Moodle\Domain\CourseFullName::fromString($course->fullname),
+            Moodle\Domain\CourseShortName::fromString($course->shortname),
         );
     }
 }

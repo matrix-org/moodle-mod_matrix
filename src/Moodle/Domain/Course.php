@@ -17,22 +17,27 @@ final class Course
 {
     private $id;
     private $fullName;
+    private $shortName;
 
     private function __construct(
         CourseId $id,
-        CourseFullName $fullName
+        CourseFullName $fullName,
+        CourseShortName $shortName
     ) {
         $this->id = $id;
         $this->fullName = $fullName;
+        $this->shortName = $shortName;
     }
 
     public static function create(
         CourseId $id,
-        CourseFullName $fullName
+        CourseFullName $fullName,
+        CourseShortName $shortName
     ): self {
         return new self(
             $id,
             $fullName,
+            $shortName,
         );
     }
 
@@ -44,5 +49,10 @@ final class Course
     public function fullName(): CourseFullName
     {
         return $this->fullName;
+    }
+
+    public function shortName(): CourseShortName
+    {
+        return $this->shortName;
     }
 }
