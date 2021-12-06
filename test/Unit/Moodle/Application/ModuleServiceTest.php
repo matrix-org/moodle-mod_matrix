@@ -51,10 +51,11 @@ final class ModuleServiceTest extends Framework\TestCase
         $moduleRepository
             ->expects(self::once())
             ->method('save')
-            ->with(self::callback(static function (Moodle\Domain\Module $module) use ($name, $courseId, $sectionId, $now, &$expectedModule): bool {
+            ->with(self::callback(static function (Moodle\Domain\Module $module) use ($name, $topic, $courseId, $sectionId, $now, &$expectedModule): bool {
                 self::assertEquals(Moodle\Domain\ModuleId::unknown(), $module->id());
                 self::assertEquals(Moodle\Domain\ModuleType::fromInt(0), $module->type());
                 self::assertSame($name, $module->name());
+                self::assertSame($topic, $module->topic());
                 self::assertSame($courseId, $module->courseId());
                 self::assertSame($sectionId, $module->sectionId());
                 self::assertEquals(Moodle\Domain\Timestamp::fromInt($now->getTimestamp()), $module->timecreated());
