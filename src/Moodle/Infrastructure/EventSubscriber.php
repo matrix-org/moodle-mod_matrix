@@ -202,9 +202,9 @@ final class EventSubscriber
 
             if (!$room instanceof Moodle\Domain\Room) {
                 $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForGroupCourseAndModule(
-                    $group,
-                    $course,
-                    $module,
+                    $group->name(),
+                    $course->shortName(),
+                    $module->name(),
                 ));
 
                 $matrixRoomId = $matrixRoomService->createRoom(

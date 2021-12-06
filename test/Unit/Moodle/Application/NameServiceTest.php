@@ -19,20 +19,9 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Moodle\Application\NameService
  *
- * @uses \mod_matrix\Moodle\Domain\Course
- * @uses \mod_matrix\Moodle\Domain\CourseFullName
- * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\CourseShortName
- * @uses \mod_matrix\Moodle\Domain\Group
- * @uses \mod_matrix\Moodle\Domain\GroupId
  * @uses \mod_matrix\Moodle\Domain\GroupName
- * @uses \mod_matrix\Moodle\Domain\Module
- * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
- * @uses \mod_matrix\Moodle\Domain\ModuleTopic
- * @uses \mod_matrix\Moodle\Domain\ModuleType
- * @uses \mod_matrix\Moodle\Domain\SectionId
- * @uses \mod_matrix\Moodle\Domain\Timestamp
  */
 final class NameServiceTest extends Framework\TestCase
 {
@@ -42,41 +31,23 @@ final class NameServiceTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $group = Moodle\Domain\Group::create(
-            Moodle\Domain\GroupId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\GroupName::fromString($faker->word()),
-        );
-
-        $course = Moodle\Domain\Course::create(
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseFullName::fromString($faker->sentence()),
-            Moodle\Domain\CourseShortName::fromString($faker->word()),
-        );
-
-        $module = Moodle\Domain\Module::create(
-            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\ModuleName::fromString($faker->sentence()),
-            Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-        );
+        $groupName = Moodle\Domain\GroupName::fromString($faker->word());
+        $courseShortName = Moodle\Domain\CourseShortName::fromString($faker->word());
+        $moduleName = Moodle\Domain\ModuleName::fromString($faker->sentence());
 
         $nameService = new Moodle\Application\NameService();
 
         $name = $nameService->createForGroupCourseAndModule(
-            $group,
-            $course,
-            $module,
+            $groupName,
+            $courseShortName,
+            $moduleName,
         );
 
         $expected = \sprintf(
             '%s: %s (%s)',
-            $group->name()->toString(),
-            $course->shortName()->toString(),
-            $module->name()->toString(),
+            $groupName->toString(),
+            $courseShortName->toString(),
+            $moduleName->toString(),
         );
 
         self::assertSame($expected, $name);
@@ -86,34 +57,20 @@ final class NameServiceTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $course = Moodle\Domain\Course::create(
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\CourseFullName::fromString($faker->sentence()),
-            Moodle\Domain\CourseShortName::fromString($faker->word()),
-        );
-
-        $module = Moodle\Domain\Module::create(
-            Moodle\Domain\ModuleId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\ModuleName::fromString($faker->sentence()),
-            Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
-            Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp()),
-        );
+        $courseShortName = Moodle\Domain\CourseShortName::fromString($faker->word());
+        $moduleName = Moodle\Domain\ModuleName::fromString($faker->sentence());
 
         $nameService = new Moodle\Application\NameService();
 
         $name = $nameService->createForCourseAndModule(
-            $course,
-            $module,
+            $courseShortName,
+            $moduleName,
         );
 
         $expected = \sprintf(
             '%s (%s)',
-            $course->shortName()->toString(),
-            $module->name()->toString(),
+            $courseShortName->toString(),
+            $moduleName->toString(),
         );
 
         self::assertSame($expected, $name);
