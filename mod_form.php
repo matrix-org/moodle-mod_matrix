@@ -27,7 +27,6 @@ final class mod_matrix_mod_form extends moodleform_mod
 
         // We don't have any config options
         $this->apply_admin_defaults();
-
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
     }
@@ -44,6 +43,7 @@ final class mod_matrix_mod_form extends moodleform_mod
         );
 
         $this->addNameElement();
+        $this->addTopicElement();
     }
 
     private function addNameElement(): void
@@ -98,6 +98,30 @@ final class mod_matrix_mod_form extends moodleform_mod
             ),
             'maxlength',
             Moodle\Domain\ModuleName::LENGTH_MAX,
+        );
+    }
+
+    private function addTopicElement(): void
+    {
+        $elementName = 'topic';
+
+        $this->_form->addElement(
+            'textarea',
+            $elementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME,
+                Moodle\Application\Plugin::NAME,
+            ),
+            [
+                'cols' => 50,
+                'rows' => 3,
+                'wrap' => 'virtual',
+            ],
+        );
+
+        $this->_form->setType(
+            $elementName,
+            PARAM_TEXT,
         );
     }
 }

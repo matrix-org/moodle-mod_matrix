@@ -12,9 +12,14 @@ declare(strict_types=1);
 
 use mod_matrix\Moodle;
 
-function xmldb_matrix_upgrade($oldversion = 0)
+/**
+ * @see https://docs.moodle.org/dev/Upgrade_API
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/upgradelib.php#L688-L693
+ */
+function xmldb_matrix_upgrade(int $oldversion = 0): bool
 {
     global $DB;
+
     $dbman = $DB->get_manager();
 
     if (2020110901 > $oldversion) {
@@ -112,6 +117,30 @@ function xmldb_matrix_upgrade($oldversion = 0)
         upgrade_mod_savepoint(
             true,
             2021091400,
+            Moodle\Application\Plugin::NAME,
+        );
+    }
+
+    if (2021120600 > $oldversion) {
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+
+        $dbman->add_field(
+            $table,
+            new xmldb_field(
+                'topic',
+                XMLDB_TYPE_TEXT,
+                null,
+                true,
+                false,
+                false,
+                null,
+                'name',
+            ),
+        );
+
+        upgrade_mod_savepoint(
+            true,
+            2021120600,
             Moodle\Application\Plugin::NAME,
         );
     }

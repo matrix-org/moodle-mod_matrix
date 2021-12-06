@@ -285,25 +285,36 @@ final class RoomServiceTest extends Framework\TestCase
         $roomService->removeRoom($roomId);
     }
 
-    public function testRenameRoomRenamesRoom(): void
+    public function testUpdateRoomUpdatesRoom(): void
     {
         $faker = self::faker();
 
         $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
         $roomName = Matrix\Domain\RoomName::fromString($faker->sentence());
+        $roomTopic = Matrix\Domain\RoomTopic::fromString($faker->sentence());
 
         $api = $this->createMock(Matrix\Application\Api::class);
 
         $api
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('setState')
-            ->with(
-                self::identicalTo($roomId),
-                self::equalTo(Matrix\Domain\EventType::fromString('m.room.name')),
-                self::equalTo(Matrix\Domain\StateKey::fromString('')),
-                self::identicalTo([
-                    'name' => $roomName->toString(),
-                ]),
+            ->withConsecutive(
+                [
+                    self::identicalTo($roomId),
+                    self::equalTo(Matrix\Domain\EventType::fromString('m.room.name')),
+                    self::equalTo(Matrix\Domain\StateKey::fromString('')),
+                    self::identicalTo([
+                        'name' => $roomName->toString(),
+                    ]),
+                ],
+                [
+                    self::identicalTo($roomId),
+                    self::equalTo(Matrix\Domain\EventType::fromString('m.room.topic')),
+                    self::equalTo(Matrix\Domain\StateKey::fromString('')),
+                    self::identicalTo([
+                        'topic' => $roomTopic->toString(),
+                    ]),
+                ],
             );
 
         $roomService = new Matrix\Application\RoomService(
@@ -311,9 +322,10 @@ final class RoomServiceTest extends Framework\TestCase
             Matrix\Application\Configuration::default(),
         );
 
-        $roomService->renameRoom(
+        $roomService->updateRoom(
             $roomId,
             $roomName,
+            $roomTopic,
         );
     }
 }

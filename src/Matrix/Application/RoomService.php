@@ -115,9 +115,10 @@ final class RoomService
         );
     }
 
-    public function renameRoom(
+    public function updateRoom(
         Matrix\Domain\RoomId $roomId,
-        Matrix\Domain\RoomName $roomName
+        Matrix\Domain\RoomName $roomName,
+        Matrix\Domain\RoomTopic $roomTopic
     ): void {
         $this->api->setState(
             $roomId,
@@ -125,6 +126,15 @@ final class RoomService
             Matrix\Domain\StateKey::fromString(''),
             [
                 'name' => $roomName->toString(),
+            ],
+        );
+
+        $this->api->setState(
+            $roomId,
+            Matrix\Domain\EventType::fromString('m.room.topic'),
+            Matrix\Domain\StateKey::fromString(''),
+            [
+                'topic' => $roomTopic->toString(),
             ],
         );
     }
