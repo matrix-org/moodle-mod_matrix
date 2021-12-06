@@ -25,12 +25,6 @@
     "symfony/var-dumper": "^5.3.11",
     "vimeo/psalm": "^4.13.1"
   },
-  "config": {
-    "platform": {
-      "php": "7.3.30"
-    },
-    "sort-packages": true
-  },
   "autoload": {
     "psr-4": {
       "mod_matrix\\": "src/"
@@ -40,5 +34,11 @@
     "psr-4": {
       "mod_matrix\\Test\\": "test/"
     }
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.30"
+    },
+    "sort-packages": true
   }
 }
