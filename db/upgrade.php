@@ -145,5 +145,29 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         );
     }
 
+    if (2021120700 > $oldversion) {
+        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+
+        $dbman->add_field(
+            $table,
+            new xmldb_field(
+                'target',
+                XMLDB_TYPE_CHAR,
+                16,
+                true,
+                true,
+                false,
+                Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+                'topic',
+            ),
+        );
+
+        upgrade_mod_savepoint(
+            true,
+            2021120700,
+            Moodle\Application\Plugin::NAME,
+        );
+    }
+
     return true;
 }

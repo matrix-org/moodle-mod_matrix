@@ -16,6 +16,7 @@ final class Module
     private $type;
     private $name;
     private $topic;
+    private $target;
     private $courseId;
     private $sectionId;
     private $timecreated;
@@ -26,6 +27,7 @@ final class Module
         ModuleType $type,
         ModuleName $name,
         ModuleTopic $topic,
+        ModuleTarget $target,
         CourseId $courseId,
         SectionId $sectionId,
         Timestamp $timecreated,
@@ -35,6 +37,7 @@ final class Module
         $this->type = $type;
         $this->name = $name;
         $this->topic = $topic;
+        $this->target = $target;
         $this->courseId = $courseId;
         $this->sectionId = $sectionId;
         $this->timecreated = $timecreated;
@@ -46,6 +49,7 @@ final class Module
         ModuleType $type,
         ModuleName $name,
         ModuleTopic $topic,
+        ModuleTarget $target,
         CourseId $courseId,
         SectionId $sectionId,
         Timestamp $timecreated,
@@ -56,6 +60,7 @@ final class Module
             $type,
             $name,
             $topic,
+            $target,
             $courseId,
             $sectionId,
             $timecreated,
@@ -81,6 +86,11 @@ final class Module
     public function topic(): ModuleTopic
     {
         return $this->topic;
+    }
+
+    public function target(): ModuleTarget
+    {
+        return $this->target;
     }
 
     public function courseId(): CourseId

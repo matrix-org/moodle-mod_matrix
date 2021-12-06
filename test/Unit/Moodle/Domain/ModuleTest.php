@@ -22,6 +22,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTarget
  * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
@@ -39,6 +40,7 @@ final class ModuleTest extends Framework\TestCase
         $type = Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1));
         $name = Moodle\Domain\ModuleName::fromString($faker->sentence());
         $topic = Moodle\Domain\ModuleTopic::fromString($faker->sentence());
+        $target = Moodle\Domain\ModuleTarget::elementUrl();
         $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
         $sectionId = Moodle\Domain\SectionId::fromInt($faker->numberBetween(1));
         $timecreated = Moodle\Domain\Timestamp::fromInt($faker->dateTime->getTimestamp());
@@ -49,6 +51,7 @@ final class ModuleTest extends Framework\TestCase
             $type,
             $name,
             $topic,
+            $target,
             $courseId,
             $sectionId,
             $timecreated,
@@ -59,6 +62,7 @@ final class ModuleTest extends Framework\TestCase
         self::assertSame($type, $module->type());
         self::assertSame($name, $module->name());
         self::assertSame($topic, $module->topic());
+        self::assertSame($target, $module->target());
         self::assertSame($courseId, $module->courseId());
         self::assertSame($sectionId, $module->sectionId());
         self::assertSame($timemodified, $module->timemodified());

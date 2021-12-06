@@ -19,7 +19,6 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Matrix\Application\RoomService
  *
- * @uses \mod_matrix\Matrix\Application\Configuration
  * @uses \mod_matrix\Matrix\Domain\EventType
  * @uses \mod_matrix\Matrix\Domain\PowerLevel
  * @uses \mod_matrix\Matrix\Domain\RoomId
@@ -28,80 +27,11 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Matrix\Domain\StateKey
  * @uses \mod_matrix\Matrix\Domain\UserId
  * @uses \mod_matrix\Matrix\Domain\UserIdCollection
+ * @uses \mod_matrix\Moodle\Application\Configuration
  */
 final class RoomServiceTest extends Framework\TestCase
 {
     use Test\Util\Helper;
-
-    /**
-     * @dataProvider \Ergebnis\DataProvider\StringProvider::blank()
-     * @dataProvider \Ergebnis\DataProvider\StringProvider::empty()
-     */
-    public function testUrlForRoomReturnsUrlForOpeningRoomInBrowserWhenElementUrlIsBlankOrEmpty(string $elementUrl): void
-    {
-        $faker = self::faker();
-
-        $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
-
-        $configuration = Matrix\Application\Configuration::fromObject((object) [
-            'access_token' => $faker->sha1(),
-            'element_url' => $elementUrl,
-            'homeserver_url' => \sprintf(
-                'https://%s',
-                $faker->domainName(),
-            ),
-        ]);
-
-        $roomService = new Matrix\Application\RoomService(
-            $this->createStub(Matrix\Application\Api::class),
-            $configuration,
-        );
-
-        $url = $roomService->urlForRoom($roomId);
-
-        $expected = \sprintf(
-            'https://matrix.to/#/%s',
-            $roomId->toString(),
-        );
-
-        self::assertSame($expected, $url);
-    }
-
-    public function testUrlForRoomReturnsUrlForOpeningRoomInBrowserWhenElementUrlIsNotBlankOrEmpty(): void
-    {
-        $faker = self::faker();
-
-        $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
-
-        $elementUrl = \sprintf(
-            'https://%s',
-            $faker->domainName(),
-        );
-
-        $configuration = Matrix\Application\Configuration::fromObject((object) [
-            'access_token' => $faker->sha1(),
-            'element_url' => $elementUrl,
-            'homeserver_url' => \sprintf(
-                'https://%s',
-                $faker->domainName(),
-            ),
-        ]);
-
-        $roomService = new Matrix\Application\RoomService(
-            $this->createStub(Matrix\Application\Api::class),
-            $configuration,
-        );
-
-        $url = $roomService->urlForRoom($roomId);
-
-        $expected = \sprintf(
-            '%s/#/room/%s',
-            $elementUrl,
-            $roomId->toString(),
-        );
-
-        self::assertSame($expected, $url);
-    }
 
     public function testRemoveRoomRemovesUsersInRoomWhenRoomHasOnlyBotUser(): void
     {
@@ -131,10 +61,7 @@ final class RoomServiceTest extends Framework\TestCase
                 self::identicalTo($userIdOfBot),
             );
 
-        $roomService = new Matrix\Application\RoomService(
-            $api,
-            Matrix\Application\Configuration::default(),
-        );
+        $roomService = new Matrix\Application\RoomService($api);
 
         $roomService->removeRoom($roomId);
     }
@@ -204,10 +131,7 @@ final class RoomServiceTest extends Framework\TestCase
             ]))
             ->willReturn($roomId);
 
-        $roomService = new Matrix\Application\RoomService(
-            $api,
-            Matrix\Application\Configuration::default(),
-        );
+        $roomService = new Matrix\Application\RoomService($api);
 
         $actualRoomId = $roomService->createRoom(
             $name,
@@ -277,10 +201,7 @@ final class RoomServiceTest extends Framework\TestCase
                 ],
             );
 
-        $roomService = new Matrix\Application\RoomService(
-            $api,
-            Matrix\Application\Configuration::default(),
-        );
+        $roomService = new Matrix\Application\RoomService($api);
 
         $roomService->removeRoom($roomId);
     }
@@ -317,10 +238,7 @@ final class RoomServiceTest extends Framework\TestCase
                 ],
             );
 
-        $roomService = new Matrix\Application\RoomService(
-            $api,
-            Matrix\Application\Configuration::default(),
-        );
+        $roomService = new Matrix\Application\RoomService($api);
 
         $roomService->updateRoom(
             $roomId,

@@ -97,13 +97,14 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="13">
+    <MixedInferredReturnType occurrences="14">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
-      <code>Matrix\Application\Configuration</code>
       <code>Matrix\Application\RoomService</code>
+      <code>Moodle\Application\Configuration</code>
       <code>Moodle\Application\ModuleService</code>
       <code>Moodle\Application\NameService</code>
+      <code>Moodle\Application\RoomService</code>
       <code>Moodle\Domain\CourseRepository</code>
       <code>Moodle\Domain\GroupRepository</code>
       <code>Moodle\Domain\ModuleRepository</code>
@@ -115,13 +116,14 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="12">
+    <MixedReturnStatement occurrences="13">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
-      <code>$this-&gt;resolve(Matrix\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomService::class)</code>
+      <code>$this-&gt;resolve(Moodle\Application\Configuration::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\ModuleService::class)</code>
       <code>$this-&gt;resolve(Moodle\Application\NameService::class)</code>
+      <code>$this-&gt;resolve(Moodle\Application\RoomService::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\CourseRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\GroupRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\ModuleRepository::class)</code>
@@ -307,6 +309,12 @@
       <code>\Generator&lt;string, array{0: string}&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="test/DataProvider/Moodle/Domain/TargetProvider.php">
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="test/Unit/Matrix/Infrastructure/HttpClientBasedApiTest.php">
     <MixedArgumentTypeCoercion occurrences="3">
       <code>$faker-&gt;words()</code>
@@ -410,6 +418,18 @@
       <code>event\user_enrolment_deleted</code>
       <code>event\user_enrolment_updated</code>
     </UndefinedClass>
+  </file>
+  <file src="test/Unit/Moodle/Infrastructure/ModuleNormalizerTest.php">
+    <MixedArgument occurrences="3">
+      <code>$target</code>
+      <code>$target</code>
+      <code>$target</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="3">
+      <code>$target</code>
+      <code>$target</code>
+      <code>$target</code>
+    </MixedAssignment>
   </file>
   <file src="test/Unit/Twitter/BootstrapTest.php">
     <MixedInferredReturnType occurrences="1">
