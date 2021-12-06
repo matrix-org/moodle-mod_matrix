@@ -135,9 +135,9 @@ function matrix_add_instance(
 
             if (!$room instanceof Moodle\Domain\Room) {
                 $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForGroupCourseAndModule(
-                    $group,
-                    $course,
-                    $module,
+                    $group->name(),
+                    $course->shortName(),
+                    $module->name(),
                 ));
 
                 $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
