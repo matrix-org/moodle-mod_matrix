@@ -15,7 +15,7 @@
     "php-curl-class/php-curl-class": "^9.4.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.16.0",
+    "ergebnis/composer-normalize": "^2.17.0",
     "ergebnis/data-provider": "^1.0.0",
     "ergebnis/php-cs-fixer-config": "~3.3.0",
     "fakerphp/faker": "^1.16.0",
