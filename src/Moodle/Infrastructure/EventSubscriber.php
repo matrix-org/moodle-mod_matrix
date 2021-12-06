@@ -151,6 +151,7 @@ final class EventSubscriber
     }
 
     /**
+     * @throws Moodle\Domain\CourseNotFound
      * @throws Moodle\Domain\GroupNotFound
      */
     private static function prepareRoomsForAllModulesOfCourseAndGroup(
@@ -164,10 +165,7 @@ final class EventSubscriber
         $course = $container->moodleCourseRepository()->find($courseId);
 
         if (!$course instanceof Moodle\Domain\Course) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find course with id %d.',
-                $courseId->toInt(),
-            ));
+            throw Moodle\Domain\CourseNotFound::for($courseId);
         }
 
         $group = $container->moodleGroupRepository()->find($groupId);
