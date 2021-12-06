@@ -150,6 +150,9 @@ final class EventSubscriber
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
 
+    /**
+     * @throws Moodle\Domain\GroupNotFound
+     */
     private static function prepareRoomsForAllModulesOfCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
@@ -170,10 +173,7 @@ final class EventSubscriber
         $group = $container->moodleGroupRepository()->find($groupId);
 
         if (!$group instanceof Moodle\Domain\Group) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find group with id %d.',
-                $groupId->toInt(),
-            ));
+            throw Moodle\Domain\GroupNotFound::for($groupId);
         }
 
         $modules = $container->moodleModuleRepository()->findAllBy([
