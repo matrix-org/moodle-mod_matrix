@@ -1,7 +1,7 @@
 This merge request
 
-* [x]
-* [ ]
+- [x]
+- [ ]
 
 Follows #.
 Related to #.
