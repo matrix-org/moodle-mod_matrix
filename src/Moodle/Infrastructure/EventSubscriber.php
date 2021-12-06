@@ -246,7 +246,7 @@ final class EventSubscriber
     }
 
     /**
-     * @throws \RuntimeException
+     * @throws Moodle\Domain\ModuleNotFound
      */
     private static function synchronizeRoomMembersForAllRooms(): void
     {
@@ -264,10 +264,7 @@ final class EventSubscriber
             ]);
 
             if (!$module instanceof Moodle\Domain\Module) {
-                throw new \RuntimeException(\sprintf(
-                    'Module with id "%d" was not found.',
-                    $room->moduleId()->toInt(),
-                ));
+                throw Moodle\Domain\ModuleNotFound::for($room->moduleId());
             }
 
             $groupId = $room->groupId();
