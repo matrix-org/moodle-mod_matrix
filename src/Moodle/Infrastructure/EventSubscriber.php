@@ -25,6 +25,10 @@ final class EventSubscriber
     public static function observers(): array
     {
         $map = [
+            event\course_updated::class => [
+                self::class,
+                'onCourseUpdated',
+            ],
             event\group_created::class => [
                 self::class,
                 'onGroupCreated',
@@ -74,6 +78,39 @@ final class EventSubscriber
                 'internal' => false,
             ];
         }, \array_keys($map), \array_values($map));
+    }
+
+    public static function onCourseUpdated(event\course_updated $event): void
+    {
+        $other = $event->other;
+
+        if (!\array_key_exists('updatedfields', $other)) {
+            return;
+        }
+
+        $updatedFields = $other['updatedfields'];
+
+        if (!\is_array($updatedFields)) {
+            return;
+        }
+
+        if (!\array_key_exists('shortname', $updatedFields)) {
+            return;
+        }
+
+        $shortname = $updatedFields['shortname'];
+
+        if (!\is_string($shortname)) {
+            return;
+        }
+
+        $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
+        $courseShortName = Moodle\Domain\CourseShortName::fromString($shortname);
+
+        self::updateRoomsForAllModulesInCourse(
+            $courseId,
+            $courseShortName,
+        );
     }
 
     public static function onGroupCreated(event\group_created $event): void
@@ -387,6 +424,67 @@ final class EventSubscriber
                     $userIdsOfStaff,
                 );
             }
+        }
+    }
+
+    /**
+     * @throws Moodle\Domain\CourseNotFound
+     */
+    private static function updateRoomsForAllModulesInCourse(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\CourseShortName $courseShortName
+    ): void {
+        $container = Container::instance();
+
+        $course = $container->moodleCourseRepository()->find($courseId);
+
+        if (!$course instanceof Moodle\Domain\Course) {
+            throw Moodle\Domain\CourseNotFound::for($courseId);
+        }
+
+        $modules = $container->moodleModuleRepository()->findAllBy([
+            'course' => $courseId->toInt(),
+        ]);
+
+        $moodleRoomRepository = $container->moodleRoomRepository();
+        $moodleGroupRepository = $container->moodleGroupRepository();
+        $moodleNameService = $container->moodleNameService();
+
+        foreach ($modules as $module) {
+            $room = $moodleRoomRepository->findOneBy([
+                'module_id' => $module->id()->toInt(),
+            ]);
+
+            if (!$room instanceof Moodle\Domain\Room) {
+                continue;
+            }
+
+            $name = $moodleNameService->createForCourseAndModule(
+                $courseShortName,
+                $module->name(),
+            );
+
+            $groupId = $room->groupId();
+
+            if ($groupId instanceof Moodle\Domain\GroupId) {
+                $group = $moodleGroupRepository->find($groupId);
+
+                if (!$group instanceof Moodle\Domain\Group) {
+                    continue;
+                }
+
+                $name = $moodleNameService->createForGroupCourseAndModule(
+                    $group->name(),
+                    $courseShortName,
+                    $module->name(),
+                );
+            }
+
+            $container->matrixRoomService()->updateRoom(
+                $room->matrixRoomId(),
+                Matrix\Domain\RoomName::fromString($name),
+                Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
+            );
         }
     }
 }
