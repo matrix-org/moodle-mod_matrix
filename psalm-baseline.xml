@@ -248,7 +248,9 @@
     <MixedPropertyFetch occurrences="1">
       <code>$CFG-&gt;wwwroot</code>
     </MixedPropertyFetch>
-    <UndefinedClass occurrences="20">
+    <UndefinedClass occurrences="22">
+      <code>event\course_updated</code>
+      <code>event\course_updated</code>
       <code>event\group_created</code>
       <code>event\group_created</code>
       <code>event\group_member_added</code>
@@ -395,7 +397,8 @@
     </UndefinedConstant>
   </file>
   <file src="test/Unit/Moodle/Infrastructure/EventSubscriberTest.php">
-    <UndefinedClass occurrences="10">
+    <UndefinedClass occurrences="11">
+      <code>event\course_updated</code>
       <code>event\group_created</code>
       <code>event\group_member_added</code>
       <code>event\group_member_removed</code>

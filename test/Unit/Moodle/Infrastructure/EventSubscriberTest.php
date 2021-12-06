@@ -27,6 +27,14 @@ final class EventSubscriberTest extends Framework\TestCase
             [
                 'callback' => [
                     Moodle\Infrastructure\EventSubscriber::class,
+                    'onCourseUpdated',
+                ],
+                'eventname' => event\course_updated::class,
+                'internal' => false,
+            ],
+            [
+                'callback' => [
+                    Moodle\Infrastructure\EventSubscriber::class,
                     'onGroupCreated',
                 ],
                 'eventname' => event\group_created::class,
