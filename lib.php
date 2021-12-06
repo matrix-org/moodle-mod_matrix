@@ -187,8 +187,8 @@ function matrix_add_instance(
 
     if (!$room instanceof Moodle\Domain\Room) {
         $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForCourseAndModule(
-            $course,
-            $module,
+            $course->shortName(),
+            $module->name(),
         ));
 
         $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
@@ -324,8 +324,8 @@ function matrix_update_instance(
     $moodleNameService = $container->moodleNameService();
 
     $name = $moodleNameService->createForCourseAndModule(
-        $course,
-        $module,
+        $course->shortName(),
+        $module->name(),
     );
 
     $groupId = $room->groupId();

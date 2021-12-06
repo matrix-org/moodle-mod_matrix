@@ -15,26 +15,26 @@ use mod_matrix\Moodle;
 final class NameService
 {
     public function createForGroupCourseAndModule(
-        Moodle\Domain\Group $group,
-        Moodle\Domain\Course $course,
-        Moodle\Domain\Module $module
+        Moodle\Domain\GroupName $groupName,
+        Moodle\Domain\CourseShortName $courseShortName,
+        Moodle\Domain\ModuleName $moduleName
     ): string {
         return \sprintf(
             '%s: %s (%s)',
-            $group->name()->toString(),
-            $course->shortName()->toString(),
-            $module->name()->toString(),
+            $groupName->toString(),
+            $courseShortName->toString(),
+            $moduleName->toString(),
         );
     }
 
     public function createForCourseAndModule(
-        Moodle\Domain\Course $course,
-        Moodle\Domain\Module $module
+        Moodle\Domain\CourseShortName $courseShortName,
+        Moodle\Domain\ModuleName $moduleName
     ): string {
         return \sprintf(
             '%s (%s)',
-            $course->shortName()->toString(),
-            $module->name()->toString(),
+            $courseShortName->toString(),
+            $moduleName->toString(),
         );
     }
 }
