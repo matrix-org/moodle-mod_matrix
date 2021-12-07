@@ -23,6 +23,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTarget
  * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
@@ -40,6 +41,10 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $id = $faker->numberBetween(1);
         $name = $faker->sentence();
         $topic = $faker->sentence();
+        $target = $faker->randomElement([
+            Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+            Moodle\Domain\ModuleTarget::matrixTo()->toString(),
+        ]);
         $sectionId = $faker->numberBetween(1);
         $timecreated = $faker->dateTime()->getTimestamp();
         $timemodified = $faker->dateTime()->getTimestamp();
@@ -50,6 +55,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'id' => $id,
             'name' => $name,
             'topic' => $topic,
+            'target' => $target,
             'section' => $sectionId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -65,6 +71,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleType::fromInt($type),
             Moodle\Domain\ModuleName::fromString($name),
             Moodle\Domain\ModuleTopic::fromString($topic),
+            Moodle\Domain\ModuleTarget::fromString($target),
             Moodle\Domain\CourseId::fromInt($courseId),
             Moodle\Domain\SectionId::fromInt($sectionId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -83,6 +90,10 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $id = (string) $faker->numberBetween(1);
         $name = $faker->sentence();
         $topic = $faker->sentence();
+        $target = $faker->randomElement([
+            Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+            Moodle\Domain\ModuleTarget::matrixTo()->toString(),
+        ]);
         $timecreated = (string) $faker->dateTime()->getTimestamp();
         $timemodified = (string) $faker->dateTime()->getTimestamp();
         $type = (string) $faker->numberBetween(1);
@@ -92,6 +103,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'id' => $id,
             'name' => $name,
             'topic' => $topic,
+            'target' => $target,
             'section' => $sectionId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -107,6 +119,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleType::fromString($type),
             Moodle\Domain\ModuleName::fromString($name),
             Moodle\Domain\ModuleTopic::fromString($topic),
+            Moodle\Domain\ModuleTarget::fromString($target),
             Moodle\Domain\CourseId::fromString($courseId),
             Moodle\Domain\SectionId::fromString($sectionId),
             Moodle\Domain\Timestamp::fromString($timecreated),
@@ -124,6 +137,10 @@ final class ModuleNormalizerTest extends Framework\TestCase
         $id = $faker->numberBetween(1);
         $name = $faker->sentence();
         $topic = null;
+        $target = $faker->randomElement([
+            Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+            Moodle\Domain\ModuleTarget::matrixTo()->toString(),
+        ]);
         $sectionId = $faker->numberBetween(1);
         $timecreated = $faker->dateTime()->getTimestamp();
         $timemodified = $faker->dateTime()->getTimestamp();
@@ -134,6 +151,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'id' => $id,
             'name' => $name,
             'topic' => $topic,
+            'target' => $target,
             'section' => $sectionId,
             'timecreated' => $timecreated,
             'timemodified' => $timemodified,
@@ -149,6 +167,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleType::fromInt($type),
             Moodle\Domain\ModuleName::fromString($name),
             Moodle\Domain\ModuleTopic::fromString(''),
+            Moodle\Domain\ModuleTarget::fromString($target),
             Moodle\Domain\CourseId::fromInt($courseId),
             Moodle\Domain\SectionId::fromInt($sectionId),
             Moodle\Domain\Timestamp::fromInt($timecreated),
@@ -167,6 +186,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\ModuleTopic::fromString(''),
+            Moodle\Domain\ModuleTarget::elementUrl(),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -182,6 +202,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'id' => $denormalized->id()->toInt(),
             'name' => $denormalized->name()->toString(),
             'topic' => null,
+            'target' => $denormalized->target()->toString(),
             'section' => $denormalized->sectionId()->toInt(),
             'timecreated' => $denormalized->timecreated()->toInt(),
             'timemodified' => $denormalized->timemodified()->toInt(),
@@ -200,6 +221,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             Moodle\Domain\ModuleType::fromInt($faker->numberBetween(1)),
             Moodle\Domain\ModuleName::fromString($faker->sentence()),
             Moodle\Domain\ModuleTopic::fromString($faker->sentence()),
+            Moodle\Domain\ModuleTarget::elementUrl(),
             Moodle\Domain\CourseId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\SectionId::fromInt($faker->numberBetween(1)),
             Moodle\Domain\Timestamp::fromInt($faker->dateTime()->getTimestamp()),
@@ -215,6 +237,7 @@ final class ModuleNormalizerTest extends Framework\TestCase
             'id' => $denormalized->id()->toInt(),
             'name' => $denormalized->name()->toString(),
             'topic' => $denormalized->topic()->toString(),
+            'target' => $denormalized->target()->toString(),
             'section' => $denormalized->sectionId()->toInt(),
             'timecreated' => $denormalized->timecreated()->toInt(),
             'timemodified' => $denormalized->timemodified()->toInt(),

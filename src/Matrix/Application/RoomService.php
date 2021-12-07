@@ -15,30 +15,10 @@ use mod_matrix\Matrix;
 final class RoomService
 {
     private $api;
-    private $configuration;
 
-    public function __construct(
-        Matrix\Application\Api $api,
-        Matrix\Application\Configuration $configuration
-    ) {
-        $this->api = $api;
-        $this->configuration = $configuration;
-    }
-
-    public function urlForRoom(Matrix\Domain\RoomId $roomId): string
+    public function __construct(Matrix\Application\Api $api)
     {
-        if ('' !== $this->configuration->elementUrl()) {
-            return \sprintf(
-                '%s/#/room/%s',
-                $this->configuration->elementUrl(),
-                $roomId->toString(),
-            );
-        }
-
-        return \sprintf(
-            'https://matrix.to/#/%s',
-            $roomId->toString(),
-        );
+        $this->api = $api;
     }
 
     public function createRoom(

@@ -18,6 +18,10 @@ final class Internationalization
     public const MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED = 'mod_form_basic_settings_name_error_required';
     public const MOD_FORM_BASIC_SETTINGS_NAME_HELP = 'mod_form_basic_settings_name_help';
     public const MOD_FORM_BASIC_SETTINGS_NAME_NAME = 'mod_form_basic_settings_name_name';
+    public const MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED = 'mod_form_basic_settings_target_error_required';
+    public const MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL = 'mod_form_basic_settings_target_label_element_url';
+    public const MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO = 'mod_form_basic_settings_target_label_matrix_to';
+    public const MOD_FORM_BASIC_SETTINGS_TARGET_NAME = 'mod_form_basic_settings_target_name';
     public const MOD_FORM_BASIC_SETTINGS_TOPIC_HELP = 'mod_form_basic_settings_topic_help';
     public const MOD_FORM_BASIC_SETTINGS_TOPIC_NAME = 'mod_form_basic_settings_topic_name';
     public const SETTINGS_ACCESS_TOKEN_DESCRIPTION = 'settings_access_token_description';
@@ -30,7 +34,7 @@ final class Internationalization
     public const VIEW_ALERT_MANY_ROOMS = 'view_alert_many_rooms';
     public const VIEW_BUTTON_JOIN_ROOM = 'view_button_join_room';
     public const VIEW_ERROR_NO_GROUPS = 'view_error_no_groups';
+    public const VIEW_ERROR_NO_ROOM_IN_GROUP = 'view_error_no_room_in_group';
     public const VIEW_ERROR_NO_ROOMS = 'view_error_no_rooms';
     public const VIEW_ERROR_NO_VISIBLE_GROUPS = 'view_error_no_visible_groups';
-    public const VIEW_ERROR_NO_ROOM_IN_GROUP = 'view_error_no_room_in_group';
 }

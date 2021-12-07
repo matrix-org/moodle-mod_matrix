@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Matrix\Application;
+namespace mod_matrix\Moodle\Application;
 
 final class Configuration
 {

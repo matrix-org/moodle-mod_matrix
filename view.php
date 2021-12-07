@@ -88,12 +88,12 @@ if ([] === $possibleRooms) {
     exit;
 }
 
-$matrixRoomService = $container->matrixRoomService();
+$moodleRoomService = $container->moodleRoomService();
 
 if (\count($possibleRooms) === 1) {
     $firstPossibleRoom = \reset($possibleRooms);
 
-    $roomUrl = \json_encode($matrixRoomService->urlForRoom($firstPossibleRoom->matrixRoomId()));
+    $roomUrl = \json_encode($moodleRoomService->urlForRoom($firstPossibleRoom));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
@@ -163,7 +163,7 @@ if (\count($visibleGroups) === 1) {
         exit;
     }
 
-    $roomUrl = \json_encode($matrixRoomService->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($moodleRoomService->urlForRoom($room));
 
     echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
     echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
@@ -195,7 +195,7 @@ foreach ($visibleGroups as $id => $group) {
 
     $name = groups_get_group_name($group->id);
 
-    $roomUrl = \json_encode($matrixRoomService->urlForRoom($room->matrixRoomId()));
+    $roomUrl = \json_encode($moodleRoomService->urlForRoom($room));
 
     echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
 }

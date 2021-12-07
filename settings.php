@@ -27,7 +27,7 @@ if ($ADMIN->fulltree) {
         ),
     ));
 
-    $defaultConfiguration = Matrix\Application\Configuration::default();
+    $defaultConfiguration = Moodle\Application\Configuration::default();
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/homeserver_url',

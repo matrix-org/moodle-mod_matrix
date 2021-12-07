@@ -8,16 +8,17 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Matrix\Application;
+namespace mod_matrix\Test\Unit\Moodle\Application;
 
 use mod_matrix\Matrix;
+use mod_matrix\Moodle;
 use mod_matrix\Test;
 use PHPUnit\Framework;
 
 /**
  * @internal
  *
- * @covers \mod_matrix\Matrix\Application\Configuration
+ * @covers \mod_matrix\Moodle\Application\Configuration
  */
 final class ConfigurationTest extends Framework\TestCase
 {
@@ -25,7 +26,7 @@ final class ConfigurationTest extends Framework\TestCase
 
     public function testDefaultReturnsConfiguration(): void
     {
-        $configuration = Matrix\Application\Configuration::default();
+        $configuration = Moodle\Application\Configuration::default();
 
         self::assertSame('', $configuration->accessToken());
         self::assertSame('https://matrix-client.matrix.org', $configuration->elementUrl());
@@ -47,7 +48,7 @@ final class ConfigurationTest extends Framework\TestCase
             'access_token',
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     /**
@@ -76,7 +77,7 @@ final class ConfigurationTest extends Framework\TestCase
             \is_object($accessToken) ? \get_class($accessToken) : \gettype($accessToken),
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     public function testFromObjectRejectsObjectWhenElementUrlPropertyIsMissing(): void
@@ -94,7 +95,7 @@ final class ConfigurationTest extends Framework\TestCase
             'element_url',
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     /**
@@ -123,7 +124,7 @@ final class ConfigurationTest extends Framework\TestCase
             \is_object($elementUrl) ? \get_class($elementUrl) : \gettype($elementUrl),
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     public function testFromObjectRejectsObjectWhenHomeserverUrlPropertyIsMissing(): void
@@ -141,7 +142,7 @@ final class ConfigurationTest extends Framework\TestCase
             'homeserver_url',
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     /**
@@ -170,7 +171,7 @@ final class ConfigurationTest extends Framework\TestCase
             \is_object($homeserverUrl) ? \get_class($homeserverUrl) : \gettype($homeserverUrl),
         ));
 
-        Matrix\Application\Configuration::fromObject($object);
+        Moodle\Application\Configuration::fromObject($object);
     }
 
     public function testFromObjectReturnsConfiguration(): void
@@ -183,7 +184,7 @@ final class ConfigurationTest extends Framework\TestCase
         $object->element_url = $faker->url();
         $object->homeserver_url = $faker->url();
 
-        $configuration = Matrix\Application\Configuration::fromObject($object);
+        $configuration = Moodle\Application\Configuration::fromObject($object);
 
         self::assertSame($object->access_token, $configuration->accessToken());
         self::assertSame($object->element_url, $configuration->elementUrl());
@@ -219,7 +220,7 @@ final class ConfigurationTest extends Framework\TestCase
             $whitespace,
         );
 
-        $configuration = Matrix\Application\Configuration::fromObject($object);
+        $configuration = Moodle\Application\Configuration::fromObject($object);
 
         self::assertSame(\trim($object->access_token), $configuration->accessToken());
         self::assertSame(\trim($object->element_url), $configuration->elementUrl());

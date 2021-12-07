@@ -27,6 +27,10 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('mod_form_basic_settings_name_error_maxlength', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH);
         self::assertSame('mod_form_basic_settings_name_error_required', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED);
         self::assertSame('mod_form_basic_settings_name_help', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_HELP);
+        self::assertSame('mod_form_basic_settings_target_error_required', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED);
+        self::assertSame('mod_form_basic_settings_target_label_element_url', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL);
+        self::assertSame('mod_form_basic_settings_target_label_matrix_to', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO);
+        self::assertSame('mod_form_basic_settings_target_name', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME);
         self::assertSame('mod_form_basic_settings_topic_help', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_HELP);
         self::assertSame('mod_form_basic_settings_topic_name', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME);
         self::assertSame('settings_access_token_description', Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION);

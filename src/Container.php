@@ -46,17 +46,14 @@ final class Container
             ));
         });
 
-        $this->define(Matrix\Application\Configuration::class, static function (): Matrix\Application\Configuration {
+        $this->define(Moodle\Application\Configuration::class, static function (): Moodle\Application\Configuration {
             $object = get_config('mod_matrix');
 
-            return Matrix\Application\Configuration::fromObject($object);
+            return Moodle\Application\Configuration::fromObject($object);
         });
 
         $this->define(Matrix\Application\RoomService::class, static function (self $container): Matrix\Application\RoomService {
-            return new Matrix\Application\RoomService(
-                $container->api(),
-                $container->configuration(),
-            );
+            return new Matrix\Application\RoomService($container->api());
         });
 
         $this->define(Moodle\Application\ModuleService::class, static function (self $container): Moodle\Application\ModuleService {
@@ -68,6 +65,13 @@ final class Container
 
         $this->define(Moodle\Application\NameService::class, static function (): Moodle\Application\NameService {
             return new Moodle\Application\NameService();
+        });
+
+        $this->define(Moodle\Application\RoomService::class, static function (self $container): Moodle\Application\RoomService {
+            return new Moodle\Application\RoomService(
+                $container->configuration(),
+                $container->moodleModuleRepository(),
+            );
         });
 
         $this->define(Moodle\Domain\CourseRepository::class, static function (): Moodle\Domain\CourseRepository {
@@ -125,9 +129,9 @@ final class Container
         return $this->resolve(Matrix\Application\Api::class);
     }
 
-    public function configuration(): Matrix\Application\Configuration
+    public function configuration(): Moodle\Application\Configuration
     {
-        return $this->resolve(Matrix\Application\Configuration::class);
+        return $this->resolve(Moodle\Application\Configuration::class);
     }
 
     public function clock(): Clock\Clock
@@ -173,6 +177,11 @@ final class Container
     public function moodleRoomRepository(): Moodle\Domain\RoomRepository
     {
         return $this->resolve(Moodle\Domain\RoomRepository::class);
+    }
+
+    public function moodleRoomService(): Moodle\Application\RoomService
+    {
+        return $this->resolve(Moodle\Application\RoomService::class);
     }
 
     public function moodleUserRepository(): Moodle\Domain\UserRepository

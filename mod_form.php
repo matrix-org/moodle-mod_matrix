@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+use mod_matrix\Container;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 require_once $CFG->dirroot . '/course/moodleform_mod.php';
@@ -44,6 +46,7 @@ final class mod_matrix_mod_form extends moodleform_mod
 
         $this->addNameElement();
         $this->addTopicElement();
+        $this->addTargetElement();
     }
 
     private function addNameElement(): void
@@ -122,6 +125,61 @@ final class mod_matrix_mod_form extends moodleform_mod
         $this->_form->setType(
             $elementName,
             PARAM_TEXT,
+        );
+    }
+
+    private function addTargetElement(): void
+    {
+        $config = Container::instance()->configuration();
+
+        if ($config->elementUrl() === '') {
+            return;
+        }
+
+        $elementName = 'target';
+        $groupName = 'targetGroup';
+
+        $this->_form->addGroup(
+            [
+                $this->_form->createElement(
+                    'radio',
+                    $elementName,
+                    '',
+                    get_string(
+                        Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL,
+                        Moodle\Application\Plugin::NAME,
+                    ),
+                    Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+                    [],
+                ),
+                $this->_form->createElement(
+                    'radio',
+                    $elementName,
+                    '',
+                    get_string(
+                        Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO,
+                        Moodle\Application\Plugin::NAME,
+                    ),
+                    Moodle\Domain\ModuleTarget::matrixTo()->toString(),
+                    [],
+                ),
+            ],
+            $groupName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME,
+                Moodle\Application\Plugin::NAME,
+            ),
+            null,
+            false,
+        );
+
+        $this->_form->addRule(
+            $groupName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED,
+                Moodle\Application\Plugin::NAME,
+            ),
+            'required',
         );
     }
 }

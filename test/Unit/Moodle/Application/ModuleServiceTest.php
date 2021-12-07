@@ -24,6 +24,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Moodle\Domain\Module
  * @uses \mod_matrix\Moodle\Domain\ModuleId
  * @uses \mod_matrix\Moodle\Domain\ModuleName
+ * @uses \mod_matrix\Moodle\Domain\ModuleTarget
  * @uses \mod_matrix\Moodle\Domain\ModuleTopic
  * @uses \mod_matrix\Moodle\Domain\ModuleType
  * @uses \mod_matrix\Moodle\Domain\SectionId
@@ -39,6 +40,7 @@ final class ModuleServiceTest extends Framework\TestCase
 
         $name = Moodle\Domain\ModuleName::fromString($faker->sentence());
         $topic = Moodle\Domain\ModuleTopic::fromString($faker->sentence());
+        $target = Moodle\Domain\ModuleTarget::matrixTo();
         $courseId = Moodle\Domain\CourseId::fromInt($faker->numberBetween(1));
         $sectionId = Moodle\Domain\SectionId::fromInt($faker->numberBetween(1));
 
@@ -51,11 +53,12 @@ final class ModuleServiceTest extends Framework\TestCase
         $moduleRepository
             ->expects(self::once())
             ->method('save')
-            ->with(self::callback(static function (Moodle\Domain\Module $module) use ($name, $topic, $courseId, $sectionId, $now, &$expectedModule): bool {
+            ->with(self::callback(static function (Moodle\Domain\Module $module) use ($name, $topic, $target, $courseId, $sectionId, $now, &$expectedModule): bool {
                 self::assertEquals(Moodle\Domain\ModuleId::unknown(), $module->id());
                 self::assertEquals(Moodle\Domain\ModuleType::fromInt(0), $module->type());
                 self::assertSame($name, $module->name());
                 self::assertSame($topic, $module->topic());
+                self::assertSame($target, $module->target());
                 self::assertSame($courseId, $module->courseId());
                 self::assertSame($sectionId, $module->sectionId());
                 self::assertEquals(Moodle\Domain\Timestamp::fromInt($now->getTimestamp()), $module->timecreated());
@@ -74,6 +77,7 @@ final class ModuleServiceTest extends Framework\TestCase
         $module = $moduleService->create(
             $name,
             $topic,
+            $target,
             $courseId,
             $sectionId,
         );
