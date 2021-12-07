@@ -12,4 +12,6 @@ use mod_matrix\Moodle;
 
 \defined('MOODLE_INTERNAL') || exit();
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $observers = Moodle\Infrastructure\EventSubscriber::observers();
