@@ -405,6 +405,19 @@
     </UndefinedConstant>
   </file>
   <file src="test/Unit/Moodle/Infrastructure/EventSubscriberTest.php">
+    <MixedArrayAccess occurrences="4">
+      <code>$className</code>
+      <code>$methodName</code>
+      <code>$observer['callback']</code>
+      <code>$observer['eventname']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="2">
+      <code>$observer</code>
+      <code>[$className, $methodName]</code>
+    </MixedAssignment>
+    <MoreSpecificReturnType occurrences="1">
+      <code>\Generator&lt;string, array{0: string, 1: string}&gt;</code>
+    </MoreSpecificReturnType>
     <UndefinedClass occurrences="11">
       <code>event\course_updated</code>
       <code>event\group_created</code>

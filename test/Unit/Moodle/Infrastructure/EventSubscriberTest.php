@@ -23,7 +23,68 @@ final class EventSubscriberTest extends Framework\TestCase
 {
     public function testObserversReturnsObservers(): void
     {
-        $expected = [
+        $expected = self::expectedObservers();
+
+        self::assertEquals($expected, Moodle\Infrastructure\EventSubscriber::observers());
+    }
+
+    /**
+     * @dataProvider provideObserverClassAndMethodName
+     */
+    public function testObserversAreCallable(string $className, string $methodName): void
+    {
+        self::assertTrue(\class_exists($className), \sprintf(
+            'Failed asserting that class "%s" exists.',
+            $className,
+        ));
+
+        $reflection = new \ReflectionClass($className);
+
+        self::assertTrue($reflection->hasMethod($methodName), \sprintf(
+            'Failed asserting that class "%s" has method "%s".',
+            $className,
+            $methodName,
+        ));
+
+        $method = $reflection->getMethod($methodName);
+
+        self::assertFalse($method->isAbstract(), \sprintf(
+            'Failed asserting that class "%s" has method "%s" that is not abstract.',
+            $className,
+            $methodName,
+        ));
+
+        self::assertTrue($method->isPublic(), \sprintf(
+            'Failed asserting that class "%s" has method "%s" that is public.',
+            $className,
+            $methodName,
+        ));
+
+        self::assertTrue($method->isStatic(), \sprintf(
+            'Failed asserting that class "%s" has method "%s" that is static.',
+            $className,
+            $methodName,
+        ));
+    }
+
+    /**
+     * @return \Generator<string, array{0: string, 1: string}>
+     */
+    public function provideObserverClassAndMethodName(): \Generator
+    {
+        foreach (self::expectedObservers() as $observer) {
+            [$className, $methodName] = $observer['callback'];
+
+            yield $observer['eventname'] => [
+                $className,
+                $methodName,
+            ];
+        }
+    }
+
+    private static function expectedObservers(): array
+    {
+        return [
             [
                 'callback' => [
                     Moodle\Infrastructure\EventSubscriber::class,
@@ -113,7 +174,5 @@ final class EventSubscriberTest extends Framework\TestCase
                 'internal' => false,
             ],
         ];
-
-        self::assertEquals($expected, Moodle\Infrastructure\EventSubscriber::observers());
     }
 }
