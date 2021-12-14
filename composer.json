@@ -22,7 +22,7 @@
     "moodle/moodle": "3.9.5",
     "phpunit/phpunit": "^9.5.10",
     "psalm/plugin-phpunit": "~0.16.1",
-    "symfony/var-dumper": "^5.4.0",
+    "symfony/var-dumper": "^5.4.1",
     "vimeo/psalm": "^4.14.0"
   },
   "autoload": {
