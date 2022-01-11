@@ -11,6 +11,7 @@ For a full diff see [`2021070200...main`](https://gitlab.matrix.org/new-vector/m
 ### Fixed
 
 - Added missing translations ([#56](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/56))
+- Stopped supporting `FEATURE_MOD_INTRO` to avoid notice regarding undefined `$introformat` property ([#57](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/57))
 
 ## [`2021070200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2021070200)
 

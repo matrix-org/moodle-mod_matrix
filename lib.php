@@ -40,7 +40,7 @@ function matrix_supports($feature)
         FEATURE_GROUPINGS => true,
         FEATURE_GROUPS => true,
         FEATURE_IDNUMBER => true,
-        FEATURE_MOD_INTRO => true,
+        FEATURE_MOD_INTRO => false,
         FEATURE_SHOW_DESCRIPTION => true,
     ];
 
