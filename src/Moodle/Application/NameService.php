@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Application;
 
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 final class NameService
@@ -18,23 +19,23 @@ final class NameService
         Moodle\Domain\GroupName $groupName,
         Moodle\Domain\CourseShortName $courseShortName,
         Moodle\Domain\ModuleName $moduleName
-    ): string {
-        return \sprintf(
+    ): Matrix\Domain\RoomName {
+        return Matrix\Domain\RoomName::fromString(\sprintf(
             '%s: %s (%s)',
             $groupName->toString(),
             $courseShortName->toString(),
             $moduleName->toString(),
-        );
+        ));
     }
 
     public function createForCourseAndModule(
         Moodle\Domain\CourseShortName $courseShortName,
         Moodle\Domain\ModuleName $moduleName
-    ): string {
-        return \sprintf(
+    ): Matrix\Domain\RoomName {
+        return Matrix\Domain\RoomName::fromString(\sprintf(
             '%s (%s)',
             $courseShortName->toString(),
             $moduleName->toString(),
-        );
+        ));
     }
 }

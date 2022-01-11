@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Moodle\Application;
 
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 use mod_matrix\Test;
 use PHPUnit\Framework;
@@ -43,14 +44,14 @@ final class NameServiceTest extends Framework\TestCase
             $moduleName,
         );
 
-        $expected = \sprintf(
+        $expected = Matrix\Domain\RoomName::fromString(\sprintf(
             '%s: %s (%s)',
             $groupName->toString(),
             $courseShortName->toString(),
             $moduleName->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $name);
+        self::assertEquals($expected, $name);
     }
 
     public function testCreateForCourseAndModuleReturnsName(): void
@@ -67,12 +68,12 @@ final class NameServiceTest extends Framework\TestCase
             $moduleName,
         );
 
-        $expected = \sprintf(
+        $expected = Matrix\Domain\RoomName::fromString(\sprintf(
             '%s (%s)',
             $courseShortName->toString(),
             $moduleName->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $name);
+        self::assertEquals($expected, $name);
     }
 }

@@ -135,11 +135,11 @@ function matrix_add_instance(
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForGroupCourseAndModule(
+                $name = $moodleNameService->createForGroupCourseAndModule(
                     $group->name(),
                     $course->shortName(),
                     $module->name(),
-                ));
+                );
 
                 $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
 
@@ -350,7 +350,7 @@ function matrix_update_instance(
 
     $container->matrixRoomService()->updateRoom(
         $room->matrixRoomId(),
-        Matrix\Domain\RoomName::fromString($name),
+        $name,
         Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
     );
 
