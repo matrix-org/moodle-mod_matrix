@@ -41,19 +41,21 @@ services:
       - "moodle"
 
     volumes:
+      # directories
       - "../.data/moodle/:/var/www/moodledata/"
       - "../backup/:/var/www/html/mod/matrix/backup/"
-      - "../composer.json/:/var/www/html/mod/matrix/composer.json"
       - "../db/:/var/www/html/mod/matrix/db/"
-      - "../index.php/:/var/www/html/mod/matrix/index.php"
       - "../lang/:/var/www/html/mod/matrix/lang/"
-      - "../lib.php/:/var/www/html/mod/matrix/lib.php"
-      - "../mod_form.php/:/var/www/html/mod/matrix/mod_form.php"
       - "../pix/:/var/www/html/mod/matrix/pix/"
-      - "../settings.php/:/var/www/html/mod/matrix/settings.php"
       - "../src/:/var/www/html/mod/matrix/src/"
       - "../vendor/:/var/www/html/mod/matrix/vendor/"
       - "../vendor/moodle/moodle/:/var/www/html/"
+      # files
+      - "../composer.json/:/var/www/html/mod/matrix/composer.json"
+      - "../index.php/:/var/www/html/mod/matrix/index.php"
+      - "../lib.php/:/var/www/html/mod/matrix/lib.php"
+      - "../mod_form.php/:/var/www/html/mod/matrix/mod_form.php"
+      - "../settings.php/:/var/www/html/mod/matrix/settings.php"
       - "../version.php/:/var/www/html/mod/matrix/version.php"
       - "../view.php/:/var/www/html/mod/matrix/view.php"
 
