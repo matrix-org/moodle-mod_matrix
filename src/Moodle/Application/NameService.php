@@ -15,7 +15,7 @@ use mod_matrix\Moodle;
 
 final class NameService
 {
-    public function createForGroupCourseAndModule(
+    public function forGroupCourseAndModule(
         Moodle\Domain\GroupName $groupName,
         Moodle\Domain\CourseShortName $courseShortName,
         Moodle\Domain\ModuleName $moduleName
@@ -28,7 +28,7 @@ final class NameService
         ));
     }
 
-    public function createForCourseAndModule(
+    public function forCourseAndModule(
         Moodle\Domain\CourseShortName $courseShortName,
         Moodle\Domain\ModuleName $moduleName
     ): Matrix\Domain\RoomName {

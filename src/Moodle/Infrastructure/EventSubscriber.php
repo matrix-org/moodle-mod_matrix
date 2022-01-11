@@ -236,7 +236,7 @@ final class EventSubscriber
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = $moodleNameService->createForGroupCourseAndModule(
+                $name = $moodleNameService->forGroupCourseAndModule(
                     $group->name(),
                     $course->shortName(),
                     $module->name(),
@@ -459,7 +459,7 @@ final class EventSubscriber
                 continue;
             }
 
-            $name = $moodleNameService->createForCourseAndModule(
+            $name = $moodleNameService->forCourseAndModule(
                 $courseShortName,
                 $module->name(),
             );
@@ -473,7 +473,7 @@ final class EventSubscriber
                     continue;
                 }
 
-                $name = $moodleNameService->createForGroupCourseAndModule(
+                $name = $moodleNameService->forGroupCourseAndModule(
                     $group->name(),
                     $courseShortName,
                     $module->name(),

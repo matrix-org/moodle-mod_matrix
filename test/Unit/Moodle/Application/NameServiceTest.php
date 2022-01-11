@@ -28,7 +28,7 @@ final class NameServiceTest extends Framework\TestCase
 {
     use Test\Util\Helper;
 
-    public function testCreateForGroupCourseAndModuleReturnsName(): void
+    public function testForGroupCourseAndModuleReturnsName(): void
     {
         $faker = self::faker();
 
@@ -38,7 +38,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $nameService = new Moodle\Application\NameService();
 
-        $name = $nameService->createForGroupCourseAndModule(
+        $name = $nameService->forGroupCourseAndModule(
             $groupName,
             $courseShortName,
             $moduleName,
@@ -54,7 +54,7 @@ final class NameServiceTest extends Framework\TestCase
         self::assertEquals($expected, $name);
     }
 
-    public function testCreateForCourseAndModuleReturnsName(): void
+    public function testForCourseAndModuleReturnsName(): void
     {
         $faker = self::faker();
 
@@ -63,7 +63,7 @@ final class NameServiceTest extends Framework\TestCase
 
         $nameService = new Moodle\Application\NameService();
 
-        $name = $nameService->createForCourseAndModule(
+        $name = $nameService->forCourseAndModule(
             $courseShortName,
             $moduleName,
         );

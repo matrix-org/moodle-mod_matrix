@@ -135,7 +135,7 @@ function matrix_add_instance(
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = $moodleNameService->createForGroupCourseAndModule(
+                $name = $moodleNameService->forGroupCourseAndModule(
                     $group->name(),
                     $course->shortName(),
                     $module->name(),
@@ -187,7 +187,7 @@ function matrix_add_instance(
     ]);
 
     if (!$room instanceof Moodle\Domain\Room) {
-        $name = Matrix\Domain\RoomName::fromString($moodleNameService->createForCourseAndModule(
+        $name = Matrix\Domain\RoomName::fromString($moodleNameService->forCourseAndModule(
             $course->shortName(),
             $module->name(),
         ));
@@ -324,7 +324,7 @@ function matrix_update_instance(
 
     $moodleNameService = $container->moodleNameService();
 
-    $name = $moodleNameService->createForCourseAndModule(
+    $name = $moodleNameService->forCourseAndModule(
         $course->shortName(),
         $module->name(),
     );
@@ -341,7 +341,7 @@ function matrix_update_instance(
             ));
         }
 
-        $name = $moodleNameService->createForGroupCourseAndModule(
+        $name = $moodleNameService->forGroupCourseAndModule(
             $group,
             $course,
             $module,
