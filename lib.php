@@ -80,10 +80,22 @@ function matrix_add_instance(
         ));
     }
 
+    $target = Moodle\Domain\ModuleTarget::matrixTo();
+
+    $config = $container->configuration();
+
+    if (
+        $config->elementUrl() !== ''
+        && \property_exists($data, 'target')
+        && \is_string($data->target)
+    ) {
+        $target = Moodle\Domain\ModuleTarget::fromString($data->target);
+    }
+
     $module = $container->moodleModuleService()->create(
         Moodle\Domain\ModuleName::fromString($data->name),
         Moodle\Domain\ModuleTopic::fromString($data->topic),
-        Moodle\Domain\ModuleTarget::fromString($data->target),
+        $target,
         $courseId,
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
     );
