@@ -281,6 +281,25 @@ function matrix_delete_instance($id): bool
 }
 
 /**
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/course/lib.php#L460-L542
+ */
+function matrix_get_coursemodule_info(object $moduleinfo): cached_cm_info
+{
+    $onClickUrl = new moodle_url('/mod/matrix/view.php', [
+        'id' => $moduleinfo->id,
+    ]);
+
+    $info = new cached_cm_info();
+
+    $info->onclick = \sprintf(
+        "window.open('%s'); return false;",
+        $onClickUrl->out(false),
+    );
+
+    return $info;
+}
+
+/**
  * @see https://docs.moodle.org/dev/Activity_modules#lib.php
  * @see https://github.com/moodle/moodle/blob/v3.9.5/course/modlib.php#L611-L614
  */
