@@ -21,10 +21,10 @@ final class NameService
         Moodle\Domain\ModuleName $moduleName
     ): Matrix\Domain\RoomName {
         return Matrix\Domain\RoomName::fromString(\sprintf(
-            '%s: %s (%s)',
-            $groupName->toString(),
+            '%s (%s, %s)',
             $courseShortName->toString(),
             $moduleName->toString(),
+            $groupName->toString(),
         ));
     }
 

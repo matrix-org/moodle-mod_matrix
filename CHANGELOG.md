@@ -17,6 +17,7 @@ For a full diff see [`2021070200...main`](https://gitlab.matrix.org/new-vector/m
 
 - Added missing translations ([#56](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/56))
 - Stopped supporting `FEATURE_MOD_INTRO` to avoid notice regarding undefined `$introformat` property ([#57](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/57))
+- Adjusted naming strategy for a room when a group is involved ([#60](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/60))
 
 ## [`2021070200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2021070200)
 

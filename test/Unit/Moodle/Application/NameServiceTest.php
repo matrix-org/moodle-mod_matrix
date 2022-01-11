@@ -45,10 +45,10 @@ final class NameServiceTest extends Framework\TestCase
         );
 
         $expected = Matrix\Domain\RoomName::fromString(\sprintf(
-            '%s: %s (%s)',
-            $groupName->toString(),
+            '%s (%s, %s)',
             $courseShortName->toString(),
             $moduleName->toString(),
+            $groupName->toString(),
         ));
 
         self::assertEquals($expected, $name);
