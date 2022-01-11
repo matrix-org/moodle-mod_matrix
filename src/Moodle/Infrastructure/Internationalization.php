@@ -13,6 +13,7 @@ namespace mod_matrix\Moodle\Infrastructure;
 final class Internationalization
 {
     public const MOD_FORM_BASIC_SETTINGS_HEADER = 'mod_form_basic_settings_header';
+    public const MOD_FORM_BASIC_SETTINGS_NAME = 'mod_form_basic_settings_name';
     public const MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT = 'mod_form_basic_settings_name_default';
     public const MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH = 'mod_form_basic_settings_name_error_maxlength';
     public const MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED = 'mod_form_basic_settings_name_error_required';
