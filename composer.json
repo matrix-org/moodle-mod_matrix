@@ -6,6 +6,10 @@
     {
       "name": "New Vector Ltd. (trading as Element)",
       "email": "support@element.io"
+    },
+    {
+      "name": "Andreas Möller",
+      "email": "am@localheinz.com"
     }
   ],
   "require": {
