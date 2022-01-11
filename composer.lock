@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30e0acc85812773f8f901380e8850fb4",
+    "content-hash": "6eb94fafc2d0a3b4c0a122a045afe0df",
     "packages": [
         {
             "name": "ergebnis/clock",
