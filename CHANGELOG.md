@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`2021070200...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2021070200...main).
 
+### Fixed
+
+- Added missing translations ([#56](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/56))
+
 ## [`2021070200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2021070200)
 
 For a full diff see [`2021070300...2021070200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2021070300...2021070200).

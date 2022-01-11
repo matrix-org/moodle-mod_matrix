@@ -27,6 +27,7 @@ $string = \array_merge($string, [
     'pluginname' => 'Matrix',
     // mod_form.php
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER => 'Basic module settings',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME => 'Name',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT => 'Matrix Chat',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH => \sprintf(
         'A name can not be longer than %d characters. Fewer characters than that will probably be better.',
