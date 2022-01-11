@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+use mod_matrix\Container;
 use mod_matrix\Moodle;
 
 /**
@@ -165,6 +166,43 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2021120700,
+            Moodle\Application\Plugin::NAME,
+        );
+    }
+
+    if (2022011100 > $oldversion) {
+        $container = Container::instance();
+
+        $oldTarget = Moodle\Domain\ModuleTarget::matrixTo();
+        $newTarget = Moodle\Domain\ModuleTarget::matrixTo();
+
+        $configuration = $container->configuration();
+
+        if ($configuration->elementUrl() !== '') {
+            $newTarget = Moodle\Domain\ModuleTarget::elementUrl();
+        }
+
+        if (!$newTarget->equals($oldTarget)) {
+            $sql = \sprintf(
+                <<<'SQL'
+UPDATE `%s` SET `target` = :new_target WHERE `target` = :old_target
+SQL,
+                \sprintf(
+                    '%s%s',
+                    $DB->get_prefix(),
+                    Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE,
+                ),
+            );
+
+            $DB->execute($sql, [
+                'new_target' => $newTarget->toString(),
+                'old_target' => $oldTarget->toString(),
+            ]);
+        }
+
+        upgrade_mod_savepoint(
+            true,
+            2022011100,
             Moodle\Application\Plugin::NAME,
         );
     }
