@@ -184,6 +184,10 @@ In the [**Recycle Bin**](http://moodle.com.localheinz/admin/settings.php?section
 
 Click **Save changes**.
 
+## Changelog
+
+Please have a look at [`CHANGELOG.md`](CHANGELOG.md).
+
 ## Contributing
 
 Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
