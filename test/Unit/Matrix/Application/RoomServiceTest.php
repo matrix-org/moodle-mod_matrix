@@ -117,6 +117,7 @@ final class RoomServiceTest extends Framework\TestCase
                         'm.room.power_levels' => Matrix\Domain\PowerLevel::bot()->toInt(),
                         'm.room.server_acl' => Matrix\Domain\PowerLevel::bot()->toInt(),
                         'm.room.tombstone' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                        'm.room.topic' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     ],
                     'events_default' => 0,
                     'kick' => Matrix\Domain\PowerLevel::bot()->toInt(),

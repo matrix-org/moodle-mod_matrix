@@ -11,6 +11,7 @@ For a full diff see [`2021070200...main`](https://gitlab.matrix.org/new-vector/m
 ### Changed
 
 - Started opening modules in a new tab ([#58](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/58))
+- Started requiring the bot power level for changing room topics ([#59](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/59))
 
 ### Fixed
 
