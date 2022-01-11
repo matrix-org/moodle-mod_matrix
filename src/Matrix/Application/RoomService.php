@@ -47,17 +47,28 @@ final class RoomService
             'power_level_content_override' => [
                 'ban' => $botPowerLevel->toInt(),
                 'events' => [
-                    'm.room.avatar' => $staffPowerLevel->toInt(),
-                    'm.room.canonical_alias' => $staffPowerLevel->toInt(),
-                    'm.room.encryption' => $botPowerLevel->toInt(),
-                    'm.room.guest_access' => $botPowerLevel->toInt(),
-                    'm.room.history_visibility' => $staffPowerLevel->toInt(),
-                    'm.room.join_rules' => $botPowerLevel->toInt(),
-                    'm.room.name' => $botPowerLevel->toInt(),
-                    'm.room.power_levels' => $botPowerLevel->toInt(),
-                    'm.room.server_acl' => $botPowerLevel->toInt(),
-                    'm.room.tombstone' => $botPowerLevel->toInt(),
-                    'm.room.topic' => $botPowerLevel->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomavatar
+                    'm.room.avatar' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomcanonical_alias
+                    'm.room.canonical_alias' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomencryption
+                    'm.room.encryption' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomguest_access
+                    'm.room.guest_access' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomhistory_visibility
+                    'm.room.history_visibility' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomjoin_rules
+                    'm.room.join_rules' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomname
+                    'm.room.name' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroompower_levels
+                    'm.room.power_levels' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomserver_acl
+                    'm.room.server_acl' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomtombstone
+                    'm.room.tombstone' => Matrix\Domain\PowerLevel::bot()->toInt(),
+                    // https://spec.matrix.org/latest/client-server-api/#mroomtopic
+                    'm.room.topic' => Matrix\Domain\PowerLevel::bot()->toInt(),
                 ],
                 'events_default' => 0,
                 'invite' => $botPowerLevel->toInt(),
