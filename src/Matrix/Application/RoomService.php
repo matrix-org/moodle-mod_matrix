@@ -57,6 +57,7 @@ final class RoomService
                     'm.room.power_levels' => $botPowerLevel->toInt(),
                     'm.room.server_acl' => $botPowerLevel->toInt(),
                     'm.room.tombstone' => $botPowerLevel->toInt(),
+                    'm.room.topic' => $botPowerLevel->toInt(),
                 ],
                 'events_default' => 0,
                 'invite' => $botPowerLevel->toInt(),
