@@ -21,7 +21,7 @@ For a full diff see [`2022011100...main`](https://gitlab.matrix.org/new-vector/m
 
 ## [`2022011100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011100)
 
-For a full diff see [`2021120700...2022011100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2021120700...2021070200).
+For a full diff see [`2021120700...2022011100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2021120700...2022011100).
 
 ### Added
 
