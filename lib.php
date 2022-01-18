@@ -340,13 +340,13 @@ function matrix_update_instance(
         ));
     }
 
-    $room = $container->moodleRoomRepository()->findOneBy([
+    $rooms = $container->moodleRoomRepository()->findAllBy([
         'module_id' => $module->id()->toInt(),
     ]);
 
-    if (!$room instanceof Moodle\Domain\Room) {
+    if ([] === $rooms) {
         throw new \RuntimeException(\sprintf(
-            'Could not find room for module with id %d.',
+            'Could not find any rooms for module with id %d.',
             $module->id()->toInt(),
         ));
     }
@@ -358,30 +358,32 @@ function matrix_update_instance(
         $module->name(),
     );
 
-    $groupId = $room->groupId();
+    foreach ($rooms as $room) {
+        $groupId = $room->groupId();
 
-    if ($groupId instanceof Moodle\Domain\GroupId) {
-        $group = $container->moodleGroupRepository()->find($groupId);
+        if ($groupId instanceof Moodle\Domain\GroupId) {
+            $group = $container->moodleGroupRepository()->find($groupId);
 
-        if (!$group instanceof Moodle\Domain\Group) {
-            throw new \RuntimeException(\sprintf(
-                'Could not find group with id %d.',
-                $groupId->toInt(),
-            ));
+            if (!$group instanceof Moodle\Domain\Group) {
+                throw new \RuntimeException(\sprintf(
+                    'Could not find group with id %d.',
+                    $groupId->toInt(),
+                ));
+            }
+
+            $name = $moodleNameService->forGroupCourseAndModule(
+                $group->name(),
+                $course->shortName(),
+                $module->name(),
+            );
         }
 
-        $name = $moodleNameService->forGroupCourseAndModule(
-            $group->name(),
-            $course->shortName(),
-            $module->name(),
+        $container->matrixRoomService()->updateRoom(
+            $room->matrixRoomId(),
+            $name,
+            Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
         );
     }
-
-    $container->matrixRoomService()->updateRoom(
-        $room->matrixRoomId(),
-        $name,
-        Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
-    );
 
     return true;
 }
