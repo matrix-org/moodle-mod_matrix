@@ -359,6 +359,7 @@ function matrix_update_instance(
     );
 
     $moodleGroupRepository = $container->moodleGroupRepository();
+    $matrixRoomService = $container->matrixRoomService();
 
     foreach ($rooms as $room) {
         $groupId = $room->groupId();
@@ -380,7 +381,7 @@ function matrix_update_instance(
             );
         }
 
-        $container->matrixRoomService()->updateRoom(
+        $matrixRoomService->updateRoom(
             $room->matrixRoomId(),
             $name,
             Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
