@@ -60,7 +60,7 @@ final class View
 
             echo <<<HTML
 <script type="text/javascript">window.location = {$roomUrl};</script>
-<a href="{$roomUrl}">{$title}</a>';
+<a href="{$roomUrl}">{$title}</a>
 HTML;
 
             return;
