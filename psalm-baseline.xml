@@ -251,7 +251,7 @@
     <MixedPropertyFetch occurrences="1">
       <code>$CFG-&gt;wwwroot</code>
     </MixedPropertyFetch>
-    <UndefinedClass occurrences="22">
+    <UndefinedClass occurrences="24">
       <code>event\course_updated</code>
       <code>event\course_updated</code>
       <code>event\group_created</code>
@@ -260,6 +260,8 @@
       <code>event\group_member_added</code>
       <code>event\group_member_removed</code>
       <code>event\group_member_removed</code>
+      <code>event\group_updated</code>
+      <code>event\group_updated</code>
       <code>event\role_assigned</code>
       <code>event\role_assigned</code>
       <code>event\role_capabilities_updated</code>
@@ -419,11 +421,12 @@
     <MoreSpecificReturnType occurrences="1">
       <code>\Generator&lt;string, array{0: string, 1: string}&gt;</code>
     </MoreSpecificReturnType>
-    <UndefinedClass occurrences="11">
+    <UndefinedClass occurrences="12">
       <code>event\course_updated</code>
       <code>event\group_created</code>
       <code>event\group_member_added</code>
       <code>event\group_member_removed</code>
+      <code>event\group_updated</code>
       <code>event\role_assigned</code>
       <code>event\role_capabilities_updated</code>
       <code>event\role_deleted</code>

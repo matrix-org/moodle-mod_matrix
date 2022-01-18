@@ -41,6 +41,10 @@ final class EventSubscriber
                 self::class,
                 'onGroupMemberRemoved',
             ],
+            event\group_updated::class => [
+                self::class,
+                'onGroupUpdated',
+            ],
             event\role_assigned::class => [
                 self::class,
                 'onRoleAssigned',
@@ -144,6 +148,13 @@ final class EventSubscriber
             $courseId,
             $groupId,
         );
+    }
+
+    public static function onGroupUpdated(event\group_updated $event): void
+    {
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
+
+        self::updateRoomsForGroup($groupId);
     }
 
     public static function onRoleAssigned(event\role_assigned $event): void
@@ -479,6 +490,57 @@ final class EventSubscriber
                     $module->name(),
                 );
             }
+
+            $matrixRoomService->updateRoom(
+                $room->matrixRoomId(),
+                $name,
+                Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
+            );
+        }
+    }
+
+    /**
+     * @throws Moodle\Domain\CourseNotFound
+     */
+    private static function updateRoomsForGroup(Moodle\Domain\GroupId $groupId): void
+    {
+        $container = Container::instance();
+
+        $group = $container->moodleGroupRepository()->find($groupId);
+
+        if (!$group instanceof Moodle\Domain\Group) {
+            throw Moodle\Domain\GroupNotFound::for($groupId);
+        }
+
+        $moodleModuleRepository = $container->moodleModuleRepository();
+        $moodleCourseRepository = $container->moodleCourseRepository();
+        $moodleNameService = $container->moodleNameService();
+        $matrixRoomService = $container->matrixRoomService();
+
+        $rooms = $container->moodleRoomRepository()->findAllBy([
+            'group_id' => $groupId->toInt(),
+        ]);
+
+        foreach ($rooms as $room) {
+            $module = $moodleModuleRepository->findOneBy([
+                'id' => $room->moduleId()->toInt(),
+            ]);
+
+            if (!$module instanceof Moodle\Domain\Module) {
+                continue;
+            }
+
+            $course = $moodleCourseRepository->find($module->courseId());
+
+            if (!$course instanceof Moodle\Domain\Course) {
+                continue;
+            }
+
+            $name = $moodleNameService->forGroupCourseAndModule(
+                $group->name(),
+                $course->shortName(),
+                $module->name(),
+            );
 
             $matrixRoomService->updateRoom(
                 $room->matrixRoomId(),
