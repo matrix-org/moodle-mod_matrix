@@ -15,6 +15,7 @@ require '../../config.php';
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+/** @var int $courseModuleId */
 $courseModuleId = required_param(
     'id',
     PARAM_INT,

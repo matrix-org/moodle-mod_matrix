@@ -438,18 +438,14 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="8">
+    <MixedArgument occurrences="7">
       <code>$OUTPUT-&gt;footer()</code>
       <code>$OUTPUT-&gt;footer()</code>
       <code>$OUTPUT-&gt;header()</code>
       <code>$cm</code>
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
-      <code>$courseModuleId</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$courseModuleId</code>
-    </MixedAssignment>
     <MixedPropertyFetch occurrences="3">
       <code>$cm-&gt;id</code>
       <code>$cm-&gt;instance</code>
