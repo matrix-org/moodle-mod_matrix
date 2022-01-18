@@ -88,6 +88,7 @@ echo $OUTPUT->heading(get_string(
 $view = new Moodle\Infrastructure\View(
     $container->moodleRoomRepository(),
     $container->moodleRoomService(),
+    $OUTPUT,
 );
 
 $view->render(

@@ -11,19 +11,21 @@ declare(strict_types=1);
 namespace mod_matrix\Moodle\Infrastructure;
 
 use mod_matrix\Moodle;
-use mod_matrix\Twitter;
 
 final class View
 {
     private $moodleRoomRepository;
     private $moodleRoomService;
+    private $renderer;
 
     public function __construct(
         Moodle\Domain\RoomRepository $moodleRoomRepository,
-        Moodle\Application\RoomService $moodleRoomService
+        Moodle\Application\RoomService $moodleRoomService,
+        \core_renderer $renderer
     ) {
         $this->moodleRoomRepository = $moodleRoomRepository;
         $this->moodleRoomService = $moodleRoomService;
+        $this->renderer = $renderer;
     }
 
     public function render(
@@ -35,12 +37,12 @@ final class View
         ]);
 
         if ([] === $rooms) {
-            echo Twitter\Bootstrap::alert(
-                'danger',
+            echo $this->renderer->notification(
                 get_string(
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
                     Moodle\Application\Plugin::NAME,
                 ),
+                'danger',
             );
 
             return;
@@ -73,12 +75,12 @@ HTML;
         );
 
         if (\count($groups) === 0) {
-            echo Twitter\Bootstrap::alert(
-                'danger',
+            echo $this->renderer->notification(
                 get_string(
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS,
                     Moodle\Application\Plugin::NAME,
                 ),
+                'danger',
             );
 
             return;
@@ -87,12 +89,12 @@ HTML;
         $visibleGroups = groups_get_activity_allowed_groups($cm);
 
         if (\count($visibleGroups) === 0) {
-            echo Twitter\Bootstrap::alert(
-                'danger',
+            echo $this->renderer->notification(
                 get_string(
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS,
                     Moodle\Application\Plugin::NAME,
                 ),
+                'danger',
             );
 
             return;
@@ -107,12 +109,12 @@ HTML;
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                echo Twitter\Bootstrap::alert(
-                    'danger',
+                $this->renderer->notification(
                     get_string(
                         Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP,
                         Moodle\Application\Plugin::NAME,
                     ),
+                    'danger',
                 );
 
                 return;
@@ -133,12 +135,12 @@ HTML;
             return;
         }
 
-        echo Twitter\Bootstrap::alert(
-            'warning',
+        echo $this->renderer->notification(
             get_string(
                 Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS,
                 Moodle\Application\Plugin::NAME,
             ),
+            'warning',
         );
 
         foreach ($visibleGroups as $group) {

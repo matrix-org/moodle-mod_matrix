@@ -274,7 +274,7 @@
     </MixedArgument>
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
-    <MixedArgument occurrences="9">
+    <MixedArgument occurrences="8">
       <code>$groups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
@@ -293,6 +293,19 @@
       <code>$group-&gt;id</code>
       <code>$group-&gt;id</code>
     </MixedPropertyFetch>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$moodleRoomRepository</code>
+      <code>$moodleRoomService</code>
+      <code>$renderer</code>
+    </PropertyNotSetInConstructor>
+    <UndefinedClass occurrences="6">
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>\core_renderer</code>
+    </UndefinedClass>
     <UndefinedFunction occurrences="10">
       <code>groups_get_activity_allowed_groups($cm)</code>
       <code>groups_get_group_name($group-&gt;id)</code>
@@ -412,11 +425,6 @@
       <code>$target</code>
     </MixedAssignment>
   </file>
-  <file src="test/Unit/Twitter/BootstrapTest.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>\Generator</code>
-    </MixedInferredReturnType>
-  </file>
   <file src="version.php">
     <MixedPropertyAssignment occurrences="6">
       <code>$plugin</code>
@@ -454,11 +462,13 @@
     <MixedPropertyFetch occurrences="1">
       <code>$course-&gt;fullname</code>
     </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>$OUTPUT</code>
+    </UndefinedClass>
     <UndefinedConstant occurrences="1">
       <code>PARAM_INT</code>
     </UndefinedConstant>
-    <UndefinedDocblockClass occurrences="5">
-      <code>$OUTPUT</code>
+    <UndefinedDocblockClass occurrences="4">
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
