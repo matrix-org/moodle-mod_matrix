@@ -352,14 +352,13 @@ function matrix_update_instance(
     }
 
     $moodleNameService = $container->moodleNameService();
+    $moodleGroupRepository = $container->moodleGroupRepository();
+    $matrixRoomService = $container->matrixRoomService();
 
     $name = $moodleNameService->forCourseAndModule(
         $course->shortName(),
         $module->name(),
     );
-
-    $moodleGroupRepository = $container->moodleGroupRepository();
-    $matrixRoomService = $container->matrixRoomService();
 
     foreach ($rooms as $room) {
         $groupId = $room->groupId();
