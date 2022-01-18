@@ -22,10 +22,8 @@ global $CFG;
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/moodlelib.php#L8139-L8175
  *
  * @param string $feature
- *
- * @return null|bool
  */
-function matrix_supports($feature)
+function matrix_supports($feature): ?bool
 {
     if (!\is_string($feature)) {
         return null;
