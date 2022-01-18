@@ -87,13 +87,17 @@ echo $OUTPUT->heading(get_string(
 
 $view = new Moodle\Infrastructure\View(
     $container->moodleRoomRepository(),
+    $container->moodleGroupRepository(),
     $container->moodleRoomService(),
+    $container->moodleNameService(),
     $OUTPUT,
 );
 
+/** @var stdClass $USER */
 $view->render(
     $module,
     $cm,
+    $USER,
 );
 
 echo $OUTPUT->footer();

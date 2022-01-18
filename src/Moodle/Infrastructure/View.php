@@ -16,26 +16,59 @@ use mod_matrix\Moodle;
 final class View
 {
     private $moodleRoomRepository;
+    private $moodleGroupRepository;
     private $moodleRoomService;
+    private $moodleNameService;
     private $renderer;
 
     public function __construct(
         Moodle\Domain\RoomRepository $moodleRoomRepository,
+        Moodle\Domain\GroupRepository $moodleGroupRepository,
         Moodle\Application\RoomService $moodleRoomService,
+        Moodle\Application\NameService $moodleNameService,
         \core_renderer $renderer
     ) {
         $this->moodleRoomRepository = $moodleRoomRepository;
+        $this->moodleGroupRepository = $moodleGroupRepository;
         $this->moodleRoomService = $moodleRoomService;
+        $this->moodleNameService = $moodleNameService;
         $this->renderer = $renderer;
     }
 
     public function render(
         Moodle\Domain\Module $module,
-        \cm_info $cm
+        \cm_info $cm,
+        \stdClass $user
     ): void {
+        $isStaff = self::isStaffUserInCourseContext(
+            $user,
+            $module->courseId(),
+        );
+
         $rooms = $this->moodleRoomRepository->findAllBy([
             'module_id' => $module->id()->toInt(),
         ]);
+
+        if (!$isStaff) {
+            $groupsVisibleToUser = groups_get_activity_allowed_groups(
+                $cm,
+                $user,
+            );
+
+            $rooms = \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
+                if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
+                    return true;
+                }
+
+                foreach ($groupsVisibleToUser as $groupVisibleToUser) {
+                    if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
 
         if ([] === $rooms) {
             echo $this->renderer->notification(
@@ -45,144 +78,93 @@ final class View
                 ),
                 output\notification::NOTIFY_WARNING,
             );
-
-            return;
         }
 
-        if (\count($rooms) === 1) {
-            $firstPossibleRoom = \reset($rooms);
+        $courseShortName = Moodle\Domain\CourseShortName::fromString($cm->get_course()->shortname);
 
-            $roomUrl = $this->moodleRoomService->urlForRoom($firstPossibleRoom);
+        $roomLinks = \array_map(function (Moodle\Domain\Room $room) use ($courseShortName, $module): RoomLink {
+            $url = $this->moodleRoomService->urlForRoom($room);
 
-            $link = self::link(
-                $roomUrl,
-                get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
-                    Moodle\Application\Plugin::NAME,
-                ),
-            );
+            $groupId = $room->groupId();
 
-            echo <<<HTML
-<script type="text/javascript">
-    window.location = {$roomUrl};
-</script>
-{$link}
-HTML;
-
-            return;
-        }
-
-        $groups = groups_get_all_groups(
-            $module->courseId()->toInt(),
-            0,
-            0,
-            'g.*',
-            true,
-        );
-
-        if (\count($groups) === 0) {
-            echo $this->renderer->notification(
-                get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS,
-                    Moodle\Application\Plugin::NAME,
-                ),
-                output\notification::NOTIFY_WARNING,
-            );
-
-            return;
-        }
-
-        $visibleGroups = groups_get_activity_allowed_groups($cm);
-
-        if (\count($visibleGroups) === 0) {
-            echo $this->renderer->notification(
-                get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS,
-                    Moodle\Application\Plugin::NAME,
-                ),
-                output\notification::NOTIFY_WARNING,
-            );
-
-            return;
-        }
-
-        if (\count($visibleGroups) === 1) {
-            $group = \reset($visibleGroups);
-
-            $room = $this->moodleRoomRepository->findOneBy([
-                'group_id' => $group->id,
-                'module_id' => $module->id()->toInt(),
-            ]);
-
-            if (!$room instanceof Moodle\Domain\Room) {
-                $this->renderer->notification(
-                    get_string(
-                        Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP,
-                        Moodle\Application\Plugin::NAME,
+            if (!$groupId instanceof Moodle\Domain\GroupId) {
+                return RoomLink::create(
+                    $url,
+                    $this->moodleNameService->forCourseAndModule(
+                        $courseShortName,
+                        $module->name(),
                     ),
-                    output\notification::NOTIFY_WARNING,
                 );
-
-                return;
             }
 
-            $roomUrl = $this->moodleRoomService->urlForRoom($room);
+            $group = $this->moodleGroupRepository->find($groupId);
 
-            $link = self::link(
-                $roomUrl,
-                get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
-                    Moodle\Application\Plugin::NAME,
+            if (!$group instanceof Moodle\Domain\Group) {
+                throw Moodle\Domain\GroupNotFound::for($groupId);
+            }
+
+            return RoomLink::create(
+                $url,
+                $this->moodleNameService->forGroupCourseAndModule(
+                    $group->name(),
+                    $courseShortName,
+                    $module->name(),
                 ),
             );
+        }, $rooms);
+
+        if (
+            !$isStaff
+            && \count($roomLinks) === 1
+        ) {
+            $roomLink = \reset($roomLinks);
 
             echo <<<HTML
 <script type="text/javascript">
-    window.location = {$roomUrl};
+    window.location.href = '{$roomLink->url()}';
 </script>
-{$link}
 HTML;
-
-            return;
         }
 
-        echo $this->renderer->notification(
-            get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS,
-                Moodle\Application\Plugin::NAME,
-            ),
-            output\notification::NOTIFY_WARNING,
-        );
-
-        foreach ($visibleGroups as $group) {
-            $room = $this->moodleRoomRepository->findOneBy([
-                'group_id' => $group->id,
-                'module_id' => $module->id()->toInt(),
-            ]);
-
-            if (!$room instanceof Moodle\Domain\Room) {
-                continue;
-            }
-
-            $link = self::link(
-                $this->moodleRoomService->urlForRoom($room),
-                groups_get_group_name($group->id),
+        \usort($roomLinks, static function (RoomLink $a, RoomLink $b): int {
+            return \strcmp(
+                $a->roomName()->toString(),
+                $b->roomName()->toString(),
             );
+        });
 
-            echo <<<HTML
-<p>
-    {$link}
-</p>
+        $listItems = \implode(\PHP_EOL, \array_map(static function (RoomLink $link): string {
+            return <<<HTML
+<li>
+    <a href="{$link->url()}" target="_blank" title="{$link->roomName()->toString()}">{$link->roomName()->toString()}</a>
+</li>
 HTML;
-        }
+        }, $roomLinks));
+
+        echo <<<HTML
+<ul>
+    {$listItems}
+</ul>
+HTML;
     }
 
-    private static function link(
-        string $href,
-        string $content
-    ): string {
-        return <<<HTML
-<a href="{$href}">{$content}</a>
-HTML;
+    private static function isStaffUserInCourseContext(
+        \stdClass $user,
+        Moodle\Domain\CourseId $courseId
+    ): bool {
+        $context = \context_course::instance($courseId->toInt());
+
+        $staffUsersInCourseContext = get_users_by_capability(
+            $context,
+            'mod/matrix:staff',
+        );
+
+        foreach ($staffUsersInCourseContext as $staffUserInCourseContext) {
+            if ($user->id === $staffUserInCourseContext->id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

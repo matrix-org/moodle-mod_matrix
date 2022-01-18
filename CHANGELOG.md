@@ -11,6 +11,7 @@ For a full diff see [`2022011100...main`](https://gitlab.matrix.org/new-vector/m
 ### Changed
 
 - Started displaying the Matrix chat topic below the name of the chat in course view ([#62](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/62))
+- Started displaying a list of chat rooms in the view when the current user is a staff user ([#70](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/70))
 
 ### Fixed
 
