@@ -107,7 +107,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $courseShortName = Moodle\Domain\CourseShortName::fromString($shortname);
 
-        self::updateRoomsForAllModulesInCourse(
+        self::updateRoomsForCourse(
             $courseId,
             $courseShortName,
         );
@@ -429,7 +429,7 @@ final class EventSubscriber
     /**
      * @throws Moodle\Domain\CourseNotFound
      */
-    private static function updateRoomsForAllModulesInCourse(
+    private static function updateRoomsForCourse(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\CourseShortName $courseShortName
     ): void {
