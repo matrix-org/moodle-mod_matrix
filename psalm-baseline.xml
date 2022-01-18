@@ -33,6 +33,9 @@
       <code>mod_matrix_mod_form</code>
       <code>mod_matrix_mod_form</code>
     </MissingDependency>
+    <MixedArgument occurrences="1">
+      <code>$moduleinfo-&gt;instance</code>
+    </MixedArgument>
     <MixedInferredReturnType occurrences="1">
       <code>int</code>
     </MixedInferredReturnType>
