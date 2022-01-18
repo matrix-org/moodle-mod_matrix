@@ -371,9 +371,9 @@ function matrix_update_instance(
         }
 
         $name = $moodleNameService->forGroupCourseAndModule(
-            $group,
-            $course,
-            $module,
+            $group->name(),
+            $course->shortName(),
+            $module->name(),
         );
     }
 
