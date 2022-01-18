@@ -21,6 +21,7 @@ $courseModuleId = required_param(
     PARAM_INT,
 );
 
+/** @var cm_info $cm */
 [$course, $cm] = get_course_and_cm_from_cmid(
     $courseModuleId,
     Moodle\Application\Plugin::NAME,
