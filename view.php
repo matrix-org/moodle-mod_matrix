@@ -27,16 +27,18 @@ $courseModuleId = required_param(
     Moodle\Application\Plugin::NAME,
 );
 
+$moduleId = Moodle\Domain\ModuleId::fromString($cm->instance);
+
 $container = Container::instance();
 
 $module = $container->moodleModuleRepository()->findOneBy([
-    'id' => $cm->instance,
+    'id' => $moduleId->toInt(),
 ]);
 
 if (!$module instanceof Moodle\Domain\Module) {
     throw new \RuntimeException(\sprintf(
-        'A Matrix module with id "%s" could not be found.',
-        $cm->instance,
+        'A Matrix module with id "%d" could not be found.',
+        $moduleId->toInt(),
     ));
 }
 
