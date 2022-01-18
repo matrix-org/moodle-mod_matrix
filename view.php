@@ -15,7 +15,10 @@ require '../../config.php';
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$id = required_param('id', PARAM_INT);
+$id = required_param(
+    'id',
+    PARAM_INT,
+);
 
 [$course, $cm] = get_course_and_cm_from_cmid(
     $id,
@@ -35,7 +38,11 @@ if (!$module instanceof Moodle\Domain\Module) {
     ));
 }
 
-require_login($course, true, $cm);
+require_login(
+    $course,
+    true,
+    $cm,
+);
 
 /** @var moodle_page $PAGE */
 $PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);

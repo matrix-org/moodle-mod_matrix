@@ -464,9 +464,6 @@
       <code>$OUTPUT</code>
       <code>echo $OUTPUT-&gt;header();</code>
     </UndefinedDocblockClass>
-    <UndefinedFunction occurrences="2">
-      <code>require_login($course, true, $cm)</code>
-      <code>required_param('id', PARAM_INT)</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="2"/>
   </file>
 </files>
