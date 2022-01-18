@@ -53,14 +53,17 @@ final class View
 
             $roomUrl = $this->moodleRoomService->urlForRoom($firstPossibleRoom);
 
-            $title = get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
-                Moodle\Application\Plugin::NAME,
+            $link = self::link(
+                $roomUrl,
+                get_string(
+                    Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
+                    Moodle\Application\Plugin::NAME,
+                ),
             );
 
             echo <<<HTML
 <script type="text/javascript">window.location = {$roomUrl};</script>
-<a href="{$roomUrl}">{$title}</a>
+{$link}
 HTML;
 
             return;
@@ -122,14 +125,17 @@ HTML;
 
             $roomUrl = $this->moodleRoomService->urlForRoom($room);
 
-            $title = get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
-                Moodle\Application\Plugin::NAME,
+            $link = self::link(
+                $roomUrl,
+                get_string(
+                    Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
+                    Moodle\Application\Plugin::NAME,
+                ),
             );
 
             echo <<<HTML
 <script type="text/javascript">window.location = {$roomUrl};</script>
-<a href="{$roomUrl}">{$title}</a>
+{$link}
 HTML;
 
             return;
@@ -153,14 +159,25 @@ HTML;
                 continue;
             }
 
-            $roomUrl = $this->moodleRoomService->urlForRoom($room);
-            $name = groups_get_group_name($group->id);
+            $link = self::link(
+                $this->moodleRoomService->urlForRoom($room),
+                groups_get_group_name($group->id),
+            );
 
             echo <<<HTML
 <p>
-    <a href="{$roomUrl}">{$name}</a>
+    {$link}
 </p>
 HTML;
         }
+    }
+
+    private static function link(
+        string $href,
+        string $content
+    ): string {
+        return <<<HTML
+<a href="{$href}">{$content}</a>
+HTML;
     }
 }

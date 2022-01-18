@@ -274,19 +274,17 @@
     </MixedArgument>
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
-    <MixedArgument occurrences="8">
+    <MixedArgument occurrences="11">
       <code>$groups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
       <code>$visibleGroups</code>
+      <code>groups_get_group_name($group-&gt;id)</code>
     </MixedArgument>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="4">
       <code>$group</code>
       <code>$group</code>
       <code>$groups</code>
-      <code>$name</code>
-      <code>$title</code>
-      <code>$title</code>
       <code>$visibleGroups</code>
     </MixedAssignment>
     <MixedPropertyFetch occurrences="2">
