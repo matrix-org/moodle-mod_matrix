@@ -37,6 +37,10 @@ final class observer
                 self::class,
                 'onGroupCreated',
             ],
+            event\group_deleted::class => [
+                self::class,
+                'onGroupDeleted',
+            ],
             event\group_member_added::class => [
                 self::class,
                 'onGroupMemberAdded',
@@ -134,6 +138,15 @@ final class observer
             $courseId,
             $groupId,
         );
+    }
+
+    public static function onGroupDeleted(event\group_deleted $event): void
+    {
+        self::requireAutoloader();
+
+        $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
+
+        self::removeRoomsForGroup($groupId);
     }
 
     public static function onGroupMemberAdded(event\group_member_added $event): void
@@ -575,6 +588,28 @@ final class observer
                 $name,
                 Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
             );
+        }
+    }
+
+    /**
+     * @throws Moodle\Domain\GroupNotFound
+     */
+    private static function removeRoomsForGroup(Moodle\Domain\GroupId $groupId): void
+    {
+        $container = Container::instance();
+
+        $moodleRoomRepository = $container->moodleRoomRepository();
+
+        $rooms = $container->moodleRoomRepository()->findAllBy([
+            'group_id' => $groupId->toInt(),
+        ]);
+
+        $matrixRoomService = $container->matrixRoomService();
+
+        foreach ($rooms as $room) {
+            $matrixRoomService->removeRoom($room->matrixRoomId());
+
+            $moodleRoomRepository->remove($room);
         }
     }
 
