@@ -296,13 +296,18 @@
       <code>$moodleRoomService</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="6">
+    <UndefinedClass occurrences="11">
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>\core_renderer</code>
+      <code>output\notification</code>
+      <code>output\notification</code>
+      <code>output\notification</code>
+      <code>output\notification</code>
+      <code>output\notification</code>
     </UndefinedClass>
     <UndefinedFunction occurrences="10">
       <code>groups_get_activity_allowed_groups($cm)</code>

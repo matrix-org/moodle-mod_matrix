@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Infrastructure;
 
+use core\output;
 use mod_matrix\Moodle;
 
 final class View
@@ -42,7 +43,7 @@ final class View
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
                     Moodle\Application\Plugin::NAME,
                 ),
-                'danger',
+                output\notification::NOTIFY_WARNING,
             );
 
             return;
@@ -83,7 +84,7 @@ HTML;
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS,
                     Moodle\Application\Plugin::NAME,
                 ),
-                'danger',
+                output\notification::NOTIFY_WARNING,
             );
 
             return;
@@ -97,7 +98,7 @@ HTML;
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS,
                     Moodle\Application\Plugin::NAME,
                 ),
-                'danger',
+                output\notification::NOTIFY_WARNING,
             );
 
             return;
@@ -117,7 +118,7 @@ HTML;
                         Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP,
                         Moodle\Application\Plugin::NAME,
                     ),
-                    'danger',
+                    output\notification::NOTIFY_WARNING,
                 );
 
                 return;
@@ -146,7 +147,7 @@ HTML;
                 Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS,
                 Moodle\Application\Plugin::NAME,
             ),
-            'warning',
+            output\notification::NOTIFY_WARNING,
         );
 
         foreach ($visibleGroups as $group) {
