@@ -528,7 +528,7 @@ final class observer
     }
 
     /**
-     * @throws Moodle\Domain\CourseNotFound
+     * @throws Moodle\Domain\GroupNotFound
      */
     private static function updateRoomsForGroup(Moodle\Domain\GroupId $groupId): void
     {
