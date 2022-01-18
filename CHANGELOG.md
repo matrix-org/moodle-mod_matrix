@@ -16,6 +16,7 @@ For a full diff see [`2022011100...main`](https://gitlab.matrix.org/new-vector/m
 
 - Started disallowing staff members to change the avatar of a Matrix chat ([#63](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/63))
 - Started renaming Matrix chat rooms when a staff member updates a group ([#64](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/64))
+- Renamed and moved `EventSubscriber` to allow moodle to auto-load cached observers ([#65](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/65))
 
 ## [`2022011101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011101)
 

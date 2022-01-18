@@ -44,6 +44,7 @@ services:
       # directories
       - "../.data/moodle/:/var/www/moodledata/"
       - "../backup/:/var/www/html/mod/matrix/backup/"
+      - "../classes/:/var/www/html/mod/matrix/classes/"
       - "../db/:/var/www/html/mod/matrix/db/"
       - "../lang/:/var/www/html/mod/matrix/lang/"
       - "../pix/:/var/www/html/mod/matrix/pix/"

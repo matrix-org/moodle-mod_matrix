@@ -242,42 +242,6 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Moodle/Infrastructure/EventSubscriber.php">
-    <MixedArgument occurrences="1">
-      <code>$CFG-&gt;wwwroot</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1"/>
-    <MixedArrayOffset occurrences="1"/>
-    <MixedPropertyFetch occurrences="1">
-      <code>$CFG-&gt;wwwroot</code>
-    </MixedPropertyFetch>
-    <UndefinedClass occurrences="24">
-      <code>event\course_updated</code>
-      <code>event\course_updated</code>
-      <code>event\group_created</code>
-      <code>event\group_created</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_removed</code>
-      <code>event\group_member_removed</code>
-      <code>event\group_updated</code>
-      <code>event\group_updated</code>
-      <code>event\role_assigned</code>
-      <code>event\role_assigned</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_deleted</code>
-      <code>event\role_deleted</code>
-      <code>event\role_unassigned</code>
-      <code>event\role_unassigned</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_updated</code>
-      <code>event\user_enrolment_updated</code>
-    </UndefinedClass>
-  </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
     <UndefinedFunction occurrences="1">
       <code>get_course($courseId-&gt;toInt())</code>
@@ -406,35 +370,6 @@
       <code>IGNORE_MISSING</code>
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
-  </file>
-  <file src="test/Unit/Moodle/Infrastructure/EventSubscriberTest.php">
-    <MixedArrayAccess occurrences="4">
-      <code>$className</code>
-      <code>$methodName</code>
-      <code>$observer['callback']</code>
-      <code>$observer['eventname']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
-      <code>$observer</code>
-      <code>[$className, $methodName]</code>
-    </MixedAssignment>
-    <MoreSpecificReturnType occurrences="1">
-      <code>\Generator&lt;string, array{0: string, 1: string}&gt;</code>
-    </MoreSpecificReturnType>
-    <UndefinedClass occurrences="12">
-      <code>event\course_updated</code>
-      <code>event\group_created</code>
-      <code>event\group_member_added</code>
-      <code>event\group_member_removed</code>
-      <code>event\group_updated</code>
-      <code>event\role_assigned</code>
-      <code>event\role_capabilities_updated</code>
-      <code>event\role_deleted</code>
-      <code>event\role_unassigned</code>
-      <code>event\user_enrolment_created</code>
-      <code>event\user_enrolment_deleted</code>
-      <code>event\user_enrolment_updated</code>
-    </UndefinedClass>
   </file>
   <file src="test/Unit/Moodle/Infrastructure/ModuleNormalizerTest.php">
     <MixedArgument occurrences="3">
