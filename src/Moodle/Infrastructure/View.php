@@ -30,11 +30,11 @@ final class View
         Moodle\Domain\Module $module,
         \cm_info $cm
     ): void {
-        $possibleRooms = $this->moodleRoomRepository->findAllBy([
+        $rooms = $this->moodleRoomRepository->findAllBy([
             'module_id' => $module->id()->toInt(),
         ]);
 
-        if ([] === $possibleRooms) {
+        if ([] === $rooms) {
             echo Twitter\Bootstrap::alert(
                 'danger',
                 get_string(
@@ -46,8 +46,8 @@ final class View
             return;
         }
 
-        if (\count($possibleRooms) === 1) {
-            $firstPossibleRoom = \reset($possibleRooms);
+        if (\count($rooms) === 1) {
+            $firstPossibleRoom = \reset($rooms);
 
             $roomUrl = $this->moodleRoomService->urlForRoom($firstPossibleRoom);
 
