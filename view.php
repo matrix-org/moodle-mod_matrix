@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 use mod_matrix\Container;
 use mod_matrix\Moodle;
-use mod_matrix\Twitter;
 
 require '../../config.php';
 
@@ -25,9 +24,7 @@ $id = required_param('id', PARAM_INT);
 
 $container = Container::instance();
 
-$moodleModuleRepository = $container->moodleModuleRepository();
-
-$module = $moodleModuleRepository->findOneBy([
+$module = $container->moodleModuleRepository()->findOneBy([
     'id' => $cm->instance,
 ]);
 
@@ -46,11 +43,11 @@ $PAGE->set_title($module->name()->toString());
 $PAGE->set_cacheable(false);
 $PAGE->set_heading($course->fullname);
 
-/** @var bootstrap_renderer $OUTPUT */
+/** @var core_renderer $OUTPUT */
 echo $OUTPUT->header();
 
 if (!has_capability('mod/matrix:view', $PAGE->context)) {
-    echo $OUTPUT->confirm(
+    echo $this->renderer->confirm(
         \sprintf(
             '<p>%s</p>%s',
             get_string(
@@ -60,7 +57,9 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
             get_string('liketologin'),
         ),
         get_login_url(),
-        new moodle_url('/course/view.php', ['id' => $course->id]),
+        new moodle_url('/course/view.php', [
+            'id' => $module->courseId()->toInt(),
+        ]),
     );
 
     echo $OUTPUT->footer();
@@ -68,136 +67,14 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$moodleRoomRepository = $container->moodleRoomRepository();
-
-$possibleRooms = $moodleRoomRepository->findAllBy([
-    'module_id' => $module->id()->toInt(),
-]);
-
-if ([] === $possibleRooms) {
-    echo Twitter\Bootstrap::alert(
-        'danger',
-        get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
-            Moodle\Application\Plugin::NAME,
-        ),
-    );
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
-
-$moodleRoomService = $container->moodleRoomService();
-
-if (\count($possibleRooms) === 1) {
-    $firstPossibleRoom = \reset($possibleRooms);
-
-    $roomUrl = \json_encode($moodleRoomService->urlForRoom($firstPossibleRoom));
-
-    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
-
-$groups = groups_get_all_groups(
-    $module->courseId()->toInt(),
-    0,
-    0,
-    'g.*',
-    true,
+$view = new Moodle\Infrastructure\View(
+    $container->moodleRoomRepository(),
+    $container->moodleRoomService(),
 );
 
-if (\count($groups) === 0) {
-    echo Twitter\Bootstrap::alert(
-        'danger',
-        get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS,
-            Moodle\Application\Plugin::NAME,
-        ),
-    );
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
-
-$visibleGroups = groups_get_activity_allowed_groups($cm);
-
-if (\count($visibleGroups) === 0) {
-    echo Twitter\Bootstrap::alert(
-        'danger',
-        get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS,
-            Moodle\Application\Plugin::NAME,
-        ),
-    );
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
-
-if (\count($visibleGroups) === 1) {
-    $group = \reset($visibleGroups);
-
-    $room = $moodleRoomRepository->findOneBy([
-        'group_id' => $group->id,
-        'module_id' => $module->id()->toInt(),
-    ]);
-
-    if (!$room instanceof Moodle\Domain\Room) {
-        echo Twitter\Bootstrap::alert(
-            'danger',
-            get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP,
-                Moodle\Application\Plugin::NAME,
-            ),
-        );
-
-        echo $OUTPUT->footer();
-
-        exit;
-    }
-
-    $roomUrl = \json_encode($moodleRoomService->urlForRoom($room));
-
-    echo '<script type="text/javascript">window.location = ' . $roomUrl . ';</script>';
-    echo '<a href="' . $roomUrl . '">' . get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME) . '</a>';
-
-    echo $OUTPUT->footer();
-
-    exit;
-}
-
-// else multiple groups are possible
-
-echo Twitter\Bootstrap::alert(
-    'warning',
-    get_string(
-        Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS,
-        Moodle\Application\Plugin::NAME,
-    ),
+$view->render(
+    $module,
+    $cm,
 );
-
-foreach ($visibleGroups as $id => $group) {
-    $room = $moodleRoomRepository->findOneBy([
-        'group_id' => $group->id,
-        'module_id' => $module->id()->toInt(),
-    ]);
-
-    if (!$room instanceof Moodle\Domain\Room) {
-        continue;
-    }
-
-    $name = groups_get_group_name($group->id);
-
-    $roomUrl = \json_encode($moodleRoomService->urlForRoom($room));
-
-    echo '<p><a href="' . $roomUrl . '">' . $name . '</a></p>';
-}
 
 echo $OUTPUT->footer();
