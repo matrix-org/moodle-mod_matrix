@@ -38,7 +38,10 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
                     return $usersWithMatrixUserId;
                 }
 
-                $usersWithMatrixUserId[] = Moodle\Domain\User::create($matrixUserId);
+                $usersWithMatrixUserId[] = Moodle\Domain\User::create(
+                    Moodle\Domain\UserId::fromString($user->id),
+                    $matrixUserId,
+                );
 
                 return $usersWithMatrixUserId;
             },
@@ -71,7 +74,10 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
                     return $usersWithMatrixUserId;
                 }
 
-                $usersWithMatrixUserId[] = Moodle\Domain\User::create($matrixUserId);
+                $usersWithMatrixUserId[] = Moodle\Domain\User::create(
+                    Moodle\Domain\UserId::fromString($user->id),
+                    $matrixUserId,
+                );
 
                 return $usersWithMatrixUserId;
             },

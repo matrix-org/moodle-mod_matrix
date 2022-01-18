@@ -21,6 +21,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Moodle\Domain\User
  *
  * @uses \mod_matrix\Matrix\Domain\UserId
+ * @uses \mod_matrix\Moodle\Domain\UserId
  */
 final class UserTest extends Framework\TestCase
 {
@@ -28,10 +29,17 @@ final class UserTest extends Framework\TestCase
 
     public function testCreateReturnsUser(): void
     {
-        $matrixUserId = Matrix\Domain\UserId::fromString(self::faker()->sha1());
+        $faker = self::faker();
 
-        $user = Moodle\Domain\User::create($matrixUserId);
+        $id = Moodle\Domain\UserId::fromInt($faker->numberBetween(1));
+        $matrixUserId = Matrix\Domain\UserId::fromString($faker->sha1());
 
+        $user = Moodle\Domain\User::create(
+            $id,
+            $matrixUserId,
+        );
+
+        self::assertSame($id, $user->id());
         self::assertSame($matrixUserId, $user->matrixUserId());
     }
 }

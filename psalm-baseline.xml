@@ -256,6 +256,10 @@
     <DocblockTypeContradiction occurrences="1">
       <code>\is_array($users)</code>
     </DocblockTypeContradiction>
+    <MixedArgument occurrences="2">
+      <code>$user-&gt;id</code>
+      <code>$user-&gt;id</code>
+    </MixedArgument>
     <MixedReturnTypeCoercion occurrences="4">
       <code>array</code>
       <code>array</code>

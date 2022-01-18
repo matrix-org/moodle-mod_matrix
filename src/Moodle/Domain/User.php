@@ -17,16 +17,30 @@ use mod_matrix\Matrix;
  */
 final class User
 {
+    private $id;
     private $matrixUserId;
 
-    private function __construct(Matrix\Domain\UserId $matrixUserId)
-    {
+    private function __construct(
+        UserId $id,
+        Matrix\Domain\UserId $matrixUserId
+    ) {
+        $this->id = $id;
         $this->matrixUserId = $matrixUserId;
     }
 
-    public static function create(Matrix\Domain\UserId $matrixUserId): self
+    public static function create(
+        UserId $id,
+        Matrix\Domain\UserId $matrixUserId
+    ): self {
+        return new self(
+            $id,
+            $matrixUserId,
+        );
+    }
+
+    public function id(): UserId
     {
-        return new self($matrixUserId);
+        return $this->id;
     }
 
     public function matrixUserId(): Matrix\Domain\UserId
