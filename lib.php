@@ -285,12 +285,26 @@ function matrix_delete_instance($id): bool
  */
 function matrix_get_coursemodule_info(object $moduleinfo): cached_cm_info
 {
+    $moduleId = Moodle\Domain\ModuleId::fromString($moduleinfo->instance);
+
+    $module = Container::instance()->moodleModuleRepository()->findOneBy([
+        'id' => $moduleId->toInt(),
+    ]);
+
+    if (!$module instanceof Moodle\Domain\Module) {
+        throw new \RuntimeException(\sprintf(
+            'Could not find module with id %d.',
+            $moduleId->toInt(),
+        ));
+    }
+
     $onClickUrl = new moodle_url('/mod/matrix/view.php', [
         'id' => $moduleinfo->id,
     ]);
 
     $info = new cached_cm_info();
 
+    $info->content = $module->topic()->toString();
     $info->onclick = \sprintf(
         "window.open('%s'); return false;",
         $onClickUrl->out(false),
