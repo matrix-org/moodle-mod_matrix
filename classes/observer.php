@@ -338,20 +338,16 @@ final class observer
                 $groupId,
             );
 
-            $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $users));
-
             $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
-
-            $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                return $user->matrixUserId();
-            }, $staff));
 
             $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
-                $userIdsOfUsers,
-                $userIdsOfStaff,
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $users)),
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    return $user->matrixUserId();
+                }, $staff)),
             );
         }
     }
@@ -391,13 +387,11 @@ final class observer
                     $groupId,
                 );
 
-                $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $users));
-
                 $matrixRoomService->synchronizeRoomMembers(
                     $room->matrixRoomId(),
-                    $userIdsOfUsers,
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                        return $user->matrixUserId();
+                    }, $users)),
                     $userIdsOfStaff,
                 );
             }
