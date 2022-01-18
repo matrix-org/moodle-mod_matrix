@@ -185,7 +185,7 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         if (!$newTarget->equals($oldTarget)) {
             $sql = \sprintf(
                 <<<'SQL'
-UPDATE `%s` SET `target` = :new_target WHERE `target` = :old_target
+UPDATE %s SET target = :new_target WHERE target = :old_target
 SQL,
                 \sprintf(
                     '%s%s',
