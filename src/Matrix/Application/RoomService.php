@@ -48,7 +48,7 @@ final class RoomService
                 'ban' => $botPowerLevel->toInt(),
                 'events' => [
                     // https://spec.matrix.org/latest/client-server-api/#mroomavatar
-                    'm.room.avatar' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                    'm.room.avatar' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     // https://spec.matrix.org/latest/client-server-api/#mroomcanonical_alias
                     'm.room.canonical_alias' => Matrix\Domain\PowerLevel::staff()->toInt(),
                     // https://spec.matrix.org/latest/client-server-api/#mroomencryption

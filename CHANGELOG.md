@@ -12,6 +12,10 @@ For a full diff see [`2022011100...main`](https://gitlab.matrix.org/new-vector/m
 
 - Started displaying the Matrix chat topic below the name of the chat in course view ([#62](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/62))
 
+### Fixed
+
+- Started disallowing staff members to change the avatar of a Matrix chat ([#63](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/63))
+
 ## [`2022011101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011101)
 
 For a full diff see [`2022011100...2022011101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011100...2022011101).
