@@ -445,10 +445,10 @@
       <code>$cm</code>
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
-      <code>$id</code>
+      <code>$courseModuleId</code>
     </MixedArgument>
     <MixedAssignment occurrences="1">
-      <code>$id</code>
+      <code>$courseModuleId</code>
     </MixedAssignment>
     <MixedPropertyFetch occurrences="3">
       <code>$cm-&gt;id</code>

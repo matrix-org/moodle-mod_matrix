@@ -15,13 +15,13 @@ require '../../config.php';
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$id = required_param(
+$courseModuleId = required_param(
     'id',
     PARAM_INT,
 );
 
 [$course, $cm] = get_course_and_cm_from_cmid(
-    $id,
+    $courseModuleId,
     Moodle\Application\Plugin::NAME,
 );
 
