@@ -63,7 +63,9 @@ final class View
             );
 
             echo <<<HTML
-<script type="text/javascript">window.location = {$roomUrl};</script>
+<script type="text/javascript">
+    window.location = {$roomUrl};
+</script>
 {$link}
 HTML;
 
@@ -135,7 +137,9 @@ HTML;
             );
 
             echo <<<HTML
-<script type="text/javascript">window.location = {$roomUrl};</script>
+<script type="text/javascript">
+    window.location = {$roomUrl};
+</script>
 {$link}
 HTML;
 
