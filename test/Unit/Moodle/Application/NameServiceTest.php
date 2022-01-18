@@ -20,6 +20,7 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Moodle\Application\NameService
  *
+ * @uses \mod_matrix\Matrix\Domain\RoomName
  * @uses \mod_matrix\Moodle\Domain\CourseShortName
  * @uses \mod_matrix\Moodle\Domain\GroupName
  * @uses \mod_matrix\Moodle\Domain\ModuleName
