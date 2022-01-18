@@ -448,6 +448,7 @@ final class EventSubscriber
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleGroupRepository = $container->moodleGroupRepository();
         $moodleNameService = $container->moodleNameService();
+        $matrixRoomService = $container->matrixRoomService();
 
         foreach ($modules as $module) {
             $room = $moodleRoomRepository->findOneBy([
@@ -479,7 +480,7 @@ final class EventSubscriber
                 );
             }
 
-            $container->matrixRoomService()->updateRoom(
+            $matrixRoomService->updateRoom(
                 $room->matrixRoomId(),
                 $name,
                 Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
