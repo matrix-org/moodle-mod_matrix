@@ -49,7 +49,7 @@ final class View
         if (\count($possibleRooms) === 1) {
             $firstPossibleRoom = \reset($possibleRooms);
 
-            $roomUrl = \json_encode($this->moodleRoomService->urlForRoom($firstPossibleRoom));
+            $roomUrl = $this->moodleRoomService->urlForRoom($firstPossibleRoom);
 
             $title = get_string(
                 Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
@@ -118,7 +118,7 @@ HTML;
                 return;
             }
 
-            $roomUrl = \json_encode($this->moodleRoomService->urlForRoom($room));
+            $roomUrl = $this->moodleRoomService->urlForRoom($room);
 
             $title = get_string(
                 Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM,
@@ -151,7 +151,7 @@ HTML;
                 continue;
             }
 
-            $roomUrl = \json_encode($this->moodleRoomService->urlForRoom($room));
+            $roomUrl = $this->moodleRoomService->urlForRoom($room);
             $name = groups_get_group_name($group->id);
 
             echo <<<HTML
