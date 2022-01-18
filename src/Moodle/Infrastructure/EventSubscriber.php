@@ -118,7 +118,7 @@ final class EventSubscriber
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
-        self::prepareRoomsForAllModulesOfCourseAndGroup(
+        self::createRoomsForCourseAndGroup(
             $courseId,
             $groupId,
         );
@@ -191,7 +191,7 @@ final class EventSubscriber
      * @throws Moodle\Domain\CourseNotFound
      * @throws Moodle\Domain\GroupNotFound
      */
-    private static function prepareRoomsForAllModulesOfCourseAndGroup(
+    private static function createRoomsForCourseAndGroup(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
