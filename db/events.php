@@ -8,10 +8,8 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-use mod_matrix\Moodle;
+use mod_matrix\observer;
 
 \defined('MOODLE_INTERNAL') || exit();
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$observers = Moodle\Infrastructure\EventSubscriber::observers();
+$observers = observer::observers();

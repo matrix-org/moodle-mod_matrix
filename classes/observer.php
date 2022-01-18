@@ -8,16 +8,20 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Moodle\Infrastructure;
+namespace mod_matrix;
 
 use core\event;
-use mod_matrix\Container;
-use mod_matrix\Matrix;
-use mod_matrix\Moodle;
 
-\defined('MOODLE_INTERNAL') || exit;
+\defined('MOODLE_INTERNAL') || exit();
 
-final class EventSubscriber
+/**
+ * This hack is required because moodle caches observers, and when they are, our autoloader is not required.
+ *
+ * This class needs to stay in this location so moodle's own autoloader can kick in.
+ *
+ * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/classes/event/manager.php#L192-L240
+ */
+final class observer
 {
     /**
      * @see https://github.com/moodle/moodle/blob/02a2e649e92d570c7fa735bf05f69b588036f761/lib/classes/event/manager.php#L222-L230
@@ -86,6 +90,8 @@ final class EventSubscriber
 
     public static function onCourseUpdated(event\course_updated $event): void
     {
+        self::requireAutoloader();
+
         $other = $event->other;
 
         if (!\array_key_exists('updatedfields', $other)) {
@@ -119,6 +125,8 @@ final class EventSubscriber
 
     public static function onGroupCreated(event\group_created $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
@@ -130,6 +138,8 @@ final class EventSubscriber
 
     public static function onGroupMemberAdded(event\group_member_added $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
@@ -141,6 +151,8 @@ final class EventSubscriber
 
     public static function onGroupMemberRemoved(event\group_member_removed $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
@@ -152,6 +164,8 @@ final class EventSubscriber
 
     public static function onGroupUpdated(event\group_updated $event): void
     {
+        self::requireAutoloader();
+
         $groupId = Moodle\Domain\GroupId::fromString($event->objectid);
 
         self::updateRoomsForGroup($groupId);
@@ -159,26 +173,36 @@ final class EventSubscriber
 
     public static function onRoleAssigned(event\role_assigned $event): void
     {
+        self::requireAutoloader();
+
         self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleCapabilitiesUpdated(event\role_capabilities_updated $event): void
     {
+        self::requireAutoloader();
+
         self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleDeleted(event\role_deleted $event): void
     {
+        self::requireAutoloader();
+
         self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
     {
+        self::requireAutoloader();
+
         self::synchronizeRoomMembersForAllRooms();
     }
 
     public static function onUserEnrolmentCreated(event\user_enrolment_created $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
@@ -186,6 +210,8 @@ final class EventSubscriber
 
     public static function onUserEnrolmentDeleted(event\user_enrolment_deleted $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
@@ -193,6 +219,8 @@ final class EventSubscriber
 
     public static function onUserEnrolmentUpdated(event\user_enrolment_updated $event): void
     {
+        self::requireAutoloader();
+
         $courseId = Moodle\Domain\CourseId::fromString($event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
@@ -548,5 +576,10 @@ final class EventSubscriber
                 Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
             );
         }
+    }
+
+    private static function requireAutoloader(): void
+    {
+        require_once __DIR__ . '/../vendor/autoload.php';
     }
 }
