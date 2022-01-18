@@ -269,6 +269,31 @@
       <code>$normalized-&gt;room_id</code>
     </MixedArgument>
   </file>
+  <file src="src/Moodle/Infrastructure/View.php">
+    <MixedArgument occurrences="9">
+      <code>$groups</code>
+      <code>$visibleGroups</code>
+      <code>$visibleGroups</code>
+      <code>$visibleGroups</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="7">
+      <code>$group</code>
+      <code>$group</code>
+      <code>$groups</code>
+      <code>$name</code>
+      <code>$title</code>
+      <code>$title</code>
+      <code>$visibleGroups</code>
+    </MixedAssignment>
+    <MixedPropertyFetch occurrences="2">
+      <code>$group-&gt;id</code>
+      <code>$group-&gt;id</code>
+    </MixedPropertyFetch>
+    <UndefinedFunction occurrences="10">
+      <code>groups_get_activity_allowed_groups($cm)</code>
+      <code>groups_get_group_name($group-&gt;id)</code>
+    </UndefinedFunction>
+  </file>
   <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
     <MoreSpecificReturnType occurrences="2">
@@ -407,54 +432,41 @@
     </UndefinedGlobalVariable>
   </file>
   <file src="view.php">
+    <InvalidScope occurrences="1">
+      <code>$this</code>
+    </InvalidScope>
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="14">
+    <MixedArgument occurrences="8">
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;header()</code>
+      <code>$cm</code>
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
-      <code>$groups</code>
       <code>$id</code>
-      <code>$visibleGroups</code>
-      <code>$visibleGroups</code>
-      <code>$visibleGroups</code>
-      <code>get_string('liketologin')</code>
     </MixedArgument>
-    <MixedAssignment occurrences="7">
-      <code>$group</code>
-      <code>$group</code>
-      <code>$groups</code>
+    <MixedAssignment occurrences="1">
       <code>$id</code>
-      <code>$id</code>
-      <code>$name</code>
-      <code>$visibleGroups</code>
     </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$name</code>
-    </MixedOperand>
-    <MixedPropertyFetch occurrences="6">
+    <MixedPropertyFetch occurrences="3">
       <code>$cm-&gt;id</code>
       <code>$cm-&gt;instance</code>
       <code>$course-&gt;fullname</code>
-      <code>$course-&gt;id</code>
-      <code>$group-&gt;id</code>
-      <code>$group-&gt;id</code>
     </MixedPropertyFetch>
     <UndefinedConstant occurrences="1">
       <code>PARAM_INT</code>
     </UndefinedConstant>
-    <UndefinedFunction occurrences="15">
-      <code>get_login_url()</code>
-      <code>get_string('liketologin')</code>
-      <code>get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME)</code>
-      <code>get_string(Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM, Moodle\Application\Plugin::NAME)</code>
-      <code>groups_get_activity_allowed_groups($cm)</code>
-      <code>groups_get_group_name($group-&gt;id)</code>
+    <UndefinedDocblockClass occurrences="4">
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>$OUTPUT</code>
+      <code>echo $OUTPUT-&gt;header();</code>
+    </UndefinedDocblockClass>
+    <UndefinedFunction occurrences="2">
       <code>require_login($course, true, $cm)</code>
       <code>required_param('id', PARAM_INT)</code>
     </UndefinedFunction>
-    <UnusedVariable occurrences="1">
-      <code>$id</code>
-    </UnusedVariable>
   </file>
 </files>
