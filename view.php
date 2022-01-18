@@ -45,10 +45,10 @@ require_login(
 );
 
 /** @var moodle_page $PAGE */
-$PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);
-$PAGE->set_title($module->name()->toString());
 $PAGE->set_cacheable(false);
 $PAGE->set_heading($course->fullname);
+$PAGE->set_title($module->name()->toString());
+$PAGE->set_url('/mod/matrix/view.php', ['id' => $cm->id]);
 
 /** @var core_renderer $OUTPUT */
 echo $OUTPUT->header();
