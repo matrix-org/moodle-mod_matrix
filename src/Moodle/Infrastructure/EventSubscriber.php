@@ -218,7 +218,6 @@ final class EventSubscriber
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
-
         $moodleNameService = $container->moodleNameService();
 
         $clock = $container->clock();
