@@ -445,7 +445,7 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="6">
       <code>$OUTPUT-&gt;footer()</code>
       <code>$OUTPUT-&gt;footer()</code>
       <code>$OUTPUT-&gt;header()</code>
@@ -457,12 +457,13 @@
     <UndefinedConstant occurrences="1">
       <code>PARAM_INT</code>
     </UndefinedConstant>
-    <UndefinedDocblockClass occurrences="4">
+    <UndefinedDocblockClass occurrences="5">
+      <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>echo $OUTPUT-&gt;header();</code>
     </UndefinedDocblockClass>
-    <UndefinedFunction occurrences="2"/>
+    <UndefinedFunction occurrences="3"/>
   </file>
 </files>

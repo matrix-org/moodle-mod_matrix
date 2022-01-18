@@ -38,4 +38,5 @@ final class Internationalization
     public const VIEW_ERROR_NO_ROOM_IN_GROUP = 'view_error_no_room_in_group';
     public const VIEW_ERROR_NO_ROOMS = 'view_error_no_rooms';
     public const VIEW_ERROR_NO_VISIBLE_GROUPS = 'view_error_no_visible_groups';
+    public const VIEW_HEADER = 'view_header';
 }

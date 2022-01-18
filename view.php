@@ -80,6 +80,11 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
+echo $OUTPUT->heading(get_string(
+    Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+    Moodle\Application\Plugin::NAME,
+));
+
 $view = new Moodle\Infrastructure\View(
     $container->moodleRoomRepository(),
     $container->moodleRoomService(),

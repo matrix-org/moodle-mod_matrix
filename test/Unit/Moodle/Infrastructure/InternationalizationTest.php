@@ -47,5 +47,6 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('view_error_no_room_in_group', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP);
         self::assertSame('view_error_no_rooms', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS);
         self::assertSame('view_error_no_visible_groups', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS);
+        self::assertSame('view_header', Moodle\Infrastructure\Internationalization::VIEW_HEADER);
     }
 }

@@ -57,6 +57,7 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP => 'There is no room in this group.',
     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS => 'There are no rooms to show.',
     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS => 'There are no visible groups.',
+    Moodle\Infrastructure\Internationalization::VIEW_HEADER => 'Rooms',
     // ?
     'matrix:addinstance' => 'Add/edit Matrix room links',
     'matrix:staff' => 'Treat the user as a staff user in Matrix rooms',
