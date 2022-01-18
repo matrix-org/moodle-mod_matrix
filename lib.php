@@ -109,7 +109,6 @@ function matrix_add_instance(
     }, $staff));
 
     $moodleRoomRepository = $container->moodleRoomRepository();
-
     $moodleRoomService = $container->moodleRoomService();
 
     // Now try to iterate over all the courses and groups and see if any of
