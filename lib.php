@@ -358,11 +358,13 @@ function matrix_update_instance(
         $module->name(),
     );
 
+    $moodleGroupRepository = $container->moodleGroupRepository();
+
     foreach ($rooms as $room) {
         $groupId = $room->groupId();
 
         if ($groupId instanceof Moodle\Domain\GroupId) {
-            $group = $container->moodleGroupRepository()->find($groupId);
+            $group = $moodleGroupRepository->find($groupId);
 
             if (!$group instanceof Moodle\Domain\Group) {
                 throw new \RuntimeException(\sprintf(
