@@ -15,6 +15,7 @@ For a full diff see [`2022011100...main`](https://gitlab.matrix.org/new-vector/m
 ### Fixed
 
 - Started disallowing staff members to change the avatar of a Matrix chat ([#63](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/63))
+- Started renaming Matrix chat rooms when a staff member updates a group ([#64](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/64))
 
 ## [`2022011101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011101)
 
