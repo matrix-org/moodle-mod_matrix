@@ -270,15 +270,7 @@ final class observer
         $moodleRoomRepository = $container->moodleRoomRepository();
         $moodleUserRepository = $container->moodleUserRepository();
         $matrixRoomService = $container->matrixRoomService();
-        $moodleNameService = $container->moodleNameService();
-
-        $clock = $container->clock();
-
-        $topic = Matrix\Domain\RoomTopic::fromString(\sprintf(
-            '%s/course/view.php?id=%d',
-            $CFG->wwwroot,
-            $courseId->toInt(),
-        ));
+        $moodleRoomService = $container->moodleRoomService();
 
         foreach ($modules as $module) {
             $room = $moodleRoomRepository->findOneBy([
@@ -287,31 +279,11 @@ final class observer
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = $moodleNameService->forGroupCourseAndModule(
-                    $group->name(),
-                    $course->shortName(),
-                    $module->name(),
+                $room = $moodleRoomService->createRoomForCourseAndGroup(
+                    $course,
+                    $group,
+                    $module,
                 );
-
-                $matrixRoomId = $matrixRoomService->createRoom(
-                    $name,
-                    $topic,
-                    [
-                        'org.matrix.moodle.course_id' => $course->id()->toInt(),
-                        'org.matrix.moodle.group_id' => $group->id()->toInt(),
-                    ],
-                );
-
-                $room = Moodle\Domain\Room::create(
-                    Moodle\Domain\RoomId::unknown(),
-                    $module->id(),
-                    $group->id(),
-                    $matrixRoomId,
-                    Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-                    Moodle\Domain\Timestamp::fromInt(0),
-                );
-
-                $moodleRoomRepository->save($room);
             }
 
             $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(

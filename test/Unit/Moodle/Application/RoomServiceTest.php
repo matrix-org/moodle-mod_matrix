@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Test\Unit\Moodle\Application;
 
+use Ergebnis\Clock;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 use mod_matrix\Test;
@@ -67,7 +68,11 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomService = new Moodle\Application\RoomService(
             $configuration,
+            new Moodle\Application\NameService(),
             $this->createStub(Moodle\Domain\ModuleRepository::class),
+            $this->createStub(Moodle\Domain\RoomRepository::class),
+            new Matrix\Application\RoomService($this->createStub(Matrix\Application\Api::class)),
+            $this->createStub(Clock\Clock::class),
         );
 
         $url = $roomService->urlForRoom($room);
@@ -119,7 +124,11 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomService = new Moodle\Application\RoomService(
             $configuration,
+            new Moodle\Application\NameService(),
             $moduleRepository,
+            $this->createStub(Moodle\Domain\RoomRepository::class),
+            new Matrix\Application\RoomService($this->createStub(Matrix\Application\Api::class)),
+            $this->createStub(Clock\Clock::class),
         );
 
         $this->expectException(Moodle\Domain\ModuleNotFound::class);
@@ -178,7 +187,11 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomService = new Moodle\Application\RoomService(
             $configuration,
+            new Moodle\Application\NameService(),
             $moduleRepository,
+            $this->createStub(Moodle\Domain\RoomRepository::class),
+            new Matrix\Application\RoomService($this->createStub(Matrix\Application\Api::class)),
+            $this->createStub(Clock\Clock::class),
         );
 
         $url = $roomService->urlForRoom($room);
@@ -242,7 +255,11 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomService = new Moodle\Application\RoomService(
             $configuration,
+            new Moodle\Application\NameService(),
             $moduleRepository,
+            $this->createStub(Moodle\Domain\RoomRepository::class),
+            new Matrix\Application\RoomService($this->createStub(Matrix\Application\Api::class)),
+            $this->createStub(Clock\Clock::class),
         );
 
         $url = $roomService->urlForRoom($room);

@@ -70,7 +70,11 @@ final class Container
         $this->define(Moodle\Application\RoomService::class, static function (self $container): Moodle\Application\RoomService {
             return new Moodle\Application\RoomService(
                 $container->configuration(),
+                $container->moodleNameService(),
                 $container->moodleModuleRepository(),
+                $container->moodleRoomRepository(),
+                $container->matrixRoomService(),
+                $container->clock(),
             );
         });
 
