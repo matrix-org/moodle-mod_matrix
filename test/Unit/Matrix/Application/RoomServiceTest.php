@@ -107,7 +107,7 @@ final class RoomServiceTest extends Framework\TestCase
                     'ban' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     'invite' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     'events' => [
-                        'm.room.avatar' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                        'm.room.avatar' => Matrix\Domain\PowerLevel::bot()->toInt(),
                         'm.room.canonical_alias' => Matrix\Domain\PowerLevel::staff()->toInt(),
                         'm.room.encryption' => Matrix\Domain\PowerLevel::bot()->toInt(),
                         'm.room.guest_access' => Matrix\Domain\PowerLevel::bot()->toInt(),
