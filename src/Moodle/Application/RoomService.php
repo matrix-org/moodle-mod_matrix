@@ -10,19 +10,33 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Application;
 
+use Ergebnis\Clock;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 final class RoomService
 {
     private $configuration;
+    private $nameService;
     private $moduleRepository;
+    private $roomRepository;
+    private $matrixRoomService;
+    private $clock;
 
     public function __construct(
         Moodle\Application\Configuration $configuration,
-        Moodle\Domain\ModuleRepository $moduleRepository
+        Moodle\Application\NameService $nameService,
+        Moodle\Domain\ModuleRepository $moduleRepository,
+        Moodle\Domain\RoomRepository $roomRepository,
+        Matrix\Application\RoomService $matrixRoomService,
+        Clock\Clock $clock
     ) {
         $this->configuration = $configuration;
+        $this->nameService = $nameService;
         $this->moduleRepository = $moduleRepository;
+        $this->roomRepository = $roomRepository;
+        $this->matrixRoomService = $matrixRoomService;
+        $this->clock = $clock;
     }
 
     /**
@@ -57,5 +71,74 @@ final class RoomService
             $this->configuration->elementUrl(),
             $room->matrixRoomId()->toString(),
         );
+    }
+
+    public function createRoomForCourse(
+        Moodle\Domain\Course $course,
+        Moodle\Domain\Module $module
+    ): Moodle\Domain\Room {
+        $name = $this->nameService->forCourseAndModule(
+            $course->shortName(),
+            $module->name(),
+        );
+
+        $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
+
+        $matrixRoomId = $this->matrixRoomService->createRoom(
+            $name,
+            $topic,
+            [
+                'org.matrix.moodle.course_id' => $course->id()->toInt(),
+            ],
+        );
+
+        $room = Moodle\Domain\Room::create(
+            Moodle\Domain\RoomId::unknown(),
+            $module->id(),
+            null,
+            $matrixRoomId,
+            Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
+            Moodle\Domain\Timestamp::fromInt(0),
+        );
+
+        $this->roomRepository->save($room);
+
+        return $room;
+    }
+
+    public function createRoomForCourseAndGroup(
+        Moodle\Domain\Course $course,
+        Moodle\Domain\Group $group,
+        Moodle\Domain\Module $module
+    ): Moodle\Domain\Room {
+        $name = $this->nameService->forGroupCourseAndModule(
+            $group->name(),
+            $course->shortName(),
+            $module->name(),
+        );
+
+        $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
+
+        $matrixRoomId = $this->matrixRoomService->createRoom(
+            $name,
+            $topic,
+            [
+                'org.matrix.moodle.course_id' => $course->id()->toInt(),
+                'org.matrix.moodle.group_id' => $group->id()->toInt(),
+            ],
+        );
+
+        $room = Moodle\Domain\Room::create(
+            Moodle\Domain\RoomId::unknown(),
+            $module->id(),
+            $group->id(),
+            $matrixRoomId,
+            Moodle\Domain\Timestamp::fromInt($this->clock->now()->getTimestamp()),
+            Moodle\Domain\Timestamp::fromInt(0),
+        );
+
+        $this->roomRepository->save($room);
+
+        return $room;
     }
 }

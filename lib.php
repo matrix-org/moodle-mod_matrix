@@ -110,9 +110,7 @@ function matrix_add_instance(
 
     $moodleRoomRepository = $container->moodleRoomRepository();
 
-    $moodleNameService = $container->moodleNameService();
-
-    $clock = $container->clock();
+    $moodleRoomService = $container->moodleRoomService();
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
@@ -145,33 +143,11 @@ function matrix_add_instance(
             ]);
 
             if (!$room instanceof Moodle\Domain\Room) {
-                $name = $moodleNameService->forGroupCourseAndModule(
-                    $group->name(),
-                    $course->shortName(),
-                    $module->name(),
+                $room = $moodleRoomService->createRoomForCourseAndGroup(
+                    $course,
+                    $group,
+                    $module,
                 );
-
-                $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
-
-                $matrixRoomId = $matrixRoomService->createRoom(
-                    $name,
-                    $topic,
-                    [
-                        'org.matrix.moodle.course_id' => $course->id()->toInt(),
-                        'org.matrix.moodle.group_id' => $group->id()->toInt(),
-                    ],
-                );
-
-                $room = Moodle\Domain\Room::create(
-                    Moodle\Domain\RoomId::unknown(),
-                    $module->id(),
-                    $group->id(),
-                    $matrixRoomId,
-                    Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-                    Moodle\Domain\Timestamp::fromInt(0),
-                );
-
-                $moodleRoomRepository->save($room);
             }
 
             $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
@@ -197,31 +173,10 @@ function matrix_add_instance(
     ]);
 
     if (!$room instanceof Moodle\Domain\Room) {
-        $name = $moodleNameService->forCourseAndModule(
-            $course->shortName(),
-            $module->name(),
+        $room = $moodleRoomService->createRoomForCourse(
+            $course,
+            $module,
         );
-
-        $topic = Matrix\Domain\RoomTopic::fromString($module->topic()->toString());
-
-        $matrixRoomId = $matrixRoomService->createRoom(
-            $name,
-            $topic,
-            [
-                'org.matrix.moodle.course_id' => $course->id()->toInt(),
-            ],
-        );
-
-        $room = Moodle\Domain\Room::create(
-            Moodle\Domain\RoomId::unknown(),
-            $module->id(),
-            null,
-            $matrixRoomId,
-            Moodle\Domain\Timestamp::fromInt($clock->now()->getTimestamp()),
-            Moodle\Domain\Timestamp::fromInt(0),
-        );
-
-        $moodleRoomRepository->save($room);
     }
 
     $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
