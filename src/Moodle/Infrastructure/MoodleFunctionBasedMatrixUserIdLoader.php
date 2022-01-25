@@ -15,7 +15,7 @@ use mod_matrix\Moodle;
 
 final class MoodleFunctionBasedMatrixUserIdLoader implements Moodle\Domain\MatrixUserIdLoader
 {
-    private const USER_PROFILE_FIELD_NAME = 'matrix_user_id';
+    public const USER_PROFILE_FIELD_NAME = 'matrix_user_id';
 
     public function load(object $user): ?Matrix\Domain\UserId
     {

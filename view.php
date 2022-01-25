@@ -60,6 +60,9 @@ $PAGE->set_url('/mod/matrix/view.php', [
 echo $OUTPUT->header();
 
 if (!has_capability('mod/matrix:view', $PAGE->context)) {
+    /** @var core_renderer $OUTPUT */
+    echo $OUTPUT->header();
+
     echo $this->renderer->confirm(
         \sprintf(
             '<p>%s</p>%s',
@@ -80,16 +83,13 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-echo $OUTPUT->heading(get_string(
-    Moodle\Infrastructure\Internationalization::VIEW_HEADER,
-    Moodle\Application\Plugin::NAME,
-));
-
 $view = new Moodle\Infrastructure\View(
     $container->moodleRoomRepository(),
     $container->moodleGroupRepository(),
+    $container->moodleMatrixUserIdLoader(),
     $container->moodleRoomService(),
     $container->moodleNameService(),
+    $PAGE,
     $OUTPUT,
 );
 
@@ -99,5 +99,3 @@ $view->render(
     $cm,
     $USER,
 );
-
-echo $OUTPUT->footer();

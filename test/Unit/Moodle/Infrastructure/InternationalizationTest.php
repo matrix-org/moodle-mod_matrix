@@ -44,6 +44,7 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('view_alert_many_rooms', Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS);
         self::assertSame('view_button_join_room', Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM);
         self::assertSame('view_error_no_groups', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS);
+        self::assertSame('view_error_no_matrix_user_id', Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID);
         self::assertSame('view_error_no_room_in_group', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP);
         self::assertSame('view_error_no_rooms', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS);
         self::assertSame('view_error_no_visible_groups', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS);

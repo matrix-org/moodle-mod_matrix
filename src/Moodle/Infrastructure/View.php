@@ -11,27 +11,34 @@ declare(strict_types=1);
 namespace mod_matrix\Moodle\Infrastructure;
 
 use core\output;
+use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 
 final class View
 {
     private $moodleRoomRepository;
     private $moodleGroupRepository;
+    private $moodleMatrixUserIdLoader;
     private $moodleRoomService;
     private $moodleNameService;
+    private $page;
     private $renderer;
 
     public function __construct(
         Moodle\Domain\RoomRepository $moodleRoomRepository,
         Moodle\Domain\GroupRepository $moodleGroupRepository,
+        Moodle\Domain\MatrixUserIdLoader $moodleMatrixUserIdLoader,
         Moodle\Application\RoomService $moodleRoomService,
         Moodle\Application\NameService $moodleNameService,
+        \moodle_page $page,
         \core_renderer $renderer
     ) {
         $this->moodleRoomRepository = $moodleRoomRepository;
         $this->moodleGroupRepository = $moodleGroupRepository;
+        $this->moodleMatrixUserIdLoader = $moodleMatrixUserIdLoader;
         $this->moodleRoomService = $moodleRoomService;
         $this->moodleNameService = $moodleNameService;
+        $this->page = $page;
         $this->renderer = $renderer;
     }
 
@@ -40,6 +47,58 @@ final class View
         \cm_info $cm,
         \stdClass $user
     ): void {
+        $matrixUserId = $this->moodleMatrixUserIdLoader->load($user);
+
+        if (!$matrixUserId instanceof Matrix\Domain\UserId) {
+            $matrixUserIdForm = new MatrixUserIdForm($this->page->url->out(true));
+
+            if ($matrixUserIdForm->is_submitted()) {
+                if (!$matrixUserIdForm->is_validated()) {
+                    echo $this->renderer->heading(get_string(
+                        Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                        Moodle\Application\Plugin::NAME,
+                    ));
+
+                    $matrixUserIdForm->display();
+
+                    echo $this->renderer->footer();
+
+                    return;
+                }
+
+                $data = $matrixUserIdForm->get_data();
+
+                $name = Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME;
+
+                profile_save_custom_fields($user->id, [
+                    Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME => $data->{$name},
+                ]);
+
+                redirect($this->page->url);
+
+                return;
+            }
+
+            echo $this->renderer->heading(get_string(
+                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Application\Plugin::NAME,
+            ));
+
+            echo $this->renderer->notification(
+                get_string(
+                    Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID,
+                    Moodle\Application\Plugin::NAME,
+                ),
+                output\notification::NOTIFY_WARNING,
+            );
+
+            $matrixUserIdForm->display();
+
+            echo $this->renderer->footer();
+
+            return;
+        }
+
         $isStaff = self::isStaffUserInCourseContext(
             $user,
             $module->courseId(),
@@ -71,6 +130,11 @@ final class View
         }
 
         if ([] === $rooms) {
+            echo $this->renderer->heading(get_string(
+                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Application\Plugin::NAME,
+            ));
+
             echo $this->renderer->notification(
                 get_string(
                     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
@@ -78,6 +142,10 @@ final class View
                 ),
                 output\notification::NOTIFY_WARNING,
             );
+
+            echo $this->renderer->footer();
+
+            return;
         }
 
         $courseShortName = Moodle\Domain\CourseShortName::fromString($cm->get_course()->shortname);
@@ -119,11 +187,18 @@ final class View
         ) {
             $roomLink = \reset($roomLinks);
 
+            echo $this->renderer->heading(get_string(
+                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Application\Plugin::NAME,
+            ));
+
             echo <<<HTML
 <script type="text/javascript">
     window.location.href = '{$roomLink->url()}';
 </script>
 HTML;
+
+            echo $this->renderer->footer();
         }
 
         \usort($roomLinks, static function (RoomLink $a, RoomLink $b): int {
@@ -141,11 +216,18 @@ HTML;
 HTML;
         }, $roomLinks));
 
+        echo $this->renderer->heading(get_string(
+            Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+            Moodle\Application\Plugin::NAME,
+        ));
+
         echo <<<HTML
 <ul>
     {$listItems}
 </ul>
 HTML;
+
+        echo $this->renderer->footer();
     }
 
     private static function isStaffUserInCourseContext(
