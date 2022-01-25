@@ -244,6 +244,23 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
+  <file src="src/Moodle/Infrastructure/MatrixUserIdForm.php">
+    <InvalidGlobal occurrences="1">
+      <code>global $CFG;</code>
+    </InvalidGlobal>
+    <MixedOperand occurrences="1">
+      <code>$CFG-&gt;libdir</code>
+    </MixedOperand>
+    <MixedPropertyFetch occurrences="1">
+      <code>$CFG-&gt;libdir</code>
+    </MixedPropertyFetch>
+    <UndefinedClass occurrences="1">
+      <code>\moodleform</code>
+    </UndefinedClass>
+    <UnresolvableInclude occurrences="1">
+      <code>require_once $CFG-&gt;libdir . '/formslib.php'</code>
+    </UnresolvableInclude>
+  </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
     <UndefinedFunction occurrences="1">
       <code>get_course($courseId-&gt;toInt())</code>
@@ -279,32 +296,66 @@
     </MixedArgument>
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
-    <MixedArgument occurrences="3">
+    <MissingDependency occurrences="1">
+      <code>MatrixUserIdForm</code>
+    </MissingDependency>
+    <MixedArgument occurrences="14">
       <code>$cm-&gt;get_course()-&gt;shortname</code>
       <code>$groupVisibleToUser-&gt;id</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="5">
+      <code>$data</code>
       <code>$groupVisibleToUser</code>
       <code>$groupsVisibleToUser</code>
+      <code>$matrixUserIdForm</code>
       <code>$staffUserInCourseContext</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="2">
+    <MixedMethodCall occurrences="5">
+      <code>display</code>
+      <code>display</code>
+      <code>get_data</code>
+      <code>is_submitted</code>
+      <code>is_validated</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="3">
+      <code>$data-&gt;{$name}</code>
       <code>$groupVisibleToUser-&gt;id</code>
       <code>$staffUserInCourseContext-&gt;id</code>
     </MixedPropertyFetch>
-    <PropertyNotSetInConstructor occurrences="5">
+    <PropertyNotSetInConstructor occurrences="7">
       <code>$moodleGroupRepository</code>
+      <code>$moodleMatrixUserIdLoader</code>
       <code>$moodleNameService</code>
       <code>$moodleRoomRepository</code>
       <code>$moodleRoomService</code>
+      <code>$page</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="3">
+    <UndefinedClass occurrences="15">
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>\core_renderer</code>
       <code>output\notification</code>
+      <code>output\notification</code>
     </UndefinedClass>
-    <UndefinedFunction occurrences="2"/>
+    <UndefinedFunction occurrences="10">
+      <code>redirect($this-&gt;page-&gt;url)</code>
+    </UndefinedFunction>
   </file>
   <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
@@ -448,27 +499,28 @@
     <MissingFile occurrences="1">
       <code>require '../../config.php'</code>
     </MissingFile>
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="5">
       <code>$OUTPUT-&gt;footer()</code>
-      <code>$OUTPUT-&gt;footer()</code>
+      <code>$OUTPUT-&gt;header()</code>
       <code>$OUTPUT-&gt;header()</code>
       <code>$course-&gt;fullname</code>
     </MixedArgument>
     <MixedPropertyFetch occurrences="1">
       <code>$course-&gt;fullname</code>
     </MixedPropertyFetch>
-    <UndefinedClass occurrences="1">
-      <code>$OUTPUT</code>
-    </UndefinedClass>
     <UndefinedConstant occurrences="1">
       <code>PARAM_INT</code>
     </UndefinedConstant>
-    <UndefinedDocblockClass occurrences="4">
+    <UndefinedDocblockClass occurrences="5">
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>$OUTPUT</code>
       <code>echo $OUTPUT-&gt;header();</code>
+      <code>echo $OUTPUT-&gt;header();</code>
     </UndefinedDocblockClass>
-    <UndefinedFunction occurrences="3"/>
+    <UndefinedFunction occurrences="2"/>
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>core_renderer</code>
+    </UnnecessaryVarAnnotation>
   </file>
 </files>

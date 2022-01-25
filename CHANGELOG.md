@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`2022011800...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011800...main).
 
+### Changed
+
+- Started displaying a form asking the user for their Matrix user identifier when they have not yet provided one ([#71](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/71))
+
 ## [`2022011800`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011800)
 
 For a full diff see [`2022011100...2022011800`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011100...2022011800).

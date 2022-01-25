@@ -58,6 +58,11 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS => 'There are no rooms to show.',
     Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS => 'There are no visible groups.',
     Moodle\Infrastructure\Internationalization::VIEW_HEADER => 'Rooms',
+    Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_HEADER => 'Matrix User Identifier',
+    Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME => 'Matrix user identifier',
+    Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED => 'A Matrix user identifier is required, otherwise you can not join Matrix chat rooms.',
+    Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_HELP => 'A Matrix user identifier looks like @localpart:domain, for example, @jane:example.org.',
+    Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID => 'It appears that you have not yet provided a Matrix user identifier. Without it, you can not join any Matrix chat rooms. Can you provide one now?',
     // ?
     'matrix:addinstance' => 'Add/edit Matrix room links',
     'matrix:staff' => 'Treat the user as a staff user in Matrix rooms',
