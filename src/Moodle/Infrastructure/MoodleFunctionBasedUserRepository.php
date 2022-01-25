@@ -16,6 +16,13 @@ use mod_matrix\Moodle;
 
 final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepository
 {
+    private $matrixUserIdLoader;
+
+    public function __construct(Moodle\Domain\MatrixUserIdLoader $matrixUserIdLoader)
+    {
+        $this->matrixUserIdLoader = $matrixUserIdLoader;
+    }
+
     public function findAllStaffInCourseWithMatrixUserId(Moodle\Domain\CourseId $courseId): array
     {
         $context = context_course::instance($courseId->toInt());
@@ -29,10 +36,12 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
+        $matrixUserIdLoader = $this->matrixUserIdLoader;
+
         return \array_values(\array_reduce(
             $users,
-            static function (array $usersWithMatrixUserId, object $user): array {
-                $matrixUserId = self::matrixUserIdOf($user);
+            static function (array $usersWithMatrixUserId, object $user) use ($matrixUserIdLoader): array {
+                $matrixUserId = $matrixUserIdLoader->load($user);
 
                 if (!$matrixUserId instanceof Matrix\Domain\UserId) {
                     return $usersWithMatrixUserId;
@@ -65,10 +74,12 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             return [];
         }
 
+        $matrixUserIdLoader = $this->matrixUserIdLoader;
+
         return \array_values(\array_reduce(
             $users,
-            static function (array $usersWithMatrixUserId, object $user): array {
-                $matrixUserId = self::matrixUserIdOf($user);
+            static function (array $usersWithMatrixUserId, object $user) use ($matrixUserIdLoader): array {
+                $matrixUserId = $matrixUserIdLoader->load($user);
 
                 if (!$matrixUserId instanceof Matrix\Domain\UserId) {
                     return $usersWithMatrixUserId;
@@ -83,34 +94,5 @@ final class MoodleFunctionBasedUserRepository implements Moodle\Domain\UserRepos
             },
             [],
         ));
-    }
-
-    private static function matrixUserIdOf(object $user): ?Matrix\Domain\UserId
-    {
-        profile_load_custom_fields($user);
-
-        if (!\property_exists($user, 'profile')) {
-            return null;
-        }
-
-        if (!\is_array($user->profile)) {
-            return null;
-        }
-
-        if (!\array_key_exists('matrix_user_id', $user->profile)) {
-            return null;
-        }
-
-        $matrixUserId = $user->profile['matrix_user_id'];
-
-        if (!\is_string($matrixUserId)) {
-            return null;
-        }
-
-        if ('' === \trim($matrixUserId)) {
-            return null;
-        }
-
-        return Matrix\Domain\UserId::fromString($matrixUserId);
     }
 }

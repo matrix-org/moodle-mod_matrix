@@ -100,7 +100,7 @@
       <code>$object</code>
       <code>$service</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="14">
+    <MixedInferredReturnType occurrences="15">
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\RoomService</code>
@@ -110,6 +110,7 @@
       <code>Moodle\Application\RoomService</code>
       <code>Moodle\Domain\CourseRepository</code>
       <code>Moodle\Domain\GroupRepository</code>
+      <code>Moodle\Domain\MatrixUserIdLoader</code>
       <code>Moodle\Domain\ModuleRepository</code>
       <code>Moodle\Domain\RoomRepository</code>
       <code>Moodle\Domain\UserRepository</code>
@@ -119,7 +120,7 @@
     <MixedPropertyTypeCoercion occurrences="1">
       <code>$this-&gt;services</code>
     </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="13">
+    <MixedReturnStatement occurrences="14">
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomService::class)</code>
@@ -129,6 +130,7 @@
       <code>$this-&gt;resolve(Moodle\Application\RoomService::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\CourseRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\GroupRepository::class)</code>
+      <code>$this-&gt;resolve(Moodle\Domain\MatrixUserIdLoader::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\ModuleRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\RoomRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\UserRepository::class)</code>
@@ -252,6 +254,11 @@
       <code>groups_get_group($groupId-&gt;toInt())</code>
     </UndefinedFunction>
   </file>
+  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedMatrixUserIdLoader.php">
+    <UndefinedFunction occurrences="1">
+      <code>profile_load_custom_fields($user)</code>
+    </UndefinedFunction>
+  </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedUserRepository.php">
     <DocblockTypeContradiction occurrences="1">
       <code>\is_array($users)</code>
@@ -264,9 +271,7 @@
       <code>array</code>
       <code>array</code>
     </MixedReturnTypeCoercion>
-    <UndefinedFunction occurrences="2">
-      <code>profile_load_custom_fields($user)</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="1"/>
   </file>
   <file src="src/Moodle/Infrastructure/RoomNormalizer.php">
     <MixedArgument occurrences="1">

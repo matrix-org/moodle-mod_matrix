@@ -86,6 +86,10 @@ final class Container
             return new Moodle\Infrastructure\MoodleFunctionBasedGroupRepository();
         });
 
+        $this->define(Moodle\Domain\MatrixUserIdLoader::class, static function (): Moodle\Domain\MatrixUserIdLoader {
+            return new Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader();
+        });
+
         $this->define(Moodle\Domain\ModuleRepository::class, static function (self $container): Moodle\Domain\ModuleRepository {
             return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
@@ -100,8 +104,8 @@ final class Container
             );
         });
 
-        $this->define(Moodle\Domain\UserRepository::class, static function (): Moodle\Domain\UserRepository {
-            return new Moodle\Infrastructure\MoodleFunctionBasedUserRepository();
+        $this->define(Moodle\Domain\UserRepository::class, static function (self $container): Moodle\Domain\UserRepository {
+            return new Moodle\Infrastructure\MoodleFunctionBasedUserRepository($container->moodleMatrixUserIdLoader());
         });
 
         $this->define(\moodle_database::class, static function (): \moodle_database {
@@ -161,6 +165,11 @@ final class Container
     public function moodleGroupRepository(): Moodle\Domain\GroupRepository
     {
         return $this->resolve(Moodle\Domain\GroupRepository::class);
+    }
+
+    public function moodleMatrixUserIdLoader(): Moodle\Domain\MatrixUserIdLoader
+    {
+        return $this->resolve(Moodle\Domain\MatrixUserIdLoader::class);
     }
 
     public function moodleModuleRepository(): Moodle\Domain\ModuleRepository
