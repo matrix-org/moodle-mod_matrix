@@ -35,7 +35,6 @@ final class Internationalization
     public const VIEW_ALERT_MANY_ROOMS = 'view_alert_many_rooms';
     public const VIEW_BUTTON_JOIN_ROOM = 'view_button_join_room';
     public const VIEW_ERROR_NO_GROUPS = 'view_error_no_groups';
-    public const VIEW_WARNING_NO_MATRIX_USER_ID = 'view_error_no_matrix_user_id';
     public const VIEW_ERROR_NO_ROOM_IN_GROUP = 'view_error_no_room_in_group';
     public const VIEW_ERROR_NO_ROOMS = 'view_error_no_rooms';
     public const VIEW_ERROR_NO_VISIBLE_GROUPS = 'view_error_no_visible_groups';
@@ -45,4 +44,5 @@ final class Internationalization
     public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID = 'view_matrix_user_id_form_name_error_invalid';
     public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED = 'view_matrix_user_id_form_name_error_required';
     public const VIEW_MATRIX_USER_ID_FORM_NAME_HELP = 'view_matrix_user_id_form_name_help';
+    public const VIEW_WARNING_NO_MATRIX_USER_ID = 'view_error_no_matrix_user_id';
 }
