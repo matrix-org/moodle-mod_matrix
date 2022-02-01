@@ -89,6 +89,7 @@ $view = new Moodle\Infrastructure\View(
     $container->moodleMatrixUserIdLoader(),
     $container->moodleRoomService(),
     $container->moodleNameService(),
+    $container->moodleConfiguration(),
     $PAGE,
     $OUTPUT,
 );

@@ -207,13 +207,14 @@
     <MissingDependency occurrences="1">
       <code>Moodle\Infrastructure\Form\EditMatrixUserIdForm</code>
     </MissingDependency>
-    <MixedArgument occurrences="5">
+    <MixedArgument occurrences="6">
       <code>$this-&gt;renderer-&gt;footer()</code>
       <code>$this-&gt;renderer-&gt;footer()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
+    <MixedAssignment occurrences="3">
       <code>$data</code>
       <code>$matrixUserIdForm</code>
+      <code>$message</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="5">
       <code>display</code>
@@ -225,11 +226,16 @@
     <MixedPropertyFetch occurrences="1">
       <code>$data-&gt;{$name}</code>
     </MixedPropertyFetch>
-    <PropertyNotSetInConstructor occurrences="2">
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>array&lt;int, Matrix\Domain\UserId&gt;</code>
+    </MixedReturnTypeCoercion>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$moodleConfiguration</code>
       <code>$page</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="7">
+    <UndefinedClass occurrences="9">
+      <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
@@ -237,8 +243,9 @@
       <code>$this-&gt;renderer</code>
       <code>\core_renderer</code>
       <code>output\notification</code>
+      <code>output\notification</code>
     </UndefinedClass>
-    <UndefinedFunction occurrences="5">
+    <UndefinedFunction occurrences="6">
       <code>redirect($this-&gt;page-&gt;url)</code>
     </UndefinedFunction>
   </file>
@@ -372,7 +379,8 @@
     </MixedArgument>
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
-    <PropertyNotSetInConstructor occurrences="7">
+    <PropertyNotSetInConstructor occurrences="8">
+      <code>$moodleConfiguration</code>
       <code>$moodleGroupRepository</code>
       <code>$moodleMatrixUserIdLoader</code>
       <code>$moodleNameService</code>

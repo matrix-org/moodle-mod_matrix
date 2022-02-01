@@ -21,6 +21,7 @@ final class View
     private $moodleMatrixUserIdLoader;
     private $moodleRoomService;
     private $moodleNameService;
+    private $moodleConfiguration;
     private $page;
     private $renderer;
 
@@ -30,6 +31,7 @@ final class View
         Moodle\Domain\MatrixUserIdLoader $moodleMatrixUserIdLoader,
         Moodle\Application\RoomService $moodleRoomService,
         Moodle\Application\NameService $moodleNameService,
+        Moodle\Application\Configuration $moodleConfiguration,
         \moodle_page $page,
         \core_renderer $renderer
     ) {
@@ -38,6 +40,7 @@ final class View
         $this->moodleMatrixUserIdLoader = $moodleMatrixUserIdLoader;
         $this->moodleRoomService = $moodleRoomService;
         $this->moodleNameService = $moodleNameService;
+        $this->moodleConfiguration = $moodleConfiguration;
         $this->page = $page;
         $this->renderer = $renderer;
     }
@@ -67,6 +70,7 @@ final class View
         return new Moodle\Infrastructure\Action\EditMatrixUserIdAction(
             $this->page,
             $this->renderer,
+            $this->moodleConfiguration,
         );
     }
 
