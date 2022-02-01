@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Infrastructure;
 
-use core\output;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
+use mod_matrix\Moodle\Infrastructure\Action\ListRoomsAction;
 
 final class View
 {
@@ -55,135 +55,11 @@ final class View
             return;
         }
 
-        $isStaff = self::isStaffUserInCourseContext(
+        $this->listRoomsAction()->handle(
             $user,
-            $module->courseId(),
+            $module,
+            $cm,
         );
-
-        $rooms = $this->moodleRoomRepository->findAllBy([
-            'module_id' => $module->id()->toInt(),
-        ]);
-
-        if (!$isStaff) {
-            $groupsVisibleToUser = groups_get_activity_allowed_groups(
-                $cm,
-                $user,
-            );
-
-            $rooms = \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
-                if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
-                    return true;
-                }
-
-                foreach ($groupsVisibleToUser as $groupVisibleToUser) {
-                    if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
-                        return true;
-                    }
-                }
-
-                return false;
-            });
-        }
-
-        if ([] === $rooms) {
-            echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
-                Moodle\Application\Plugin::NAME,
-            ));
-
-            echo $this->renderer->notification(
-                get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
-                    Moodle\Application\Plugin::NAME,
-                ),
-                output\notification::NOTIFY_WARNING,
-            );
-
-            echo $this->renderer->footer();
-
-            return;
-        }
-
-        $courseShortName = Moodle\Domain\CourseShortName::fromString($cm->get_course()->shortname);
-
-        $roomLinks = \array_map(function (Moodle\Domain\Room $room) use ($courseShortName, $module): RoomLink {
-            $url = $this->moodleRoomService->urlForRoom($room);
-
-            $groupId = $room->groupId();
-
-            if (!$groupId instanceof Moodle\Domain\GroupId) {
-                return RoomLink::create(
-                    $url,
-                    $this->moodleNameService->forCourseAndModule(
-                        $courseShortName,
-                        $module->name(),
-                    ),
-                );
-            }
-
-            $group = $this->moodleGroupRepository->find($groupId);
-
-            if (!$group instanceof Moodle\Domain\Group) {
-                throw Moodle\Domain\GroupNotFound::for($groupId);
-            }
-
-            return RoomLink::create(
-                $url,
-                $this->moodleNameService->forGroupCourseAndModule(
-                    $group->name(),
-                    $courseShortName,
-                    $module->name(),
-                ),
-            );
-        }, $rooms);
-
-        if (
-            !$isStaff
-            && \count($roomLinks) === 1
-        ) {
-            $roomLink = \reset($roomLinks);
-
-            echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
-                Moodle\Application\Plugin::NAME,
-            ));
-
-            echo <<<HTML
-<script type="text/javascript">
-    window.location.href = '{$roomLink->url()}';
-</script>
-HTML;
-
-            echo $this->renderer->footer();
-        }
-
-        \usort($roomLinks, static function (RoomLink $a, RoomLink $b): int {
-            return \strcmp(
-                $a->roomName()->toString(),
-                $b->roomName()->toString(),
-            );
-        });
-
-        $listItems = \implode(\PHP_EOL, \array_map(static function (RoomLink $link): string {
-            return <<<HTML
-<li>
-    <a href="{$link->url()}" target="_blank" title="{$link->roomName()->toString()}">{$link->roomName()->toString()}</a>
-</li>
-HTML;
-        }, $roomLinks));
-
-        echo $this->renderer->heading(get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_HEADER,
-            Moodle\Application\Plugin::NAME,
-        ));
-
-        echo <<<HTML
-<ul>
-    {$listItems}
-</ul>
-HTML;
-
-        echo $this->renderer->footer();
     }
 
     private function editMatrixUserIdFormAction(): Moodle\Infrastructure\Action\EditMatrixUserIdAction
@@ -194,23 +70,14 @@ HTML;
         );
     }
 
-    private static function isStaffUserInCourseContext(
-        \stdClass $user,
-        Moodle\Domain\CourseId $courseId
-    ): bool {
-        $context = \context_course::instance($courseId->toInt());
-
-        $staffUsersInCourseContext = get_users_by_capability(
-            $context,
-            'mod/matrix:staff',
+    private function listRoomsAction(): ListRoomsAction
+    {
+        return new ListRoomsAction(
+            $this->moodleRoomRepository,
+            $this->moodleGroupRepository,
+            $this->moodleRoomService,
+            $this->moodleNameService,
+            $this->renderer,
         );
-
-        foreach ($staffUsersInCourseContext as $staffUserInCourseContext) {
-            if ($user->id === $staffUserInCourseContext->id) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
