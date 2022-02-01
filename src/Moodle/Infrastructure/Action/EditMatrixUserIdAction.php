@@ -30,48 +30,48 @@ final class EditMatrixUserIdAction
     {
         $matrixUserIdForm = new Moodle\Infrastructure\Form\EditMatrixUserIdForm($this->page->url->out(true));
 
-        if ($matrixUserIdForm->is_submitted()) {
-            if (!$matrixUserIdForm->is_validated()) {
-                echo $this->renderer->heading(get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+        if (!$matrixUserIdForm->is_submitted()) {
+            echo $this->renderer->heading(get_string(
+                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Application\Plugin::NAME,
+            ));
+
+            echo $this->renderer->notification(
+                get_string(
+                    Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID,
                     Moodle\Application\Plugin::NAME,
-                ));
+                ),
+                output\notification::NOTIFY_WARNING,
+            );
 
-                $matrixUserIdForm->display();
+            $matrixUserIdForm->display();
 
-                echo $this->renderer->footer();
-
-                return;
-            }
-
-            $data = $matrixUserIdForm->get_data();
-
-            $name = Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME;
-
-            profile_save_custom_fields($user->id, [
-                Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME => $data->{$name},
-            ]);
-
-            redirect($this->page->url);
+            echo $this->renderer->footer();
 
             return;
         }
 
-        echo $this->renderer->heading(get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_HEADER,
-            Moodle\Application\Plugin::NAME,
-        ));
-
-        echo $this->renderer->notification(
-            get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID,
+        if (!$matrixUserIdForm->is_validated()) {
+            echo $this->renderer->heading(get_string(
+                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
                 Moodle\Application\Plugin::NAME,
-            ),
-            output\notification::NOTIFY_WARNING,
-        );
+            ));
 
-        $matrixUserIdForm->display();
+            $matrixUserIdForm->display();
 
-        echo $this->renderer->footer();
+            echo $this->renderer->footer();
+
+            return;
+        }
+
+        $data = $matrixUserIdForm->get_data();
+
+        $name = Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME;
+
+        profile_save_custom_fields($user->id, [
+            Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME => $data->{$name},
+        ]);
+
+        redirect($this->page->url);
     }
 }
