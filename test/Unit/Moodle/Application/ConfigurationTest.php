@@ -20,6 +20,7 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Moodle\Application\Configuration
  *
+ * @uses \mod_matrix\Matrix\Domain\AccessToken
  * @uses \mod_matrix\Matrix\Domain\Url
  */
 final class ConfigurationTest extends Framework\TestCase
@@ -30,7 +31,7 @@ final class ConfigurationTest extends Framework\TestCase
     {
         $configuration = Moodle\Application\Configuration::default();
 
-        self::assertSame('', $configuration->accessToken());
+        self::assertEquals(Matrix\Domain\AccessToken::fromString(''), $configuration->accessToken());
         self::assertEquals(Matrix\Domain\Url::fromString('https://matrix-client.matrix.org'), $configuration->elementUrl());
         self::assertEquals(Matrix\Domain\Url::fromString(''), $configuration->homeserverUrl());
     }
@@ -188,7 +189,7 @@ final class ConfigurationTest extends Framework\TestCase
 
         $configuration = Moodle\Application\Configuration::fromObject($object);
 
-        self::assertSame($object->access_token, $configuration->accessToken());
+        self::assertEquals(Matrix\Domain\AccessToken::fromString($object->access_token), $configuration->accessToken());
         self::assertEquals(Matrix\Domain\Url::fromString($object->element_url), $configuration->elementUrl());
         self::assertEquals(Matrix\Domain\Url::fromString($object->homeserver_url), $configuration->homeserverUrl());
     }
@@ -224,7 +225,7 @@ final class ConfigurationTest extends Framework\TestCase
 
         $configuration = Moodle\Application\Configuration::fromObject($object);
 
-        self::assertSame(\trim($object->access_token), $configuration->accessToken());
+        self::assertEquals(Matrix\Domain\AccessToken::fromString(\trim($object->access_token)), $configuration->accessToken());
         self::assertEquals(Matrix\Domain\Url::fromString(\trim($object->element_url)), $configuration->elementUrl());
         self::assertEquals(Matrix\Domain\Url::fromString(\trim($object->homeserver_url)), $configuration->homeserverUrl());
     }

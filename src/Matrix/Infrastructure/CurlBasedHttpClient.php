@@ -20,7 +20,7 @@ final class CurlBasedHttpClient implements HttpClient
 
     public function __construct(
         Matrix\Domain\Url $baseUrl,
-        string $accessToken
+        Matrix\Domain\AccessToken $accessToken
     ) {
         $this->baseUrl = $baseUrl;
         $this->accessToken = $accessToken;
@@ -74,7 +74,7 @@ final class CurlBasedHttpClient implements HttpClient
         $curl = new Curl();
 
         $curl->setDefaultJsonDecoder(true);
-        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
+        $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken->toString());
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setUrl($this->baseUrl->toString());
 

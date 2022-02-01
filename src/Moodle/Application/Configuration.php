@@ -19,7 +19,7 @@ final class Configuration
     private $homeserverUrl;
 
     private function __construct(
-        string $accessToken,
+        Matrix\Domain\AccessToken $accessToken,
         Matrix\Domain\Url $elementUrl,
         Matrix\Domain\Url $homeserverUrl
     ) {
@@ -31,7 +31,7 @@ final class Configuration
     public static function default(): self
     {
         return new self(
-            '',
+            Matrix\Domain\AccessToken::fromString(''),
             Matrix\Domain\Url::fromString('https://matrix-client.matrix.org'),
             Matrix\Domain\Url::fromString(''),
         );
@@ -94,13 +94,13 @@ final class Configuration
         }
 
         return new self(
-            \trim($accessToken),
+            Matrix\Domain\AccessToken::fromString(\trim($accessToken)),
             Matrix\Domain\Url::fromString(\trim($elementUrl)),
             Matrix\Domain\Url::fromString(\trim($homeserverUrl)),
         );
     }
 
-    public function accessToken(): string
+    public function accessToken(): Matrix\Domain\AccessToken
     {
         return $this->accessToken;
     }
