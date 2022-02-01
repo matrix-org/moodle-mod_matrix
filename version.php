@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+/**
+ * @see https://docs.moodle.org/dev/Plugin_files#version.php
+ * @see https://docs.moodle.org/dev/version.php
+ */
 $plugin->component = 'mod_matrix';
 $plugin->dependencies = [];
 $plugin->maturity = MATURITY_BETA;
