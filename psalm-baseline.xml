@@ -203,6 +203,45 @@
       <code>$r</code>
     </MixedAssignment>
   </file>
+  <file src="src/Moodle/Infrastructure/Action/EditMatrixUserIdAction.php">
+    <MissingDependency occurrences="1">
+      <code>Moodle\Infrastructure\Form\MatrixUserIdForm</code>
+    </MissingDependency>
+    <MixedArgument occurrences="5">
+      <code>$this-&gt;renderer-&gt;footer()</code>
+      <code>$this-&gt;renderer-&gt;footer()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$data</code>
+      <code>$matrixUserIdForm</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="5">
+      <code>display</code>
+      <code>display</code>
+      <code>get_data</code>
+      <code>is_submitted</code>
+      <code>is_validated</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="1">
+      <code>$data-&gt;{$name}</code>
+    </MixedPropertyFetch>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$page</code>
+      <code>$renderer</code>
+    </PropertyNotSetInConstructor>
+    <UndefinedClass occurrences="7">
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>$this-&gt;renderer</code>
+      <code>\core_renderer</code>
+      <code>output\notification</code>
+    </UndefinedClass>
+    <UndefinedFunction occurrences="5">
+      <code>redirect($this-&gt;page-&gt;url)</code>
+    </UndefinedFunction>
+  </file>
   <file src="src/Moodle/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
@@ -296,34 +335,19 @@
     </MixedArgument>
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
-    <MissingDependency occurrences="1">
-      <code>Form\MatrixUserIdForm</code>
-    </MissingDependency>
-    <MixedArgument occurrences="14">
+    <MixedArgument occurrences="9">
       <code>$cm-&gt;get_course()-&gt;shortname</code>
       <code>$groupVisibleToUser-&gt;id</code>
       <code>$this-&gt;renderer-&gt;footer()</code>
       <code>$this-&gt;renderer-&gt;footer()</code>
       <code>$this-&gt;renderer-&gt;footer()</code>
-      <code>$this-&gt;renderer-&gt;footer()</code>
-      <code>$this-&gt;renderer-&gt;footer()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="5">
-      <code>$data</code>
+    <MixedAssignment occurrences="3">
       <code>$groupVisibleToUser</code>
       <code>$groupsVisibleToUser</code>
-      <code>$matrixUserIdForm</code>
       <code>$staffUserInCourseContext</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="5">
-      <code>display</code>
-      <code>display</code>
-      <code>get_data</code>
-      <code>is_submitted</code>
-      <code>is_validated</code>
-    </MixedMethodCall>
-    <MixedPropertyFetch occurrences="3">
-      <code>$data-&gt;{$name}</code>
+    <MixedPropertyFetch occurrences="2">
       <code>$groupVisibleToUser-&gt;id</code>
       <code>$staffUserInCourseContext-&gt;id</code>
     </MixedPropertyFetch>
@@ -336,12 +360,7 @@
       <code>$page</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="15">
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
+    <UndefinedClass occurrences="9">
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
@@ -351,11 +370,8 @@
       <code>$this-&gt;renderer</code>
       <code>\core_renderer</code>
       <code>output\notification</code>
-      <code>output\notification</code>
     </UndefinedClass>
-    <UndefinedFunction occurrences="10">
-      <code>redirect($this-&gt;page-&gt;url)</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="5"/>
   </file>
   <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
