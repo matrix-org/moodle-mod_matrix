@@ -23,6 +23,7 @@ final class InternationalizationTest extends Framework\TestCase
     public function testConstants(): void
     {
         self::assertSame('action_edit_matrix_user_id_header', Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_HEADER);
+        self::assertSame('action_edit_matrix_user_id_info_suggestion', Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_INFO_SUGGESTION);
         self::assertSame('action_edit_matrix_user_id_warning_no_matrix_user_id', Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID);
         self::assertSame('action_list_rooms_header', Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER);
         self::assertSame('action_list_rooms_warning_no_rooms', Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_WARNING_NO_ROOMS);

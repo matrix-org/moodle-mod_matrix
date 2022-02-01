@@ -52,6 +52,7 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_NAME => 'Homeserver URL',
     // view.php
     Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_HEADER => 'Matrix User Identifier Missing',
+    Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_INFO_SUGGESTION => 'Perhaps one of the following is your Matrix user identifier? Just guessing, though!',
     Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID => 'It appears that you have not yet provided a valid Matrix user identifier. Without it, you can not join any Matrix chat rooms. Can you provide one now?',
     Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER => 'Rooms',
     Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_WARNING_NO_ROOMS => 'There are no rooms to show.',

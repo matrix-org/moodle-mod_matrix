@@ -16,6 +16,7 @@ final class Internationalization
      * @see \mod_matrix\Moodle\Infrastructure\Action\EditMatrixUserIdAction
      */
     public const ACTION_EDIT_MATRIX_USER_ID_HEADER = 'action_edit_matrix_user_id_header';
+    public const ACTION_EDIT_MATRIX_USER_ID_INFO_SUGGESTION = 'action_edit_matrix_user_id_info_suggestion';
     public const ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID = 'action_edit_matrix_user_id_warning_no_matrix_user_id';
 
     /**
