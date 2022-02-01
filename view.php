@@ -27,7 +27,7 @@ $courseModuleId = required_param(
     Moodle\Application\Plugin::NAME,
 );
 
-$moduleId = Moodle\Domain\ModuleId::fromString($cm->instance);
+$moduleId = Moodle\Domain\ModuleId::fromString((string) $cm->instance);
 
 $container = Container::instance();
 
