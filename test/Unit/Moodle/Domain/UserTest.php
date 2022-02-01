@@ -32,7 +32,7 @@ final class UserTest extends Framework\TestCase
         $faker = self::faker();
 
         $id = Moodle\Domain\UserId::fromInt($faker->numberBetween(1));
-        $matrixUserId = Matrix\Domain\UserId::fromString($faker->sha1());
+        $matrixUserId = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $user = Moodle\Domain\User::create(
             $id,

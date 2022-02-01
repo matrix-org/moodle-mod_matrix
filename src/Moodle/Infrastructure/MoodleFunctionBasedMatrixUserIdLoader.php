@@ -33,16 +33,18 @@ final class MoodleFunctionBasedMatrixUserIdLoader implements Moodle\Domain\Matri
             return null;
         }
 
-        $matrixUserId = $user->profile[self::USER_PROFILE_FIELD_NAME];
+        $value = $user->profile[self::USER_PROFILE_FIELD_NAME];
 
-        if (!\is_string($matrixUserId)) {
+        if (!\is_string($value)) {
             return null;
         }
 
-        if ('' === \trim($matrixUserId)) {
+        try {
+            $userId = Matrix\Domain\UserId::fromString($value);
+        } catch (\InvalidArgumentException $exception) {
             return null;
         }
 
-        return Matrix\Domain\UserId::fromString($matrixUserId);
+        return $userId;
     }
 }

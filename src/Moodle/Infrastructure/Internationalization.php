@@ -42,6 +42,7 @@ final class Internationalization
     public const VIEW_HEADER = 'view_header';
     public const VIEW_MATRIX_USER_ID_FORM_HEADER = 'view_matrix_user_id_form_header';
     public const VIEW_MATRIX_USER_ID_FORM_NAME = 'view_matrix_user_id_form_name';
+    public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID = 'view_matrix_user_id_form_name_error_invalid';
     public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED = 'view_matrix_user_id_form_name_error_required';
     public const VIEW_MATRIX_USER_ID_FORM_NAME_HELP = 'view_matrix_user_id_form_name_help';
 }
