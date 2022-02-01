@@ -15,7 +15,7 @@ For a full diff see [`2022011800...main`](https://gitlab.matrix.org/new-vector/m
 ### Fixed
 
 - Started casting identifiers from Moodle events to `int` as the documentation regarding `core\event\base` is inconsistent with actual results ([#72](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/72))
-- Started casting identifiers from Moodle events to `string` instead of `int` (for consistency) ([#73](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/72))
+- Started casting identifiers from Moodle events to `string` instead of `int` (for consistency) ([#73](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/73))
 
 ## [`2022011800`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022011800)
 
