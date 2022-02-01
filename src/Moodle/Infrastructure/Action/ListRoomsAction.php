@@ -186,27 +186,27 @@ HTML;
             'module_id' => $module->id()->toInt(),
         ]);
 
-        if (!$isStaff) {
-            $groupsVisibleToUser = groups_get_activity_allowed_groups(
-                $cm,
-                $user,
-            );
-
-            $rooms = \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
-                if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
-                    return true;
-                }
-
-                foreach ($groupsVisibleToUser as $groupVisibleToUser) {
-                    if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
-                        return true;
-                    }
-                }
-
-                return false;
-            });
+        if ($isStaff) {
+            return $rooms;
         }
 
-        return $rooms;
+        $groupsVisibleToUser = groups_get_activity_allowed_groups(
+            $cm,
+            $user,
+        );
+
+        return \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
+            if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
+                return true;
+            }
+
+            foreach ($groupsVisibleToUser as $groupVisibleToUser) {
+                if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
     }
 }
