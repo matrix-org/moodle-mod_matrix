@@ -490,9 +490,6 @@
     </UndefinedGlobalVariable>
   </file>
   <file src="view.php">
-    <InvalidArgument occurrences="1">
-      <code>$cm-&gt;instance</code>
-    </InvalidArgument>
     <InvalidScope occurrences="1">
       <code>$this</code>
     </InvalidScope>

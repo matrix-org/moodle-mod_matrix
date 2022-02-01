@@ -118,7 +118,7 @@ final class observer
             return;
         }
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
         $courseShortName = Moodle\Domain\CourseShortName::fromString($shortname);
 
         self::updateRoomsForCourse(
@@ -131,8 +131,8 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
-        $groupId = Moodle\Domain\GroupId::fromInt((int) $event->objectid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString((string) $event->objectid);
 
         self::createRoomsForCourseAndGroup(
             $courseId,
@@ -144,7 +144,7 @@ final class observer
     {
         self::requireAutoloader();
 
-        $groupId = Moodle\Domain\GroupId::fromInt((int) $event->objectid);
+        $groupId = Moodle\Domain\GroupId::fromString((string) $event->objectid);
 
         self::removeRoomsForGroup($groupId);
     }
@@ -153,8 +153,8 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
-        $groupId = Moodle\Domain\GroupId::fromInt((int) $event->objectid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString((string) $event->objectid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
@@ -166,8 +166,8 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
-        $groupId = Moodle\Domain\GroupId::fromInt((int) $event->objectid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
+        $groupId = Moodle\Domain\GroupId::fromString((string) $event->objectid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourseAndGroup(
             $courseId,
@@ -179,7 +179,7 @@ final class observer
     {
         self::requireAutoloader();
 
-        $groupId = Moodle\Domain\GroupId::fromInt((int) $event->objectid);
+        $groupId = Moodle\Domain\GroupId::fromString((string) $event->objectid);
 
         self::updateRoomsForGroup($groupId);
     }
@@ -216,7 +216,7 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
@@ -225,7 +225,7 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
@@ -234,7 +234,7 @@ final class observer
     {
         self::requireAutoloader();
 
-        $courseId = Moodle\Domain\CourseId::fromInt((int) $event->courseid);
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
     }
