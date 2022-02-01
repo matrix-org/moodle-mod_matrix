@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`2022011800...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011800...main).
+For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022020100...main).
+
+## [`2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022020100)
+
+For a full diff see [`2022011800...2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011800...2022020100).
 
 ### Added
 -
