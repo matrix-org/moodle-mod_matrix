@@ -45,30 +45,12 @@ final class ListRoomsAction
             $module->courseId(),
         );
 
-        $rooms = $this->moodleRoomRepository->findAllBy([
-            'module_id' => $module->id()->toInt(),
-        ]);
-
-        if (!$isStaff) {
-            $groupsVisibleToUser = groups_get_activity_allowed_groups(
-                $cm,
-                $user,
-            );
-
-            $rooms = \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
-                if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
-                    return true;
-                }
-
-                foreach ($groupsVisibleToUser as $groupVisibleToUser) {
-                    if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
-                        return true;
-                    }
-                }
-
-                return false;
-            });
-        }
+        $rooms = $this->rooms(
+            $module,
+            $isStaff,
+            $cm,
+            $user,
+        );
 
         if ([] === $rooms) {
             echo $this->renderer->heading(get_string(
@@ -189,5 +171,42 @@ HTML;
         }
 
         return false;
+    }
+
+    /**
+     * @return array<int, Moodle\Domain\Room>
+     */
+    private function rooms(
+        Moodle\Domain\Module $module,
+        bool $isStaff,
+        \cm_info $cm,
+        \stdClass $user
+    ): array {
+        $rooms = $this->moodleRoomRepository->findAllBy([
+            'module_id' => $module->id()->toInt(),
+        ]);
+
+        if (!$isStaff) {
+            $groupsVisibleToUser = groups_get_activity_allowed_groups(
+                $cm,
+                $user,
+            );
+
+            $rooms = \array_filter($rooms, static function (Moodle\Domain\Room $room) use ($groupsVisibleToUser): bool {
+                if (!$room->groupId() instanceof Moodle\Domain\GroupId) {
+                    return true;
+                }
+
+                foreach ($groupsVisibleToUser as $groupVisibleToUser) {
+                    if ($room->groupId()->equals(Moodle\Domain\GroupId::fromString($groupVisibleToUser->id))) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
+
+        return $rooms;
     }
 }
