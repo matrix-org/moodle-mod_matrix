@@ -132,7 +132,7 @@ final class mod_matrix_mod_form extends moodleform_mod
     {
         $config = Container::instance()->moodleConfiguration();
 
-        if ($config->elementUrl() === '') {
+        if ($config->elementUrl()->toString() === '') {
             return;
         }
 

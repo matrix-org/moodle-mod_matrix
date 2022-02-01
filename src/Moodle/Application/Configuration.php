@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Application;
 
+use mod_matrix\Matrix;
+
 final class Configuration
 {
     private $accessToken;
@@ -18,8 +20,8 @@ final class Configuration
 
     private function __construct(
         string $accessToken,
-        string $elementUrl,
-        string $homeserverUrl
+        Matrix\Domain\Url $elementUrl,
+        Matrix\Domain\Url $homeserverUrl
     ) {
         $this->accessToken = $accessToken;
         $this->elementUrl = $elementUrl;
@@ -30,8 +32,8 @@ final class Configuration
     {
         return new self(
             '',
-            'https://matrix-client.matrix.org',
-            '',
+            Matrix\Domain\Url::fromString('https://matrix-client.matrix.org'),
+            Matrix\Domain\Url::fromString(''),
         );
     }
 
@@ -93,8 +95,8 @@ final class Configuration
 
         return new self(
             \trim($accessToken),
-            \trim($elementUrl),
-            \trim($homeserverUrl),
+            Matrix\Domain\Url::fromString(\trim($elementUrl)),
+            Matrix\Domain\Url::fromString(\trim($homeserverUrl)),
         );
     }
 
@@ -103,12 +105,12 @@ final class Configuration
         return $this->accessToken;
     }
 
-    public function elementUrl(): string
+    public function elementUrl(): Matrix\Domain\Url
     {
         return $this->elementUrl;
     }
 
-    public function homeserverUrl(): string
+    public function homeserverUrl(): Matrix\Domain\Url
     {
         return $this->homeserverUrl;
     }

@@ -157,12 +157,12 @@ HTML,
             'matrix.org',
         ];
 
-        if ('' === $this->moodleConfiguration->homeserverUrl()) {
+        if ('' === $this->moodleConfiguration->homeserverUrl()->toString()) {
             return $homeServers;
         }
 
         $host = \parse_url(
-            $this->moodleConfiguration->homeserverUrl(),
+            $this->moodleConfiguration->homeserverUrl()->toString(),
             \PHP_URL_HOST,
         );
 

@@ -39,7 +39,7 @@ if ($ADMIN->fulltree) {
             Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
-        $defaultConfiguration->homeserverUrl(),
+        $defaultConfiguration->homeserverUrl()->toString(),
         PARAM_TEXT,
     ));
 
@@ -67,7 +67,7 @@ if ($ADMIN->fulltree) {
             Moodle\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
-        $defaultConfiguration->elementUrl(),
+        $defaultConfiguration->elementUrl()->toString(),
         PARAM_TEXT,
     ));
 }

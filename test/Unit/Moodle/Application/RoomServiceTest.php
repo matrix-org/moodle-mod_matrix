@@ -23,6 +23,7 @@ use PHPUnit\Framework;
  *
  * @uses \mod_matrix\Matrix\Application\RoomService
  * @uses \mod_matrix\Matrix\Domain\RoomId
+ * @uses \mod_matrix\Matrix\Domain\Url
  * @uses \mod_matrix\Moodle\Application\Configuration
  * @uses \mod_matrix\Moodle\Domain\CourseId
  * @uses \mod_matrix\Moodle\Domain\Module

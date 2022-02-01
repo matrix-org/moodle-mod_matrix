@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace mod_matrix\Matrix\Infrastructure;
 
 use Curl\Curl;
+use mod_matrix\Matrix;
 
 final class CurlBasedHttpClient implements HttpClient
 {
@@ -18,7 +19,7 @@ final class CurlBasedHttpClient implements HttpClient
     private $accessToken;
 
     public function __construct(
-        string $baseUrl,
+        Matrix\Domain\Url $baseUrl,
         string $accessToken
     ) {
         $this->baseUrl = $baseUrl;
@@ -75,7 +76,7 @@ final class CurlBasedHttpClient implements HttpClient
         $curl->setDefaultJsonDecoder(true);
         $curl->setHeader('Authorization', 'Bearer ' . $this->accessToken);
         $curl->setHeader('Content-Type', 'application/json');
-        $curl->setUrl($this->baseUrl);
+        $curl->setUrl($this->baseUrl->toString());
 
         return $curl;
     }

@@ -44,7 +44,7 @@ final class RoomService
      */
     public function urlForRoom(Moodle\Domain\Room $room): string
     {
-        if ('' === $this->configuration->elementUrl()) {
+        if ('' === $this->configuration->elementUrl()->toString()) {
             return \sprintf(
                 'https://matrix.to/#/%s',
                 $room->matrixRoomId()->toString(),
@@ -68,7 +68,7 @@ final class RoomService
 
         return \sprintf(
             '%s/#/room/%s',
-            $this->configuration->elementUrl(),
+            $this->configuration->elementUrl()->toString(),
             $room->matrixRoomId()->toString(),
         );
     }

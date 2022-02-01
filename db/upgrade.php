@@ -178,7 +178,7 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
 
         $configuration = $container->moodleConfiguration();
 
-        if ($configuration->elementUrl() !== '') {
+        if ($configuration->elementUrl()->toString() !== '') {
             $newTarget = Moodle\Domain\ModuleTarget::elementUrl();
         }
 
