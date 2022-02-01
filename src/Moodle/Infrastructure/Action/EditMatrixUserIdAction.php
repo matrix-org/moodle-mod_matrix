@@ -32,13 +32,13 @@ final class EditMatrixUserIdAction
 
         if (!$matrixUserIdForm->is_submitted()) {
             echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_HEADER,
                 Moodle\Application\Plugin::NAME,
             ));
 
             echo $this->renderer->notification(
                 get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID,
+                    Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID,
                     Moodle\Application\Plugin::NAME,
                 ),
                 output\notification::NOTIFY_WARNING,
@@ -53,7 +53,7 @@ final class EditMatrixUserIdAction
 
         if (!$matrixUserIdForm->is_validated()) {
             echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_HEADER,
                 Moodle\Application\Plugin::NAME,
             ));
 

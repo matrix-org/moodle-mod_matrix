@@ -12,6 +12,30 @@ namespace mod_matrix\Moodle\Infrastructure;
 
 final class Internationalization
 {
+    /**
+     * @see \mod_matrix\Moodle\Infrastructure\Action\EditMatrixUserIdAction
+     */
+    public const ACTION_EDIT_MATRIX_USER_ID_HEADER = 'action_edit_matrix_user_id_header';
+    public const ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID = 'action_edit_matrix_user_id_warning_no_matrix_user_id';
+
+    /**
+     * @see \mod_matrix\Moodle\Infrastructure\Action\ListRoomsAction
+     */
+    public const ACTION_LIST_ROOMS_HEADER = 'action_list_rooms_header';
+    public const ACTION_LIST_ROOMS_WARNING_NO_ROOMS = 'action_list_rooms_warning_no_rooms';
+
+    /**
+     * @see \mod_matrix\Moodle\Infrastructure\Form\EditMatrixUserIdForm
+     */
+    public const FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_INVALID = 'form_edit_matrix_user_id_error_matrix_user_id_invalid';
+    public const FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED = 'form_edit_matrix_user_id_error_matrix_user_id_required';
+    public const FORM_EDIT_MATRIX_USER_ID_HEADER = 'form_edit_matrix_user_id_header';
+    public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME = 'form_edit_matrix_user_id_matrix_user_id_name';
+    public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP = 'form_edit_matrix_user_id_matrix_user_id_name_help';
+
+    /**
+     * @see \mod_matrix_mod_form
+     */
     public const MOD_FORM_BASIC_SETTINGS_HEADER = 'mod_form_basic_settings_header';
     public const MOD_FORM_BASIC_SETTINGS_NAME = 'mod_form_basic_settings_name';
     public const MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT = 'mod_form_basic_settings_name_default';
@@ -25,6 +49,10 @@ final class Internationalization
     public const MOD_FORM_BASIC_SETTINGS_TARGET_NAME = 'mod_form_basic_settings_target_name';
     public const MOD_FORM_BASIC_SETTINGS_TOPIC_HELP = 'mod_form_basic_settings_topic_help';
     public const MOD_FORM_BASIC_SETTINGS_TOPIC_NAME = 'mod_form_basic_settings_topic_name';
+
+    /**
+     * @see settings.php
+     */
     public const SETTINGS_ACCESS_TOKEN_DESCRIPTION = 'settings_access_token_description';
     public const SETTINGS_ACCESS_TOKEN_NAME = 'settings_access_token_name';
     public const SETTINGS_ELEMENT_URL_DESCRIPTION = 'settings_element_url_description';
@@ -32,17 +60,4 @@ final class Internationalization
     public const SETTINGS_HOMESERVER_HEADING = 'settings_homeserver_heading';
     public const SETTINGS_HOMESERVER_URL_DESCRIPTION = 'settings_homeserver_url_description';
     public const SETTINGS_HOMESERVER_URL_NAME = 'settings_homeserver_url_name';
-    public const VIEW_ALERT_MANY_ROOMS = 'view_alert_many_rooms';
-    public const VIEW_BUTTON_JOIN_ROOM = 'view_button_join_room';
-    public const VIEW_ERROR_NO_GROUPS = 'view_error_no_groups';
-    public const VIEW_ERROR_NO_ROOM_IN_GROUP = 'view_error_no_room_in_group';
-    public const VIEW_ERROR_NO_ROOMS = 'view_error_no_rooms';
-    public const VIEW_ERROR_NO_VISIBLE_GROUPS = 'view_error_no_visible_groups';
-    public const VIEW_HEADER = 'view_header';
-    public const VIEW_MATRIX_USER_ID_FORM_HEADER = 'view_matrix_user_id_form_header';
-    public const VIEW_MATRIX_USER_ID_FORM_NAME = 'view_matrix_user_id_form_name';
-    public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID = 'view_matrix_user_id_form_name_error_invalid';
-    public const VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED = 'view_matrix_user_id_form_name_error_required';
-    public const VIEW_MATRIX_USER_ID_FORM_NAME_HELP = 'view_matrix_user_id_form_name_help';
-    public const VIEW_WARNING_NO_MATRIX_USER_ID = 'view_error_no_matrix_user_id';
 }

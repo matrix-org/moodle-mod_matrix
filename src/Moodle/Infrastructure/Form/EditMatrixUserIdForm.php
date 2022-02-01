@@ -31,7 +31,7 @@ final class EditMatrixUserIdForm extends \moodleform
         if (!\array_key_exists($element, $data)) {
             return [
                 $element => get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED,
+                    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED,
                     Moodle\Application\Plugin::NAME,
                 ),
             ];
@@ -39,11 +39,11 @@ final class EditMatrixUserIdForm extends \moodleform
 
         $error = \implode(' ', [
             get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID,
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_INVALID,
                 Moodle\Application\Plugin::NAME,
             ),
             get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_HELP,
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP,
                 Moodle\Application\Plugin::NAME,
             ),
         ]);
@@ -78,7 +78,7 @@ final class EditMatrixUserIdForm extends \moodleform
             'header',
             'mod_form_basic_settings_header',
             get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_HEADER,
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_HEADER,
                 Moodle\Application\Plugin::NAME,
             ),
         );
@@ -94,7 +94,7 @@ final class EditMatrixUserIdForm extends \moodleform
             'text',
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME,
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME,
                 Moodle\Application\Plugin::NAME,
             ),
         );
@@ -106,14 +106,14 @@ final class EditMatrixUserIdForm extends \moodleform
 
         $this->_form->addHelpButton(
             $elementName,
-            Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME,
+            Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME,
             Moodle\Application\Plugin::NAME,
         );
 
         $this->_form->addRule(
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED,
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED,
                 Moodle\Application\Plugin::NAME,
             ),
             'required',

@@ -22,6 +22,15 @@ final class InternationalizationTest extends Framework\TestCase
 {
     public function testConstants(): void
     {
+        self::assertSame('action_edit_matrix_user_id_header', Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_HEADER);
+        self::assertSame('action_edit_matrix_user_id_warning_no_matrix_user_id', Moodle\Infrastructure\Internationalization::ACTION_EDIT_MATRIX_USER_ID_WARNING_NO_MATRIX_USER_ID);
+        self::assertSame('action_list_rooms_header', Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER);
+        self::assertSame('action_list_rooms_warning_no_rooms', Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_WARNING_NO_ROOMS);
+        self::assertSame('form_edit_matrix_user_id_error_matrix_user_id_invalid', Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_INVALID);
+        self::assertSame('form_edit_matrix_user_id_error_matrix_user_id_required', Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED);
+        self::assertSame('form_edit_matrix_user_id_header', Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_HEADER);
+        self::assertSame('form_edit_matrix_user_id_matrix_user_id_name', Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME);
+        self::assertSame('form_edit_matrix_user_id_matrix_user_id_name_help', Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP);
         self::assertSame('mod_form_basic_settings_header', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER);
         self::assertSame('mod_form_basic_settings_name', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME);
         self::assertSame('mod_form_basic_settings_name_default', Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT);
@@ -42,18 +51,5 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('settings_homeserver_heading', Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_HEADING);
         self::assertSame('settings_homeserver_url_description', Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_DESCRIPTION);
         self::assertSame('settings_homeserver_url_name', Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_NAME);
-        self::assertSame('view_alert_many_rooms', Moodle\Infrastructure\Internationalization::VIEW_ALERT_MANY_ROOMS);
-        self::assertSame('view_button_join_room', Moodle\Infrastructure\Internationalization::VIEW_BUTTON_JOIN_ROOM);
-        self::assertSame('view_error_no_groups', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_GROUPS);
-        self::assertSame('view_error_no_matrix_user_id', Moodle\Infrastructure\Internationalization::VIEW_WARNING_NO_MATRIX_USER_ID);
-        self::assertSame('view_error_no_room_in_group', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOM_IN_GROUP);
-        self::assertSame('view_error_no_rooms', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS);
-        self::assertSame('view_error_no_visible_groups', Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_VISIBLE_GROUPS);
-        self::assertSame('view_header', Moodle\Infrastructure\Internationalization::VIEW_HEADER);
-        self::assertSame('view_matrix_user_id_form_header', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_HEADER);
-        self::assertSame('view_matrix_user_id_form_name', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME);
-        self::assertSame('view_matrix_user_id_form_name_error_invalid', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID);
-        self::assertSame('view_matrix_user_id_form_name_error_required', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED);
-        self::assertSame('view_matrix_user_id_form_name_help', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_HELP);
     }
 }

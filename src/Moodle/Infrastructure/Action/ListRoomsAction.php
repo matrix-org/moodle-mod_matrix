@@ -54,13 +54,13 @@ final class ListRoomsAction
 
         if ([] === $rooms) {
             echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER,
                 Moodle\Application\Plugin::NAME,
             ));
 
             echo $this->renderer->notification(
                 get_string(
-                    Moodle\Infrastructure\Internationalization::VIEW_ERROR_NO_ROOMS,
+                    Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_WARNING_NO_ROOMS,
                     Moodle\Application\Plugin::NAME,
                 ),
                 output\notification::NOTIFY_WARNING,
@@ -111,7 +111,7 @@ final class ListRoomsAction
             $roomLink = \reset($roomLinks);
 
             echo $this->renderer->heading(get_string(
-                Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+                Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER,
                 Moodle\Application\Plugin::NAME,
             ));
 
@@ -140,7 +140,7 @@ HTML;
         }, $roomLinks));
 
         echo $this->renderer->heading(get_string(
-            Moodle\Infrastructure\Internationalization::VIEW_HEADER,
+            Moodle\Infrastructure\Internationalization::ACTION_LIST_ROOMS_HEADER,
             Moodle\Application\Plugin::NAME,
         ));
 
