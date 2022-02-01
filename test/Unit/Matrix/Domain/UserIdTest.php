@@ -24,7 +24,21 @@ final class UserIdTest extends Framework\TestCase
     use Test\Util\Helper;
 
     /**
-     * @dataProvider \Ergebnis\DataProvider\StringProvider::arbitrary()
+     * @dataProvider \mod_matrix\Test\DataProvider\Matrix\Domain\UserIdProvider::invalid()
+     */
+    public function testFromStringRejectsInvalidUserId(string $value): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(\sprintf(
+            'Value "%s" does not appear to be a valid Matrix user identifier.',
+            $value,
+        ));
+
+        Matrix\Domain\UserId::fromString($value);
+    }
+
+    /**
+     * @dataProvider \mod_matrix\Test\DataProvider\Matrix\Domain\UserIdProvider::valid()
      */
     public function testFromStringReturnsUserId(string $value): void
     {
@@ -37,15 +51,30 @@ final class UserIdTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $one = Matrix\Domain\UserId::fromString($faker->sha1());
-        $two = Matrix\Domain\UserId::fromString($faker->sha1());
+        $one = Matrix\Domain\UserId::fromString(\sprintf(
+            '@%s:%s',
+            $faker->word(),
+            $faker->domainName(),
+        ));
+
+        $two = Matrix\Domain\UserId::fromString(\sprintf(
+            '@%s:%s',
+            $faker->word(),
+            $faker->domainName(),
+        ));
 
         self::assertFalse($one->equals($two));
     }
 
     public function testEqualsReturnsTrueWhenValueIsSame(): void
     {
-        $value = self::faker()->sha1();
+        $faker = self::faker();
+
+        $value = \sprintf(
+            '@%s:%s',
+            $faker->word(),
+            $faker->domainName(),
+        );
 
         $one = Matrix\Domain\UserId::fromString($value);
         $two = Matrix\Domain\UserId::fromString($value);

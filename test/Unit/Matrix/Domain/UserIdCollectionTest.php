@@ -30,9 +30,9 @@ final class UserIdCollectionTest extends Framework\TestCase
         $faker = self::faker();
 
         $userIds = [
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
         ];
 
         $collection = Matrix\Domain\UserIdCollection::fromUserIds(...$userIds);
@@ -44,9 +44,9 @@ final class UserIdCollectionTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $userIdOne = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdTwo = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdThree = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdOne = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdTwo = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdThree = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $userIdsOne = [
             $userIdOne,
@@ -54,9 +54,9 @@ final class UserIdCollectionTest extends Framework\TestCase
             $userIdThree,
         ];
 
-        $userIdFour = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdFive = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdSix = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdFour = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdFive = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdSix = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $userIdsTwo = [
             $userIdTwo,
@@ -88,9 +88,9 @@ final class UserIdCollectionTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $userIdOne = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdTwo = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdThree = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdOne = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdTwo = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdThree = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $userIds = [
             $userIdOne,
@@ -121,15 +121,15 @@ final class UserIdCollectionTest extends Framework\TestCase
         $faker = self::faker();
 
         $userIdsOne = [
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
         ];
 
         $userIdsTwo = [
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
-            Matrix\Domain\UserId::fromString($faker->sha1()),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
+            Test\Util\Matrix\Domain\UserIdFactory::create($faker),
         ];
 
         $one = Matrix\Domain\UserIdCollection::fromUserIds(...$userIdsOne);

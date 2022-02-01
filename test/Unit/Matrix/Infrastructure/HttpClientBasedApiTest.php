@@ -36,7 +36,7 @@ final class HttpClientBasedApiTest extends Framework\TestCase
 
         $userId = \sprintf(
             '@%s:%s',
-            $faker->userName(),
+            $faker->word(),
             $faker->domainName(),
         );
 
@@ -106,11 +106,7 @@ final class HttpClientBasedApiTest extends Framework\TestCase
 
         $roomId = Matrix\Domain\RoomId::fromString($value);
 
-        $userId = Matrix\Domain\UserId::fromString(\sprintf(
-            '@%s:%s',
-            $faker->userName(),
-            $faker->domainName(),
-        ));
+        $userId = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $httpClient = $this->createMock(Matrix\Infrastructure\HttpClient::class);
 
@@ -146,12 +142,7 @@ final class HttpClientBasedApiTest extends Framework\TestCase
         $faker = self::faker();
 
         $roomId = Matrix\Domain\RoomId::fromString($value);
-
-        $userId = Matrix\Domain\UserId::fromString(\sprintf(
-            '@%s:%s',
-            $faker->userName(),
-            $faker->domainName(),
-        ));
+        $userId = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $httpClient = $this->createMock(Matrix\Infrastructure\HttpClient::class);
 
@@ -323,25 +314,25 @@ final class HttpClientBasedApiTest extends Framework\TestCase
 
         $userIdOne = \sprintf(
             '@%s:%s',
-            $faker->userName(),
+            $faker->word(),
             $faker->domainName(),
         );
 
         $userIdTwo = \sprintf(
             '@%s:%s',
-            $faker->userName(),
+            $faker->word(),
             $faker->domainName(),
         );
 
         $userIdThree = \sprintf(
             '@%s:%s',
-            $faker->userName(),
+            $faker->word(),
             $faker->domainName(),
         );
 
         $userIdFour = \sprintf(
             '@%s:%s',
-            $faker->userName(),
+            $faker->word(),
             $faker->domainName(),
         );
 

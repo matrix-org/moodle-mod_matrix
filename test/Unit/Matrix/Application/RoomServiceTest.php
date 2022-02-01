@@ -39,7 +39,7 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
 
-        $userIdOfBot = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdOfBot = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $api = $this->createMock(Matrix\Application\Api::class);
 
@@ -77,8 +77,7 @@ final class RoomServiceTest extends Framework\TestCase
             'bar' => $faker->sentence(),
         ];
 
-        $userIdOfBot = Matrix\Domain\UserId::fromString($faker->sha1());
-
+        $userIdOfBot = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
         $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
 
         $api = $this->createMock(Matrix\Application\Api::class);
@@ -149,12 +148,11 @@ final class RoomServiceTest extends Framework\TestCase
 
         $roomId = Matrix\Domain\RoomId::fromString($faker->sha1());
 
-        $userIdOfBot = Matrix\Domain\UserId::fromString($faker->sha1());
-
-        $userIdOne = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdTwo = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdThree = Matrix\Domain\UserId::fromString($faker->sha1());
-        $userIdFour = Matrix\Domain\UserId::fromString($faker->sha1());
+        $userIdOfBot = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdOne = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdTwo = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdThree = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
+        $userIdFour = Test\Util\Matrix\Domain\UserIdFactory::create($faker);
 
         $userIds = [
             $userIdOne,

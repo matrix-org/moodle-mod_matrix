@@ -52,6 +52,7 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('view_header', Moodle\Infrastructure\Internationalization::VIEW_HEADER);
         self::assertSame('view_matrix_user_id_form_header', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_HEADER);
         self::assertSame('view_matrix_user_id_form_name', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME);
+        self::assertSame('view_matrix_user_id_form_name_error_invalid', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_INVALID);
         self::assertSame('view_matrix_user_id_form_name_error_required', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_ERROR_REQUIRED);
         self::assertSame('view_matrix_user_id_form_name_help', Moodle\Infrastructure\Internationalization::VIEW_MATRIX_USER_ID_FORM_NAME_HELP);
     }

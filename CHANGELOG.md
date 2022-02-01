@@ -11,6 +11,7 @@ For a full diff see [`2022011800...main`](https://gitlab.matrix.org/new-vector/m
 ### Changed
 
 - Started displaying a form asking the user for their Matrix user identifier when they have not yet provided one ([#71](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/71))
+- Started slightly validating Matrix user identifiers ([#74](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/74))
 
 ### Fixed
 
