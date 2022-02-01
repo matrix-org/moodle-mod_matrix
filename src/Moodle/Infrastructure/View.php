@@ -50,7 +50,7 @@ final class View
         $matrixUserId = $this->moodleMatrixUserIdLoader->load($user);
 
         if (!$matrixUserId instanceof Matrix\Domain\UserId) {
-            $matrixUserIdForm = new MatrixUserIdForm($this->page->url->out(true));
+            $matrixUserIdForm = new Form\MatrixUserIdForm($this->page->url->out(true));
 
             if ($matrixUserIdForm->is_submitted()) {
                 if (!$matrixUserIdForm->is_validated()) {

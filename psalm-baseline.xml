@@ -244,7 +244,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Moodle/Infrastructure/MatrixUserIdForm.php">
+  <file src="src/Moodle/Infrastructure/Form/MatrixUserIdForm.php">
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
     </InvalidGlobal>
@@ -297,7 +297,7 @@
   </file>
   <file src="src/Moodle/Infrastructure/View.php">
     <MissingDependency occurrences="1">
-      <code>MatrixUserIdForm</code>
+      <code>Form\MatrixUserIdForm</code>
     </MissingDependency>
     <MixedArgument occurrences="14">
       <code>$cm-&gt;get_course()-&gt;shortname</code>
