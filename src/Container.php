@@ -38,7 +38,7 @@ final class Container
         });
 
         $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
-            $configuration = $container->configuration();
+            $configuration = $container->moodleConfiguration();
 
             return new Matrix\Infrastructure\HttpClientBasedApi(new Matrix\Infrastructure\CurlBasedHttpClient(
                 $configuration->homeserverUrl(),
@@ -69,7 +69,7 @@ final class Container
 
         $this->define(Moodle\Application\RoomService::class, static function (self $container): Moodle\Application\RoomService {
             return new Moodle\Application\RoomService(
-                $container->configuration(),
+                $container->moodleConfiguration(),
                 $container->moodleNameService(),
                 $container->moodleModuleRepository(),
                 $container->moodleRoomRepository(),
@@ -137,11 +137,6 @@ final class Container
         return $this->resolve(Matrix\Application\Api::class);
     }
 
-    public function configuration(): Moodle\Application\Configuration
-    {
-        return $this->resolve(Moodle\Application\Configuration::class);
-    }
-
     public function clock(): Clock\Clock
     {
         return $this->resolve(Clock\Clock::class);
@@ -155,6 +150,11 @@ final class Container
     public function matrixRoomService(): Matrix\Application\RoomService
     {
         return $this->resolve(Matrix\Application\RoomService::class);
+    }
+
+    public function moodleConfiguration(): Moodle\Application\Configuration
+    {
+        return $this->resolve(Moodle\Application\Configuration::class);
     }
 
     public function moodleCourseRepository(): Moodle\Domain\CourseRepository

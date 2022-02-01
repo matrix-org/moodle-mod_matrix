@@ -78,7 +78,7 @@ function matrix_add_instance(
 
     $target = Moodle\Domain\ModuleTarget::matrixTo();
 
-    $config = $container->configuration();
+    $config = $container->moodleConfiguration();
 
     if (
         $config->elementUrl() !== ''

@@ -130,7 +130,7 @@ final class mod_matrix_mod_form extends moodleform_mod
 
     private function addTargetElement(): void
     {
-        $config = Container::instance()->configuration();
+        $config = Container::instance()->moodleConfiguration();
 
         if ($config->elementUrl() === '') {
             return;
