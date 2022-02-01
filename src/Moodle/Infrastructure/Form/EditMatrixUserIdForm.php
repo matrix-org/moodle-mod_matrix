@@ -20,7 +20,7 @@ require_once $CFG->libdir . '/formslib.php';
 /**
  * @see https://docs.moodle.org/dev/Form_API#Usage
  */
-final class MatrixUserIdForm extends \moodleform
+final class EditMatrixUserIdForm extends \moodleform
 {
     public function validation(
         $data,

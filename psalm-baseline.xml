@@ -205,7 +205,7 @@
   </file>
   <file src="src/Moodle/Infrastructure/Action/EditMatrixUserIdAction.php">
     <MissingDependency occurrences="1">
-      <code>Moodle\Infrastructure\Form\MatrixUserIdForm</code>
+      <code>Moodle\Infrastructure\Form\EditMatrixUserIdForm</code>
     </MissingDependency>
     <MixedArgument occurrences="5">
       <code>$this-&gt;renderer-&gt;footer()</code>
@@ -283,7 +283,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Moodle/Infrastructure/Form/MatrixUserIdForm.php">
+  <file src="src/Moodle/Infrastructure/Form/EditMatrixUserIdForm.php">
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
     </InvalidGlobal>

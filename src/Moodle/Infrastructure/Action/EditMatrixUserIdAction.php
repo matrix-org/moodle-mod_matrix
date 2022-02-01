@@ -28,7 +28,7 @@ final class EditMatrixUserIdAction
 
     public function handle(\stdClass $user): void
     {
-        $matrixUserIdForm = new Moodle\Infrastructure\Form\MatrixUserIdForm($this->page->url->out(true));
+        $matrixUserIdForm = new Moodle\Infrastructure\Form\EditMatrixUserIdForm($this->page->url->out(true));
 
         if ($matrixUserIdForm->is_submitted()) {
             if (!$matrixUserIdForm->is_validated()) {
