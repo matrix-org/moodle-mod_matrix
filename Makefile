@@ -1,6 +1,15 @@
 .PHONY: it
 it: coding-standards static-code-analysis tests ## Runs the coding-standards, static-code-analysis, and tests target
 
+.PHONY: archive
+archive: docker-down ## Compresses all files required to install mod_matrix as a ZIP file
+	rm -rf .build/vendor
+	mv vendor .build/vendor
+	rm -rf vendor
+	composer install --no-dev --no-interaction --no-progress
+	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" "test/*" .DS_Store .editorconfig .gitignore .gitlab-ci.yml .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md
+	mv .build/vendor vendor
+
 .PHONY: code-coverage
 code-coverage: ## Collects code coverage from running unit tests with phpunit/phpunit
 	mkdir -p .build/phpunit
@@ -32,15 +41,6 @@ docker-up: vendor ## Starts the local development environment with Docker
 	mkdir -p .data/moodle
 	composer install --no-interaction --no-progress
 	docker compose --file .docker/docker-compose.yaml up --build --force-recreate --remove-orphans
-
-.PHONY: release
-release: docker-down ## Compresses all files required to install mod_matrix as a ZIP file
-	rm -rf .build/vendor
-	mv vendor .build/vendor
-	rm -rf vendor
-	composer install --no-dev --no-interaction --no-progress
-	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" "test/*" .DS_Store .editorconfig .gitignore .gitlab-ci.yml .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md
-	mv .build/vendor vendor
 
 .PHONY: static-code-analysis
 static-code-analysis: vendor ## Runs a static code analysis with vimeo/psalm
