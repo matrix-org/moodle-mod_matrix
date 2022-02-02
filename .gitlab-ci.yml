@@ -1,7 +1,13 @@
 # https://docs.gitlab.com/ee/ci/yaml/
+# https://docs.gitlab.com/ee/user/packages/generic_packages/index.html#publish-a-package-file
+# https://docs.gitlab.com/ee/user/project/releases/#create-a-release-by-using-a-cicd-job
 
 stages:
   - "build"
+  - "release"
+
+variables:
+  MOD_MATRIX_ZIP_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/mod_matrix.zip/${CI_COMMIT_TAG}/mod_matrix._zip"
 
 archive:
   stage: "build"
@@ -39,6 +45,52 @@ coding-standards:
   script:
     - "composer normalize --ansi --dry-run"
     - "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --dry-run --verbose"
+
+package:
+  stage: "release"
+
+  image: "curlimages/curl:latest"
+
+  only:
+    - "tags"
+
+  dependencies:
+    - "archive"
+
+  needs:
+    - "archive"
+
+  script:
+    - "curl --header \"JOB-TOKEN: ${CI_JOB_TOKEN}\" --upload-file mod_matrix.zip ${MOD_MATRIX_ZIP_URL}"
+
+  tags:
+    - "docker-large"
+
+release:
+  stage: "release"
+
+  image: "registry.gitlab.com/gitlab-org/release-cli:latest"
+
+  only:
+    - "tags"
+
+  needs:
+    - job: "package"
+
+  release:
+    assets:
+      links:
+        - name: "mod_matrix.zip"
+          url: "${MOD_MATRIX_ZIP_URL}"
+    description: "${CI_COMMIT_TAG}"
+    milestones:
+      - "${CI_COMMIT_TAG}"
+    name: "${CI_COMMIT_TAG}"
+    ref: "${CI_COMMIT_TAG}"
+    tag_name: "${CI_COMMIT_TAG}"
+
+  script:
+    - "echo \"Creating release for $CI_COMMIT_TAG\""
 
 static-code-analysis:
   stage: "build"
