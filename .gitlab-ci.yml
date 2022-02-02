@@ -3,6 +3,26 @@
 stages:
   - "build"
 
+archive:
+  stage: "build"
+
+  tags:
+    - "docker-large"
+
+  image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
+
+  artifacts:
+    name: "mod_matrix.zip"
+    paths:
+      - "mod_matrix.zip"
+
+  before_script:
+    - "composer validate --ansi --strict"
+    - "composer install --ansi --no-interaction --no-dev --no-progress"
+
+  script:
+    - "zip -FSr mod_matrix.zip . -x \".git/*\" \".data/*\" \".docker/*\" \".gitlab/*\" \"test/*\" .editorconfig .gitignore .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md"
+
 coding-standards:
   stage: "build"
 
