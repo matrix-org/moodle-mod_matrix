@@ -21,7 +21,7 @@ archive:
     - "composer install --ansi --no-interaction --no-dev --no-progress"
 
   script:
-    - "zip -FSr mod_matrix.zip . -x \".git/*\" \".data/*\" \".docker/*\" \".gitlab/*\" \"test/*\" .editorconfig .gitignore .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md"
+    - "zip -FSr mod_matrix.zip . -x \".git/*\" \".data/*\" \".docker/*\" \".gitlab/*\" \"test/*\" .editorconfig .gitignore .gitlab-ci.yml .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md"
 
 coding-standards:
   stage: "build"
