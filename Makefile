@@ -39,7 +39,7 @@ release: docker-down ## Compresses all files required to install mod_matrix as a
 	mv vendor .build/vendor
 	rm -rf vendor
 	composer install --no-dev --no-interaction --no-progress
-	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" .DS_Store .editorconfig .gitignore .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md
+	zip -FSr mod_matrix.zip . -x ".build/*" ".git/*" ".data/*" ".docker/*" ".gitlab/*" ".idea/*" ".notes/*" "test/*" .DS_Store .editorconfig .gitignore .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md
 	mv .build/vendor vendor
 
 .PHONY: static-code-analysis
