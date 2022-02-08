@@ -22,7 +22,7 @@
     "ergebnis/composer-normalize": "^2.20.0",
     "ergebnis/data-provider": "^1.0.0",
     "ergebnis/php-cs-fixer-config": "~3.4.0",
-    "fakerphp/faker": "^1.18.0",
+    "fakerphp/faker": "^1.19.0",
     "moodle/moodle": "3.9.5",
     "phpunit/phpunit": "^9.5.13",
     "psalm/plugin-phpunit": "~0.16.1",
