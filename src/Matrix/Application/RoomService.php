@@ -51,6 +51,14 @@ final class RoomService
                     'state_key' => '',
                     'type' => 'm.room.guest_access',
                 ],
+                // https://spec.matrix.org/latest/client-server-api/#mroomhistory_visibility
+                [
+                    'content' => [
+                        'history_visibility' => 'joined',
+                    ],
+                    'state_key' => '',
+                    'type' => 'm.room.history_visibility',
+                ],
             ],
             'name' => $name->toString(),
             'power_level_content_override' => [

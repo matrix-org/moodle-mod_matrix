@@ -11,6 +11,7 @@ For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/m
 ### Changed
 
 - Started creating rooms with end-to-end encryption enabled by default ([#78](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/78))
+- Started creating rooms with the room history visible to all joined users ([#79](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/79))
 
 ## [`2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022020100)
 
