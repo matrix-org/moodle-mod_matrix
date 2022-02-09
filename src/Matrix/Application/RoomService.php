@@ -73,7 +73,7 @@ final class RoomService
                     // https://spec.matrix.org/latest/client-server-api/#mroomguest_access
                     'm.room.guest_access' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     // https://spec.matrix.org/latest/client-server-api/#mroomhistory_visibility
-                    'm.room.history_visibility' => Matrix\Domain\PowerLevel::staff()->toInt(),
+                    'm.room.history_visibility' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     // https://spec.matrix.org/latest/client-server-api/#mroomjoin_rules
                     'm.room.join_rules' => Matrix\Domain\PowerLevel::bot()->toInt(),
                     // https://spec.matrix.org/latest/client-server-api/#mroomname
