@@ -69,6 +69,10 @@ final class observer
                 self::class,
                 'onRoleUnassigned',
             ],
+            event\user_deleted::class => [
+                self::class,
+                'onUserDeleted',
+            ],
             event\user_enrolment_created::class => [
                 self::class,
                 'onUserEnrolmentCreated',
@@ -210,6 +214,13 @@ final class observer
     }
 
     public static function onRoleUnassigned(event\role_unassigned $event): void
+    {
+        self::requireAutoloader();
+
+        self::synchronizeRoomMembersForAllRooms();
+    }
+
+    public static function onUserDeleted(event\user_deleted $event): void
     {
         self::requireAutoloader();
 
