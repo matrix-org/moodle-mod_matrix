@@ -95,6 +95,13 @@ final class RoomServiceTest extends Framework\TestCase
                 'initial_state' => [
                     [
                         'content' => [
+                            'algorithm' => 'm.megolm.v1.aes-sha2',
+                        ],
+                        'state_key' => '',
+                        'type' => 'm.room.encryption',
+                    ],
+                    [
+                        'content' => [
                             'guest_access' => 'forbidden',
                         ],
                         'state_key' => '',
