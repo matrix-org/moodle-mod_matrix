@@ -16,6 +16,7 @@ For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/m
 ### Fixed
 
 - Started requiring bot power level to modify the history visibility of a room ([#80](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/80))
+- Started synchronizing all rooms when a user has been updated ([#81](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/81))
 
 ## [`2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022020100)
 

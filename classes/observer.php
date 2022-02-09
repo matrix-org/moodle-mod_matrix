@@ -81,6 +81,10 @@ final class observer
                 self::class,
                 'onUserEnrolmentUpdated',
             ],
+            event\user_updated::class => [
+                self::class,
+                'onUserUpdated',
+            ],
         ];
 
         return \array_map(static function (string $event, array $callback): array {
@@ -237,6 +241,13 @@ final class observer
         $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
 
         self::synchronizeRoomMembersForAllRoomsOfAllModulesInCourse($courseId);
+    }
+
+    public static function onUserUpdated(event\user_updated $event): void
+    {
+        self::requireAutoloader();
+
+        self::synchronizeRoomMembersForAllRooms();
     }
 
     /**
