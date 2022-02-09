@@ -13,7 +13,7 @@ For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/m
 For a full diff see [`2022011800...2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022011800...2022020100).
 
 ### Added
--
+
 - Started suggesting Matrix user identifiers when a user has not provided a valid Matrix user identifier yet ([#75](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/75))
 
 ### Changed
