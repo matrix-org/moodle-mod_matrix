@@ -107,6 +107,13 @@ final class RoomServiceTest extends Framework\TestCase
                         'state_key' => '',
                         'type' => 'm.room.guest_access',
                     ],
+                    [
+                        'content' => [
+                            'history_visibility' => 'joined',
+                        ],
+                        'state_key' => '',
+                        'type' => 'm.room.history_visibility',
+                    ],
                 ],
                 'name' => $name->toString(),
                 'power_level_content_override' => [
