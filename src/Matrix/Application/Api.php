@@ -14,21 +14,25 @@ use mod_matrix\Matrix;
 
 /**
  * @see https://matrix.org/docs/api/client-server/#overview
+ * @see https://spec.matrix.org/latest/client-server-api/
  */
 interface Api
 {
     /**
-     * @see https://matrix.org/docs/api/client-server/#get-/account/whoami
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/v3/account/whoami
+     * @see https://spec.matrix.org/latest/client-server-api/#get_matrixclientv3accountwhoami
      */
     public function whoAmI(): Matrix\Domain\UserId;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#post-/createRoom
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/v3/createRoom
+     * @see https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3createroom
      */
     public function createRoom(array $options): Matrix\Domain\RoomId;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#post-/rooms/-roomId-/invite
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/v3/rooms/-roomId-/invite
+     * @see https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3roomsroomidinvite
      */
     public function inviteUser(
         Matrix\Domain\RoomId $roomId,
@@ -36,7 +40,8 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#post-/rooms/-roomId-/kick
+     * @see https://matrix.org/docs/api/client-server/#post-/_matrix/client/v3/rooms/-roomId-/kick
+     * @see https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3roomsroomidkick
      */
     public function kickUser(
         Matrix\Domain\RoomId $roomId,
@@ -44,7 +49,8 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#get-/rooms/-roomId-/state/-eventType-/-stateKey-
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/v3/rooms/-roomId-/state/-eventType-/-stateKey-
+     * @see https://spec.matrix.org/latest/client-server-api/#get_matrixclientv3roomsroomidstateeventtypestatekey
      */
     public function getState(
         Matrix\Domain\RoomId $roomId,
@@ -53,7 +59,8 @@ interface Api
     );
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#put-/rooms/-roomId-/state/-eventType-/-stateKey-
+     * @see https://matrix.org/docs/api/client-server/#put-/_matrix/client/v3/rooms/-roomId-/state/-eventType-/-stateKey-
+     * @see https://spec.matrix.org/latest/client-server-api/#put_matrixclientv3roomsroomidstateeventtypestatekey
      */
     public function setState(
         Matrix\Domain\RoomId $roomId,
@@ -63,7 +70,8 @@ interface Api
     ): void;
 
     /**
-     * @see https://matrix.org/docs/api/client-server/#get-/rooms/-roomId-/joined_members
+     * @see https://matrix.org/docs/api/client-server/#get-/_matrix/client/v3/rooms/-roomId-/joined_members
+     * @see https://spec.matrix.org/latest/client-server-api/#get_matrixclientv3roomsroomidjoined_members
      */
     public function listUsers(Matrix\Domain\RoomId $roomId): Matrix\Domain\UserIdCollection;
 }

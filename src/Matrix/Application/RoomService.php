@@ -35,6 +35,7 @@ final class RoomService
         return $this->api->createRoom([
             'creation_content' => $creationContent,
             'initial_state' => [
+                // https://spec.matrix.org/latest/client-server-api/#mroomguest_access
                 [
                     'content' => [
                         'guest_access' => 'forbidden',
