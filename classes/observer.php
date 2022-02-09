@@ -247,8 +247,6 @@ final class observer
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\GroupId $groupId
     ): void {
-        global $CFG;
-
         $container = Container::instance();
 
         $course = $container->moodleCourseRepository()->find($courseId);
