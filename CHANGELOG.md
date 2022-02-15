@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022020100...main).
+For a full diff see [`2022021500...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022021500...main).
+
+## [`2022021500`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022021500)
+
+For a full diff see [`2022020100...2022021500`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022020100...2022021500).
 
 ### Changed
 
@@ -18,6 +22,7 @@ For a full diff see [`2022020100...main`](https://gitlab.matrix.org/new-vector/m
 - Started requiring bot power level to modify the history visibility of a room ([#80](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/80))
 - Started synchronizing all rooms when a user has been updated ([#81](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/81))
 - Started synchronizing all rooms when a user has been deleted ([#82](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/82))
+- Started using `shared` instead of `joined` visibility for room history ([#83](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/83))
 
 ## [`2022020100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022020100)
 

@@ -109,7 +109,7 @@ final class RoomServiceTest extends Framework\TestCase
                     ],
                     [
                         'content' => [
-                            'history_visibility' => 'joined',
+                            'history_visibility' => 'shared',
                         ],
                         'state_key' => '',
                         'type' => 'm.room.history_visibility',
