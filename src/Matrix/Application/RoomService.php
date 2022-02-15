@@ -54,7 +54,7 @@ final class RoomService
                 // https://spec.matrix.org/latest/client-server-api/#mroomhistory_visibility
                 [
                     'content' => [
-                        'history_visibility' => 'joined',
+                        'history_visibility' => 'shared',
                     ],
                     'state_key' => '',
                     'type' => 'm.room.history_visibility',
