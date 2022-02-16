@@ -19,7 +19,9 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Matrix\Domain\UserIdCollection
  *
+ * @uses \mod_matrix\Matrix\Domain\Homeserver
  * @uses \mod_matrix\Matrix\Domain\UserId
+ * @uses \mod_matrix\Matrix\Domain\Username
  */
 final class UserIdCollectionTest extends Framework\TestCase
 {

@@ -15,11 +15,25 @@ namespace mod_matrix\Matrix\Domain;
  */
 final class UserId
 {
-    private $value;
+    private $username;
+    private $homeserver;
 
-    private function __construct(string $value)
-    {
-        $this->value = $value;
+    private function __construct(
+        Username $username,
+        Homeserver $homeserver
+    ) {
+        $this->username = $username;
+        $this->homeserver = $homeserver;
+    }
+
+    public static function create(
+        Username $username,
+        Homeserver $homeserver
+    ): self {
+        return new self(
+            $username,
+            $homeserver,
+        );
     }
 
     /**
@@ -27,23 +41,40 @@ final class UserId
      */
     public static function fromString(string $value): self
     {
-        if (1 !== \preg_match('/^@(?P<username>[\da-z0-9_-]+):(?P<homeserver>\S+(\.\S+)+)$/', $value)) {
+        if (1 !== \preg_match('/^@(?P<username>[\da-z0-9_-]+):(?P<homeserver>\S+(\.\S+)+)$/', $value, $matches)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Value "%s" does not appear to be a valid Matrix user identifier.',
                 $value,
             ));
         }
 
-        return new self($value);
+        return new self(
+            Username::fromString($matches['username']),
+            Homeserver::fromString($matches['homeserver']),
+        );
+    }
+
+    public function username(): Username
+    {
+        return $this->username;
+    }
+
+    public function homeserver(): Homeserver
+    {
+        return $this->homeserver;
     }
 
     public function toString(): string
     {
-        return $this->value;
+        return \sprintf(
+            '@%s:%s',
+            $this->username->toString(),
+            $this->homeserver->toString(),
+        );
     }
 
     public function equals(self $other): bool
     {
-        return $this->value === $other->value;
+        return $this->toString() === $other->toString();
     }
 }

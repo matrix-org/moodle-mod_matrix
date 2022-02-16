@@ -20,7 +20,9 @@ use PHPUnit\Framework;
  *
  * @covers \mod_matrix\Moodle\Domain\User
  *
+ * @uses \mod_matrix\Matrix\Domain\Homeserver
  * @uses \mod_matrix\Matrix\Domain\UserId
+ * @uses \mod_matrix\Matrix\Domain\Username
  * @uses \mod_matrix\Moodle\Domain\UserId
  */
 final class UserTest extends Framework\TestCase

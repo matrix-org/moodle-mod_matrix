@@ -20,6 +20,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Matrix\Application\RoomService
  *
  * @uses \mod_matrix\Matrix\Domain\EventType
+ * @uses \mod_matrix\Matrix\Domain\Homeserver
  * @uses \mod_matrix\Matrix\Domain\PowerLevel
  * @uses \mod_matrix\Matrix\Domain\RoomId
  * @uses \mod_matrix\Matrix\Domain\RoomName
@@ -27,6 +28,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Matrix\Domain\StateKey
  * @uses \mod_matrix\Matrix\Domain\UserId
  * @uses \mod_matrix\Matrix\Domain\UserIdCollection
+ * @uses \mod_matrix\Matrix\Domain\Username
  * @uses \mod_matrix\Moodle\Application\Configuration
  */
 final class RoomServiceTest extends Framework\TestCase

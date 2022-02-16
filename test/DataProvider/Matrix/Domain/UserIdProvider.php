@@ -19,7 +19,7 @@ final class UserIdProvider extends DataProvider\AbstractProvider
      */
     public function invalid(): \Generator
     {
-        foreach (self::validUsernames() as $keyUserName => $username) {
+        foreach (UsernameProvider::validValues() as $keyUserName => $username) {
             $key = \sprintf(
                 'user-id-with-valid-%s-without-home-server',
                 $keyUserName,
@@ -30,8 +30,8 @@ final class UserIdProvider extends DataProvider\AbstractProvider
             ];
         }
 
-        foreach (self::validUsernames() as $keyUsername => $username) {
-            foreach (self::invalidHomeServers() as $keyHomeServer => $homeServer) {
+        foreach (UsernameProvider::validValues() as $keyUsername => $username) {
+            foreach (HomeserverProvider::invalidValues() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
                     'user-id-with-valid-%s-with-invalid-%s',
                     $keyUsername,
@@ -50,7 +50,7 @@ final class UserIdProvider extends DataProvider\AbstractProvider
             }
         }
 
-        foreach (self::validHomeServers() as $keyHomeServer => $homeServer) {
+        foreach (HomeserverProvider::validValues() as $keyHomeServer => $homeServer) {
             $key = \sprintf(
                 'user-id-without-username-with-valid-%s',
                 $keyHomeServer,
@@ -61,8 +61,8 @@ final class UserIdProvider extends DataProvider\AbstractProvider
             ];
         }
 
-        foreach (self::invalidUsernames() as $keyUsername => $username) {
-            foreach (self::invalidHomeServers() as $keyHomeServer => $homeServer) {
+        foreach (UsernameProvider::invalidValues() as $keyUsername => $username) {
+            foreach (HomeserverProvider::invalidValues() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
                     'user-id-with-invalid-%s-with-invalid-%s',
                     $keyUsername,
@@ -81,8 +81,8 @@ final class UserIdProvider extends DataProvider\AbstractProvider
             }
         }
 
-        foreach (self::invalidUsernames() as $keyUsername => $username) {
-            foreach (self::validHomeServers() as $keyHomeServer => $homeServer) {
+        foreach (UsernameProvider::invalidValues() as $keyUsername => $username) {
+            foreach (HomeserverProvider::validValues() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
                     'user-id-with-invalid-%s-with-valid-%s',
                     $keyUsername,
@@ -107,8 +107,8 @@ final class UserIdProvider extends DataProvider\AbstractProvider
      */
     public function valid(): \Generator
     {
-        foreach (self::validUsernames() as $keyUsername => $username) {
-            foreach (self::validHomeServers() as $keyHomeServer => $homeServer) {
+        foreach (UsernameProvider::validValues() as $keyUsername => $username) {
+            foreach (HomeserverProvider::validValues() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
                     'user-id-%s-with-%s',
                     $keyUsername,
@@ -126,59 +126,5 @@ final class UserIdProvider extends DataProvider\AbstractProvider
                 ];
             }
         }
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private static function invalidUsernames(): array
-    {
-        return [
-            'username-with-at' => '@foo',
-            'username-with-dot' => 'foo.bar',
-            'username-with-umlaut' => 'foöbär',
-            'username-with-slash-backward' => 'foo\bar',
-            'username-with-slash-forward' => 'foo/bar',
-            'username-with-space-leading' => ' foo',
-            'username-with-space-middle' => 'foo bar',
-            'username-with-space-trailing' => 'foo ',
-            'username-with-upper-case-letters' => 'foO',
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private static function validUsernames(): array
-    {
-        return [
-            'username-with-digits-only' => '123',
-            'username-with-letters-and-digits' => 'foo123',
-            'username-with-letters-digits-and-dashes' => 'foo-123',
-            'username-with-letters-digits-and-underscores' => 'foo_123',
-            'username-with-letters-only' => 'foo',
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private static function invalidHomeServers(): array
-    {
-        return [
-            'home-server-without-tld' => 'example',
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private static function validHomeServers(): array
-    {
-        return [
-            'home-server-with-tld-with-2-letters' => 'example.de',
-            'home-server-with-tld-with-2-segments' => 'example.co.uk',
-            'home-server-with-tld-with-3-letters' => 'example.org',
-        ];
     }
 }

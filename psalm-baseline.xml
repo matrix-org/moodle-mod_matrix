@@ -393,6 +393,26 @@
       <code>\core_renderer</code>
     </UndefinedClass>
   </file>
+  <file src="test/DataProvider/Matrix/Domain/HomeserverProvider.php">
+    <LessSpecificReturnStatement occurrences="2">
+      <code>self::provideDataForValues(self::invalidValues())</code>
+      <code>self::provideDataForValues(self::validValues())</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="test/DataProvider/Matrix/Domain/UsernameProvider.php">
+    <LessSpecificReturnStatement occurrences="2">
+      <code>self::provideDataForValues(self::invalidValues())</code>
+      <code>self::provideDataForValues(self::validValues())</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+      <code>\Generator&lt;string, array{0: string}&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
     <MoreSpecificReturnType occurrences="2">
