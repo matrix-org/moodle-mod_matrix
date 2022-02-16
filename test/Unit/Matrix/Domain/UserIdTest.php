@@ -26,7 +26,7 @@ final class UserIdTest extends Framework\TestCase
     /**
      * @dataProvider \mod_matrix\Test\DataProvider\Matrix\Domain\UserIdProvider::invalid()
      */
-    public function testFromStringRejectsInvalidUserId(string $value): void
+    public function testFromStringRejectsInvalidValue(string $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(

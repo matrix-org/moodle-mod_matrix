@@ -23,7 +23,7 @@ final class ModuleNameTest extends Framework\TestCase
     /**
      * @dataProvider \mod_matrix\Test\DataProvider\Moodle\Domain\ModuleNameProvider::tooLong()
      */
-    public function testFromStringRejectsNameWhenItIsTooLong(string $value): void
+    public function testFromStringRejectsValueWhenItIsTooLong(string $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(\sprintf(
