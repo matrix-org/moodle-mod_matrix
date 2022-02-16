@@ -64,7 +64,7 @@ final class UserIdProvider extends DataProvider\AbstractProvider
         foreach (self::invalidUsernames() as $keyUsername => $username) {
             foreach (self::invalidHomeServers() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
-                    'user-id-with-invvalid-%s-with-invalid-%s',
+                    'user-id-with-invalid-%s-with-invalid-%s',
                     $keyUsername,
                     $keyHomeServer,
                 );
@@ -84,7 +84,7 @@ final class UserIdProvider extends DataProvider\AbstractProvider
         foreach (self::invalidUsernames() as $keyUsername => $username) {
             foreach (self::validHomeServers() as $keyHomeServer => $homeServer) {
                 $key = \sprintf(
-                    'user-id-with-invvalid-%s-with-valid-%s',
+                    'user-id-with-invalid-%s-with-valid-%s',
                     $keyUsername,
                     $keyHomeServer,
                 );
