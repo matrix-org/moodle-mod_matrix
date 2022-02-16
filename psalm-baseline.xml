@@ -141,6 +141,11 @@
       <code>$powerLevels</code>
     </MixedAssignment>
   </file>
+  <file src="src/Matrix/Domain/UserId.php">
+    <MissingReturnType occurrences="1">
+      <code>create</code>
+    </MissingReturnType>
+  </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
     <MissingReturnType occurrences="3">
       <code>get</code>
