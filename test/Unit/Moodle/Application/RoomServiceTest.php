@@ -64,7 +64,8 @@ final class RoomServiceTest extends Framework\TestCase
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
             'homeserver_url' => \sprintf(
-                'https://%s',
+                'https://%s.%s',
+                $faker->word(),
                 $faker->domainName(),
             ),
         ]);
@@ -110,7 +111,8 @@ final class RoomServiceTest extends Framework\TestCase
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
             'homeserver_url' => \sprintf(
-                'https://%s',
+                'https://%s.%s',
+                $faker->word(),
                 $faker->domainName(),
             ),
         ]);
@@ -173,7 +175,8 @@ final class RoomServiceTest extends Framework\TestCase
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
             'homeserver_url' => \sprintf(
-                'https://%s',
+                'https://%s.%s',
+                $faker->word(),
                 $faker->domainName(),
             ),
         ]);
@@ -241,7 +244,8 @@ final class RoomServiceTest extends Framework\TestCase
             'access_token' => $faker->sha1(),
             'element_url' => $elementUrl,
             'homeserver_url' => \sprintf(
-                'https://%s',
+                'https://%s.%s',
+                $faker->word(),
                 $faker->domainName(),
             ),
         ]);
