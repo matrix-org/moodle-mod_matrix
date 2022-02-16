@@ -141,11 +141,6 @@
       <code>$powerLevels</code>
     </MixedAssignment>
   </file>
-  <file src="src/Matrix/Domain/UserId.php">
-    <MissingReturnType occurrences="1">
-      <code>create</code>
-    </MissingReturnType>
-  </file>
   <file src="src/Matrix/Infrastructure/CurlBasedHttpClient.php">
     <MissingReturnType occurrences="3">
       <code>get</code>
@@ -249,8 +244,12 @@
       <code>$groupVisibleToUser-&gt;id</code>
       <code>$staffUserInCourseContext-&gt;id</code>
     </MixedPropertyFetch>
-    <PropertyNotSetInConstructor occurrences="5">
+    <PossiblyNullArgument occurrences="1">
+      <code>$matrixUserId</code>
+    </PossiblyNullArgument>
+    <PropertyNotSetInConstructor occurrences="6">
       <code>$moodleGroupRepository</code>
+      <code>$moodleMatrixUserIdLoader</code>
       <code>$moodleNameService</code>
       <code>$moodleRoomRepository</code>
       <code>$moodleRoomService</code>

@@ -42,9 +42,18 @@ final class RoomService
     /**
      * @throws Moodle\Domain\ModuleNotFound
      */
-    public function urlForRoom(Moodle\Domain\Room $room): string
-    {
+    public function urlForRoom(
+        Moodle\Domain\Room $room,
+        Matrix\Domain\UserId $userId
+    ): string {
         if ('' === $this->configuration->elementUrl()->toString()) {
+            return \sprintf(
+                'https://matrix.to/#/%s',
+                $room->matrixRoomId()->toString(),
+            );
+        }
+
+        if (self::isDifferentHomeserver($this->configuration->homeserverUrl(), $userId->homeserver())) {
             return \sprintf(
                 'https://matrix.to/#/%s',
                 $room->matrixRoomId()->toString(),
@@ -140,5 +149,23 @@ final class RoomService
         $this->roomRepository->save($room);
 
         return $room;
+    }
+
+    private static function isDifferentHomeserver(
+        Matrix\Domain\Url $homeserverUrl,
+        Matrix\Domain\Homeserver $homeserver
+    ): bool {
+        $host = \parse_url(
+            $homeserverUrl->toString(),
+            \PHP_URL_HOST,
+        );
+
+        $substr = \mb_substr($host, -1 * \mb_strlen($homeserver->toString()));
+
+        if (\mb_strtolower($homeserver->toString()) === \mb_strtolower($substr)) {
+            return false;
+        }
+
+        return true;
     }
 }
