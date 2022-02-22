@@ -24,7 +24,7 @@
     "ergebnis/php-cs-fixer-config": "~3.4.0",
     "fakerphp/faker": "^1.19.0",
     "moodle/moodle": "3.9.5",
-    "phpunit/phpunit": "^9.5.13",
+    "phpunit/phpunit": "^9.5.14",
     "psalm/plugin-phpunit": "~0.16.1",
     "symfony/var-dumper": "^5.4.3",
     "vimeo/psalm": "^4.20.0"
