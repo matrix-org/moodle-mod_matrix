@@ -11,6 +11,7 @@ For a full diff see [`2022021500...main`](https://gitlab.matrix.org/new-vector/m
 ### Fixed
 
 - Started opening chats via matrix.to when a user has a Matrix user identifier for a home server that is different than the one configured for an installation ([#83](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/83))
+- Started casting `AccessToken` to `string` when rendering module settings form ([#85](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/85))
 
 ## [`2022021500`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022021500)
 

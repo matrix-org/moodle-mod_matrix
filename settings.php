@@ -58,7 +58,7 @@ if ($ADMIN->fulltree) {
             Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION,
             Moodle\Application\Plugin::NAME,
         ),
-        $defaultConfiguration->accessToken(),
+        $defaultConfiguration->accessToken()->toString(),
         PARAM_TEXT,
     ));
 
