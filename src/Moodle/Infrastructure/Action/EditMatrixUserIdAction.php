@@ -32,7 +32,14 @@ final class EditMatrixUserIdAction
 
     public function handle(\stdClass $user): void
     {
-        $matrixUserIdForm = new Moodle\Infrastructure\Form\EditMatrixUserIdForm($this->page->url->out(true));
+        $matrixUserIdSuggestions = $this->matrixUserIdSuggestions($user);
+
+        $matrixUserIdForm = new Moodle\Infrastructure\Form\EditMatrixUserIdForm(
+            $this->page->url->out(true),
+            [
+                'matrixUserIdSuggestions' => $matrixUserIdSuggestions,
+            ],
+        );
 
         if (!$matrixUserIdForm->is_submitted()) {
             echo $this->renderer->heading(get_string(
@@ -47,8 +54,6 @@ final class EditMatrixUserIdAction
                 ),
                 output\notification::NOTIFY_WARNING,
             );
-
-            $matrixUserIdSuggestions = $this->matrixUserIdSuggestions($user);
 
             if ([] !== $matrixUserIdSuggestions) {
                 $listItems = \implode(\PHP_EOL, \array_map(static function (Matrix\Domain\UserId $matrixUserId): string {

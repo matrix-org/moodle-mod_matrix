@@ -88,35 +88,89 @@ final class EditMatrixUserIdForm extends \moodleform
 
     private function addMatrixUserIdElement(): void
     {
-        $elementName = Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME;
+        $textElementName = Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME;
 
         $this->_form->addElement(
             'text',
-            $elementName,
+            $textElementName,
             get_string(
                 Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME,
                 Moodle\Application\Plugin::NAME,
             ),
+            [
+                'id' => $textElementName,
+                'size' => 30,
+            ],
         );
 
         $this->_form->setType(
-            $elementName,
+            $textElementName,
             PARAM_TEXT,
         );
 
         $this->_form->addHelpButton(
-            $elementName,
+            $textElementName,
             Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME,
             Moodle\Application\Plugin::NAME,
         );
 
         $this->_form->addRule(
-            $elementName,
+            $textElementName,
             get_string(
                 Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED,
                 Moodle\Application\Plugin::NAME,
             ),
             'required',
+        );
+
+        if (!\is_array($this->_customdata)) {
+            return;
+        }
+
+        if (!\array_key_exists('matrixUserIdSuggestions', $this->_customdata)) {
+            return;
+        }
+
+        $matrixUserIdSuggestions = $this->_customdata['matrixUserIdSuggestions'];
+
+        if (!\is_array($matrixUserIdSuggestions)) {
+            return;
+        }
+
+        $selectElementName = \sprintf(
+            '%s_suggestion',
+            Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME,
+        );
+
+        $values = \array_map(static function (Matrix\Domain\UserId $userId): string {
+            return $userId->toString();
+        }, $matrixUserIdSuggestions);
+
+        $this->_form->addElement(
+            'select',
+            $selectElementName,
+            get_string(
+                Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION,
+                Moodle\Application\Plugin::NAME,
+            ),
+            \array_combine(
+                $values,
+                $values,
+            ),
+            [
+                'id' => $selectElementName,
+                'onchange' => \sprintf(
+                    'javascript:document.getElementById("%s").value = document.getElementById("%s").value',
+                    $textElementName,
+                    $selectElementName,
+                ),
+            ],
+        );
+
+        $this->_form->addHelpButton(
+            $selectElementName,
+            Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION,
+            Moodle\Application\Plugin::NAME,
         );
     }
 }
