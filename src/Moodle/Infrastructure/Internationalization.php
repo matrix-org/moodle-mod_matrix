@@ -33,6 +33,8 @@ final class Internationalization
     public const FORM_EDIT_MATRIX_USER_ID_HEADER = 'form_edit_matrix_user_id_header';
     public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME = 'form_edit_matrix_user_id_matrix_user_id_name';
     public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP = 'form_edit_matrix_user_id_matrix_user_id_name_help';
+    public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION = 'form_edit_matrix_user_id_matrix_user_id_name_suggestion';
+    public const FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION_HELP = 'form_edit_matrix_user_id_matrix_user_id_name_suggestion_help';
 
     /**
      * @see \mod_matrix_mod_form
