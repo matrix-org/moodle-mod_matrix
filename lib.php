@@ -358,9 +358,3 @@ function matrix_update_instance(
 
     return true;
 }
-
-// TODO: Events API
-// - Group edits
-// - Course enrollment edits
-// - Custom field (profile) updates
-// - Role changes
