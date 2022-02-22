@@ -53,7 +53,6 @@ services:
       - "../vendor/moodle/moodle/:/var/www/html/"
       # files
       - "../composer.json/:/var/www/html/mod/matrix/composer.json"
-      - "../index.php/:/var/www/html/mod/matrix/index.php"
       - "../lib.php/:/var/www/html/mod/matrix/lib.php"
       - "../mod_form.php/:/var/www/html/mod/matrix/mod_form.php"
       - "../settings.php/:/var/www/html/mod/matrix/settings.php"
