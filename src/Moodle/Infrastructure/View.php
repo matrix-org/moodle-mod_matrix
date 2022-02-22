@@ -79,6 +79,7 @@ final class View
         return new ListRoomsAction(
             $this->moodleRoomRepository,
             $this->moodleGroupRepository,
+            $this->moodleMatrixUserIdLoader,
             $this->moodleRoomService,
             $this->moodleNameService,
             $this->renderer,

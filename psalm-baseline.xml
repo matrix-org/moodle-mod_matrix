@@ -244,8 +244,12 @@
       <code>$groupVisibleToUser-&gt;id</code>
       <code>$staffUserInCourseContext-&gt;id</code>
     </MixedPropertyFetch>
-    <PropertyNotSetInConstructor occurrences="5">
+    <PossiblyNullArgument occurrences="1">
+      <code>$matrixUserId</code>
+    </PossiblyNullArgument>
+    <PropertyNotSetInConstructor occurrences="6">
       <code>$moodleGroupRepository</code>
+      <code>$moodleMatrixUserIdLoader</code>
       <code>$moodleNameService</code>
       <code>$moodleRoomRepository</code>
       <code>$moodleRoomService</code>

@@ -17,6 +17,7 @@ final class ListRoomsAction
 {
     private $moodleRoomRepository;
     private $moodleGroupRepository;
+    private $moodleMatrixUserIdLoader;
     private $moodleRoomService;
     private $moodleNameService;
     private $renderer;
@@ -24,12 +25,14 @@ final class ListRoomsAction
     public function __construct(
         Moodle\Domain\RoomRepository $moodleRoomRepository,
         Moodle\Domain\GroupRepository $moodleGroupRepository,
+        Moodle\Domain\MatrixUserIdLoader $moodleMatrixUserIdLoader,
         Moodle\Application\RoomService $moodleRoomService,
         Moodle\Application\NameService $moodleNameService,
         \core_renderer $renderer
     ) {
         $this->moodleRoomRepository = $moodleRoomRepository;
         $this->moodleGroupRepository = $moodleGroupRepository;
+        $this->moodleMatrixUserIdLoader = $moodleMatrixUserIdLoader;
         $this->moodleRoomService = $moodleRoomService;
         $this->moodleNameService = $moodleNameService;
         $this->renderer = $renderer;
@@ -71,10 +74,14 @@ final class ListRoomsAction
             return;
         }
 
+        $matrixUserId = $this->moodleMatrixUserIdLoader->load($user);
         $courseShortName = Moodle\Domain\CourseShortName::fromString($cm->get_course()->shortname);
 
-        $roomLinks = \array_map(function (Moodle\Domain\Room $room) use ($courseShortName, $module): Moodle\Infrastructure\RoomLink {
-            $url = $this->moodleRoomService->urlForRoom($room);
+        $roomLinks = \array_map(function (Moodle\Domain\Room $room) use ($courseShortName, $module, $matrixUserId): Moodle\Infrastructure\RoomLink {
+            $url = $this->moodleRoomService->urlForRoom(
+                $room,
+                $matrixUserId,
+            );
 
             $groupId = $room->groupId();
 
