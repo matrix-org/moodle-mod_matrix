@@ -37,9 +37,9 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_HELP => 'A good name will make it easier for users to tell Matrix rooms apart.',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_NAME => 'Name',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED => 'A target is required. Where should the chat be opened?',
-    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME => 'Open chat in browser',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL => 'via configured Element URL',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO => 'via https://matrix.to',
+    Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME => 'Open chat in browser',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_HELP => 'A topic will be displayed in the Matrix room, and could remind members of its purpose.',
     Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME => 'Topic',
     // settings.php
@@ -59,8 +59,8 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_INVALID => 'The Matrix user identifier you provided appears to be invalid.',
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_ERROR_MATRIX_USER_ID_REQUIRED => 'A Matrix user identifier is required, otherwise you can not join Matrix chat rooms.',
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_HEADER => 'Matrix User Identifier',
-    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP => 'A Matrix user identifier looks like @localpart:domain, for example, @jane:example.org.',
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME => 'Matrix user identifier',
+    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP => 'A Matrix user identifier looks like @localpart:domain, for example, @jane:example.org.',
     // ?
     'matrix:addinstance' => 'Add/edit Matrix room links',
     'matrix:staff' => 'Treat the user as a staff user in Matrix rooms',
