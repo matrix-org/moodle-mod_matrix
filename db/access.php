@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
+/**
+ * @see https://docs.moodle.org/dev/Plugin_files#db.2Faccess.php
+ * @see https://docs.moodle.org/dev/Access_API
+ */
 $capabilities = [
     // Ability to add a new instance.
     'mod/matrix:addinstance' => [

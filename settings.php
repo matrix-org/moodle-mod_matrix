@@ -15,6 +15,11 @@ use mod_matrix\Moodle;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * @see https://docs.moodle.org/dev/Plugin_files#settings.php
+ * @see https://docs.moodle.org/dev/Admin_settings
+ */
+
 /** @var admin_root $ADMIN */
 if ($ADMIN->fulltree) {
     /** @var admin_settingpage $settings */

@@ -16,6 +16,9 @@ use mod_matrix\Moodle;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * @see https://docs.moodle.org/dev/Plugin_files#lib.php
+ */
 global $CFG;
 
 /**
