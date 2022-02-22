@@ -29,6 +29,10 @@ final class observer
     public static function observers(): array
     {
         $map = [
+            event\course_module_updated::class => [
+                self::class,
+                'onCourseModuleUpdated',
+            ],
             event\course_updated::class => [
                 self::class,
                 'onCourseUpdated',
@@ -100,6 +104,43 @@ final class observer
         }, \array_keys($map), \array_values($map));
     }
 
+    public static function onCourseModuleUpdated(event\course_module_updated $event): void
+    {
+        self::requireAutoloader();
+
+        $other = $event->other;
+
+        if (!\array_key_exists('instanceid', $other)) {
+            return;
+        }
+
+        $instanceid = $other['instanceid'];
+
+        if (!\is_string($instanceid)) {
+            return;
+        }
+
+        if (!\array_key_exists('name', $other)) {
+            return;
+        }
+
+        $name = $other['name'];
+
+        if (!\is_string($name)) {
+            return;
+        }
+
+        $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
+        $moduleId = Moodle\Domain\ModuleId::fromString($instanceid);
+        $moduleName = Moodle\Domain\ModuleName::fromString($name);
+
+        self::updateRoomsForModuleFollowingUpdateOfModuleName(
+            $courseId,
+            $moduleId,
+            $moduleName,
+        );
+    }
+
     public static function onCourseUpdated(event\course_updated $event): void
     {
         self::requireAutoloader();
@@ -129,7 +170,7 @@ final class observer
         $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
         $courseShortName = Moodle\Domain\CourseShortName::fromString($shortname);
 
-        self::updateRoomsForCourse(
+        self::updateRoomsForCourseFollowingUpdateOfCourseShortName(
             $courseId,
             $courseShortName,
         );
@@ -467,7 +508,7 @@ final class observer
     /**
      * @throws Moodle\Domain\CourseNotFound
      */
-    private static function updateRoomsForCourse(
+    private static function updateRoomsForCourseFollowingUpdateOfCourseShortName(
         Moodle\Domain\CourseId $courseId,
         Moodle\Domain\CourseShortName $courseShortName
     ): void {
@@ -515,6 +556,69 @@ final class observer
                     $group->name(),
                     $courseShortName,
                     $module->name(),
+                );
+            }
+
+            $matrixRoomService->updateRoom(
+                $room->matrixRoomId(),
+                $name,
+                Matrix\Domain\RoomTopic::fromString($module->topic()->toString()),
+            );
+        }
+    }
+
+    /**
+     * @throws Moodle\Domain\CourseNotFound
+     * @throws Moodle\Domain\ModuleNotFound
+     */
+    private static function updateRoomsForModuleFollowingUpdateOfModuleName(
+        Moodle\Domain\CourseId $courseId,
+        Moodle\Domain\ModuleId $moduleId,
+        Moodle\Domain\ModuleName $moduleName
+    ): void {
+        $container = Container::instance();
+
+        $course = $container->moodleCourseRepository()->find($courseId);
+
+        if (!$course instanceof Moodle\Domain\Course) {
+            throw Moodle\Domain\CourseNotFound::for($courseId);
+        }
+
+        $module = $container->moodleModuleRepository()->findOneBy([
+            'id' => $moduleId->toInt(),
+        ]);
+
+        if (!$module instanceof Moodle\Domain\Module) {
+            throw Moodle\Domain\ModuleNotFound::for($moduleId);
+        }
+
+        $rooms = $container->moodleRoomRepository()->findAllBy([
+            'module_id' => $moduleId->toInt(),
+        ]);
+
+        $moodleNameService = $container->moodleNameService();
+        $moodleGroupRepository = $container->moodleGroupRepository();
+        $matrixRoomService = $container->matrixRoomService();
+
+        foreach ($rooms as $room) {
+            $name = $moodleNameService->forCourseAndModule(
+                $course->shortName(),
+                $moduleName,
+            );
+
+            $groupId = $room->groupId();
+
+            if ($groupId instanceof Moodle\Domain\GroupId) {
+                $group = $moodleGroupRepository->find($groupId);
+
+                if (!$group instanceof Moodle\Domain\Group) {
+                    continue;
+                }
+
+                $name = $moodleNameService->forGroupCourseAndModule(
+                    $group->name(),
+                    $course->shortName(),
+                    $moduleName,
                 );
             }
 
