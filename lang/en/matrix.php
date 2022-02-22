@@ -62,7 +62,7 @@ $string = \array_merge($string, [
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME => 'Matrix user identifier',
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_HELP => 'A Matrix user identifier looks like @localpart:domain, for example, @jane:example.org.',
     Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION => 'Suggestions',
-    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION_HELP => 'Too lazy to type? Perhaps one the suggestions is your Matrix user identifier?',
+    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION_HELP => 'Too lazy to type? Perhaps one these suggestions is your Matrix user identifier?',
     // ?
     'matrix:addinstance' => 'Add/edit Matrix room links',
     'matrix:staff' => 'Treat the user as a staff user in Matrix rooms',
