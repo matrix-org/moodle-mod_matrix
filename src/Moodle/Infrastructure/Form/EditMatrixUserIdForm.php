@@ -146,6 +146,19 @@ final class EditMatrixUserIdForm extends \moodleform
             return $userId->toString();
         }, $matrixUserIdSuggestions);
 
+        $options = \array_merge(
+            [
+                '' => get_string(
+                    Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION_DEFAULT,
+                    Moodle\Application\Plugin::NAME,
+                ),
+            ],
+            \array_combine(
+                $values,
+                $values,
+            ),
+        );
+
         $this->_form->addElement(
             'select',
             $selectElementName,
@@ -153,10 +166,7 @@ final class EditMatrixUserIdForm extends \moodleform
                 Moodle\Infrastructure\Internationalization::FORM_EDIT_MATRIX_USER_ID_MATRIX_USER_ID_NAME_SUGGESTION,
                 Moodle\Application\Plugin::NAME,
             ),
-            \array_combine(
-                $values,
-                $values,
-            ),
+            $options,
             [
                 'id' => $selectElementName,
                 'onchange' => \sprintf(

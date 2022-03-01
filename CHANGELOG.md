@@ -11,6 +11,7 @@ For a full diff see [`2022030100...main`](https://gitlab.matrix.org/new-vector/m
 ### Changed
 
 - Started creating the Matrix User ID profile field automatically for new installations ([#89](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/89))
+- Started showing a default option to the previously added Matrix User ID suggestions select box to ease selection of suggestion ([#90](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/90))
 
 ## [`2022030100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022030100)
 
