@@ -131,22 +131,6 @@ Navigate to [http://127.0.0.1/admin/settings.php?section=modsettingmatrix](http:
 | Element Web URL   |                    |
 | No-Reply Address  |                    |
 
-#### Add user profile field
-
-Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select the [**Users**](http://127.0.0.1/admin/search.php#linkusers) tab. In the [**Accounts**](http://127.0.0.1/admin/category.php?category=accounts) section, select [**User Profile Fields**](http://127.0.0.1/user/profile/index.php).
-
-Choose **Text Input** to create a new profile field.
-
-| Configuration              | Value                                                    |
-|----------------------------|----------------------------------------------------------|
-| Short name                 | `matrix_user_id`                                         |
-| Name                       | `Matrix User Id`                                         |
-| Description                | A valid matrix user identifier, e.g., @user:example.org. |
-| Is this field locked?      | `yes                                                     |
-| Should the data be unique? | `yes                                                     |
-
-Click **Save changes**.
-
 #### Add course
 
 Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select the [**Courses**](http://127.0.0.1/admin/search.php#linkcourses) tab. In the [**Courses**](http://127.0.0.1/admin/category.php?category=courses) section, select [**Add a new course**](http://127.0.0.1/course/edit.php?category=0).

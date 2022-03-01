@@ -326,6 +326,12 @@
       <code>require_once $CFG-&gt;libdir . '/formslib.php'</code>
     </UnresolvableInclude>
   </file>
+  <file src="src/Moodle/Infrastructure/Installer.php">
+    <UndefinedClass occurrences="2">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
     <UndefinedFunction occurrences="1">
       <code>get_course($courseId-&gt;toInt())</code>
