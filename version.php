@@ -19,4 +19,4 @@ $plugin->dependencies = [];
 $plugin->maturity = MATURITY_BETA;
 $plugin->release = '1.0-beta';
 $plugin->requires = 2020061505;
-$plugin->version = 2022030100;
+$plugin->version = 2022030101;
