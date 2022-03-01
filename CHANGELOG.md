@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`2022030100...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022030100...main).
 
+### Changed
+
+- Started creating the Matrix User ID profile field automatically for new installations ([#89](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/89))
+
 ## [`2022030100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022030100)
 
 For a full diff see [`2022022200...2022030100`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022022200...2022030100).
