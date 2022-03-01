@@ -7,7 +7,7 @@ stages:
   - "release"
 
 variables:
-  MOD_MATRIX_ZIP_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/mod_matrix.zip/${CI_COMMIT_TAG}/mod_matrix._zip"
+  MOD_MATRIX_ZIP_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/mod_matrix.zip/${CI_COMMIT_TAG}/mod_matrix.zip"
 
 archive:
   stage: "build"
