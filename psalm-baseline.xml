@@ -212,7 +212,7 @@
       <code>$page</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="9">
+    <UndefinedClass occurrences="10">
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
@@ -220,12 +220,11 @@
       <code>$this-&gt;renderer</code>
       <code>$this-&gt;renderer</code>
       <code>\core_renderer</code>
+      <code>event\user_updated</code>
       <code>output\notification</code>
       <code>output\notification</code>
     </UndefinedClass>
-    <UndefinedFunction occurrences="6">
-      <code>redirect($this-&gt;page-&gt;url)</code>
-    </UndefinedFunction>
+    <UndefinedFunction occurrences="5"/>
   </file>
   <file src="src/Moodle/Infrastructure/Action/ListRoomsAction.php">
     <MixedArgument occurrences="9">
