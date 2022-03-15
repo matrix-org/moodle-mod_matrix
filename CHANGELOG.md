@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`2022030101...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022030101...main).
 
+### Fixed
+
+- Started emitting a `core\event\user_updated` event when a user provides their Matrix user identifier via the module view to ensure they are invited to rooms ([#91](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/91))
+
 ## [`2022030101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022030101)
 
 For a full diff see [`2022030100...2022030101`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022030100...2022030101).

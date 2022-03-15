@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace mod_matrix\Moodle\Infrastructure\Action;
 
+use core\event;
 use core\output;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
@@ -109,6 +110,8 @@ HTML,
         profile_save_custom_fields($user->id, [
             Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME => $data->{$name},
         ]);
+
+        event\user_updated::create_from_userid($user->id)->trigger();
 
         redirect($this->page->url);
     }
