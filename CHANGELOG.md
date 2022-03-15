@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 For a full diff see [`2022031500...main`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022031500...main).
 
+### Fixed
+
+- Started allowing to backup and restore modules ([#92](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/92))
+
 ## [`2022031500`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022031500)
 
 For a full diff see [`2022030101...2022031500`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022030101...2022031500).
