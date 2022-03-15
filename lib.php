@@ -33,6 +33,10 @@ function matrix_supports($feature): ?bool
     }
 
     $features = [
+        /**
+         * @see https://docs.moodle.org/dev/Backup_2.0_for_developers
+         * @see https://docs.moodle.org/dev/Backup_2.0_for_developers#Required_stuff
+         */
         FEATURE_BACKUP_MOODLE2 => true,
         FEATURE_COMPLETION_HAS_RULES => true,
         FEATURE_COMPLETION_TRACKS_VIEWS => true,

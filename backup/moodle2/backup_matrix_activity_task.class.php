@@ -10,20 +10,53 @@ declare(strict_types=1);
 
 \defined('MOODLE_INTERNAL') || exit();
 
-class backup_matrix_activity_task extends backup_activity_task
+require_once __DIR__ . '/backup_matrix_activity_structure_step.class.php';
+
+/**
+ * @see https://docs.moodle.org/dev/Backup_API
+ * @see https://docs.moodle.org/dev/Backup_API#Backup_task_class
+ * @see https://docs.moodle.org/dev/Backup_2.0
+ * @see https://docs.moodle.org/dev/Backup_2.0_for_developers
+ */
+final class backup_matrix_activity_task extends backup_activity_task
 {
-    public static function encode_content_links($content): void
+    public static function encode_content_links($content)
     {
-        // Nothing relevant
+        global $CFG;
+
+        $base = \preg_quote(
+            $CFG->wwwroot,
+            '/',
+        );
+
+        return \preg_replace(
+            [
+                \sprintf(
+                    '/(%s\\/mod\\/matrix\\/index.php\\?id\\=)([0-9]+)/',
+                    $base,
+                ),
+                \sprintf(
+                    '/(%s\\/mod\\/matrix\\/view.php\\?id\\=)([0-9]+)/',
+                    $base,
+                ),
+            ],
+            [
+                '$@MATRIXINDEX*$2@$',
+                '$@MATRIXVIEW*$2@$',
+            ],
+            $content,
+        );
     }
 
     protected function define_my_settings(): void
     {
-        // Nothing relevant
     }
 
     protected function define_my_steps(): void
     {
-        // TODO
+        $this->add_step(new backup_matrix_activity_structure_step(
+            'matrix',
+            'matrix.xml',
+        ));
     }
 }
