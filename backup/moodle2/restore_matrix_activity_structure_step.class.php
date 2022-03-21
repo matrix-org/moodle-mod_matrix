@@ -46,12 +46,12 @@ final class restore_matrix_activity_structure_step extends restore_activity_stru
 
         $data->course = $this->get_courseid();
 
-        $newitemid = $DB->insert_record(
+        $newItemId = $DB->insert_record(
             'matrix',
             $data,
         );
 
-        $this->apply_activity_instance($newitemid);
+        $this->apply_activity_instance($newItemId);
     }
 
     /**
