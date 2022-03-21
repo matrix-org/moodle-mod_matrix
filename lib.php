@@ -85,10 +85,10 @@ function matrix_add_instance(
 
     $target = Moodle\Domain\ModuleTarget::matrixTo();
 
-    $config = $container->moodleConfiguration();
+    $configuration = $container->moodleConfiguration();
 
     if (
-        $config->elementUrl()->toString() !== ''
+        $configuration->elementUrl()->toString() !== ''
         && \property_exists($data, 'target')
         && \is_string($data->target)
     ) {
