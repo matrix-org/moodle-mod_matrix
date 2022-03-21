@@ -11,6 +11,7 @@ declare(strict_types=1);
 \defined('MOODLE_INTERNAL') || exit();
 
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 /**
  * @see https://github.com/moodle/moodle/blob/v3.9.5/lib/upgradelib.php#L661-L667
@@ -19,5 +20,5 @@ function xmldb_matrix_install(): void
 {
     global $DB;
 
-    Moodle\Infrastructure\Installer::install($DB);
+    Plugin\Infrastructure\Installer::install($DB);
 }

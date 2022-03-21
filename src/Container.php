@@ -38,7 +38,7 @@ final class Container
         });
 
         $this->define(Matrix\Application\Api::class, static function (self $container): Matrix\Application\Api {
-            $configuration = $container->moodleConfiguration();
+            $configuration = $container->configuration();
 
             return new Matrix\Infrastructure\HttpClientBasedApi(new Matrix\Infrastructure\CurlBasedHttpClient(
                 $configuration->homeserverUrl(),
@@ -46,33 +46,33 @@ final class Container
             ));
         });
 
-        $this->define(Moodle\Application\Configuration::class, static function (): Moodle\Application\Configuration {
+        $this->define(Plugin\Application\Configuration::class, static function (): Plugin\Application\Configuration {
             $object = get_config('mod_matrix');
 
-            return Moodle\Application\Configuration::fromObject($object);
+            return Plugin\Application\Configuration::fromObject($object);
         });
 
         $this->define(Matrix\Application\RoomService::class, static function (self $container): Matrix\Application\RoomService {
             return new Matrix\Application\RoomService($container->api());
         });
 
-        $this->define(Moodle\Application\ModuleService::class, static function (self $container): Moodle\Application\ModuleService {
-            return new Moodle\Application\ModuleService(
-                $container->moodleModuleRepository(),
+        $this->define(Plugin\Application\ModuleService::class, static function (self $container): Plugin\Application\ModuleService {
+            return new Plugin\Application\ModuleService(
+                $container->moduleRepository(),
                 $container->clock(),
             );
         });
 
-        $this->define(Moodle\Application\NameService::class, static function (): Moodle\Application\NameService {
-            return new Moodle\Application\NameService();
+        $this->define(Plugin\Application\NameService::class, static function (): Plugin\Application\NameService {
+            return new Plugin\Application\NameService();
         });
 
-        $this->define(Moodle\Application\RoomService::class, static function (self $container): Moodle\Application\RoomService {
-            return new Moodle\Application\RoomService(
-                $container->moodleConfiguration(),
-                $container->moodleNameService(),
-                $container->moodleModuleRepository(),
-                $container->moodleRoomRepository(),
+        $this->define(Plugin\Application\RoomService::class, static function (self $container): Plugin\Application\RoomService {
+            return new Plugin\Application\RoomService(
+                $container->configuration(),
+                $container->nameService(),
+                $container->moduleRepository(),
+                $container->roomRepository(),
                 $container->matrixRoomService(),
                 $container->clock(),
             );
@@ -86,26 +86,26 @@ final class Container
             return new Moodle\Infrastructure\MoodleFunctionBasedGroupRepository();
         });
 
-        $this->define(Moodle\Domain\MatrixUserIdLoader::class, static function (): Moodle\Domain\MatrixUserIdLoader {
-            return new Moodle\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader();
+        $this->define(Plugin\Domain\MatrixUserIdLoader::class, static function (): Plugin\Domain\MatrixUserIdLoader {
+            return new Plugin\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader();
         });
 
-        $this->define(Moodle\Domain\ModuleRepository::class, static function (self $container): Moodle\Domain\ModuleRepository {
-            return new Moodle\Infrastructure\DatabaseBasedModuleRepository(
+        $this->define(Plugin\Domain\ModuleRepository::class, static function (self $container): Plugin\Domain\ModuleRepository {
+            return new Plugin\Infrastructure\DatabaseBasedModuleRepository(
                 $container->database(),
-                new Moodle\Infrastructure\ModuleNormalizer(),
+                new Plugin\Infrastructure\ModuleNormalizer(),
             );
         });
 
-        $this->define(Moodle\Domain\RoomRepository::class, static function (self $container): Moodle\Domain\RoomRepository {
-            return new Moodle\Infrastructure\DatabaseBasedRoomRepository(
+        $this->define(Plugin\Domain\RoomRepository::class, static function (self $container): Plugin\Domain\RoomRepository {
+            return new Plugin\Infrastructure\DatabaseBasedRoomRepository(
                 $container->database(),
-                new Moodle\Infrastructure\RoomNormalizer(),
+                new Plugin\Infrastructure\RoomNormalizer(),
             );
         });
 
-        $this->define(Moodle\Domain\UserRepository::class, static function (self $container): Moodle\Domain\UserRepository {
-            return new Moodle\Infrastructure\MoodleFunctionBasedUserRepository($container->moodleMatrixUserIdLoader());
+        $this->define(Plugin\Domain\UserRepository::class, static function (self $container): Plugin\Domain\UserRepository {
+            return new Plugin\Infrastructure\MoodleFunctionBasedUserRepository($container->matrixUserIdLoader());
         });
 
         $this->define(\moodle_database::class, static function (): \moodle_database {
@@ -152,9 +152,9 @@ final class Container
         return $this->resolve(Matrix\Application\RoomService::class);
     }
 
-    public function moodleConfiguration(): Moodle\Application\Configuration
+    public function configuration(): Plugin\Application\Configuration
     {
-        return $this->resolve(Moodle\Application\Configuration::class);
+        return $this->resolve(Plugin\Application\Configuration::class);
     }
 
     public function moodleCourseRepository(): Moodle\Domain\CourseRepository
@@ -167,39 +167,39 @@ final class Container
         return $this->resolve(Moodle\Domain\GroupRepository::class);
     }
 
-    public function moodleMatrixUserIdLoader(): Moodle\Domain\MatrixUserIdLoader
+    public function matrixUserIdLoader(): Plugin\Domain\MatrixUserIdLoader
     {
-        return $this->resolve(Moodle\Domain\MatrixUserIdLoader::class);
+        return $this->resolve(Plugin\Domain\MatrixUserIdLoader::class);
     }
 
-    public function moodleModuleRepository(): Moodle\Domain\ModuleRepository
+    public function moduleRepository(): Plugin\Domain\ModuleRepository
     {
-        return $this->resolve(Moodle\Domain\ModuleRepository::class);
+        return $this->resolve(Plugin\Domain\ModuleRepository::class);
     }
 
-    public function moodleModuleService(): Moodle\Application\ModuleService
+    public function moduleService(): Plugin\Application\ModuleService
     {
-        return $this->resolve(Moodle\Application\ModuleService::class);
+        return $this->resolve(Plugin\Application\ModuleService::class);
     }
 
-    public function moodleNameService(): Moodle\Application\NameService
+    public function nameService(): Plugin\Application\NameService
     {
-        return $this->resolve(Moodle\Application\NameService::class);
+        return $this->resolve(Plugin\Application\NameService::class);
     }
 
-    public function moodleRoomRepository(): Moodle\Domain\RoomRepository
+    public function roomRepository(): Plugin\Domain\RoomRepository
     {
-        return $this->resolve(Moodle\Domain\RoomRepository::class);
+        return $this->resolve(Plugin\Domain\RoomRepository::class);
     }
 
-    public function moodleRoomService(): Moodle\Application\RoomService
+    public function roomService(): Plugin\Application\RoomService
     {
-        return $this->resolve(Moodle\Application\RoomService::class);
+        return $this->resolve(Plugin\Application\RoomService::class);
     }
 
-    public function moodleUserRepository(): Moodle\Domain\UserRepository
+    public function userRepository(): Plugin\Domain\UserRepository
     {
-        return $this->resolve(Moodle\Domain\UserRepository::class);
+        return $this->resolve(Plugin\Domain\UserRepository::class);
     }
 
     /**

@@ -82,16 +82,16 @@
       <code>Clock\Clock</code>
       <code>Matrix\Application\Api</code>
       <code>Matrix\Application\RoomService</code>
-      <code>Moodle\Application\Configuration</code>
-      <code>Moodle\Application\ModuleService</code>
-      <code>Moodle\Application\NameService</code>
-      <code>Moodle\Application\RoomService</code>
       <code>Moodle\Domain\CourseRepository</code>
       <code>Moodle\Domain\GroupRepository</code>
-      <code>Moodle\Domain\MatrixUserIdLoader</code>
-      <code>Moodle\Domain\ModuleRepository</code>
-      <code>Moodle\Domain\RoomRepository</code>
-      <code>Moodle\Domain\UserRepository</code>
+      <code>Plugin\Application\Configuration</code>
+      <code>Plugin\Application\ModuleService</code>
+      <code>Plugin\Application\NameService</code>
+      <code>Plugin\Application\RoomService</code>
+      <code>Plugin\Domain\MatrixUserIdLoader</code>
+      <code>Plugin\Domain\ModuleRepository</code>
+      <code>Plugin\Domain\RoomRepository</code>
+      <code>Plugin\Domain\UserRepository</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
     </MixedInferredReturnType>
@@ -102,16 +102,16 @@
       <code>$this-&gt;resolve(Clock\Clock::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\Api::class)</code>
       <code>$this-&gt;resolve(Matrix\Application\RoomService::class)</code>
-      <code>$this-&gt;resolve(Moodle\Application\Configuration::class)</code>
-      <code>$this-&gt;resolve(Moodle\Application\ModuleService::class)</code>
-      <code>$this-&gt;resolve(Moodle\Application\NameService::class)</code>
-      <code>$this-&gt;resolve(Moodle\Application\RoomService::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\CourseRepository::class)</code>
       <code>$this-&gt;resolve(Moodle\Domain\GroupRepository::class)</code>
-      <code>$this-&gt;resolve(Moodle\Domain\MatrixUserIdLoader::class)</code>
-      <code>$this-&gt;resolve(Moodle\Domain\ModuleRepository::class)</code>
-      <code>$this-&gt;resolve(Moodle\Domain\RoomRepository::class)</code>
-      <code>$this-&gt;resolve(Moodle\Domain\UserRepository::class)</code>
+      <code>$this-&gt;resolve(Plugin\Application\Configuration::class)</code>
+      <code>$this-&gt;resolve(Plugin\Application\ModuleService::class)</code>
+      <code>$this-&gt;resolve(Plugin\Application\NameService::class)</code>
+      <code>$this-&gt;resolve(Plugin\Application\RoomService::class)</code>
+      <code>$this-&gt;resolve(Plugin\Domain\MatrixUserIdLoader::class)</code>
+      <code>$this-&gt;resolve(Plugin\Domain\ModuleRepository::class)</code>
+      <code>$this-&gt;resolve(Plugin\Domain\RoomRepository::class)</code>
+      <code>$this-&gt;resolve(Plugin\Domain\UserRepository::class)</code>
       <code>$this-&gt;resolve(\moodle_database::class)</code>
     </MixedReturnStatement>
     <UndefinedClass occurrences="5">
@@ -181,9 +181,19 @@
       <code>$r</code>
     </MixedAssignment>
   </file>
-  <file src="src/Moodle/Infrastructure/Action/EditMatrixUserIdAction.php">
+  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
+    <UndefinedFunction occurrences="1">
+      <code>get_course($courseId-&gt;toInt())</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedGroupRepository.php">
+    <UndefinedFunction occurrences="1">
+      <code>groups_get_group($groupId-&gt;toInt())</code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Plugin/Infrastructure/Action/EditMatrixUserIdAction.php">
     <MissingDependency occurrences="1">
-      <code>Moodle\Infrastructure\Form\EditMatrixUserIdForm</code>
+      <code>Plugin\Infrastructure\Form\EditMatrixUserIdForm</code>
     </MissingDependency>
     <MixedArgument occurrences="6">
       <code>$this-&gt;renderer-&gt;footer()</code>
@@ -208,7 +218,7 @@
       <code>array&lt;int, Matrix\Domain\UserId&gt;</code>
     </MixedReturnTypeCoercion>
     <PropertyNotSetInConstructor occurrences="3">
-      <code>$moodleConfiguration</code>
+      <code>$configuration</code>
       <code>$page</code>
       <code>$renderer</code>
     </PropertyNotSetInConstructor>
@@ -226,7 +236,7 @@
     </UndefinedClass>
     <UndefinedFunction occurrences="5"/>
   </file>
-  <file src="src/Moodle/Infrastructure/Action/ListRoomsAction.php">
+  <file src="src/Plugin/Infrastructure/Action/ListRoomsAction.php">
     <MixedArgument occurrences="9">
       <code>$cm-&gt;get_course()-&gt;shortname</code>
       <code>$groupVisibleToUser-&gt;id</code>
@@ -247,12 +257,12 @@
       <code>$matrixUserId</code>
     </PossiblyNullArgument>
     <PropertyNotSetInConstructor occurrences="6">
+      <code>$matrixUserIdLoader</code>
       <code>$moodleGroupRepository</code>
-      <code>$moodleMatrixUserIdLoader</code>
-      <code>$moodleNameService</code>
-      <code>$moodleRoomRepository</code>
-      <code>$moodleRoomService</code>
+      <code>$nameService</code>
       <code>$renderer</code>
+      <code>$roomRepository</code>
+      <code>$roomService</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="9">
       <code>$this-&gt;renderer</code>
@@ -267,7 +277,7 @@
     </UndefinedClass>
     <UndefinedFunction occurrences="5"/>
   </file>
-  <file src="src/Moodle/Infrastructure/DatabaseBasedModuleRepository.php">
+  <file src="src/Plugin/Infrastructure/DatabaseBasedModuleRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
@@ -287,7 +297,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Moodle/Infrastructure/DatabaseBasedRoomRepository.php">
+  <file src="src/Plugin/Infrastructure/DatabaseBasedRoomRepository.php">
     <MixedAssignment occurrences="1">
       <code>$id</code>
     </MixedAssignment>
@@ -308,7 +318,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Moodle/Infrastructure/Form/EditMatrixUserIdForm.php">
+  <file src="src/Plugin/Infrastructure/Form/EditMatrixUserIdForm.php">
     <InvalidGlobal occurrences="1">
       <code>global $CFG;</code>
     </InvalidGlobal>
@@ -325,28 +335,18 @@
       <code>require_once $CFG-&gt;libdir . '/formslib.php'</code>
     </UnresolvableInclude>
   </file>
-  <file src="src/Moodle/Infrastructure/Installer.php">
+  <file src="src/Plugin/Infrastructure/Installer.php">
     <UndefinedClass occurrences="2">
       <code>\moodle_database</code>
       <code>\moodle_database</code>
     </UndefinedClass>
   </file>
-  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedCourseRepository.php">
-    <UndefinedFunction occurrences="1">
-      <code>get_course($courseId-&gt;toInt())</code>
-    </UndefinedFunction>
-  </file>
-  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedGroupRepository.php">
-    <UndefinedFunction occurrences="1">
-      <code>groups_get_group($groupId-&gt;toInt())</code>
-    </UndefinedFunction>
-  </file>
-  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedMatrixUserIdLoader.php">
+  <file src="src/Plugin/Infrastructure/MoodleFunctionBasedMatrixUserIdLoader.php">
     <UndefinedFunction occurrences="1">
       <code>profile_load_custom_fields($user)</code>
     </UndefinedFunction>
   </file>
-  <file src="src/Moodle/Infrastructure/MoodleFunctionBasedUserRepository.php">
+  <file src="src/Plugin/Infrastructure/MoodleFunctionBasedUserRepository.php">
     <DocblockTypeContradiction occurrences="1">
       <code>\is_array($users)</code>
     </DocblockTypeContradiction>
@@ -360,21 +360,21 @@
     </MixedReturnTypeCoercion>
     <UndefinedFunction occurrences="1"/>
   </file>
-  <file src="src/Moodle/Infrastructure/RoomNormalizer.php">
+  <file src="src/Plugin/Infrastructure/RoomNormalizer.php">
     <MixedArgument occurrences="1">
       <code>$normalized-&gt;room_id</code>
     </MixedArgument>
   </file>
-  <file src="src/Moodle/Infrastructure/View.php">
+  <file src="src/Plugin/Infrastructure/View.php">
     <PropertyNotSetInConstructor occurrences="8">
-      <code>$moodleConfiguration</code>
+      <code>$configuration</code>
+      <code>$matrixUserIdLoader</code>
       <code>$moodleGroupRepository</code>
-      <code>$moodleMatrixUserIdLoader</code>
-      <code>$moodleNameService</code>
-      <code>$moodleRoomRepository</code>
-      <code>$moodleRoomService</code>
+      <code>$nameService</code>
       <code>$page</code>
       <code>$renderer</code>
+      <code>$roomRepository</code>
+      <code>$roomService</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="1">
       <code>\core_renderer</code>
@@ -400,14 +400,14 @@
       <code>\Generator&lt;string, array{0: string}&gt;</code>
     </MoreSpecificReturnType>
   </file>
-  <file src="test/DataProvider/Moodle/Domain/ModuleNameProvider.php">
+  <file src="test/DataProvider/Plugin/Domain/ModuleNameProvider.php">
     <LessSpecificReturnStatement occurrences="2"/>
     <MoreSpecificReturnType occurrences="2">
       <code>\Generator&lt;string, array{0: string}&gt;</code>
       <code>\Generator&lt;string, array{0: string}&gt;</code>
     </MoreSpecificReturnType>
   </file>
-  <file src="test/DataProvider/Moodle/Domain/TargetProvider.php">
+  <file src="test/DataProvider/Plugin/Domain/ModuleTargetProvider.php">
     <LessSpecificReturnStatement occurrences="1"/>
     <MoreSpecificReturnType occurrences="1">
       <code>\Generator&lt;string, array{0: string}&gt;</code>
@@ -428,7 +428,7 @@
       <code>$faker-&gt;words()</code>
     </PossiblyInvalidArgument>
   </file>
-  <file src="test/Unit/Moodle/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
+  <file src="test/Unit/Plugin/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
     <InvalidArgument occurrences="7">
       <code>$database</code>
       <code>$database</code>
@@ -461,7 +461,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="test/Unit/Moodle/Infrastructure/DatabaseBasedRoomRepositoryTest.php">
+  <file src="test/Unit/Plugin/Infrastructure/DatabaseBasedRoomRepositoryTest.php">
     <InvalidArgument occurrences="8">
       <code>$database</code>
       <code>$database</code>
@@ -502,7 +502,7 @@
       <code>IGNORE_MISSING</code>
     </UndefinedConstant>
   </file>
-  <file src="test/Unit/Moodle/Infrastructure/ModuleNormalizerTest.php">
+  <file src="test/Unit/Plugin/Infrastructure/ModuleNormalizerTest.php">
     <MixedArgument occurrences="3">
       <code>$target</code>
       <code>$target</code>

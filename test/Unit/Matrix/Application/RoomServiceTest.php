@@ -29,7 +29,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Matrix\Domain\UserId
  * @uses \mod_matrix\Matrix\Domain\UserIdCollection
  * @uses \mod_matrix\Matrix\Domain\Username
- * @uses \mod_matrix\Moodle\Application\Configuration
+ * @uses \mod_matrix\Plugin\Application\Configuration
  */
 final class RoomServiceTest extends Framework\TestCase
 {

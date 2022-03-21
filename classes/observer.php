@@ -131,8 +131,8 @@ final class observer
         }
 
         $courseId = Moodle\Domain\CourseId::fromString((string) $event->courseid);
-        $moduleId = Moodle\Domain\ModuleId::fromString($instanceid);
-        $moduleName = Moodle\Domain\ModuleName::fromString($name);
+        $moduleId = Plugin\Domain\ModuleId::fromString($instanceid);
+        $moduleName = Plugin\Domain\ModuleName::fromString($name);
 
         self::updateRoomsForModuleFollowingUpdateOfModuleName(
             $courseId,
@@ -324,42 +324,42 @@ final class observer
             throw Moodle\Domain\GroupNotFound::for($groupId);
         }
 
-        $modules = $container->moodleModuleRepository()->findAllBy([
+        $modules = $container->moduleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
-        $moodleRoomRepository = $container->moodleRoomRepository();
-        $moodleUserRepository = $container->moodleUserRepository();
+        $roomRepository = $container->roomRepository();
+        $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
-        $moodleRoomService = $container->moodleRoomService();
+        $roomService = $container->roomService();
 
         foreach ($modules as $module) {
-            $room = $moodleRoomRepository->findOneBy([
+            $room = $roomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $group->id()->toInt(),
             ]);
 
-            if (!$room instanceof Moodle\Domain\Room) {
-                $room = $moodleRoomService->createRoomForCourseAndGroup(
+            if (!$room instanceof Plugin\Domain\Room) {
+                $room = $roomService->createRoomForCourseAndGroup(
                     $course,
                     $group,
                     $module,
                 );
             }
 
-            $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $course->id(),
                 $group->id(),
             );
 
-            $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
             $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $staff)),
             );
@@ -367,25 +367,25 @@ final class observer
     }
 
     /**
-     * @throws Moodle\Domain\ModuleNotFound
+     * @throws \mod_matrix\Plugin\Domain\ModuleNotFound
      */
     private static function synchronizeRoomMembersForAllRooms(): void
     {
         $container = Container::instance();
 
-        $rooms = $container->moodleRoomRepository()->findAll();
+        $rooms = $container->roomRepository()->findAll();
 
-        $moodleModuleRepository = $container->moodleModuleRepository();
-        $moodleUserRepository = $container->moodleUserRepository();
+        $moduleRepository = $container->moduleRepository();
+        $userRepository = $container->userRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         foreach ($rooms as $room) {
-            $module = $moodleModuleRepository->findOneBy([
+            $module = $moduleRepository->findOneBy([
                 'id' => $room->moduleId()->toInt(),
             ]);
 
-            if (!$module instanceof Moodle\Domain\Module) {
-                throw Moodle\Domain\ModuleNotFound::for($room->moduleId());
+            if (!$module instanceof Plugin\Domain\Module) {
+                throw Plugin\Domain\ModuleNotFound::for($room->moduleId());
             }
 
             $groupId = $room->groupId();
@@ -394,19 +394,19 @@ final class observer
                 $groupId = Moodle\Domain\GroupId::fromInt(0);
             } // Moodle wants zero instead of null
 
-            $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                 $module->courseId(),
                 $groupId,
             );
 
-            $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
+            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($module->courseId());
 
             $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $staff)),
             );
@@ -417,22 +417,22 @@ final class observer
     {
         $container = Container::instance();
 
-        $modules = $container->moodleModuleRepository()->findAllBy([
+        $modules = $container->moduleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
-        $moodleUserRepository = $container->moodleUserRepository();
-        $moodleRoomRepository = $container->moodleRoomRepository();
+        $userRepository = $container->userRepository();
+        $roomRepository = $container->roomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
-        $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
-        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $staff));
 
         foreach ($modules as $module) {
-            $rooms = $moodleRoomRepository->findAllBy([
+            $rooms = $roomRepository->findAllBy([
                 'module_id' => $module->id()->toInt(),
             ]);
 
@@ -443,14 +443,14 @@ final class observer
                     $groupId = Moodle\Domain\GroupId::fromInt(0);
                 } // Moodle wants zero instead of null
 
-                $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+                $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
                     $courseId,
                     $groupId,
                 );
 
                 $matrixRoomService->synchronizeRoomMembers(
                     $room->matrixRoomId(),
-                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                    Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                         return $user->matrixUserId();
                     }, $users)),
                     $userIdsOfStaff,
@@ -465,32 +465,32 @@ final class observer
     ): void {
         $container = Container::instance();
 
-        $modules = $container->moodleModuleRepository()->findAllBy([
+        $modules = $container->moduleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
-        $moodleUserRepository = $container->moodleUserRepository();
+        $userRepository = $container->userRepository();
 
-        $users = $moodleUserRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+        $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
             $courseId,
             $groupId,
         );
 
-        $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users));
 
-        $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($courseId);
+        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($courseId);
 
-        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $staff));
 
-        $moodleRoomRepository = $container->moodleRoomRepository();
+        $roomRepository = $container->roomRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         foreach ($modules as $module) {
-            $rooms = $moodleRoomRepository->findAllBy([
+            $rooms = $roomRepository->findAllBy([
                 'group_id' => $groupId->toInt(),
                 'module_id' => $module->id()->toInt(),
             ]);
@@ -520,25 +520,25 @@ final class observer
             throw Moodle\Domain\CourseNotFound::for($courseId);
         }
 
-        $modules = $container->moodleModuleRepository()->findAllBy([
+        $modules = $container->moduleRepository()->findAllBy([
             'course' => $courseId->toInt(),
         ]);
 
-        $moodleRoomRepository = $container->moodleRoomRepository();
+        $roomRepository = $container->roomRepository();
         $moodleGroupRepository = $container->moodleGroupRepository();
-        $moodleNameService = $container->moodleNameService();
+        $nameService = $container->nameService();
         $matrixRoomService = $container->matrixRoomService();
 
         foreach ($modules as $module) {
-            $room = $moodleRoomRepository->findOneBy([
+            $room = $roomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
             ]);
 
-            if (!$room instanceof Moodle\Domain\Room) {
+            if (!$room instanceof Plugin\Domain\Room) {
                 continue;
             }
 
-            $name = $moodleNameService->forCourseAndModule(
+            $name = $nameService->forCourseAndModule(
                 $courseShortName,
                 $module->name(),
             );
@@ -552,7 +552,7 @@ final class observer
                     continue;
                 }
 
-                $name = $moodleNameService->forGroupCourseAndModule(
+                $name = $nameService->forGroupCourseAndModule(
                     $group->name(),
                     $courseShortName,
                     $module->name(),
@@ -569,12 +569,12 @@ final class observer
 
     /**
      * @throws Moodle\Domain\CourseNotFound
-     * @throws Moodle\Domain\ModuleNotFound
+     * @throws Plugin\Domain\ModuleNotFound
      */
     private static function updateRoomsForModuleFollowingUpdateOfModuleName(
         Moodle\Domain\CourseId $courseId,
-        Moodle\Domain\ModuleId $moduleId,
-        Moodle\Domain\ModuleName $moduleName
+        Plugin\Domain\ModuleId $moduleId,
+        Plugin\Domain\ModuleName $moduleName
     ): void {
         $container = Container::instance();
 
@@ -584,24 +584,24 @@ final class observer
             throw Moodle\Domain\CourseNotFound::for($courseId);
         }
 
-        $module = $container->moodleModuleRepository()->findOneBy([
+        $module = $container->moduleRepository()->findOneBy([
             'id' => $moduleId->toInt(),
         ]);
 
-        if (!$module instanceof Moodle\Domain\Module) {
-            throw Moodle\Domain\ModuleNotFound::for($moduleId);
+        if (!$module instanceof Plugin\Domain\Module) {
+            throw Plugin\Domain\ModuleNotFound::for($moduleId);
         }
 
-        $rooms = $container->moodleRoomRepository()->findAllBy([
+        $rooms = $container->roomRepository()->findAllBy([
             'module_id' => $moduleId->toInt(),
         ]);
 
-        $moodleNameService = $container->moodleNameService();
+        $nameService = $container->nameService();
         $moodleGroupRepository = $container->moodleGroupRepository();
         $matrixRoomService = $container->matrixRoomService();
 
         foreach ($rooms as $room) {
-            $name = $moodleNameService->forCourseAndModule(
+            $name = $nameService->forCourseAndModule(
                 $course->shortName(),
                 $moduleName,
             );
@@ -615,7 +615,7 @@ final class observer
                     continue;
                 }
 
-                $name = $moodleNameService->forGroupCourseAndModule(
+                $name = $nameService->forGroupCourseAndModule(
                     $group->name(),
                     $course->shortName(),
                     $moduleName,
@@ -643,21 +643,21 @@ final class observer
             throw Moodle\Domain\GroupNotFound::for($groupId);
         }
 
-        $moodleModuleRepository = $container->moodleModuleRepository();
+        $moduleRepository = $container->moduleRepository();
         $moodleCourseRepository = $container->moodleCourseRepository();
-        $moodleNameService = $container->moodleNameService();
+        $nameService = $container->nameService();
         $matrixRoomService = $container->matrixRoomService();
 
-        $rooms = $container->moodleRoomRepository()->findAllBy([
+        $rooms = $container->roomRepository()->findAllBy([
             'group_id' => $groupId->toInt(),
         ]);
 
         foreach ($rooms as $room) {
-            $module = $moodleModuleRepository->findOneBy([
+            $module = $moduleRepository->findOneBy([
                 'id' => $room->moduleId()->toInt(),
             ]);
 
-            if (!$module instanceof Moodle\Domain\Module) {
+            if (!$module instanceof Plugin\Domain\Module) {
                 continue;
             }
 
@@ -667,7 +667,7 @@ final class observer
                 continue;
             }
 
-            $name = $moodleNameService->forGroupCourseAndModule(
+            $name = $nameService->forGroupCourseAndModule(
                 $group->name(),
                 $course->shortName(),
                 $module->name(),
@@ -688,9 +688,9 @@ final class observer
     {
         $container = Container::instance();
 
-        $moodleRoomRepository = $container->moodleRoomRepository();
+        $roomRepository = $container->roomRepository();
 
-        $rooms = $container->moodleRoomRepository()->findAllBy([
+        $rooms = $container->roomRepository()->findAllBy([
             'group_id' => $groupId->toInt(),
         ]);
 
@@ -699,7 +699,7 @@ final class observer
         foreach ($rooms as $room) {
             $matrixRoomService->removeRoom($room->matrixRoomId());
 
-            $moodleRoomRepository->remove($room);
+            $roomRepository->remove($room);
         }
     }
 

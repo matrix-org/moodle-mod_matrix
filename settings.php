@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 \defined('MOODLE_INTERNAL') || exit();
 
@@ -27,22 +28,22 @@ if ($ADMIN->fulltree) {
         'mod_matrix/homeserver',
         '',
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_HEADING,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_HOMESERVER_HEADING,
+            Plugin\Application\Plugin::NAME,
         ),
     ));
 
-    $defaultConfiguration = Moodle\Application\Configuration::default();
+    $defaultConfiguration = Plugin\Application\Configuration::default();
 
     $settings->add(new admin_setting_configtext(
         'mod_matrix/homeserver_url',
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_NAME,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_NAME,
+            Plugin\Application\Plugin::NAME,
         ),
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_DESCRIPTION,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_HOMESERVER_URL_DESCRIPTION,
+            Plugin\Application\Plugin::NAME,
         ),
         $defaultConfiguration->homeserverUrl()->toString(),
         PARAM_TEXT,
@@ -51,12 +52,12 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_matrix/access_token',
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_NAME,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_NAME,
+            Plugin\Application\Plugin::NAME,
         ),
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION,
+            Plugin\Application\Plugin::NAME,
         ),
         $defaultConfiguration->accessToken()->toString(),
         PARAM_TEXT,
@@ -65,12 +66,12 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_matrix/element_url',
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_NAME,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_NAME,
+            Plugin\Application\Plugin::NAME,
         ),
         get_string(
-            Moodle\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_DESCRIPTION,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_DESCRIPTION,
+            Plugin\Application\Plugin::NAME,
         ),
         $defaultConfiguration->elementUrl()->toString(),
         PARAM_TEXT,

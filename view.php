@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 use mod_matrix\Container;
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 require '../../config.php';
 
@@ -24,18 +25,18 @@ $courseModuleId = required_param(
 /** @var cm_info $cm */
 [$course, $cm] = get_course_and_cm_from_cmid(
     $courseModuleId,
-    Moodle\Application\Plugin::NAME,
+    Plugin\Application\Plugin::NAME,
 );
 
-$moduleId = Moodle\Domain\ModuleId::fromString((string) $cm->instance);
+$moduleId = Plugin\Domain\ModuleId::fromString((string) $cm->instance);
 
 $container = Container::instance();
 
-$module = $container->moodleModuleRepository()->findOneBy([
+$module = $container->moduleRepository()->findOneBy([
     'id' => $moduleId->toInt(),
 ]);
 
-if (!$module instanceof Moodle\Domain\Module) {
+if (!$module instanceof Plugin\Domain\Module) {
     throw new \RuntimeException(\sprintf(
         'A Matrix module with id "%d" could not be found.',
         $moduleId->toInt(),
@@ -68,7 +69,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
             '<p>%s</p>%s',
             get_string(
                 isguestuser() ? 'view_noguests' : 'view_nojoin',
-                Moodle\Application\Plugin::NAME,
+                Plugin\Application\Plugin::NAME,
             ),
             get_string('liketologin'),
         ),
@@ -83,13 +84,13 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$view = new Moodle\Infrastructure\View(
-    $container->moodleRoomRepository(),
+$view = new Plugin\Infrastructure\View(
+    $container->roomRepository(),
     $container->moodleGroupRepository(),
-    $container->moodleMatrixUserIdLoader(),
-    $container->moodleRoomService(),
-    $container->moodleNameService(),
-    $container->moodleConfiguration(),
+    $container->matrixUserIdLoader(),
+    $container->roomService(),
+    $container->nameService(),
+    $container->configuration(),
     $PAGE,
     $OUTPUT,
 );
