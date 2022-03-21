@@ -12,7 +12,6 @@ namespace mod_matrix\Moodle\Infrastructure;
 
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
-use mod_matrix\Moodle\Infrastructure\Action\ListRoomsAction;
 
 final class View
 {
@@ -74,9 +73,9 @@ final class View
         );
     }
 
-    private function listRoomsAction(): ListRoomsAction
+    private function listRoomsAction(): Moodle\Infrastructure\Action\ListRoomsAction
     {
-        return new ListRoomsAction(
+        return new Moodle\Infrastructure\Action\ListRoomsAction(
             $this->moodleRoomRepository,
             $this->moodleGroupRepository,
             $this->moodleMatrixUserIdLoader,
