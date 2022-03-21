@@ -11,6 +11,7 @@ declare(strict_types=1);
 use mod_matrix\Container;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 \defined('MOODLE_INTERNAL') || exit;
 
@@ -83,21 +84,21 @@ function matrix_add_instance(
         ));
     }
 
-    $target = Moodle\Domain\ModuleTarget::matrixTo();
+    $target = Plugin\Domain\ModuleTarget::matrixTo();
 
-    $configuration = $container->moodleConfiguration();
+    $configuration = $container->configuration();
 
     if (
         $configuration->elementUrl()->toString() !== ''
         && \property_exists($data, 'target')
         && \is_string($data->target)
     ) {
-        $target = Moodle\Domain\ModuleTarget::fromString($data->target);
+        $target = Plugin\Domain\ModuleTarget::fromString($data->target);
     }
 
-    $module = $container->moodleModuleService()->create(
-        Moodle\Domain\ModuleName::fromString($data->name),
-        Moodle\Domain\ModuleTopic::fromString($data->topic),
+    $module = $container->moduleService()->create(
+        Plugin\Domain\ModuleName::fromString($data->name),
+        Plugin\Domain\ModuleTopic::fromString($data->topic),
         $target,
         $courseId,
         Moodle\Domain\SectionId::fromInt($moduleinfo->section),
@@ -105,16 +106,16 @@ function matrix_add_instance(
 
     $matrixRoomService = $container->matrixRoomService();
 
-    $moodleUserRepository = $container->moodleUserRepository();
+    $moodleUserRepository = $container->userRepository();
 
     $staff = $moodleUserRepository->findAllStaffInCourseWithMatrixUserId($course->id());
 
-    $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+    $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
         return $user->matrixUserId();
     }, $staff));
 
-    $moodleRoomRepository = $container->moodleRoomRepository();
-    $moodleRoomService = $container->moodleRoomService();
+    $roomRepository = $container->roomRepository();
+    $roomService = $container->roomService();
 
     // Now try to iterate over all the courses and groups and see if any of
     // the rooms need to be created
@@ -141,13 +142,13 @@ function matrix_add_instance(
                 ));
             }
 
-            $room = $moodleRoomRepository->findOneBy([
+            $room = $roomRepository->findOneBy([
                 'module_id' => $module->id()->toInt(),
                 'group_id' => $group->id()->toInt(),
             ]);
 
-            if (!$room instanceof Moodle\Domain\Room) {
-                $room = $moodleRoomService->createRoomForCourseAndGroup(
+            if (!$room instanceof Plugin\Domain\Room) {
+                $room = $roomService->createRoomForCourseAndGroup(
                     $course,
                     $group,
                     $module,
@@ -161,7 +162,7 @@ function matrix_add_instance(
 
             $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
                     return $user->matrixUserId();
                 }, $users)),
                 $userIdsOfStaff,
@@ -171,13 +172,13 @@ function matrix_add_instance(
         return $module->id()->toInt();
     }
 
-    $room = $moodleRoomRepository->findOneBy([
+    $room = $roomRepository->findOneBy([
         'module_id' => $module->id()->toInt(),
         'group_id' => null,
     ]);
 
-    if (!$room instanceof Moodle\Domain\Room) {
-        $room = $moodleRoomService->createRoomForCourse(
+    if (!$room instanceof Plugin\Domain\Room) {
+        $room = $roomService->createRoomForCourse(
             $course,
             $module,
         );
@@ -190,7 +191,7 @@ function matrix_add_instance(
 
     $matrixRoomService->synchronizeRoomMembers(
         $room->matrixRoomId(),
-        Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Moodle\Domain\User $user): Matrix\Domain\UserId {
+        Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
             return $user->matrixUserId();
         }, $users)),
         $userIdsOfStaff,
@@ -210,19 +211,19 @@ function matrix_delete_instance($id): bool
 {
     $container = Container::instance();
 
-    $moodleModuleRepository = $container->moodleModuleRepository();
+    $moodleModuleRepository = $container->moduleRepository();
 
     $module = $moodleModuleRepository->findOneBy([
         'id' => $id,
     ]);
 
-    if (!$module instanceof Moodle\Domain\Module) {
+    if (!$module instanceof Plugin\Domain\Module) {
         return false;
     }
 
-    $moodleRoomRepository = $container->moodleRoomRepository();
+    $roomRepository = $container->roomRepository();
 
-    $rooms = $moodleRoomRepository->findAllBy([
+    $rooms = $roomRepository->findAllBy([
         'module_id' => $module->id()->toInt(),
     ]);
 
@@ -231,7 +232,7 @@ function matrix_delete_instance($id): bool
     foreach ($rooms as $room) {
         $matrixRoomService->removeRoom($room->matrixRoomId());
 
-        $moodleRoomRepository->remove($room);
+        $roomRepository->remove($room);
     }
 
     $moodleModuleRepository->remove($module);
@@ -244,13 +245,13 @@ function matrix_delete_instance($id): bool
  */
 function matrix_get_coursemodule_info(object $moduleinfo): cached_cm_info
 {
-    $moduleId = Moodle\Domain\ModuleId::fromString($moduleinfo->instance);
+    $moduleId = Plugin\Domain\ModuleId::fromString($moduleinfo->instance);
 
-    $module = Container::instance()->moodleModuleRepository()->findOneBy([
+    $module = Container::instance()->moduleRepository()->findOneBy([
         'id' => $moduleId->toInt(),
     ]);
 
-    if (!$module instanceof Moodle\Domain\Module) {
+    if (!$module instanceof Plugin\Domain\Module) {
         throw new \RuntimeException(\sprintf(
             'Could not find module with id %d.',
             $moduleId->toInt(),
@@ -285,19 +286,19 @@ function matrix_update_instance(
     $moduleinfo->id = $moduleinfo->instance;
 
     $DB->update_record(
-        Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE,
+        Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE,
         $moduleinfo,
     );
 
     $container = Container::instance();
 
-    $moduleId = Moodle\Domain\ModuleId::fromString($moduleinfo->instance);
+    $moduleId = Plugin\Domain\ModuleId::fromString($moduleinfo->instance);
 
-    $module = $container->moodleModuleRepository()->findOneBy([
+    $module = $container->moduleRepository()->findOneBy([
         'id' => $moduleId->toInt(),
     ]);
 
-    if (!$module instanceof Moodle\Domain\Module) {
+    if (!$module instanceof Plugin\Domain\Module) {
         throw new \RuntimeException(\sprintf(
             'Could not find module with id %d.',
             $moduleId->toInt(),
@@ -313,7 +314,7 @@ function matrix_update_instance(
         ));
     }
 
-    $rooms = $container->moodleRoomRepository()->findAllBy([
+    $rooms = $container->roomRepository()->findAllBy([
         'module_id' => $module->id()->toInt(),
     ]);
 
@@ -324,11 +325,11 @@ function matrix_update_instance(
         ));
     }
 
-    $moodleNameService = $container->moodleNameService();
+    $nameService = $container->nameService();
     $moodleGroupRepository = $container->moodleGroupRepository();
     $matrixRoomService = $container->matrixRoomService();
 
-    $name = $moodleNameService->forCourseAndModule(
+    $name = $nameService->forCourseAndModule(
         $course->shortName(),
         $module->name(),
     );
@@ -346,7 +347,7 @@ function matrix_update_instance(
                 ));
             }
 
-            $name = $moodleNameService->forGroupCourseAndModule(
+            $name = $nameService->forGroupCourseAndModule(
                 $group->name(),
                 $course->shortName(),
                 $module->name(),

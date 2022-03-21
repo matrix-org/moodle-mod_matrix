@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 use mod_matrix\Container;
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 /**
  * @see https://docs.moodle.org/dev/Upgrade_API
@@ -24,7 +25,7 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
     $dbman = $DB->get_manager();
 
     if (2020110901 > $oldversion) {
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $field = new xmldb_field('name');
         $field->set_attributes(XMLDB_TYPE_CHAR, 255, false, true, false, 'Matrix Chat');
@@ -37,12 +38,12 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2020110901,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2020110948 > $oldversion) {
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
         $field = new xmldb_field('course');
         $field->set_attributes(XMLDB_TYPE_INTEGER, 10, true, false, false, null);
@@ -55,12 +56,12 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2020110948,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2021091300 > $oldversion) {
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $dbman->add_field(
             $table,
@@ -79,14 +80,14 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2021091300,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2021091400 > $oldversion) {
-        $DB->delete_records(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
+        $DB->delete_records(Plugin\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedRoomRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedRoomRepository::TABLE);
 
         $dbman->add_field(
             $table,
@@ -118,12 +119,12 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2021091400,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2021120600 > $oldversion) {
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $dbman->add_field(
             $table,
@@ -142,12 +143,12 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2021120600,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2021120700 > $oldversion) {
-        $table = new xmldb_table(Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE);
+        $table = new xmldb_table(Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE);
 
         $dbman->add_field(
             $table,
@@ -158,7 +159,7 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
                 true,
                 true,
                 false,
-                Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+                Plugin\Domain\ModuleTarget::elementUrl()->toString(),
                 'topic',
             ),
         );
@@ -166,20 +167,20 @@ function xmldb_matrix_upgrade(int $oldversion = 0): bool
         upgrade_mod_savepoint(
             true,
             2021120700,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 
     if (2022011100 > $oldversion) {
         $container = Container::instance();
 
-        $oldTarget = Moodle\Domain\ModuleTarget::matrixTo();
-        $newTarget = Moodle\Domain\ModuleTarget::matrixTo();
+        $oldTarget = Plugin\Domain\ModuleTarget::matrixTo();
+        $newTarget = Plugin\Domain\ModuleTarget::matrixTo();
 
-        $configuration = $container->moodleConfiguration();
+        $configuration = $container->configuration();
 
         if ($configuration->elementUrl()->toString() !== '') {
-            $newTarget = Moodle\Domain\ModuleTarget::elementUrl();
+            $newTarget = Plugin\Domain\ModuleTarget::elementUrl();
         }
 
         if (!$newTarget->equals($oldTarget)) {
@@ -190,7 +191,7 @@ SQL,
                 \sprintf(
                     '%s%s',
                     $DB->get_prefix(),
-                    Moodle\Infrastructure\DatabaseBasedModuleRepository::TABLE,
+                    Plugin\Infrastructure\DatabaseBasedModuleRepository::TABLE,
                 ),
             );
 
@@ -203,7 +204,7 @@ SQL,
         upgrade_mod_savepoint(
             true,
             2022011100,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Application\Plugin::NAME,
         );
     }
 

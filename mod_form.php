@@ -13,6 +13,7 @@ declare(strict_types=1);
 use mod_matrix\Container;
 use mod_matrix\Matrix;
 use mod_matrix\Moodle;
+use mod_matrix\Plugin;
 
 require_once $CFG->dirroot . '/course/moodleform_mod.php';
 
@@ -39,8 +40,8 @@ final class mod_matrix_mod_form extends moodleform_mod
             'header',
             'mod_form_basic_settings_header',
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER,
+                Plugin\Application\Plugin::NAME,
             ),
         );
 
@@ -57,19 +58,19 @@ final class mod_matrix_mod_form extends moodleform_mod
             'text',
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_NAME,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_NAME,
+                Plugin\Application\Plugin::NAME,
             ),
             [
-                'maxlength' => Moodle\Domain\ModuleName::LENGTH_MAX,
+                'maxlength' => Plugin\Domain\ModuleName::LENGTH_MAX,
             ],
         );
 
         $this->_form->setDefault(
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_DEFAULT,
+                Plugin\Application\Plugin::NAME,
             ),
         );
 
@@ -80,15 +81,15 @@ final class mod_matrix_mod_form extends moodleform_mod
 
         $this->_form->addHelpButton(
             $elementName,
-            Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME,
-            Moodle\Application\Plugin::NAME,
+            Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME,
+            Plugin\Application\Plugin::NAME,
         );
 
         $this->_form->addRule(
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_REQUIRED,
+                Plugin\Application\Plugin::NAME,
             ),
             'required',
         );
@@ -96,11 +97,11 @@ final class mod_matrix_mod_form extends moodleform_mod
         $this->_form->addRule(
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME_ERROR_MAXLENGTH,
+                Plugin\Application\Plugin::NAME,
             ),
             'maxlength',
-            Moodle\Domain\ModuleName::LENGTH_MAX,
+            Plugin\Domain\ModuleName::LENGTH_MAX,
         );
     }
 
@@ -112,8 +113,8 @@ final class mod_matrix_mod_form extends moodleform_mod
             'textarea',
             $elementName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME,
+                Plugin\Application\Plugin::NAME,
             ),
             [
                 'cols' => 50,
@@ -130,7 +131,7 @@ final class mod_matrix_mod_form extends moodleform_mod
 
     private function addTargetElement(): void
     {
-        $configuration = Container::instance()->moodleConfiguration();
+        $configuration = Container::instance()->configuration();
 
         if ($configuration->elementUrl()->toString() === '') {
             return;
@@ -146,10 +147,10 @@ final class mod_matrix_mod_form extends moodleform_mod
                     $elementName,
                     '',
                     get_string(
-                        Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL,
-                        Moodle\Application\Plugin::NAME,
+                        Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_ELEMENT_URL,
+                        Plugin\Application\Plugin::NAME,
                     ),
-                    Moodle\Domain\ModuleTarget::elementUrl()->toString(),
+                    Plugin\Domain\ModuleTarget::elementUrl()->toString(),
                     [],
                 ),
                 $this->_form->createElement(
@@ -157,17 +158,17 @@ final class mod_matrix_mod_form extends moodleform_mod
                     $elementName,
                     '',
                     get_string(
-                        Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO,
-                        Moodle\Application\Plugin::NAME,
+                        Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_LABEL_MATRIX_TO,
+                        Plugin\Application\Plugin::NAME,
                     ),
-                    Moodle\Domain\ModuleTarget::matrixTo()->toString(),
+                    Plugin\Domain\ModuleTarget::matrixTo()->toString(),
                     [],
                 ),
             ],
             $groupName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME,
+                Plugin\Application\Plugin::NAME,
             ),
             null,
             false,
@@ -176,8 +177,8 @@ final class mod_matrix_mod_form extends moodleform_mod
         $this->_form->addRule(
             $groupName,
             get_string(
-                Moodle\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED,
-                Moodle\Application\Plugin::NAME,
+                Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_ERROR_REQUIRED,
+                Plugin\Application\Plugin::NAME,
             ),
             'required',
         );
