@@ -690,7 +690,7 @@ final class observer
 
         $roomRepository = $container->roomRepository();
 
-        $rooms = $container->roomRepository()->findAllBy([
+        $rooms = $roomRepository->findAllBy([
             'group_id' => $groupId->toInt(),
         ]);
 
