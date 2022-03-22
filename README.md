@@ -21,19 +21,6 @@ $make release
 
 Share the compressed file `mod_matrix.zip`.
 
-## Manual settings
-
-A new custom field must be added to every user, and populated externally. To do this:
-
-1. Go to `Site administration -> Users -> User profile fields`
-2. At the bottom of the page, select `Text Input` for the new field type.
-3. Enter `matrix_user_id` for the short name (**important**: this must be named *exactly* like it is here)
-4. Lock the field to prevent the user modifying it, and make it unique
-5. Customize the field however else you would like (name, description, visible, etc)
-6. Create/save the field details
-
-Some other external system will need to populate the field with data, or manually have it entered.
-
 ## Setting up a local development environment
 
 ### Docker
