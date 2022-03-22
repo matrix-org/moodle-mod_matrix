@@ -336,7 +336,9 @@
     </UnresolvableInclude>
   </file>
   <file src="src/Plugin/Infrastructure/Installer.php">
-    <UndefinedClass occurrences="2">
+    <UndefinedClass occurrences="4">
+      <code>\moodle_database</code>
+      <code>\moodle_database</code>
       <code>\moodle_database</code>
       <code>\moodle_database</code>
     </UndefinedClass>
