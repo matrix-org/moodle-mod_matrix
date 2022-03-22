@@ -42,6 +42,7 @@ use PHPUnit\Framework;
  * @uses \mod_matrix\Plugin\Domain\ModuleType
  * @uses \mod_matrix\Plugin\Domain\Room
  * @uses \mod_matrix\Plugin\Domain\RoomId
+ * @uses \mod_matrix\Plugin\Domain\Url
  */
 final class RoomServiceTest extends Framework\TestCase
 {
@@ -94,12 +95,12 @@ final class RoomServiceTest extends Framework\TestCase
             $matrixUserId,
         );
 
-        $expected = \sprintf(
+        $expected = Plugin\Domain\Url::fromString(\sprintf(
             'https://matrix.to/#/%s',
             $room->matrixRoomId()->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $url);
+        self::assertEquals($expected, $url);
     }
 
     public function testUrlForRoomThrowsModuleNotFoundExceptionWhenElementUrlIsNotBlankOrEmptyAndModuleForRoomWasNotFound(): void
@@ -236,12 +237,12 @@ final class RoomServiceTest extends Framework\TestCase
             $matrixUserId,
         );
 
-        $expected = \sprintf(
+        $expected = Plugin\Domain\Url::fromString(\sprintf(
             'https://matrix.to/#/%s',
             $room->matrixRoomId()->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $url);
+        self::assertEquals($expected, $url);
     }
 
     /**
@@ -315,13 +316,13 @@ final class RoomServiceTest extends Framework\TestCase
             $matrixUserId,
         );
 
-        $expected = \sprintf(
+        $expected = Plugin\Domain\Url::fromString(\sprintf(
             '%s/#/room/%s',
             $elementUrl,
             $room->matrixRoomId()->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $url);
+        self::assertEquals($expected, $url);
     }
 
     /**
@@ -386,12 +387,12 @@ final class RoomServiceTest extends Framework\TestCase
             $matrixUserId,
         );
 
-        $expected = \sprintf(
+        $expected = Plugin\Domain\Url::fromString(\sprintf(
             'https://matrix.to/#/%s',
             $room->matrixRoomId()->toString(),
-        );
+        ));
 
-        self::assertSame($expected, $url);
+        self::assertEquals($expected, $url);
     }
 
     /**

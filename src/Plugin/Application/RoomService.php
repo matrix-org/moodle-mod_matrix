@@ -46,19 +46,19 @@ final class RoomService
     public function urlForRoom(
         Plugin\Domain\Room $room,
         Matrix\Domain\UserId $userId
-    ): string {
+    ): Plugin\Domain\Url {
         if ('' === $this->configuration->elementUrl()->toString()) {
-            return \sprintf(
+            return Plugin\Domain\Url::fromString(\sprintf(
                 'https://matrix.to/#/%s',
                 $room->matrixRoomId()->toString(),
-            );
+            ));
         }
 
         if (self::isDifferentHomeserver($this->configuration->homeserverUrl(), $userId->homeserver())) {
-            return \sprintf(
+            return Plugin\Domain\Url::fromString(\sprintf(
                 'https://matrix.to/#/%s',
                 $room->matrixRoomId()->toString(),
-            );
+            ));
         }
 
         $module = $this->moduleRepository->findOneBy([
@@ -70,17 +70,17 @@ final class RoomService
         }
 
         if ($module->target()->equals(Plugin\Domain\ModuleTarget::matrixTo())) {
-            return \sprintf(
+            return Plugin\Domain\Url::fromString(\sprintf(
                 'https://matrix.to/#/%s',
                 $room->matrixRoomId()->toString(),
-            );
+            ));
         }
 
-        return \sprintf(
+        return Plugin\Domain\Url::fromString(\sprintf(
             '%s/#/room/%s',
             $this->configuration->elementUrl()->toString(),
             $room->matrixRoomId()->toString(),
-        );
+        ));
     }
 
     public function createRoomForCourse(

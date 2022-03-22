@@ -125,7 +125,7 @@ final class ListRoomsAction
 
             echo <<<HTML
 <script type="text/javascript">
-    window.location.href = '{$roomLink->url()}';
+    window.location.href = '{$roomLink->url()->toString()}';
 </script>
 HTML;
 
@@ -142,7 +142,7 @@ HTML;
         $listItems = \implode(\PHP_EOL, \array_map(static function (Plugin\Infrastructure\RoomLink $link): string {
             return <<<HTML
 <li>
-    <a href="{$link->url()}" target="_blank" title="{$link->roomName()->toString()}">{$link->roomName()->toString()}</a>
+    <a href="{$link->url()->toString()}" target="_blank" title="{$link->roomName()->toString()}">{$link->roomName()->toString()}</a>
 </li>
 HTML;
         }, $roomLinks));

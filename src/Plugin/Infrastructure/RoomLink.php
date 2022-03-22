@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace mod_matrix\Plugin\Infrastructure;
 
 use mod_matrix\Matrix;
+use mod_matrix\Plugin;
 
 /**
  * @psalm-immutable
@@ -21,7 +22,7 @@ final class RoomLink
     private $roomName;
 
     private function __construct(
-        string $url,
+        Plugin\Domain\Url $url,
         Matrix\Domain\RoomName $roomName
     ) {
         $this->url = $url;
@@ -29,7 +30,7 @@ final class RoomLink
     }
 
     public static function create(
-        string $url,
+        Plugin\Domain\Url $url,
         Matrix\Domain\RoomName $roomName
     ): self {
         return new self(
@@ -38,7 +39,7 @@ final class RoomLink
         );
     }
 
-    public function url(): string
+    public function url(): Plugin\Domain\Url
     {
         return $this->url;
     }

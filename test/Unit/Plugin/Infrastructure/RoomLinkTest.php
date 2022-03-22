@@ -21,6 +21,7 @@ use PHPUnit\Framework;
  * @covers \mod_matrix\Plugin\Infrastructure\RoomLink
  *
  * @uses \mod_matrix\Matrix\Domain\RoomName
+ * @uses \mod_matrix\Plugin\Domain\Url
  */
 final class RoomLinkTest extends Framework\TestCase
 {
@@ -30,7 +31,7 @@ final class RoomLinkTest extends Framework\TestCase
     {
         $faker = self::faker();
 
-        $url = $faker->url();
+        $url = Plugin\Domain\Url::fromString($faker->url());
         $roomName = Matrix\Domain\RoomName::fromString($faker->sentence());
 
         $roomLink = Plugin\Infrastructure\RoomLink::create(
