@@ -330,38 +330,53 @@ final class observer
 
         $roomRepository = $container->roomRepository();
         $userRepository = $container->userRepository();
-        $matrixRoomService = $container->matrixRoomService();
         $roomService = $container->roomService();
 
-        foreach ($modules as $module) {
-            $room = $roomRepository->findOneBy([
-                'module_id' => $module->id()->toInt(),
-                'group_id' => $group->id()->toInt(),
-            ]);
+        $rooms = \array_reduce(
+            $modules,
+            static function (array $rooms, Plugin\Domain\Module $module) use ($roomRepository, $roomService, $course, $group): array {
+                $room = $roomRepository->findOneBy([
+                    'module_id' => $module->id()->toInt(),
+                    'group_id' => $group->id()->toInt(),
+                ]);
 
-            if (!$room instanceof Plugin\Domain\Room) {
-                $room = $roomService->createRoomForCourseAndGroup(
-                    $course,
-                    $group,
-                    $module,
-                );
-            }
+                if (!$room instanceof Plugin\Domain\Room) {
+                    $room = $roomService->createRoomForCourseAndGroup(
+                        $course,
+                        $group,
+                        $module,
+                    );
+                }
 
-            $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
-                $course->id(),
-                $group->id(),
-            );
+                $rooms[] = $room;
 
-            $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+                return $rooms;
+            },
+            [],
+        );
 
+        $users = $userRepository->findAllUsersEnrolledInCourseAndGroupWithMatrixUserId(
+            $course->id(),
+            $group->id(),
+        );
+
+        $userIdsOfUsers = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $users));
+
+        $staff = $userRepository->findAllStaffInCourseWithMatrixUserId($course->id());
+
+        $userIdsOfStaff = Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
+            return $user->matrixUserId();
+        }, $staff));
+
+        $matrixRoomService = $container->matrixRoomService();
+
+        foreach ($rooms as $room) {
             $matrixRoomService->synchronizeRoomMembers(
                 $room->matrixRoomId(),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $users)),
-                Matrix\Domain\UserIdCollection::fromUserIds(...\array_map(static function (Plugin\Domain\User $user): Matrix\Domain\UserId {
-                    return $user->matrixUserId();
-                }, $staff)),
+                $userIdsOfUsers,
+                $userIdsOfStaff,
             );
         }
     }
