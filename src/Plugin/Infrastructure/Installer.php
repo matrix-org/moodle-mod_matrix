@@ -19,6 +19,11 @@ final class Installer
         self::createMatrixUserIdProfileField($DB);
     }
 
+    public static function uninstall(\moodle_database $DB): void
+    {
+        self::removeMatrixUserIdProfileField($DB);
+    }
+
     private static function createMatrixUserIdProfileField(\moodle_database $DB): void
     {
         $matrixUserIdProfileFieldExists = $DB->record_exists('user_info_field', [
@@ -53,5 +58,28 @@ final class Installer
             'user_info_field',
             (object) $data,
         );
+    }
+
+    private static function removeMatrixUserIdProfileField(\moodle_database $DB): void
+    {
+        $matrixUserIdProfileField = $DB->get_record('user_info_field', [
+            'shortname' => Plugin\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME,
+        ]);
+
+        if (!$matrixUserIdProfileField instanceof \stdClass) {
+            return;
+        }
+
+        if (!\property_exists($matrixUserIdProfileField, 'id')) {
+            return;
+        }
+
+        $DB->delete_records('user_info_data', [
+            'fieldid' => $matrixUserIdProfileField->id,
+        ]);
+
+        $DB->delete_records('user_info_field', [
+            'shortname' => Plugin\Infrastructure\MoodleFunctionBasedMatrixUserIdLoader::USER_PROFILE_FIELD_NAME,
+        ]);
     }
 }
