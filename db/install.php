@@ -20,5 +20,7 @@ function xmldb_matrix_install(): void
 {
     global $DB;
 
+    require_once __DIR__ . '/../vendor/autoload.php';
+
     Plugin\Infrastructure\Installer::install($DB);
 }
