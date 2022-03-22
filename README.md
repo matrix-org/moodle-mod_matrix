@@ -71,12 +71,12 @@ to run the command line installer.
 
 #### Basics
 
-| Configuration              | Value                           |
-|----------------------------|---------------------------------|
-| Language                   | `en` (default)                  |
-| Data Directory Permissions | `2777` (default)                |
-| Web Address                | your local host                 |
-| Data Directory             | `/var/www/moodledata` (default) |
+| Configuration              | Value                                            |
+|----------------------------|--------------------------------------------------|
+| Language                   | `en` (default)                                   |
+| Data Directory Permissions | `2777` (default)                                 |
+| Web Address                | your local host, e.g., `http://moodle.com.local` |
+| Data Directory             | `/var/www/moodledata` (default)                  |
 
 #### Database
 
