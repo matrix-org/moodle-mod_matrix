@@ -5,6 +5,7 @@ services:
     build: "mariadb/"
 
     environment:
+      MYSQL_DATABASE: "moodle"
       MYSQL_ROOT_PASSWORD: "root"
 
     networks:
