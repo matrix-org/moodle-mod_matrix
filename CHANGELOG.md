@@ -41,6 +41,10 @@ For a full diff see [`2022022200...2022030100`](https://gitlab.matrix.org/new-ve
 
 - Added `select` element that allows selecting a suggested Matrix user identifier ([#87](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/87))
 
+### Fixed
+
+- Added information regarding GDPR ([#87](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/merge_requests/87))
+
 ## [`2022022200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/tags/2022022200)
 
 For a full diff see [`2022021500...2022022200`](https://gitlab.matrix.org/new-vector/moodle-mod_matrix/-/compare/2022021500...2022022200).

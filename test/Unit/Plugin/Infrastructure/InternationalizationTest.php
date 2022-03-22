@@ -48,6 +48,11 @@ final class InternationalizationTest extends Framework\TestCase
         self::assertSame('mod_form_basic_settings_target_name', Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TARGET_NAME);
         self::assertSame('mod_form_basic_settings_topic_help', Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_HELP);
         self::assertSame('mod_form_basic_settings_topic_name', Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_TOPIC_NAME);
+        self::assertSame('privacy_metadata_matrix_user_id_data', Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_DATA);
+        self::assertSame('privacy_metadata_matrix_user_id_dataformat', Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_DATAFORMAT);
+        self::assertSame('privacy_metadata_matrix_user_id_explanation', Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_EXPLANATION);
+        self::assertSame('privacy_metadata_matrix_user_id_fieldid', Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_FIELDID);
+        self::assertSame('privacy_metadata_matrix_user_id_userid', Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_USERID);
         self::assertSame('settings_access_token_description', Plugin\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_DESCRIPTION);
         self::assertSame('settings_access_token_name', Plugin\Infrastructure\Internationalization::SETTINGS_ACCESS_TOKEN_NAME);
         self::assertSame('settings_element_url_description', Plugin\Infrastructure\Internationalization::SETTINGS_ELEMENT_URL_DESCRIPTION);
