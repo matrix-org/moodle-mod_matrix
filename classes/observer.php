@@ -382,7 +382,7 @@ final class observer
     }
 
     /**
-     * @throws \mod_matrix\Plugin\Domain\ModuleNotFound
+     * @throws Plugin\Domain\ModuleNotFound
      */
     private static function synchronizeRoomMembersForAllRooms(): void
     {
