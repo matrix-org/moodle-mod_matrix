@@ -16,7 +16,7 @@ Update the plugin version in [`version.php`](version.php):
 Run
 
 ```shell
-$make release
+make release
 ```
 
 Share the compressed file `mod_matrix.zip`.
@@ -28,7 +28,7 @@ Share the compressed file `mod_matrix.zip`.
 Run
 
 ```shell
-$ make docker-up
+make docker-up
 ```
 
 to start a local development environment.
@@ -40,7 +40,7 @@ to start a local development environment.
 Run
 
 ```shell
-$ docker ps
+docker ps
 ```
 
 to obtain a list of the currently running containers. There should be a container with the name `docker_moodle_php_1`.
@@ -48,7 +48,7 @@ to obtain a list of the currently running containers. There should be a containe
 Run
 
 ```
-$ docker exec -it docker_moodle_php_1 bash
+docker exec -it docker_moodle_php_1 bash
 ```
 
 to enter the container.
@@ -56,7 +56,7 @@ to enter the container.
 Run
 
 ```
-$ cd /var/www/html
+cd /var/www/html
 ```
 
 to change into the root of the Moodle installation (working directory is set to the root of the Moodle plugin).
@@ -64,7 +64,7 @@ to change into the root of the Moodle installation (working directory is set to 
 Run
 
 ```shell
-$ php admin/cli/install.php
+php admin/cli/install.php
 ```
 
 to run the command line installer.
