@@ -26,6 +26,12 @@ $string = \array_merge($string, [
     'modulenameplural' => 'Matrix',
     'pluginadministration' => 'Matrix administration',
     'pluginname' => 'Matrix',
+    // classes/privacy/provider.php
+    Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_DATA => 'The Matrix User Identifier as provided by the user',
+    Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_DATAFORMAT => 'The format in which the Matrix User Identifier is stored in the database',
+    Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_EXPLANATION => 'The Matrix User Identifier as provided by the user so they can be invited to a Matrix chat',
+    Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_FIELDID => 'The ID of the profile field',
+    Plugin\Infrastructure\Internationalization::PRIVACY_METADATA_MATRIX_USER_ID_USERID => 'The ID of the user for which Matrix User Identifier is stored in the database',
     // mod_form.php
     Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_HEADER => 'Basic module settings',
     Plugin\Infrastructure\Internationalization::MOD_FORM_BASIC_SETTINGS_NAME => 'Name',

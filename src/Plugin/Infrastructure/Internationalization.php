@@ -55,6 +55,15 @@ final class Internationalization
     public const MOD_FORM_BASIC_SETTINGS_TOPIC_NAME = 'mod_form_basic_settings_topic_name';
 
     /**
+     * @see \mod_matrix\privacy\provider
+     */
+    public const PRIVACY_METADATA_MATRIX_USER_ID_DATA = 'privacy_metadata_matrix_user_id_data';
+    public const PRIVACY_METADATA_MATRIX_USER_ID_DATAFORMAT = 'privacy_metadata_matrix_user_id_dataformat';
+    public const PRIVACY_METADATA_MATRIX_USER_ID_EXPLANATION = 'privacy_metadata_matrix_user_id_explanation';
+    public const PRIVACY_METADATA_MATRIX_USER_ID_FIELDID = 'privacy_metadata_matrix_user_id_fieldid';
+    public const PRIVACY_METADATA_MATRIX_USER_ID_USERID = 'privacy_metadata_matrix_user_id_userid';
+
+    /**
      * @see settings.php
      */
     public const SETTINGS_ACCESS_TOKEN_DESCRIPTION = 'settings_access_token_description';
