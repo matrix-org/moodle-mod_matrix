@@ -78,7 +78,7 @@ final class ListRoomsAction
         $matrixUserId = $this->matrixUserIdLoader->load($user);
         $courseShortName = Moodle\Domain\CourseShortName::fromString($cm->get_course()->shortname);
 
-        $roomLinks = \array_map(function (Plugin\Domain\Room $room) use ($courseShortName, $module, $matrixUserId): Plugin\Infrastructure\RoomLink {
+        $roomLinks = \array_map(function (Plugin\Domain\Room $room) use ($courseShortName, $module, $matrixUserId): Plugin\Domain\RoomLink {
             $url = $this->roomService->urlForRoom(
                 $room,
                 $matrixUserId,
@@ -87,7 +87,7 @@ final class ListRoomsAction
             $groupId = $room->groupId();
 
             if (!$groupId instanceof Moodle\Domain\GroupId) {
-                return Plugin\Infrastructure\RoomLink::create(
+                return Plugin\Domain\RoomLink::create(
                     $url,
                     $this->nameService->forCourseAndModule(
                         $courseShortName,
@@ -102,7 +102,7 @@ final class ListRoomsAction
                 throw Moodle\Domain\GroupNotFound::for($groupId);
             }
 
-            return Plugin\Infrastructure\RoomLink::create(
+            return Plugin\Domain\RoomLink::create(
                 $url,
                 $this->nameService->forGroupCourseAndModule(
                     $group->name(),
@@ -132,14 +132,14 @@ HTML;
             echo $this->renderer->footer();
         }
 
-        \usort($roomLinks, static function (Plugin\Infrastructure\RoomLink $a, Plugin\Infrastructure\RoomLink $b): int {
+        \usort($roomLinks, static function (Plugin\Domain\RoomLink $a, Plugin\Domain\RoomLink $b): int {
             return \strcmp(
                 $a->roomName()->toString(),
                 $b->roomName()->toString(),
             );
         });
 
-        $listItems = \implode(\PHP_EOL, \array_map(static function (Plugin\Infrastructure\RoomLink $link): string {
+        $listItems = \implode(\PHP_EOL, \array_map(static function (Plugin\Domain\RoomLink $link): string {
             return <<<HTML
 <li>
     <a href="{$link->url()->toString()}" target="_blank" title="{$link->roomName()->toString()}">{$link->roomName()->toString()}</a>

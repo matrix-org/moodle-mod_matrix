@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
  */
 
-namespace mod_matrix\Test\Unit\Plugin\Infrastructure;
+namespace mod_matrix\Test\Unit\Plugin\Domain;
 
 use mod_matrix\Matrix;
 use mod_matrix\Plugin;
@@ -18,7 +18,7 @@ use PHPUnit\Framework;
 /**
  * @internal
  *
- * @covers \mod_matrix\Plugin\Infrastructure\RoomLink
+ * @covers \mod_matrix\Plugin\Domain\RoomLink
  *
  * @uses \mod_matrix\Matrix\Domain\RoomName
  * @uses \mod_matrix\Plugin\Domain\Url
@@ -34,7 +34,7 @@ final class RoomLinkTest extends Framework\TestCase
         $url = Plugin\Domain\Url::fromString($faker->url());
         $roomName = Matrix\Domain\RoomName::fromString($faker->sentence());
 
-        $roomLink = Plugin\Infrastructure\RoomLink::create(
+        $roomLink = Plugin\Domain\RoomLink::create(
             $url,
             $roomName,
         );
