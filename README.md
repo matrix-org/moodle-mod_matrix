@@ -47,7 +47,7 @@ to obtain a list of the currently running containers. There should be a containe
 
 Run
 
-```
+```shell
 docker exec -it docker_moodle_php_1 bash
 ```
 
@@ -55,7 +55,7 @@ to enter the container.
 
 Run
 
-```
+```shell
 cd /var/www/html
 ```
 
