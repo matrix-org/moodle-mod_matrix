@@ -85,12 +85,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
 }
 
 $frontController = new Plugin\Infrastructure\FrontController(
-    $container->roomRepository(),
-    $container->moodleGroupRepository(),
-    $container->matrixUserIdLoader(),
-    $container->roomService(),
-    $container->nameService(),
-    $container->configuration(),
+    $container,
     $PAGE,
     $OUTPUT,
 );

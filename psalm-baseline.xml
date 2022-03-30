@@ -336,15 +336,10 @@
     </UnresolvableInclude>
   </file>
   <file src="src/Plugin/Infrastructure/FrontController.php">
-    <PropertyNotSetInConstructor occurrences="8">
-      <code>$configuration</code>
-      <code>$matrixUserIdLoader</code>
-      <code>$moodleGroupRepository</code>
-      <code>$nameService</code>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$container</code>
       <code>$page</code>
       <code>$renderer</code>
-      <code>$roomRepository</code>
-      <code>$roomService</code>
     </PropertyNotSetInConstructor>
     <UndefinedClass occurrences="1">
       <code>\core_renderer</code>
