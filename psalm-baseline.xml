@@ -335,6 +335,21 @@
       <code>require_once $CFG-&gt;libdir . '/formslib.php'</code>
     </UnresolvableInclude>
   </file>
+  <file src="src/Plugin/Infrastructure/FrontController.php">
+    <PropertyNotSetInConstructor occurrences="8">
+      <code>$configuration</code>
+      <code>$matrixUserIdLoader</code>
+      <code>$moodleGroupRepository</code>
+      <code>$nameService</code>
+      <code>$page</code>
+      <code>$renderer</code>
+      <code>$roomRepository</code>
+      <code>$roomService</code>
+    </PropertyNotSetInConstructor>
+    <UndefinedClass occurrences="1">
+      <code>\core_renderer</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Plugin/Infrastructure/Installer.php">
     <UndefinedClass occurrences="4">
       <code>\moodle_database</code>
@@ -366,21 +381,6 @@
     <MixedArgument occurrences="1">
       <code>$normalized-&gt;room_id</code>
     </MixedArgument>
-  </file>
-  <file src="src/Plugin/Infrastructure/View.php">
-    <PropertyNotSetInConstructor occurrences="8">
-      <code>$configuration</code>
-      <code>$matrixUserIdLoader</code>
-      <code>$moodleGroupRepository</code>
-      <code>$nameService</code>
-      <code>$page</code>
-      <code>$renderer</code>
-      <code>$roomRepository</code>
-      <code>$roomService</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="1">
-      <code>\core_renderer</code>
-    </UndefinedClass>
   </file>
   <file src="test/DataProvider/Matrix/Domain/HomeserverProvider.php">
     <LessSpecificReturnStatement occurrences="2">

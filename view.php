@@ -84,7 +84,7 @@ if (!has_capability('mod/matrix:view', $PAGE->context)) {
     exit;
 }
 
-$view = new Plugin\Infrastructure\View(
+$frontController = new Plugin\Infrastructure\FrontController(
     $container->roomRepository(),
     $container->moodleGroupRepository(),
     $container->matrixUserIdLoader(),
@@ -96,7 +96,7 @@ $view = new Plugin\Infrastructure\View(
 );
 
 /** @var stdClass $USER */
-$view->render(
+$frontController->handle(
     $module,
     $cm,
     $USER,

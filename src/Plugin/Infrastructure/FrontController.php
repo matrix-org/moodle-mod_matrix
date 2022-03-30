@@ -14,7 +14,7 @@ use mod_matrix\Matrix;
 use mod_matrix\Moodle;
 use mod_matrix\Plugin;
 
-final class View
+final class FrontController
 {
     private $roomRepository;
     private $moodleGroupRepository;
@@ -45,7 +45,7 @@ final class View
         $this->renderer = $renderer;
     }
 
-    public function render(
+    public function handle(
         Plugin\Domain\Module $module,
         \cm_info $cm,
         \stdClass $user
