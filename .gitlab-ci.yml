@@ -29,23 +29,6 @@ archive:
   script:
     - "zip -FSr mod_matrix.zip . -x \".git/*\" \".data/*\" \".docker/*\" \".gitlab/*\" \"test/*\" .editorconfig .gitignore .gitlab-ci.yml .php-cs-fixer.php Makefile psalm.xml psalm-baseline.xml README.md"
 
-coding-standards:
-  stage: "build"
-
-  tags:
-    - "docker-large"
-
-  image: "gitlab-registry.matrix.org/new-vector/moodle-mod_matrix/php-dev:latest"
-
-  before_script:
-    - "composer validate --ansi --strict"
-    - "composer install --ansi --no-interaction --no-progress"
-    - "mkdir -p .build/php-cs-fixer"
-
-  script:
-    - "composer normalize --ansi --dry-run"
-    - "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --dry-run --verbose"
-
 package:
   stage: "release"
 
