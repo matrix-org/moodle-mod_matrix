@@ -16,20 +16,6 @@ $ make code-coverage
 
 to collect code coverage from running unit tests.
 
-## Coding Standards
-
-We are using [`ergebnis/composer-normalize`](https://github.com/ergebnis/composer-normalize) to normalize `composer.json`.
-
-We are using [`friendsofphp/php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to enforce coding standards in PHP files.
-
-Run
-
-```sh
-$ make coding-standards
-```
-
-to automatically fix coding standard violations.
-
 ## Static Code Analysis
 
 We are using [`vimeo/psalm`](https://github.com/vimeo/psalm) to statically analyze the code.
@@ -72,7 +58,7 @@ Run
 $ make
 ```
 
-to enforce coding standards, run a static code analysis, and run tests!
+to run a static code analysis and run tests!
 
 ## Help
 
