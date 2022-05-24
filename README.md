@@ -13,10 +13,11 @@ Update the plugin version in [`version.php`](version.php):
 -$plugin->version = 2020122800;
 +$plugin->version = 2021070100;
 ```
+
 Run
 
 ```shell
-make release
+make archive
 ```
 
 Share the compressed file `mod_matrix.zip`.
