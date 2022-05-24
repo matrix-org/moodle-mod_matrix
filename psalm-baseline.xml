@@ -425,6 +425,11 @@
       <code>$faker-&gt;words()</code>
     </PossiblyInvalidArgument>
   </file>
+  <file src="test/Unit/Plugin/Application/RoomServiceTest.php">
+    <MixedArgument occurrences="1">
+      <code>\mb_str_split($value)</code>
+    </MixedArgument>
+  </file>
   <file src="test/Unit/Plugin/Infrastructure/DatabaseBasedModuleRepositoryTest.php">
     <InvalidArgument occurrences="7">
       <code>$database</code>
