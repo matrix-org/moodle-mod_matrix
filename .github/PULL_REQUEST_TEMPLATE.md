@@ -1,4 +1,4 @@
-This merge request
+This pull request
 
 - [x]
 - [ ]
