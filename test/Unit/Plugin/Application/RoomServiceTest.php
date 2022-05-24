@@ -456,7 +456,7 @@ final class RoomServiceTest extends Framework\TestCase
                         }
 
                         return \mb_strtolower($character);
-                    }, \str_split($value)),
+                    }, \mb_str_split($value)),
                 );
             },
         ];
