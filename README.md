@@ -1,5 +1,7 @@
 # matrix-moodle-plugin
 
+[![Integrate](https://github.com/matrix-org/moodle-mod_matrix/actions/workflows/integrate.yaml/badge.svg)](https://github.com/matrix-org/moodle-mod_matrix/actions/workflows/integrate.yaml)
+
 This plugin provides a Moodle activity to enable integration between Moodle and Matrix. It adds:
 
 * a new field for mxid for Moodle uers
