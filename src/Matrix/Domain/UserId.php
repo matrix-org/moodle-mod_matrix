@@ -41,7 +41,7 @@ final class UserId
      */
     public static function fromString(string $value): self
     {
-        if (1 !== \preg_match('/^@(?P<username>[\da-z0-9_-]+):(?P<homeserver>\S+(\.\S+)+)$/', $value, $matches)) {
+        if (1 !== \preg_match('/^@(?P<username>[\da-z0-9_-\/=.]+):(?P<homeserver>\S+(\.\S+)+)$/', $value, $matches)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Value "%s" does not appear to be a valid Matrix user identifier.',
                 $value,
