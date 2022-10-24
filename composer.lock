@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a23a534ed424865a3f626d1282edb1e5",
+    "content-hash": "9dbe41ba49c61a416ad35ac73fe1ec64",
     "packages": [
         {
             "name": "ergebnis/clock",
@@ -1597,23 +1597,59 @@
         },
         {
             "name": "moodle/moodle",
-            "version": "v3.9.5",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moodle/moodle.git",
-                "reference": "02a2e649e92d570c7fa735bf05f69b588036f761"
+                "reference": "ac9e395ed6661fa76ba7e1d6a77e47631e88a9ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moodle/moodle/zipball/02a2e649e92d570c7fa735bf05f69b588036f761",
-                "reference": "02a2e649e92d570c7fa735bf05f69b588036f761",
+                "url": "https://api.github.com/repos/moodle/moodle/zipball/ac9e395ed6661fa76ba7e1d6a77e47631e88a9ca",
+                "reference": "ac9e395ed6661fa76ba7e1d6a77e47631e88a9ca",
                 "shasum": ""
             },
+            "require": {
+                "ext-ctype": "*",
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-fileinfo": "*",
+                "ext-gd": "*",
+                "ext-hash": "*",
+                "ext-iconv": "*",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "ext-simplexml": "*",
+                "ext-spl": "*",
+                "ext-xml": "*",
+                "ext-xmlreader": "*",
+                "ext-zip": "*",
+                "ext-zlib": "*",
+                "php": ">=7.3.0"
+            },
             "require-dev": {
+                "behat/behat": "3.10.*",
+                "behat/mink": "~1.8",
+                "behat/mink-goutte-driver": "~1.2",
+                "friends-of-behat/mink-extension": "dev-master",
                 "mikey179/vfsstream": "^1.6",
-                "moodlehq/behat-extension": "3.39.6",
-                "phpunit/dbunit": "4.0.*",
-                "phpunit/phpunit": "7.5.*"
+                "oleg-andreyev/mink-phpwebdriver": "^1.0",
+                "phpunit/phpunit": "9.5.*",
+                "symfony/process": "^4.0 || ^5.0"
+            },
+            "suggest": {
+                "ext-exif": "Enabling Exif PHP extension is recommended, it is used by Moodle to parse image meta data.",
+                "ext-mysqli": "Needed when Moodle uses MySQL or MariaDB database.",
+                "ext-oci8": "Needed when Moodle uses Oracle database.",
+                "ext-pgsql": "Needed when Moodle uses PostgreSQL database.",
+                "ext-soap": "Enabling SOAP PHP extension is useful for web services and some plugins.",
+                "ext-sodium": "Enabling Sodium PHP extension is recommended, it is used by Moodle encryption API.",
+                "ext-sqlsrv": "Needed when Moodle uses MS SQL Server database.",
+                "ext-tokenizer": "Enabling Tokenizer PHP extension is recommended, it improves Moodle Networking functionality.",
+                "ext-xmlrpc": "Enabling XMLRPC PHP extension is useful for web services and Moodle networking."
             },
             "type": "project",
             "notification-url": "https://packagist.org/downloads/",
@@ -1623,7 +1659,7 @@
             "description": "Moodle - the world's open source learning platform",
             "homepage": "https://moodle.org",
             "support": {
-                "source": "https://github.com/moodle/moodle/tree/v3.9.5"
+                "source": "https://github.com/moodle/moodle/tree/v4.0.1"
             },
             "funding": [
                 {
@@ -1634,7 +1670,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-03-06T17:03:54+00:00"
+            "time": "2022-05-07T11:34:54+00:00"
         },
         {
             "name": "myclabs/deep-copy",

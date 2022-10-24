@@ -23,7 +23,7 @@
     "ergebnis/data-provider": "^1.0.0",
     "ergebnis/php-cs-fixer-config": "~3.4.0",
     "fakerphp/faker": "^1.19.0",
-    "moodle/moodle": "3.9.5",
+    "moodle/moodle": "4.0.1",
     "phpunit/phpunit": "^9.5.20",
     "psalm/plugin-phpunit": "~0.16.1",
     "symfony/var-dumper": "^5.4.6",
