@@ -1,9 +1,8 @@
 ARG MODE="prod"
+FROM php:7.4-fpm AS prod
 
-FROM php:7.3.32-fpm AS prod
-
-RUN apt-get update \
-    && apt-get install \
+RUN apt update \
+    && apt install \
         --allow-downgrades \
         --allow-change-held-packages \
         --allow-remove-essential \
@@ -21,8 +20,8 @@ RUN apt-get update \
         zlib1g-dev \
     && docker-php-ext-configure \
         gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ \
+        --with-freetype=/usr/include/ \
+        --with-jpeg=/usr/include/ \
     && docker-php-ext-configure \
         intl \
     && docker-php-ext-configure \
@@ -43,7 +42,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+#FROM composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY php.ini /usr/local/etc/php/
 

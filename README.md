@@ -25,6 +25,26 @@ make archive
 Share the compressed file `mod_matrix.zip`.
 
 ## Setting up a local development environment
+Install the pre-requisite tools:
+- `cmake` (or `make`)
+- `composer` (you'll need a version > 2, be warned the version in the Ubuntu
+  repositories is much older)
+- `docker`
+- `docker-compose-plugin` to provide the `docker compose` command. See
+  https://docs.docker.com/compose/install/
+- php extensions:
+  - php-curl
+  - php-gd
+  - php-intl
+  - php-simplexml
+  - php-zip
+
+Rather than just `make`, you may want to directly install your operating
+system's development tools, for instance on Debian:
+`apt install build-essential`
+
+On Fedora:
+`dnf groupinstall "Development Tools"`
 
 ### Docker
 
@@ -46,12 +66,12 @@ Run
 docker ps
 ```
 
-to obtain a list of the currently running containers. There should be a container with the name `docker_moodle_php_1`.
+to obtain a list of the currently running containers. There should be a container with the name `docker-moodle_php-1`.
 
 Run
 
 ```shell
-docker exec -it docker_moodle_php_1 bash
+docker exec -it docker-moodle_php-1 bash
 ```
 
 to enter the container.
@@ -157,6 +177,19 @@ Navigate to [**Site Administration**](http://127.0.0.1/admin/search.php). Select
 In the [**Recycle Bin**](http://moodle.com.localheinz/admin/settings.php?section=tool_recyclebin) section, deselect **Enable course recycle bin** and **Enable category recycle bin**.
 
 Click **Save changes**.
+
+### Stop and clean up development environment
+To stop the local development environment, run
+
+```shell
+make docker-down
+```
+
+To clean up, remove the .data and vendor directories
+
+```shell
+rm -rf .data/ vendor/
+```
 
 ## Changelog
 
