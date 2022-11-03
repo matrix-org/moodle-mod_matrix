@@ -1,7 +1,7 @@
 {
   "name": "element-io/matrix-moodle-plugin",
   "description": "Moodle plugin for Matrix integration",
-  "license": "GPL-3.0-only",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "New Vector Ltd. (trading as Element)",
