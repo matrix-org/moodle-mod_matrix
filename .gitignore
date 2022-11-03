@@ -4,3 +4,5 @@
 vendor/
 .docker/docker-compose.override.yaml
 mod_matrix.zip
+# vim swap files
+[._]sw[a-p]
