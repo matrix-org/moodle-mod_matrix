@@ -18,5 +18,5 @@ $plugin->component = 'mod_matrix';
 $plugin->dependencies = [];
 $plugin->maturity = MATURITY_BETA;
 $plugin->release = '1.0-beta';
-$plugin->requires = 2020061505;
-$plugin->version = 2022032200;
+$plugin->requires = 2020061505; // Requires Moodle v3.9 (LTS)
+$plugin->version = 2022110400; // Plugin released on 4 November 2022
