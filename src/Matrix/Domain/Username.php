@@ -27,7 +27,7 @@ final class Username
      */
     public static function fromString(string $value): self
     {
-        if (1 !== \preg_match('/^(?P<username>[\da-z0-9_-]+)$/', $value)) {
+        if (1 !== \preg_match('/^(?P<username>[\da-z0-9_\-\/=.]+)$/', $value)) {
             throw new \InvalidArgumentException(\sprintf(
                 'Value "%s" does not appear to be a valid Matrix username.',
                 $value,
