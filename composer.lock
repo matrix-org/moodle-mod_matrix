@@ -1651,16 +1651,16 @@
         },
         {
             "name": "moodle/moodle",
-            "version": "v4.0.4",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moodle/moodle.git",
-                "reference": "8febbe39733645a1aeb55f22d2adfb8d66dfc50d"
+                "reference": "b864c78a31e0b2c245e2cf4ff6a566be435fec3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moodle/moodle/zipball/8febbe39733645a1aeb55f22d2adfb8d66dfc50d",
-                "reference": "8febbe39733645a1aeb55f22d2adfb8d66dfc50d",
+                "url": "https://api.github.com/repos/moodle/moodle/zipball/b864c78a31e0b2c245e2cf4ff6a566be435fec3a",
+                "reference": "b864c78a31e0b2c245e2cf4ff6a566be435fec3a",
                 "shasum": ""
             },
             "require": {
@@ -1685,12 +1685,12 @@
                 "php": ">=7.3.0"
             },
             "require-dev": {
-                "behat/behat": "3.10.*",
-                "behat/mink": "~1.8",
-                "behat/mink-goutte-driver": "~1.2",
+                "behat/behat": "3.11.*",
+                "behat/mink": "^1.10.0",
+                "behat/mink-goutte-driver": "^1.3",
                 "friends-of-behat/mink-extension": "dev-master",
-                "mikey179/vfsstream": "^1.6",
-                "oleg-andreyev/mink-phpwebdriver": "^1.0",
+                "mikey179/vfsstream": "1.6.*",
+                "oleg-andreyev/mink-phpwebdriver": "^1.2.1",
                 "phpunit/phpunit": "9.5.*",
                 "symfony/process": "^4.0 || ^5.0"
             },
@@ -1713,7 +1713,7 @@
             "description": "Moodle - the world's open source learning platform",
             "homepage": "https://moodle.org",
             "support": {
-                "source": "https://github.com/moodle/moodle/tree/v4.0.4"
+                "source": "https://github.com/moodle/moodle/tree/v4.0.6"
             },
             "funding": [
                 {
@@ -1724,7 +1724,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-09-10T10:15:57+00:00"
+            "time": "2023-01-14T06:17:09+00:00"
         },
         {
             "name": "myclabs/deep-copy",
